@@ -1,0 +1,13 @@
+# Ericsson hwl configuration
+#
+
+config RBS_HWL
+	tristate "RBS HWL driver"
+	default y
+	---help---
+	RBS HWL driver provides access to HW Log from userspace
+
+config RBS_HWL_DEVNAME
+	depends on RBS_HWL
+	string "RBS HWL flush partition name"
+	default "hw_log"

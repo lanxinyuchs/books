@@ -1,0 +1,13 @@
+kernel/drivers/net/npu/ncp/ncp.ko
+kernel/drivers/net/npu/adk/adkNetD.ko read_from_file: /lib/firmware/adk-netd.par
+kernel/drivers/staging/lttng2/probes/lttng-probe-sched.ko
+kernel/drivers/staging/lttng2/probes/lttng-probe-irq.ko
+kernel/drivers/staging/lttng2/probes/lttng-probe-signal.ko
+kernel/drivers/staging/lttng2/probes/lttng-probe-printk.ko
+kernel/drivers/staging/lttng2/lttng-ring-buffer-metadata-mmap-client.ko
+kernel/drivers/staging/lttng2/lttng-ring-buffer-client-mmap-overwrite.ko
+kernel/drivers/staging/lttng2/lttng-ring-buffer-client-mmap-discard.ko
+kernel/drivers/staging/lttng2/lttng-ring-buffer-metadata-client.ko
+kernel/drivers/staging/lttng2/lttng-ring-buffer-client-overwrite.ko
+kernel/drivers/staging/lttng2/lttng-ring-buffer-client-discard.ko
+

@@ -1,0 +1,4 @@
+kernel/drivers/net/npu/ncp/ncp.ko
+kernel/drivers/net/npu/adk/adkNetD.ko read_from_file: /lib/firmware/adk-netd.par
+
+

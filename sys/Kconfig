@@ -1,0 +1,108 @@
+if ARM
+
+config RBS_SYS_CPM1
+	bool "CPM1 based boards"
+	select ARM_ARCH_TIMER
+	default y
+
+config RBS_SYS_TCU03
+	bool "TCU board type support"
+	depends on RBS_SYS_CPM1
+	default y
+
+config RBS_SYS_TCU04
+	bool "TCU04 board type support"
+	depends on RBS_SYS_CPM1
+	default y
+
+config RBS_SYS_C608
+	bool "C608 board type support"
+	depends on RBS_SYS_CPM1
+	default y
+
+config RBS_SYS_DUS32
+	bool "DUS32 board type support"
+	depends on RBS_SYS_CPM1
+	default y
+
+config RBS_SYS_DUS52
+	bool "DUS52 board type support"
+	depends on RBS_SYS_CPM1
+	default y
+
+config RBS_SYS_LOCKUP_DETECTOR
+       bool "RBS Soft lockup detector"
+       depends on RBS_CORE && !LOCKUP_DETECTOR
+       default y
+
+config RBS_SYS_WATCHDOG_THRESHOLD
+       int "System watchdog expire time seconds"
+       depends on RBS_SYS_LOCKUP_DETECTOR
+       default 10
+
+config RBS_SYS_SOFTLOCKUP_THRESHOLD
+       int "Soft lockup warning expire time seconds"
+       depends on RBS_SYS_LOCKUP_DETECTOR
+       default 20
+endif
+
+if ARM64
+
+config RBS_SYS_CPM2
+	bool "CPM2 based boards"
+	default y
+
+config ARCH_CPM2
+	bool "CPM2 architecture"
+	default y
+	depends on RBS_SYS_CPM2
+
+config RBS_SYS_DUS33
+	bool "DUS33 board type support"
+	depends on RBS_SYS_CPM2
+	default y
+
+config RBS_SYS_DUS32_TK
+	bool "DUS32-TK board type support (DUS33-based board)"
+	depends on RBS_SYS_CPM2
+	default y
+	help
+	  TK version of DUS32 board. Reuses main components from DUS33 board.
+
+config RBS_SYS_DUS53
+	bool "DUS53 board type support"
+	depends on RBS_SYS_CPM2
+	default y
+
+config RBS_SYS_DUS52_TK
+	bool "DUS52-TK board type support (DUS53-based board)"
+	depends on RBS_SYS_CPM2
+	default y
+	help
+	  TK version of DUS52 board. Reuses main components from DUS53 board.
+
+config RBS_SYS_MDUSX3
+	bool "mDUSx3 board type support"
+	depends on RBS_SYS_CPM2
+	default y
+
+config RBS_SYS_LOCKUP_DETECTOR
+       bool "RBS Soft lockup detector"
+       depends on RBS_CORE && !LOCKUP_DETECTOR
+       default y
+
+config RBS_SYS_WATCHDOG_THRESHOLD
+       int "System watchdog expire time seconds"
+       depends on RBS_SYS_LOCKUP_DETECTOR
+       default 10
+
+config RBS_SYS_SOFTLOCKUP_THRESHOLD
+       int "Soft lockup warning expire time seconds"
+       depends on RBS_SYS_LOCKUP_DETECTOR
+       default 20
+
+config RBS_SYS_PLATFORM
+       bool "RBS platform drivers"
+       default y
+
+endif

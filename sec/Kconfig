@@ -1,0 +1,42 @@
+# Ericsson SEC driver configuration
+#
+config RBS_SBB_CPM1
+	tristate "RBS Security subsystem SBB driver"
+	depends on RBS_SYS_CPM1
+	default y
+	---help---
+	Axxia 55 SBB driver.
+	Provides access to the Secure Data Storage (SDO) function of the SBB.
+
+config RBS_SBB_CPM2
+	tristate "RBS Security subsystem SBB driver"
+	depends on RBS_SYS_CPM2
+	default y
+	---help---
+	Axxia 56 SBB driver.
+	Provides access to the Secure Data Storage (SDO) function of the SBB.
+
+config RBS_FOOTPRINTS_19936
+	bool "Apply w/a for SBB lock failure, reported with Footprints 19936"
+	depends on RBS_SBB_CPM2
+	default n
+	---help---
+	The Axxia 55 version of the SBB had a bug in this area, a command would
+	fail because the SBB lock had been lost due to some dark magic and the
+	only solution was to start over from the top and aquire the lock again.
+	This bug is reported as fixed in Axxia 56.
+	Say yes here if SBB commands fail, seemingly inexplicably, and you want
+	to try out the Axxia 55 SW w/a.
+	 
+
+config RBS_SIM_ECM_READ_DONE_BUG
+	bool "Apply simulator specific w/a for ECM read done"
+	depends on RBS_SBB_CPM2
+	default y
+	---help---
+	The SBB (Secure Boot Block) register map is present in acpsim, it can be
+	read and written, but the registers are not [yet] backed by a functional
+	simulation.
+	Say yes here if you're building a simulator kernel and are unsure of the
+	bug fix status of the target simulator.
+

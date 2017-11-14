@@ -1,0 +1,45 @@
+# Ericsson misc configuration
+#
+
+config CPM_MISC_GTACC
+	tristate "CPM1/CPM2 MISC generic timer user-space access"
+	depends on (ARCH_CPM1 || ARCH_CPM2) && !ARM_ARCH_CNTPCT_FROM_USER
+	default m
+	---help---
+	Enables user-space access to CNTPCT and CNTFRQ register
+
+config CPM1_MISC_PHACC
+	tristate "CPM1 MISC user-space access to Axxia peripherals"
+	depends on ARCH_CPM1
+	default m
+	---help---
+	Enables user-space access to Axxia peripherals
+
+config CPM2_MISC_PHACC
+	tristate "CPM2 MISC user-space access to Axxia peripherals"
+	depends on ARCH_CPM2
+	default m
+
+config CPM1_MISC_SYSTEM_WATCHDOG
+       bool "CPM1 System Watchdog"
+       depends on ARCH_CPM1
+       default y
+       help
+          CPM1 System watchdog kicker
+
+config CPM1_KERNEL_SYSWD_SETUP
+       bool "Enable CPM1 System Watchdog in early boot"
+       depends on CPM1_MISC_SYSTEM_WATCHDOG
+       default n
+
+config CPM_MISC_SYSTEM_WATCHDOG
+       bool "CPM2 System Watchdog"
+       depends on ARCH_CPM2
+       default y
+       help
+          CPM2 System watchdog kicker
+
+config CPM_KERNEL_SYSWD_SETUP
+       bool "Enable CPM2 System Watchdog in early boot"
+       depends on CPM2_MISC_SYSTEM_WATCHDOG
+       default n

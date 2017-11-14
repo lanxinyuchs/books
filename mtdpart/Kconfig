@@ -1,8 +1,0 @@
-# Ericsson MTDPART configuration
-#
-
-config RBS_MTDPART
-	tristate "RBS MTDPART handler"
-	default y
-	---help---
-	RBS MTDPART handler provides interface to change MTD partition permissions from userspace

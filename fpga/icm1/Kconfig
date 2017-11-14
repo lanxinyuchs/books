@@ -1,9 +1,0 @@
-# Ericsson ICM1 driver configuration
-#
-config ICM1
-	tristate "ICM1 support"
-	default n
-	select FW_LOADER
-	depends on ARCH_CPM2 || ARCH_CPM1
-	---help---
-	ICM1 driver

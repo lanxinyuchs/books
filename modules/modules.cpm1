@@ -1,4 +1,0 @@
-kernel/drivers/rbs/fpga/icm1/icm1.ko
-kernel/drivers/rbs/misc/cpm1_misc_phacc.ko
-kernel/drivers/rbs/time/cpm1_time.ko
-

@@ -1,0 +1,13 @@
+%%%-----------------------------------------------------------------------------
+%%% @author esridka
+%%% @copyright Ericsson AB 2014
+%%% @doc
+%%%
+%%% @end
+%%% Created :  21 Feb 2014 by esridka
+%%%-----------------------------------------------------------------------------
+
+	{groups,  "./suites", ts_SUITE, [dus52]}.	
+ 	{groups,  "./suites", capi_SUITE, [dus52]}.
+ 	{groups,  "./suites", testbox_SUITE, [dus52]}.
+	{config, "properties/properties.cfg"}.

@@ -1,0 +1,23 @@
+<pkgcontent>
+    <meta_data
+    />
+    <pkginfo
+        name="RCP-T"
+        id="EE_BLACK_RCP-T"
+        version="TEST"
+    />
+    <containers>
+        <node
+            id="CXP9024419_4"
+            version="R16K"
+            filename="CXP9024419_4-R16K.zip"
+            name="Baseband-T-CXP9024419_4"
+            track="16B_IP16"
+            confidence_level="3"
+            repo="url"
+            path="https://arm010-eiffel001.seki.rnd.ericsson.se:8443/nexus/content/repositories/public/com/ericsson/CXP9024419_4/R16K/CXP9024419_4-R16K.zip"
+            sha256="6a90418dccd4c4dea4404fddc8bef6a89e552079f88688e9d4ddbe30d0bc42ef"
+            md5="33199fc908105297c42463e00b2554b6"
+        />
+    </containers>
+</pkgcontent>

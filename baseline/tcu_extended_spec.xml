@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pkgcontent>
+    <meta_data
+    />
+    <pkginfo
+      name="RCP-T"
+      id="EE_BLACK_RCP-T"
+      version="TEST"
+    />
+    <containers>
+      <!-- Baseband-T -->
+      <node
+         id="CXP9024419_4"
+         confidence_level="3"
+       />
+    </containers>
+</pkgcontent>

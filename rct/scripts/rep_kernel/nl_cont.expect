@@ -1,0 +1,319 @@
+#!/usr/bin/expect -f
+
+set counter 0
+set max_cnt 0
+set crash   0
+
+set argc [llength $argv]
+if {$argc < 3} {
+   puts "\nBrief : Install UP on node and reboot"
+   puts "If no loop \"end count\" is given - repeat indefinitely"
+   puts "The test loop is always, however, terminated if an error"
+   puts "is detected."
+   puts "Note! application crashes are not considered errors"
+   puts "those are only counted - as long as system don't reboot"
+   puts "on it's own account and rhsd boot process complete, test loop"
+   puts "is not interrupted\n"
+   puts "\nSyntax: $argv0 <board> <user> <start count> \[<end count>\]\n"
+   puts "\ne.g:\n"
+   puts "- $argv0 dus3020 user-id 0"
+   puts "- $argv0 dus3020 user-id 0 1"
+   puts "\nNote!"
+   puts "user-id is ericsson id for person that should receive email"
+   puts "when test loop state changes. If not found in LDAP the user that runs"
+   puts "this script will recieve anoying spam mails about undeliverable mail"
+   puts "\nNote!!"
+   puts "This script assumes uboot environment setup by:"
+   puts "init_uboot_env.expect"
+   puts "and that:"
+   puts "tftp area for node is setup with UP that shall be installed on the node\n"
+   puts "\nNote!"
+   puts "sm-err.sh  sm-start.sh  sm-stop.sh and rcs10_start_semi.sh must be found in path"
+   exit 1 
+}
+
+set board   [lindex $argv 0]
+set user    [lindex $argv 1]
+set counter [lindex $argv 2]
+
+puts "\nSet counter to init value $counter\n"
+
+if {$argc > 3} {
+   set max_cnt   [lindex $argv 3]
+   puts "\nSet end counter to value $max_cnt\n"
+} else {
+   puts "\nLoop until fail\n"
+}
+
+trap {
+     puts "\nKilled by signal\n"
+     exec sm-stop.sh $argv0 $board "Trap SIGINT after $counter loops" $user
+     exit 1 
+} SIGINT
+
+puts "\nInstall loop on board $board\n"
+exec sm-start.sh $argv0 $board "Start on $board, mailto $user, start count $counter, max count $max_cnt" $user
+
+proc start_install { tgt } {
+     spawn rcs10_start_semi.sh $tgt
+     # reap the child when done
+     wait -i $spawn_id
+     puts "\nInstall started\n"
+}
+         
+# Establish connection
+set timeout 10
+spawn /proj/rcs/bin/rcs_telnet.pl $board
+expect {
+    timeout {puts "\nNo contact with the board, GoodBye!\n"; exit 1}
+    "yes/no" {send "yes\r"; exp_continue}
+    "Escape character is '^]'."
+}
+
+while {1} {
+
+     if {$max_cnt != 0} {
+         if {$counter >= $max_cnt} {
+            puts "\nGreat success $counter loops completed\n"
+            exec sm-stop.sh $argv0 $board "Great success $counter loops completed" $user
+            exit 
+         }
+      }
+
+# Are we alive?
+# Login and for nodes with old uboot and no rlog
+# catch console from uboot if WD triggered restart
+
+set timeout 10
+send "root\r"
+sleep  1
+expect {
+        timeout {
+                puts "\nNot possible to login\n"
+                exec sm-err.sh $argv0 $board "Not possible to login" $user
+                set timeout 70
+                expect {
+                       timeout {
+                               puts "\nGoodBye!\n"
+                       }
+                       "Starting kernel ..." {
+                                 puts "\nExtra reboot detected\n"
+                                 exec sm-err.sh $argv0 $board "Extra reboot detected after $counter loops" $user
+                       }
+                }
+                exit 1 
+        }	
+	"*login:" { send "root\r"; exp_continue }
+	"*assword:" { send "root\r"; set cmd 1 }
+	"*command not found"       { set cmd 1 }
+}
+
+# look for unwanted restarts....
+    set timeout 2
+    send "llog -c\r"
+    expect {
+	timeout {}
+        "*HW watchdog*" {
+             puts "\n\n ...WDOG!\n"
+             exec sm-err.sh $argv0 $board "WDOG detected by kernel" $user
+             exit 1 
+        }
+	"*Program Crash*" {
+	    puts "\n\n ...Program Crash!\n"
+	    incr crash
+	    exec sm-err.sh $argv0 $board "Loop : $counter, Program crash : $crash" $user
+	}
+    }
+# may come some later to
+    if {$counter > 0} {
+       send_user "Wait for things to settle\n"
+       send_user "Sleep 2 minutes\n"
+
+       sleep 120
+    }
+    set timeout 2
+    send "llog -c\r"
+    expect {
+    	   timeout {}
+	"*Program Crash*" {
+	    puts "\n\n ...Program Crash!\n"
+	    incr crash
+	    exec sm-err.sh $argv0 $board "Loop : $counter, Program crash : $crash" $user
+	}
+    }
+ 
+    set timeout 5
+    send "rhdc npulog\r"
+    expect {
+           "ERROR configuration timeout" {
+	   	  puts "\nNPU load TMO. GoodBye!\n"
+		  exec sm-err.sh $argv0 $board "NPU load TMO after $counter loops" $user
+		  exit 1 }
+           timeout {
+	   	   puts "\nrhsd npulog TMO. GoodBye!\n"
+		   exec sm-err.sh $argv0 $board "nrhsd npulog TMO after $counter loops" $user
+		   exit 1 
+	   }
+           "NCP_ST_SUCCESS(0)" {
+	   		       puts "\nOkidoki......\n";  exp_continue
+	   }
+           "(\[^\r]*)\r" {
+	   		 exp_continue
+	   }
+           "*# "
+    }
+    expect *
+    send "cat /sys/rbs-fn/rbs-sys/boot_count\r"
+    expect {
+           timeout {
+	   	   puts "\nread boot count TMO after $counter loops. GoodBye!\n"
+		   exec sm-err.sh $argv0 $board "read boot count TMO after $counter loops" $user
+		   exit 1 
+	   }
+           "0" {
+	       puts "\nBoot counter is reset\n"
+	   }
+    }
+
+set timeout 70
+send "pgh_restartbrd 10\r"
+
+# verify that uboot stage2 started correctly
+expect {
+        timeout {
+                puts "\nk.0: U-Boot stage2 not started, timeout after $counter loops. GoodBye!\n"
+                exec sm-err.sh $argv0 $board "k.0:U-Boot stage2 not started, timeout after $counter loops" $user
+                exit 1
+        }
+        "RCS: Reset Status = HW Watchdog" {
+                puts "\nk.0: watchdog restart detected in U-Boot after $counter loops. GoodBye!\n"
+                exec sm-err.sh $argv0 $board "k.0:watchdog restart detected in U-Boot after $counter loops" $user
+                exit 1
+        }
+	"System initialized"
+}
+
+# Stop in Stage 3
+expect {
+        timeout {
+                puts "\nk.1: U-Boot stage3 not started, timeout after $counter loops. GoodBye!\n"
+                exec sm-err.sh $argv0 $board "k.1:U-Boot stage3 not started, timeout after $counter loops" $user
+                exit 1
+        }
+        "RCS: Reset Status = HW Watchdog" {
+                puts "\nk.1: watchdog restart detected in U-Boot after $counter loops. GoodBye!\n"
+                exec sm-err.sh $argv0 $board "k.1:watchdog restart detected in U-Boot after $counter loops" $user
+                exit 1
+        }
+       "Hit any key to stop autoboot" { send "\r" }
+}
+
+# send nl boot cmd
+sleep 1
+send "\r"
+set timeout 5
+expect {
+       timeout {
+       	       puts "\n1: U-Boot stage3 not stopped, timeout after $counter loops. GoodBye!\n"
+	       exec sm-err.sh $argv0 $board "U-Boot stage3 not stopped, timeout after $counter loops" $user
+	       exit 1
+       }
+       "=>" {
+       	    send "run startnl\r"
+       }
+}
+
+# Welcome to Autointegration with laptop in 3 min
+
+set timeout 180
+expect {
+       timeout {
+       	       puts "\n2: Netloader not started, timeout after $counter loops.\n"
+	       exec sm-err.sh $argv0 $board "Netloader not started, timeout after $counter loops" $user
+	       exit 1
+       }
+       "Welcome to Autointegration with laptop" {
+       		start_install $board
+	}
+}
+
+sleep 10
+puts "\nWaiting for install to complete\n"
+send "\r"
+set timeout 300
+
+expect {
+       timeout {
+       	       puts "\nNetloader install complete TMO after $counter loops. GoodBye!\n"
+	       exec sm-err.sh $argv0 $board "Netloader install complete TMO after $counter loops" $user
+	       exit 1
+       }
+       "*Integrate will continue after reboot"
+}
+
+
+set timeout 70
+# verify that uboot stage2 started correctly
+expect {
+        timeout {
+                puts "\nnl.0: U-Boot stage2 not started, timeout. after $counter loops. GoodBye!\n"
+                exec sm-err.sh $argv0 $board "nl.0:U-Boot stage2 not started, timeout after $counter loops" $user
+                exit 1
+        }
+        "RCS: Reset Status = HW Watchdog" {
+                puts "\nnl.00: watchdog restart detected in U-Boot after $counter loops. GoodBye!\n"
+                exec sm-err.sh $argv0 $board "nl.0:watchdog restart detected in U-Boot after $counter loops" $user
+                exit 1
+        }
+	"System initialized"
+}
+
+# verify that uboot stage3 started correctly
+    expect {
+        timeout {
+                puts "\nnl.1: U-Boot stage3 not started, timeout after $counter loops. GoodBye!\n"
+                exec sm-err.sh $argv0 $board "nl.1:U-Boot stage3 not started, timeout after $counter loops" $user
+                exit 1
+        }
+        "RCS: Reset Status = HW Watchdog" {
+                    puts "\nnl.1: watchdog restart detected in U-Boot after $counter loops. GoodBye!\n"
+                    exec sm-err.sh $argv0 $board "nl.1:watchdog restart detected in U-Boot after $counter loops" $user
+                    exit 1
+        }
+        "RCS: Reset Status = SW Ordered (Cold)"
+    }
+
+
+# verify that kernel starts
+    expect {
+        timeout {
+                puts "\nnl.2: Linux kernel not started, timeout after $counter loops. GoodBye!\n"
+                exec sm-err.sh $argv0 $board "nl.2:Linux kernel not started, timeout after $counter loops" $user
+                exit 1
+        }
+        "Starting kernel ..."
+    }
+
+# verify that boot complete
+
+expect {
+        timeout {
+                puts "\n3: Linux boot not cmpleted, timeout. GoodBye!\n"
+                exec sm-err.sh $argv0 $board "Linux boot not cmpleted, timeout" $user
+                exit 1
+        }
+        "RCS: Reset Status = HW Watchdog" {
+              puts "\nExtra reboot detected after $counter loops. GoodBye!\n"
+              exec sm-err.sh $argv0 $board "Extra reboot detected after $counter loops" $user
+              exit 1
+        }
+        "*Starting RCS program handler"
+}
+
+    incr counter
+    send_user "\n\n*****************************\n"
+    send_user "===> Number of Reloads = $counter\n\n"
+    send_user "***********************************\n\n"
+
+
+}

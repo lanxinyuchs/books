@@ -1,0 +1,13 @@
+%%%-----------------------------------------------------------------------------
+%%% @author erayaqu
+%%% @copyright Ericsson AB 2013
+%%% @doc
+%%%
+%%% @end
+%%% Created :  26 Nov 2013 by ERAYAQU
+%%%-----------------------------------------------------------------------------
+
+	{groups,  "./suites", ts_SUITE, [tcu03]}.	
+ 	{groups,  "./suites", capi_SUITE, [tcu03]}.
+ 	{groups,  "./suites", testbox_SUITE, [tcu03]}.
+	{config, "properties/properties.cfg"}.

@@ -1,6 +1,0 @@
-#!/bin/sh
-
-# Set correct ClearCase config spec for jenkins delivery job
-
-JENKINS_CS=${JENKINS_CS=/vobs/rcs/tools/RDE_LXA119945/ccase/config_specs_rcs/R5A_maint_cs}
-cleartool setcs $JENKINS_CS

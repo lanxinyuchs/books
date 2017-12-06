@@ -1,0 +1,10 @@
+header-y += af_rbs.h
+header-y += rbs-smem.h
+header-y += rbs-error.h
+header-y += rbs-sys.h
+header-y += rbs-gpio.h
+header-y += rbs-time.h
+header-y += rbs-icmctrl.h
+header-y += rbs-sbb.h
+header-y += rbs-hwl.h
+header-y += rbs-mtdpart.h

@@ -1,1 +1,0 @@
-erl -boot /home/johantj/eTracker/releases/R1A/eTracker-R1A -boot_var OTP_ROOT /home/johantj/erlang/lib/erlang -boot_var CODE_ROOT /home/johantj/eTracker/ -sname eTracker

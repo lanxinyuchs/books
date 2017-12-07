@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!--
+# ========================================================== 
+# %CCaseFile:	CxpInfo.xsd % 
+# %CCaseRev:	/main/R1A/R2A/R5A/8 % 
+# %CCaseDate:	2016-03-15 % 
+#                                                            
+# Author:	etxjotj
+# Description:	XML schema definition for CXP metadata files
+#                                                            
+# ========================================================== 
+#                                                            
+# %CCaseCopyrightBegin%
+# Copyright (c) Ericsson AB 2012-2016 All rights reserved.
+# 
+# The information in this document is the property of Ericsson.
+# 
+# Except as specifically authorized in writing by Ericsson, the 
+# receiver of this document shall keep the information contained 
+# herein confidential and shall protect the same in whole or in 
+# part from disclosure and dissemination to third parties.
+# 
+# Disclosure and disseminations to the receivers employees shall 
+# only be made on a strict need to know basis.
+# %CCaseCopyrightEnd%
+#                                                            
+# ========================================================== 
+# REVISION LOG 
+# ========================================================== 
+#                                                            
+# Rev        Date       Name        What 
+# ========   ========== ========    ======================== 
+# R1A/1      2012-01-25 etxjotj     Created 
+# R1A/2      2012-01-25 etxjotj     CC-ified
+# R2A/2      2014-06-05 etxjotj     Added os carrier marker
+# R2A/4      2014-06-26 etxbjca     Added bundle carrier marker
+# R5A/1      2015-11-11 etxjotj     Added pattern matching for date field
+# R5A/2      2015-12-07 etxjotj     Firmware specification
+#                                   Removed unused startscript definition
+# R5A/3      2015-12-07 etxjotj     Bugfix
+# R5A/4      2015-12-16 etxjotj     Updated "cobra-sv" to "cobra"
+# R5A/5      2016-01-14 etxarnu     Added earlystart definition
+# R5A/6      2016-02-17 etxarnu     Added config to earlystart definition
+# R5A/8      2016-03-15 etxberb     Added filename to ProductType definition
+# ========================================================== 
+-->                                                           
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  
+  <xs:element name="configuration" type="ConfigurationType"/>
+
+  <xs:complexType name="ConfigurationType">
+    <xs:sequence>
+      <xs:element name="product" type="ProductType" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="date" type="DateType" minOccurs="1" maxOccurs="1" />
+      <xs:element name="description" type="xs:string" minOccurs="0" maxOccurs="1" />
+      <xs:element name="type" type="xs:string" minOccurs="0" maxOccurs="1" />
+      <xs:element name="os" type="OsType" minOccurs="0" maxOccurs="1" />
+      <xs:element name="bundle" type="BundleType" minOccurs="0" maxOccurs="1" />
+      <xs:element name="framework" type="FrameworkType" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="contentinfo" type="ContentInfoType" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="firmwares" type="FirmwaresType" minOccurs="0" maxOccurs="1" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ProductType">
+    <xs:sequence>
+      <xs:element name="appdata" type="AppDataType" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="earlystart" type="EarlyStartType" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+    <xs:attribute name="name" type="xs:string" use="required"/>
+    <xs:attribute name="id" type="xs:string" use="required"/>
+    <xs:attribute name="version" type="xs:string" use="required"/>
+    <xs:attribute name="filename" type="xs:string" use="optional"/>
+  </xs:complexType>
+
+  <xs:simpleType name="DateType">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="([0-9]{4})-(1[0-2]|0[1-9])-(0[1-9]|[1|2][0-9]|3[0-1])T(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="OsType" />
+
+  <xs:complexType name="BundleType" />
+
+  <xs:complexType name="FrameworkType">
+    <xs:sequence>
+      <xs:element name="product" type="ProductType" minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ContentInfoType">
+    <xs:sequence>
+      <xs:element name="product" type="ProductType" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="AppDataType">
+    <xs:attribute name="relpath" type="xs:string" use="required" />
+    <xs:attribute name="file" type="xs:string" use="optional" />
+  </xs:complexType>
+
+  <xs:complexType name="EarlyStartType">
+    <xs:attribute name="filepath" type="xs:string" use="required" />
+    <xs:attribute name="config" type="xs:string" use="optional" />
+  </xs:complexType>
+
+  <xs:complexType name="FirmwaresType">
+    <xs:sequence>
+      <xs:element name="firmware" type="FirmwareType" minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="FirmwareType">
+    <xs:attribute name="imgtype" type="ImgTypeType" use="required" />
+    <xs:attribute name="hwtype" type="HwTypeType" use="optional" />
+    <xs:attribute name="relpath" type="xs:string" use="required" />
+  </xs:complexType>
+
+  <xs:simpleType name="ImgTypeType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="icm-io" />
+      <xs:enumeration value="icm-core" />
+      <xs:enumeration value="adk-npu-cfg" />
+      <xs:enumeration value="adk-netd-param" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="HwTypeType">
+    <xs:restriction base="xs:string">
+      <!-- icm types -->
+      <xs:enumeration value="cobra-a10" />
+      <xs:enumeration value="cobra" />
+      <xs:enumeration value="katla" />
+      <xs:enumeration value="taipan" />
+      <!-- npu types -->
+      <xs:enumeration value="npu-bb5212" />
+      <xs:enumeration value="npu-bb5212-1280mb" />
+      <xs:enumeration value="npu-bb5216" />
+      <xs:enumeration value="npu-bb5216-2gb" />
+      <xs:enumeration value="npu-bbt503" />
+      <xs:enumeration value="npu-bbt605" />
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>

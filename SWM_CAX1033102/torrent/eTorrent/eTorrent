@@ -1,0 +1,1 @@
+erl -boot /home/johantj/eTorrent/releases/R1A/eTorrent-R1A -boot_var OTP_ROOT /home/johantj/erlang/lib/erlang -boot_var CODE_ROOT /home/johantj/eTorrent/ 

@@ -1,8 +1,0 @@
-APP = bld.rcsErlApp("ecoli", cxaid="189", cxcid="131", )
-
-bld.program(source="csrc/port_proxy.c", target="port_proxy",
-   install_path = bld.getBin(APP)
-)
-bld.program(source="csrc/std_eof_proxy.c", target="std_eof_proxy",
-   install_path = bld.getBin(APP)
-)

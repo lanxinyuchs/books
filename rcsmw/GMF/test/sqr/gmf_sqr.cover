@@ -1,2 +1,0 @@
-{excl_mods, [gmfAppCli, gmfAppData, gmfAppImm, gmfAppMim, gmfDataInit, gmfDebug, gmfImmOiI, gmfImmUgIcti, gmfImmUgInserter, gmfImmUgLib, gmfImmUgMaster, gmfImmUgVerifyUpgrade, gmfImmXml, gmfMetaLib, gmfMimXml, gmfServer]}.
-{expected_coverage, 64}.

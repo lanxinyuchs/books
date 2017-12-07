@@ -1,7 +1,0 @@
-<appdata target="log">
-   <log name = "FakeLog"
-    maxSize = "2"
-    rotatingSegments = "3"/>
-   <log name = "FakeHaltLog"
-    maxSize = "1"/>
-</appdata>

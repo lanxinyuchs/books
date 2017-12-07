@@ -1,2 +1,0 @@
-{excl_mods,[clhDataInit]}.
-{expected_coverage , 15 }.

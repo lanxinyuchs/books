@@ -1,8 +1,0 @@
-APP = bld.rcsErlApp("eitc", defines=['DRIVER_NAME_STRING="libeitc_drv"', 'APP=eitc'], cxaid="", cxcid="131", )
-
-bld.shlib(source=bld.path.ant_glob("csrc/*.c"),
-   target="eitc_drv",
-   includes="csrc",
-   lib=["ei", "erl_interface", "itc", "dl"],
-   defines=['DRIVER_NAME_STRING="libeitc_drv"', "APP=eitc"],
-   install_path = bld.getLib(APP))

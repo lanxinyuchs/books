@@ -1,3 +1,0 @@
-erl  = bld.path.ant_glob("esrc/*.erl")
-bld(source=erl)
-bld.install_files('lib-cli/ebin', [f.change_ext('.beam') for f in erl])

@@ -1,6 +1,0 @@
-APP = bld.rcsErlApp("lih", cxaid="193", cxcid="131", appdataroot="lih", )
-
-bld.shlib(source="csrc/cello_lici_emu.c", target="cello_lici",
-   install_path = bld.getLib(APP))
-bld.install_files(bld.getPrv(APP), bld.path.ant_glob("appdata/* schema/*"), relative_trick=True)
-bld.install_files(bld.getBldLib("lih"), ['libcello_lici.so'])

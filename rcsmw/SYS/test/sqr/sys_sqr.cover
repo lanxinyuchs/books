@@ -1,2 +1,0 @@
-{excl_mods,[bencode,sysDataInit,sysDebug,sysDhcpd,sysEEinterface,sysItcLnh,sysNetloaderTls,sysRhai,sysTftpd,sysTmmiServer]}.
-{expected_coverage, 50}.

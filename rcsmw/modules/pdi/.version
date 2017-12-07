@@ -1,5 +1,0 @@
-#%Module 1.0
-#
-# The desired version of flexlm
-#
-set ModulesVersion "Default"

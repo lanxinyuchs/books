@@ -1,1 +1,0 @@
-APP = bld.rcsErlApp("ftpes", cxaid="", cxcid="131", )

@@ -1,4 +1,0 @@
-#!/bin/bash
-DEFREV=P0A01
-REV=${VERSION-$DEFREV}
-echo $REV

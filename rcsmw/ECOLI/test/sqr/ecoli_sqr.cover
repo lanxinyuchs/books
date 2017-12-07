@@ -1,2 +1,0 @@
-{excl_mods,[ecoli_io, ecoli_register, ecoli_transport_adaptor]}.
-{expected_coverage, 50}.

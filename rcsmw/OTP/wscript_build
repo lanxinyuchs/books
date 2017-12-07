@@ -1,8 +1,0 @@
-APP = bld.getAPP("otp", cxaid="", cxcid="131", )
-
-bld.install_files(bld.getTgt(APP),
-   bld.path.ant_glob("%(tgt)s/**"%bld.env,
-      excl=['**/*.c', '**/*.h', '**/*.a', '**/examples/*', '**/src/*.erl']),
-   chmod=0755,
-   cwd=bld.path.find_dir(bld.env.tgt),
-   relative_trick=True)

@@ -1,7 +1,0 @@
-%%########################		TESTSPEC nisse_spec_1			######################## 
-{merge_tests, false}.
-{cases, "GMF/test/suites", cmsi_c_SUITE, [all]}.
-{cases, "test/test/suites/SAF", safs_imm_oi_SUITE, [all]}.
-{cases, "test/test/suites/COM", com_avc_SUITE, [all]}.
-{cases, "SYS/test/suites", oei_c_SUITE, [all]}.
-{cases, "./test/test/suites/install",fetch_esi_SUITE , [all]}.

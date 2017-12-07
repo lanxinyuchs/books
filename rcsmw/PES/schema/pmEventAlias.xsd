@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!--
+# ========================================================== 
+# %CCaseFile:	pmEventAlias.xsd % 
+# %CCaseRev:	/main/R3A/3 % 
+# %CCaseDate:	2014-11-11 % 
+#                                                            
+# Author:	etxjotj
+# Description:	XML schema definition for event alias registrations
+#                                                            
+# ========================================================== 
+#                                                            
+# %CCaseCopyrightBegin%
+# Copyright (c) Ericsson AB 2014 All rights reserved.
+# 
+# The information in this document is the property of Ericsson.
+# 
+# Except as specifically authorized in writing by Ericsson, the 
+# receiver of this document shall keep the information contained 
+# herein confidential and shall protect the same in whole or in 
+# part from disclosure and dissemination to third parties.
+# 
+# Disclosure and disseminations to the receivers employees shall 
+# only be made on a strict need to know basis.
+# %CCaseCopyrightEnd%
+#                                                            
+# ========================================================== 
+# REVISION LOG 
+# ========================================================== 
+#                                                            
+# Rev        Date       Name        What 
+# ========   ========== ========    ======================== 
+# R3A/1      2014-10-31 etxjotj     Created
+# ========================================================== 
+#
+-->
+                                                           
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+
+  <xs:element name="appdata" type="RcsPmeType"/>
+
+
+  <xs:complexType name="RcsPmeType">
+    <xs:sequence>
+      <xs:element name="eventMapId"  type="xs:string"
+		  minOccurs="1" maxOccurs="1" />
+      <xs:element name="eventGroupAlias" type="EventGroupAliasType"
+		  minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="eventTypeAlias" type="EventTypeAliasType"
+		  minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="target" type="PmeType" use="required"/>
+  </xs:complexType>
+
+
+  <xs:simpleType name="PmeType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="pmEventAlias" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="EventGroupAliasType">
+    <xs:sequence>
+      <xs:element name="eventGroupId"  type="xs:string"
+		  minOccurs="1" maxOccurs="1" />
+      <xs:element name="groupAlias"   type="xs:integer"
+		  minOccurs="1" maxOccurs="1" />
+    </xs:sequence>
+  </xs:complexType>
+
+  
+  <xs:complexType name="EventTypeAliasType">
+    <xs:sequence>
+      <xs:element name="eventTypeId" type="xs:string"
+		  minOccurs="1" maxOccurs="1" />
+      <xs:element name="typeAlias" type="xs:integer"
+		  minOccurs="1" maxOccurs="1" />
+    </xs:sequence>
+  </xs:complexType>
+
+</xs:schema>

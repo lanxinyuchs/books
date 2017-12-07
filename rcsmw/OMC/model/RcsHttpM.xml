@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Copyright (c) 2015 Ericsson AB. 
+	All rights reserved 
+
+	DX ECIM Tool-chain generated this file on Jun 12, 2015 3:21:36 PM using:
+	* com.ericsson.ecim.m2m 2.14.1.201504211247
+	* com.ericsson.ecim.dsl 2.14.1.201504211247
+	* com.ericsson.ecim.edm 2.14.1.201504211247
+--><!DOCTYPE models SYSTEM "mp.dtd">
+<models>
+  <dtdVersion>G</dtdVersion>
+  <momMetaData>
+    <momTitle>Hypertext transfer protocol management</momTitle>
+    <momSubTitle>sub title</momSubTitle>
+    <momIdentity>
+      <docNum>2/155 54-CNX 901 3315</docNum>
+      <docLang>English</docLang>
+      <docRev>0</docRev>
+      <docDate>2015-01-23</docDate>
+    </momIdentity>
+    <createdBy>
+      <signature>ETXJOTJ</signature>
+    </createdBy>
+    <approvedBy>
+      <signature>ETXJOTJ</signature>
+    </approvedBy>
+  </momMetaData>
+  <mim author="ETXJOTJ" contact="ETXJOTJ" correction="2" date="2015-06-12" docNo="2/155 54-CNX 901 3315" name="RcsHttpM" namespace="urn:com:ericsson:ecim:RcsHttpM" namespacePrefix="rcshttpm" organization="FJP/HD" release="0" revision="" version="1">
+    <description>General HTTP service</description>
+    <class name="HttpM">
+      <description>HTTP management.</description>
+      <root/>
+      <specification>RFC 2616</specification>
+      <attribute name="httpMId">
+        <description>The value part of the RDN.</description>
+        <mandatory/>
+        <noNotification/>
+        <restricted/>
+        <key/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+    </class>
+    <class name="Https">
+      <description>Configuration for HTTP secure service.
+The HTTPS service allows secure communication over TLS with the web applications of the system. Basic web-service (port 443) is only using certificates for secure transport. Extended web-service (port 8443) is using certificates for secure transport and login validation.</description>
+      <systemCreated/>
+      <specification>RFC2818</specification>
+      <attribute name="httpsId">
+        <description>The value part of the RDN.</description>
+        <mandatory/>
+        <noNotification/>
+        <restricted/>
+        <key/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="nodeCredential">
+        <description>Node credential to be used when accessing the service.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <isNillable/>
+        <dataType>
+          <moRef name="NodeCredential">
+            <mimName>ECIM_CertM</mimName>
+          </moRef>
+        </dataType>
+      </attribute>
+      <attribute name="trustCategory">
+        <description>Trust category to be used when accessing the service.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <isNillable/>
+        <dataType>
+          <moRef name="TrustCategory">
+            <mimName>ECIM_CertM</mimName>
+          </moRef>
+        </dataType>
+      </attribute>
+    </class>
+    <relationship name="HttpM_to_Https">
+      <containment>
+        <parent>
+          <hasClass name="HttpM">
+            <mimName>RcsHttpM</mimName>
+          </hasClass>
+        </parent>
+        <child>
+          <hasClass name="Https">
+            <mimName>RcsHttpM</mimName>
+          </hasClass>
+          <cardinality>
+            <min>0</min>
+            <max>1</max>
+          </cardinality>
+        </child>
+        <domainExtension domain="ECIM">
+          <extension name="canCreate" value="false"/>
+          <extension name="canDelete" value="false"/>
+        </domainExtension>
+        <notCreatable/>
+        <notDeleteable/>
+      </containment>
+    </relationship>
+    <relationship name="Https_to_NodeCredential">
+      <biDirectionalAssociation>
+        <associationEnd name="nodeCredential">
+          <hasClass name="NodeCredential">
+            <mimName>ECIM_CertM</mimName>
+          </hasClass>
+          <cardinality>
+            <min>0</min>
+            <max>1</max>
+          </cardinality>
+          <isReserving/>
+        </associationEnd>
+        <associationEnd name="reservedByUser">
+          <hasClass name="Https">
+            <mimName>RcsHttpM</mimName>
+          </hasClass>
+          <cardinality>
+            <min>0</min>
+          </cardinality>
+        </associationEnd>
+      </biDirectionalAssociation>
+    </relationship>
+    <relationship name="Https_to_TrustCategory">
+      <biDirectionalAssociation>
+        <associationEnd name="trustCategory">
+          <hasClass name="TrustCategory">
+            <mimName>ECIM_CertM</mimName>
+          </hasClass>
+          <cardinality>
+            <min>0</min>
+            <max>1</max>
+          </cardinality>
+          <isReserving/>
+        </associationEnd>
+        <associationEnd name="reservedByUser">
+          <hasClass name="Https">
+            <mimName>RcsHttpM</mimName>
+          </hasClass>
+          <cardinality>
+            <min>0</min>
+          </cardinality>
+        </associationEnd>
+      </biDirectionalAssociation>
+    </relationship>
+  </mim>
+  <interMim>
+    <relationship name="SysM_to_HttpM">
+      <containment>
+        <parent>
+          <hasClass name="SysM">
+            <mimName>ECIM_SysM</mimName>
+          </hasClass>
+        </parent>
+        <child>
+          <hasClass name="HttpM">
+            <mimName>RcsHttpM</mimName>
+          </hasClass>
+          <cardinality>
+            <min>1</min>
+            <max>1</max>
+          </cardinality>
+        </child>
+        <domainExtension domain="ECIM">
+          <extension name="canCreate" value="false"/>
+          <extension name="canDelete" value="false"/>
+        </domainExtension>
+        <notCreatable/>
+        <notDeleteable/>
+      </containment>
+    </relationship>
+  </interMim>
+</models>

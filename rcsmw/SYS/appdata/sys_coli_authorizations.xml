@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!--
+# ==========================================================
+# %CCaseFile:	sys_coli_authorizations.xml %
+# %CCaseRev:	/main/R2A/R3A/R4A/R5A/R7A/R9A/R10A/R11A/R12A/1 %
+# %CCaseDate:	2017-12-01 %
+#
+# Author:	etxpejn
+# Description:	CAX appdata file
+#
+# ==========================================================
+#
+# %CCaseCopyrightBegin%
+# Copyright (c) Ericsson AB 2014-2017 All rights reserved.
+# 
+# The information in this document is the property of Ericsson.
+# 
+# Except as specifically authorized in writing by Ericsson, the 
+# receiver of this document shall keep the information contained 
+# herein confidential and shall protect the same in whole or in 
+# part from disclosure and dissemination to third parties.
+# 
+# Disclosure and disseminations to the receivers employees shall 
+# only be made on a strict need to know basis.
+# %CCaseCopyrightEnd%
+#
+# ==========================================================
+# REVISION LOG
+# ==========================================================
+#
+# Rev        Date       Name        What
+# ========   ========   ========    ========================
+# R2A/2      20140506   etxpejn     Created
+# R2A/3      20140507   etxpejn     Added simulate_button_event & vii
+# R2A/4      20140507   etxpejn     Added hwpid
+# R2A/5      20140507   etxpejn     Added cold and warm_restart
+# R2A/6      20140508   etxpejn     Added meminfo and cpuinfo
+# R2A/7      20140513   etxpejn     Added allocated_disc_space & free_up_disc_space
+# R2A/8      20140519   etxpejn     Added COMSA coli commands
+# R2A/9      20140603   etxberb     Moved date and uptime from sys to os.
+# R2A/10     20140611   etxpejn     Added ps, te, llog and dump
+# R2A/11     20140616   etxberb     Removed simulate_button_event.
+# R2A/13     20140625   etxpejn     Adaptet to design rules.
+# R2A/14     20140724   etxarnu     Added dbsadd/dnsdel
+# R2A/15     20140724   etxarnu     Added dnsshow
+# R2A/21     20140903   etxberb     Removed deprecated commands.
+# R2A/22     20141009   etxlg       Added authtrace, ldapfiltertest. schema fix
+# R3A/1      20150108   etxlg       Remove dns commands
+# R3A/7      20150305   etxpejn     Moved COLI commands from sys to sysm
+# R3A/8      20150407   etxarnu     Added rmdump
+# R3A/9      20150410   etxarnu     Added netstat, route, ifconfig
+# R4A/1      20150622   etxarnu     Added board/hwinfo
+# R4A/2      20150623   etxpeno     Add labonly/rcs/simulatebutton
+# R4A/3      20150827   uabesvi     authorization changed to BasebandSupport*
+# R4A/4      20150901   etxarnu     Added board/escalation
+# R5A/2      20151116   etxarnu     Added /os/mum
+# R9A/2      20170324   etomist     Added /labonly/rcs/sessions
+# R9A/3      20170410   uabesvi     Added /diagm/showhostname
+# R10A/1     20170704   uabesvi     Added /diagm/fdstatus
+# R11A/1     20170919   etxjotj     Added /os/kmemavail
+# ==========================================================
+#
+-->
+
+<!-- COLI authorization -->
+<appdata target="coli_auth">
+
+  <coli_authorization
+      cli_name = "mwreport"
+      cli_path = "/labonly/rcs"
+      authorization = "BasebandSupportExpert"/>
+
+  <coli_authorization
+      cli_name = "simulatebutton"
+      cli_path = "/labonly/rcs"
+      authorization = "BasebandSupportExpert"/>
+
+  <coli_authorization
+      cli_name = "top"
+      cli_path = "/os"
+      authorization = "BasebandSupportExpert"/>
+
+  <coli_authorization
+      cli_name = "kmemavail"
+      cli_path = "/labonly/rcs"
+      authorization = "BasebandSupportBasic"/>
+
+  <coli_authorization
+      cli_name = "mum"
+      cli_path = "/os"
+      authorization = "BasebandSupportExpert"/>
+
+   <coli_authorization
+      cli_name = "cpuinfo"
+      cli_path = "/os"
+      authorization = "BasebandSupportExpert"/>
+
+  <coli_authorization
+      cli_name = "netstat"
+      cli_path = "/os"
+      authorization = "BasebandSupportBasic"/>
+
+  <coli_authorization
+      cli_name = "route"
+      cli_path = "/os"
+      authorization = "BasebandSupportBasic"/>
+
+  <coli_authorization
+      cli_name = "ifconfig"
+      cli_path = "/os"
+      authorization = "BasebandSupportBasic"/>
+
+  <coli_authorization
+      cli_name = "date"
+      cli_path = "/os"
+      authorization = "BasebandSupportBasic"/>
+
+  <coli_authorization
+      cli_name = "df"
+      cli_path = "/os"
+      authorization = "BasebandSupportExpert"/>
+
+  <coli_authorization
+      cli_name = "discspace"
+      cli_path = "/sysm"
+      authorization = "BasebandSupportExpert"/>
+
+ <coli_authorization
+      cli_name = "meminfo"
+      cli_path = "/os"
+      authorization = "BasebandSupportExpert"/>
+
+  <coli_authorization
+      cli_name = "ntpdinternal"
+      cli_path = "/sysm"
+      authorization = "BasebandSupportBasic"/>
+
+  <coli_authorization
+      cli_name = "ntpdsuper"
+      cli_path = "/sysm"
+      authorization = "BasebandSupportBasic"/>
+
+  <coli_authorization
+      cli_name = "ntpdtraps"
+      cli_path = "/sysm"
+      authorization = "BasebandSupportBasic"/>
+
+  <coli_authorization
+      cli_name = "productionunlock"
+      cli_path = "/license"
+      authorization = "BasebandSupportExpert"/>
+
+  <coli_authorization
+      cli_name = "ps"
+      cli_path = "/os"
+      authorization = "BasebandSupportBasic"/>
+
+  <coli_authorization
+      cli_name = "pgrestart"
+      cli_path = "/board"
+      authorization = "BasebandSupportExpert"/>
+
+  <coli_authorization
+      cli_name = "restart"
+      cli_path = "/board"
+      authorization = "BasebandSupportExpert"/>
+
+   <coli_authorization
+      cli_name = "escalation"
+      cli_path = "/board"
+      authorization = "BasebandSupportExpert"/>
+
+  <coli_authorization
+      cli_name = "hwpid"
+      cli_path = "/board"
+      authorization = "BasebandSupportBasic"/>
+
+  <coli_authorization
+      cli_name = "hwinfo"
+      cli_path = "/board"
+      authorization = "BasebandSupportBasic"/>
+
+  <coli_authorization
+      cli_name = "dump"
+      cli_path = "/ee"
+      authorization = "BasebandSupportExpert"/>
+
+  <coli_authorization
+      cli_name = "llog"
+      cli_path = "/ee"
+      authorization = "BasebandSupportBasic"/>
+
+   <coli_authorization
+      cli_name = "te"
+      cli_path = "/ee"
+      authorization = "BasebandSupportBasic"/>
+
+  <coli_authorization
+      cli_name = "ts"
+      cli_path = "/ee"
+      authorization = "BasebandSupportAdvanced"/>
+
+  <coli_authorization
+      cli_name = "dump"
+      cli_path = "/diagm"
+      authorization = "BasebandSupportExpert"/>
+
+  <coli_authorization
+      cli_name = "showhostname"
+      cli_path = "/diagm"
+      authorization = "BasebandSupportExpert"/>
+
+  <coli_authorization
+      cli_name = "fdstatus"
+      cli_path = "/diagm"
+      authorization = "BasebandSupportExpert"/>
+
+  <coli_authorization
+      cli_name = "exportdump"
+      cli_path = "/diagm"
+      authorization = "BasebandSupportExpert"/>
+
+   <coli_authorization
+      cli_name = "llog"
+      cli_path = "/diagm"
+      authorization = "BasebandSupportBasic"/>
+
+   <coli_authorization
+      cli_name = "te"
+      cli_path = "/diagm"
+      authorization = "BasebandSupportBasic"/>
+
+  <coli_authorization
+      cli_name = "ts"
+      cli_path = "/diagm"
+      authorization = "BasebandSupportAdvanced"/>
+
+  <coli_authorization
+      cli_name = "capistart"
+      cli_path = "/os"
+      authorization = "BasebandSupportAdvanced"/>
+
+  <coli_authorization
+      cli_name = "capistop"
+      cli_path = "/os"
+      authorization = "BasebandSupportAdvanced"/>
+
+  <coli_authorization
+      cli_name = "uptime"
+      cli_path = "/os"
+      authorization = "BasebandSupportBasic"/>
+
+  <coli_authorization
+      cli_name = "vii"
+      cli_path = "/board"
+      authorization = "BasebandSupportBasic"/>
+
+  <coli_authorization
+      cli_name = "welcometext"
+      cli_path = "/cli"
+      authorization = "BasebandSupportExpert"/>
+
+  <coli_authorization
+      cli_name = "who"
+      cli_path = "/os"
+      authorization = "BasebandSupportBasic"/>
+
+  <coli_authorization
+      cli_name = "authtrace"
+      cli_path = "/secm"
+      authorization = "BasebandSupportAdvanced"/>
+
+  <coli_authorization
+      cli_name = "ldapfiltertest"
+      cli_path = "/secm"
+      authorization = "BasebandSupportAdvanced"/>
+
+  <coli_authorization
+      cli_name = "sessions"
+      cli_path = "/labonly/rcs"
+      authorization = "BasebandSupportBasic"/>
+
+</appdata>

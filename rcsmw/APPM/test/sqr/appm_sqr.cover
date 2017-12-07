@@ -1,0 +1,2 @@
+{excl_mods,[appmAppData,appmDataInit, appmDebug]}.
+{expected_coverage , 29 }.

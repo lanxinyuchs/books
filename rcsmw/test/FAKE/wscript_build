@@ -1,0 +1,78 @@
+APP = bld.rcsErlApp("fake", ["model", bld.path.find_dir("../OTP/%(tgt)s/lib/"% bld.env).abspath()], cxaid="", cxcid="132", appdataroot="fake", )
+
+# TODO: by default rcsErlApp install model files under APP/priv/model
+# the FAKE expect them in APP/priv for some reason. 
+modelfiles = bld.path.ant_glob("model/*.xml")
+bld.install_files(bld.getPrv(APP), modelfiles)
+
+bld.install_files(bld.getPrv(APP)+"/appdata", bld.path.ant_glob("appdata/*"), chmod=0777)
+bld.install_files(bld.getPrv(APP), bld.path.ant_glob("etc/*"), chmod=0777)
+bld.install_files(bld.getPrv(APP), ["csrc/cxc1734197_envvar.xml"])
+bld.install_files(bld.getPrv(APP)+"/html", ["html/index.html"])
+bld.install_files(bld.getPrv(APP)+"/images", ["images/telefonplan.jpg"])
+bld.install_as(bld.getPrv(APP)+"/TESTMOM_mp.xml", "etc/TESTMOM_mp_extended.xml")
+bld.symlink_as(bld.getPrv(APP)+"/pg_app2.sh", "pg_app1.sh")
+bld.symlink_as(bld.getPrv(APP)+"/pg_app3.sh", "pg_app1.sh")
+
+bld.program(
+   source = ['csrc/restartApp.c', 'csrc/osemain_restart_app_sim.c'],
+   includes = ['csrc', 'csrc/restart_app.d/'],
+   defines  = '_BSD_SOURCE',
+   cflags   = '-Wno-wariadic-macro',
+   use      = ['crl', 'pri', 'lits', 'coli', 'tri'],
+   target = 'restart_app',
+   install_path = bld.getBin(APP)
+)
+
+bld.program(
+   source = ['csrc/osemain_tzii_example_sim.c', 'csrc/tzii_example.c'],
+   includes = ['csrc', 'csrc/tzii_example.d/'],
+   use      = ['crl', 'tzii', 'lits', 'coli', 'tri'],
+   target = 'tziiExample',
+   install_path = bld.getBin(APP)
+)
+
+bld.shlib(
+   source = ['csrc/ugt_common.c'],
+   target = 'ugt_common',
+   name = 'ugt_common',
+   use    = ['rt', 'lmi', 'imm_ct'],
+   install_path = bld.getLib(APP)
+)
+
+bld.shlib(
+   source = ['csrc/test_lib.c', 'csrc/test_imm_om.c'],
+   target = 'test_lib',
+   name = 'test_lib',
+   use    = ['rt', 'imm_om'],
+   install_path = bld.getLib(APP)
+)
+
+bld.shlib(
+   source = ['csrc/test_trace_probe.c'],
+   target = 'test_trace_probe',
+   name = 'test_trace_probe',
+   includes = ['csrc'],
+   install_path = bld.getLib(APP)
+)
+
+
+for p in [
+   "test_app",
+   "test_trace",
+   "ugt_nc",
+   "ugt_s0",
+   "ugt_s1v1",
+   "ugt_s1v2",
+   "ugt_s2",
+   "udpdump_dyn",
+   "noble_icti_dyn",
+   "noble_icti",
+   "noble_upi",
+   "alarm_example_app",
+   "namespace_simulator",
+   "upgrade_demo"]:
+   bld.program(source='csrc/%s.c'%p, target=p,
+      use=['rt', 'cstnn', 'test_lib', 'test_imm_om', 'ugt_common', 'crl', 'imm_oi'],
+      install_path = bld.getBin(APP))
+

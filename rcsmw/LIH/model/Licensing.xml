@@ -1,0 +1,553 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE models SYSTEM "mp.dtd">
+<models>
+  <interMim>
+    <relationship name="SystemFunctions_to_Licensing">
+      <containment>
+	<parent>
+	  <hasClass name="SystemFunctions">
+            <mimName>ComTop</mimName>
+          </hasClass>
+	</parent>
+	<child>
+	  <hasClass name="Licensing">
+            <mimName>Licensing</mimName>
+          </hasClass>
+	  <cardinality>
+	    <min>1</min>
+	    <max>1</max>
+	  </cardinality>
+	</child>
+      </containment>
+    </relationship>
+  </interMim>
+
+  <mim name="Licensing" version="1" release="0" revision="A" correction="0" namespace="urn:com:ericsson:CPP:Licensing:1.0" namespacePrefix="ecim_license">
+    <enum name="EmergencyStatus">
+      <description>This enumeration specifies the different stages of the emergency state.</description>
+      <enumMember name="NEVER_USED">
+	<description>EmergencyStatus has not been activated since installation of the LKF.</description>
+	<value>0</value>
+      </enumMember>
+      <enumMember name="ACTIVE">
+	<description>EmergencyStatus goes from NEVER_USED to ACTIVE, the first time the node is emergency-unlocked. The licenses are open for the emergency state as described in the documentation about licensing. The maximum time in this state is 7 days. After expiry, EmergencyStatus goes to USE_DEGRADED. EmergencyStatus goes from ACTIVE to NEVER_USED when the LKF is installed with emergency unlock reset.</description>
+	<value>1</value>
+      </enumMember>
+      <enumMember name="USE_DEGRADED">
+	<description>EmergencyStatus goes to USE_DEGRADED from ACTIVE.
+All features and capacities are license-controlled in accordance with the installed LKF.
+
+EmergencyStatus remains in USE_DEGRADED until:
+an emergency unlock of the node and EmergencyStatus goes to ACTIVE_AGAIN or,
+an LKF is installed with an entry, emergency unlock reset. Then EmergencyStatus goes to NEVER_U
+SED.
+	</description>
+	<value>2</value>
+      </enumMember>
+      <enumMember name="ACTIVE_AGAIN">
+	<description>The EmergencyStatus goes from USE_DEGRADED to ACTIVE_AGAIN at emergency unlock of  the node. The licenses are open for the emergency state as described in the documentation about licensing. The maximum time in this state is 7 days. After expiry the EmergencyStatus goes from ACTIVE_AGAIN to USE_DISABLED. The EmergencyStatus goes from ACTIVE_AGAIN to NEVER_USED at installation of an emergency unlock reset LKF.</description>
+	<value>3</value>
+      </enumMember>
+      <enumMember name="USE_DISABLED">
+	<description>The EmergencyStatus goes to USE_DISABLED from ACTIVE_AGAIN.
+All features and capacities are license-controlled in accordance with the installed LKF.
+The node remains in USE_DISABLED until an LKF with the entry, emergency unlock reset, is installed. Then it goes to NEVER_USED.
+	</description>
+	<value>4</value>
+      </enumMember>
+    </enum>
+
+    <enum name="FeatureActivationState">
+      <enumMember name="DEACTIVATED">
+	<description>
+	</description>
+	<value>0</value>
+      </enumMember>
+
+      <enumMember name="ACTIVATED">
+	<description>
+	</description>
+	<value>1</value>
+      </enumMember>
+    </enum>
+
+    <enum name="LicenseState">
+      <enumMember name="DISABLED">
+	<description>
+	</description>
+	<value>0</value>
+      </enumMember>
+
+      <enumMember name="ENABLED">
+	<description>
+	</description>
+	<value>1</value>
+      </enumMember>
+    </enum>
+
+    <enum name="ServiceState">
+      <enumMember name="INOPERABLE">
+	<description>
+	</description>
+	<value>0</value>
+      </enumMember>
+
+      <enumMember name="OPERABLE">
+	<description>
+	</description>
+	<value>1</value>
+      </enumMember>
+    </enum>
+
+    <enum name="CapacityType">
+      <enumMember name="CAPACITY_LICENSE">
+	<description>
+	</description>
+	<value>0</value>
+      </enumMember>
+
+      <enumMember name="HWAC">
+	<description>
+	</description>
+	<value>1</value>
+      </enumMember>
+    </enum>
+
+    <enum name="LmGracePeriodState">
+      <enumMember name="INACTIVE">
+	<description>
+	</description>
+	<value>0</value>
+      </enumMember>
+
+      <enumMember name="ACTIVATED">
+	<description>
+	</description>
+	<value>1</value>
+      </enumMember>
+
+      <enumMember name="ACTIVATED_EXPIRING">
+	<description>
+	</description>
+	<value>2</value>
+      </enumMember>
+
+      <enumMember name="EXPIRED">
+	<description>
+	</description>
+	<value>3</value>
+      </enumMember>
+    </enum>
+
+    <struct name="EmergencyInfo">
+      <description>This attribute provides information about the current EmergencyState.
+
+For the states NEVER_USED and USE_DISABLED the return value for time is insignificant.
+      </description>
+      <structMember name="state">
+	<description>The current emergency state of the license server.</description>
+	<enumRef name="EmergencyStatus">
+	  <defaultValue>NEVER_USED</defaultValue>
+	  <mimName>Licensing</mimName>
+	</enumRef>
+      </structMember>
+      <structMember name="time">
+	<description>Indicates the remaining time in state ACTIVE or ACTIVE_AGAIN.
+
+The time out values for the states ACTIVE and ACTIVE_AGAIN is 7 days.
+
+The time out value is 0 when the state is NEVER_USED, USE_DEGRADED and USE_DISABLED.
+
+1 day = 86400 s
+7 days = 604800 s
+	</description>
+	<int32>
+	  <defaultValue>0</defaultValue>
+	  <unit>1 s</unit>
+	</int32>
+      </structMember>
+    </struct>
+
+    <struct name="CapacityData">
+      <description>
+      </description>
+      <structMember name="value">
+      <description>
+      </description>
+	<uint32>
+	</uint32>
+      </structMember>
+      <structMember name="noLimit">
+      <description>
+      </description>
+	<boolean>
+	</boolean>
+      </structMember>
+    </struct>
+
+    <struct name="GracePeriod">
+      <description>
+      </description>
+      <structMember name="isGracePeriodControlled">
+      <description>
+      </description>
+	<boolean>
+	</boolean>
+      </structMember>
+
+      <structMember name="gracePeriodState">
+      <description>
+      </description>
+	<enumRef name="LmGracePeriodState">
+	  <defaultValue>INACTIVE</defaultValue>
+	  <mimName>Licensing</mimName>
+	</enumRef>
+      </structMember>
+
+      <structMember name="gracePeriodTimeLeft">
+      <description>
+      </description>
+	<int32>
+	</int32>
+      </structMember>
+
+    </struct>
+
+    <class name="Licensing">
+      <description>Licensing
+
+This MO represents the Licensing (Software Keys) functions.
+
+This MO is created automatically and cannot be deleted.
+
+The RDN of this MO is Licensing=1.
+      </description>
+      <systemCreated/>
+      <attribute name="LicensingId">
+	<description>The value component of the RDN.
+
+It is set automatically when the MO instance is created.
+	</description>
+	<mandatory></mandatory>
+	<noNotification></noNotification>
+	<restricted></restricted>
+        <key/>
+	<dataType>
+	  <string></string>
+	</dataType>
+      </attribute>
+      <attribute name="userLabel">
+	<description>Label for free use.</description>
+	<dataType>
+	  <string>
+	    <lengthRange>
+	      <min>0</min>
+	      <max>128</max>
+	    </lengthRange>
+	    <defaultValue>""</defaultValue>
+	  </string>
+	</dataType>
+      </attribute>
+      <attribute name="emergencyStateInfo">
+	<description>Specifies information about the emergency status and the time remaining in the current state.
+
+If the node is in emergency state USE_DEGRADED or USE_DISABLED, the the value of the struct attribute time is insignificant.
+	</description>
+	<noNotification></noNotification>
+	<readOnly></readOnly>
+	<dataType>
+	  <structRef name="EmergencyInfo">
+	    <mimName>Licensing</mimName>
+	  </structRef>
+	</dataType>
+      </attribute>
+      <attribute name="licenseFileUrl">
+	<description>Indicates the URL to the License Key File if this is a licensed node.
+
+If the node is not licensed, an empty string is returned.
+	</description>
+	<noNotification></noNotification>
+	<readOnly></readOnly>
+	<dataType>
+	  <string>
+	    <lengthRange>
+	      <min>0</min>
+	      <max>256</max>
+	    </lengthRange>
+	    <defaultValue>""</defaultValue>
+	  </string>
+	</dataType>
+      </attribute>
+      <attribute name="fingerprint">
+	<description>The fingerprint of the node.</description>
+	<readOnly></readOnly>
+	<dataType>
+	  <string>
+	    <lengthRange>
+	      <min>0</min>
+	      <max>256</max>
+	    </lengthRange>
+	    <defaultValue>""</defaultValue>
+	  </string>
+	</dataType>
+      </attribute>
+      <attribute name="lastLicensingPiChange">
+	<description>Indicates the timestamp when the last licensing product information is changed. This is triggered by the action updateLicenseKeyFIle.
+	</description>
+	<readOnly></readOnly>
+	<dataType>
+	  <string></string>
+	</dataType>
+      </attribute>
+      <attribute name="licenseFileUrlIpv6">
+	<description>Indicates the IPv6 URL to the License Key File if this is a licensed node.
+
+If the node is not licensed, an empty string is returned.
+	</description>
+	<noNotification></noNotification>
+	<readOnly></readOnly>
+	<dataType>
+	  <string>
+	    <lengthRange>
+	      <min>0</min>
+	      <max>256</max>
+	    </lengthRange>
+	    <defaultValue>""</defaultValue>
+	  </string>
+	</dataType>
+      </attribute>
+      <action name="updateLicenseKeyFile">
+	<description>Sends a request to the FTP/SFTP server to update the license key file.</description>
+	<returnType>
+	  <void></void>
+	</returnType>
+	<parameter name="userId">
+	  <description>The user ID for login to FTP/SFTP server where license key files are located. If a NULL string userId is given, anonymous FTP/SFTP transfer is assumed.
+Max length is 32 characters.
+	  </description>
+	  <in></in>
+	  <dataType>
+	    <string></string>
+	  </dataType>
+	</parameter>
+	<parameter name="password">
+	  <description>The password for login to the FTP/SFTP server where license key files are located.
+Max length is 20 characters.
+	  </description>
+	  <in></in>
+	  <dataType>
+	    <string></string>
+	  </dataType>
+	</parameter>
+	<parameter name="ipAddress">
+	  <description>The IP address of the FTP/SFTP server where license key files are located.
+Max length is 16 characters.
+	  </description>
+	  <in></in>
+	  <dataType>
+	    <string></string>
+	  </dataType>
+	</parameter>
+	<parameter name="sFile">
+	  <description>Source name and path of the license key file on the FTP/SFTP server.
+Max length is 256 charcters.
+	  </description>
+	  <in></in>
+	  <dataType>
+	    <string></string>
+	  </dataType>
+	</parameter>
+	<transactionRequired>false</transactionRequired>
+      </action>
+      <action name="setEmergencyState">
+	<description>Sets the license server into emergency state, which opens up the licenses as described in the documentation about licensing.
+
+Disabling emergency state is done by loading a new license key file.
+	</description>
+	<returnType>
+	  <void></void>
+	</returnType>
+	<transactionRequired>false</transactionRequired>
+      </action>
+    </class>
+
+    <class name="CapacityFeature">
+      <description>
+      </description>
+      <attribute name="CapacityId">
+	<description>The value component of the RDN.
+
+It is set automatically when the MO instance is created.
+	</description>
+	<mandatory></mandatory>
+	<noNotification></noNotification>
+	<restricted></restricted>
+        <key/>
+	<dataType>
+	  <string></string>
+	</dataType>
+      </attribute>
+
+      <attribute name="capacityUnit">
+	<description></description>
+	<readOnly></readOnly>
+	<dataType>
+	  <string></string>
+	</dataType>
+      </attribute>
+
+      <attribute name="currentCapacityLimit">
+	<description></description>
+	<readOnly></readOnly>
+	<dataType>
+	  <structRef name="CapacityData">
+	    <mimName>Licensing</mimName>
+	  </structRef>
+	</dataType>
+      </attribute>
+
+      <attribute name="keyId">
+	<description></description>
+	<dataType>
+	  <string></string>
+	</dataType>
+      </attribute>
+
+      <attribute name="licensedCapacity">
+	<description></description>
+	<readOnly></readOnly>
+	<dataType>
+	  <structRef name="CapacityData">
+	    <mimName>Licensing</mimName>
+	  </structRef>
+	</dataType>
+      </attribute>
+
+      <attribute name="gracePeriod">
+	<description></description>
+	<dataType>
+	  <structRef name="GracePeriod">
+	    <mimName>Licensing</mimName>
+	  </structRef>
+	</dataType>
+      </attribute>
+
+      <attribute name="capacityType">
+	<description></description>
+	<readOnly></readOnly>
+	<dataType>
+	  <enumRef name="CapacityType">
+	    <defaultValue>CAPACITY_LICENSE</defaultValue>
+	    <mimName>Licensing</mimName>
+	  </enumRef>
+	</dataType>
+      </attribute>
+
+    </class>
+
+    <class name="OptionalFeature">
+      <description>
+      </description>
+      <systemCreated/>
+      <attribute name="FeatureId">
+	<description>The value component of the RDN.
+
+It is set automatically when the MO instance is created.
+	</description>
+	<mandatory></mandatory>
+	<noNotification></noNotification>
+	<restricted></restricted>
+        <key/>
+	<dataType>
+	  <string></string>
+	</dataType>
+      </attribute>
+
+      <attribute name="featureState">
+	<description></description>
+	<dataType>
+	  <enumRef name="FeatureActivationState">
+	    <defaultValue>DEACTIVATED</defaultValue>
+	    <mimName>Licensing</mimName>
+	  </enumRef>
+	</dataType>
+      </attribute>
+
+      <attribute name="licenseState">
+	<description></description>
+        <nonPersistent/>
+	<readOnly></readOnly>
+	<dataType>
+	  <enumRef name="LicenseState">
+	    <mimName>Licensing</mimName>
+	  </enumRef>
+	</dataType>
+      </attribute>
+
+      <attribute name="serviceState">
+	<description></description>
+        <nonPersistent/>
+	<readOnly></readOnly>
+	<dataType>
+	  <enumRef name="ServiceState">
+	    <mimName>Licensing</mimName>
+	  </enumRef>
+	</dataType>
+      </attribute>
+
+      <attribute name="keyId">
+	<description></description>
+	<readOnly></readOnly>
+	<dataType>
+	  <string></string>
+	</dataType>
+      </attribute>
+
+      <attribute name="featureInstanceRef">
+	<description></description>
+	<readOnly></readOnly>
+	<dataType>
+	  <string></string>
+	</dataType>
+      </attribute>
+
+    </class>
+
+   <relationship name="Licensing_to_CapacityFeature">
+      <containment>
+        <parent>
+          <hasClass name="Licensing">
+            <mimName>Licensing</mimName>
+          </hasClass>
+        </parent>
+        <child>
+          <hasClass name="CapacityFeature">
+            <mimName>Licensing</mimName>
+          </hasClass>
+          <cardinality>
+            <min>0</min>
+          </cardinality>
+        </child>
+      </containment>
+    </relationship>
+
+   <relationship name="Licensing_to_OptionalFeature">
+      <containment>
+        <parent>
+          <hasClass name="Licensing">
+            <mimName>Licensing</mimName>
+          </hasClass>
+        </parent>
+        <child>
+          <hasClass name="OptionalFeature">
+            <mimName>Licensing</mimName>
+          </hasClass>
+          <cardinality>
+            <min>0</min>
+          </cardinality>
+        </child>
+      </containment>
+    </relationship>
+
+  </mim>
+</models>

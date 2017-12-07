@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <title>AutoIntegration - help</title>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <!-- Brand Assets styles -->
+    <link href="./css/systemBar.css" rel="stylesheet" type="text/css"/> 
+    <link href="./css/assets.css" rel="stylesheet" type="text/css"/>
+
+    <!-- App specific styles -->
+    <link href="ai.css" rel="stylesheet" type="text/css"/>
+
+  </head>
+
+  <body onload="init()">
+
+    <script type="text/javascript">
+function closeWindow() {
+  window.close();
+}
+
+function init() {
+  client = new XMLHttpRequest();
+  client.open('GET', 'nl_version_ai.txt?ms=' + new Date().getTime());
+  client.onreadystatechange = function() {
+    if ((client.readyState == 4) && (client.status == "200"))
+    {
+      document.getElementById("version").innerHTML = "Autointegration done from Network Loader version: " + client.responseText;
+    }
+  }
+    client.send();
+}
+    </script>
+
+    <div id="TopMenu">
+      <div class="ebSystemBar">
+	<div class="ebSystemBar-logo"></div>
+	<div class="ebSystemBar-topMenuName">AutoIntegration</div>
+      </div>
+    </div>
+
+    <button title="Closes this window/tab"
+	    class="ebIcon ebIcon_close ebIcon_interactive eb_wMargin" onclick="closeWindow()"></button>
+
+    <div id="Container">
+      <div class="ebLayout">
+      
+	<div class="ebLayout-AppHeading">
+	  <h2>AutoIntegration</h2>
+	  <p id="version"><p>
+
+          <p>
+	    AutoIntegration user interface is used to perform a node integration.<br>
+	    Semi-auto integration is performed in two steps. <br>
+            First step is to start downloading site installation file by pressing "Download files" button.<br>
+	    Second step is to start the integration by pressing the "Integrate" button.<br>
+	    The download and integration procedure can be monitored in the AutoIntegration log area.<br>
+	    A started download or integration procedure can be cancelled by pressing "Cancel" button.<br>
+	    The AutoIntegration log can be exported by pressing "Export AutoIntegration log" button.
+	  </p>
+
+	</div>
+      </div>
+      
+  </body>
+</html>

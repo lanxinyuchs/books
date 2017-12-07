@@ -1,0 +1,3 @@
+APP = bld.rcsErlApp("hwc", enable_cxc = False, cxaid="192", cxcid="131", )
+
+bld.install_files(bld.getBldtime("hwc"), 'xml/HW_compatibility.xml')

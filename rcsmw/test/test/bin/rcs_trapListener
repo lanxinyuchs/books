@@ -1,0 +1,255 @@
+#! /bin/bash
+##
+## %CCaseFile:	rcs_trapListener %
+## %CCaseRev:	/main/R6A/R9A/1 %
+## %CCaseDate:	2017-03-08 %
+## Author: <name>, <e-mail address>
+##
+## Purpose: Start an SNMP trap listener.
+##
+## Dependencies: net-snmp
+##
+## %CCaseCopyrightBegin%
+## Copyright (c) Ericsson AB 2016 All rights reserved.
+##
+## The information in this document is the property of Ericsson.
+##
+## Except as specifically authorized in writing by Ericsson, the
+## receiver of this document shall keep the information contained
+## herein confidential and shall protect the same in whole or in
+## part from disclosure and dissemination to third parties.
+##
+## Disclosure and disseminations to the receivers employees shall
+## only be made on a strict need to know basis.
+## %CCaseCopyrightEnd%
+##
+## ----------------------------------------------------------------------
+##
+## Revision history:
+##
+## Rev        Date       Name        What
+## -----      -------    --------    ------------------------------------
+## R6A/1      2016-05-19 erarafo     First version
+## R6A/2      2016-05-20 erarafo     Some SNMP V3 support added
+## R9A/1      2017-03-08 etxpeno     Support for ERICSSON-DISCOVERY-MIB and
+##                                   ERICSSON-CHANGEIPADDRESS-MIB
+## ----------------------------------------------------------------------
+
+
+declare -r Script=rcs_trapListener
+declare -r ScriptDir=`dirname $0`
+
+
+function die() {
+  printf "$Script: FATAL: $1\n" >&2
+  exit 1
+}
+
+function warning() {
+  printf "$Script: WARNING: $1\n" >&2
+}
+
+function info() {
+  printf "$Script: INFO: $1\n" >&2
+}
+
+
+########################################################################
+# Execution begins here
+
+declare OptionPatterns=""
+OptionPatterns+="h"
+OptionPatterns+="p:"
+OptionPatterns+="o:"
+OptionPatterns+="e:"
+OptionPatterns+="s"
+OptionPatterns+="V:"
+OptionPatterns+="v"
+OptionPatterns+="D:"
+OptionPatterns+="E:"
+OptionPatterns+="u:"
+OptionPatterns+="A:"
+OptionPatterns+="P:"
+
+
+function help() {
+  cat <<EOF
+Usage is: $Script [Options]
+Options are:
+  -h            this help
+  -p PORT       listen for traps on specified PORT
+  -o FILE       output to FILE (default is standard output)
+  -e DIR        use Ericsson mibs from specified directory
+  -s            try to use Ericsson mibs from a simulator file tree
+  -D TOKENS     turn on debugging for given tokens
+  -E ENGINE_ID  provide engine ID (hex string, spaces allowed)
+  -u USER       provide username (SNMP V3 only)
+  -A AUTH_KEY   provide authorization key (cleartext string, SNMP V3 only)
+  -P PRIV_KEY   provide privilege key (cleartext string, SNMP V3 only)
+  -v            verbose
+
+For setting up SNMP V3 reception use '-D usm'. The "engine ID" should
+be reported, which can then be used for the -E option.
+EOF
+}
+
+declare Port=""
+declare OutFile=""
+declare EricssonMibs=""
+declare UseSimulatorMibs=false
+declare Verbose=false
+declare ExtraOpts=""
+declare EngineId=""
+declare SnmpV3User=""
+declare AuthKey=""
+declare PrivKey=""
+while getopts $OptionPatterns OPT; do
+  case "$OPT" in
+    h)
+      help
+      exit;;
+    p)
+     Port="$OPTARG";;
+    o)
+     OutFile="$OPTARG";;
+    e)
+     EricssonMibs=$OPTARG;;
+    s)
+     UseSimulatorMibs=true;;
+    v)
+     Verbose=true;;
+    D)
+     ExtraOpts+=" -D$OPTARG";;
+    E)
+     EngineId="$OPTARG";;
+    u)
+     SnmpV3User=$OPTARG;;
+    A)
+     AuthKey=$OPTARG;;
+    P)
+     PrivKey=$OPTARG;;
+    *)
+      die "Unknown option, try -h for help"
+  esac
+done
+
+shift $((OPTIND - 1))
+
+
+if [[ $# -gt 0 ]]; then
+  die "arguments not accepted, -h for help"
+fi
+
+
+if [[ -z "$Port" ]]; then
+  die "no port specified, -h for help"
+fi
+
+
+if [[ -z "$OutFile" ]]; then
+  info "output file not specified, using standard output"
+elif ! /bin/echo -n "" 2>/dev/null >>"$OutFile"; then
+  die "cannot write: $OutFile"
+else
+  OutFile=`readlink -f "$OutFile"`
+fi
+
+info "writing to file: $OutFile"
+
+
+if [[ -n "$EricssonMibs" && ! -d "$EricssonMibs" ]]; then
+  die "not a directory: $EricssonMibs"
+fi
+
+
+# Use simulator mibfiles if present
+if [[ $UseSimulatorMibs == true ]]; then
+  if [[ -n "$EricssonMibs" ]]; then
+    die "options -s and -e are mutually exclusive, -h for help"
+  elif [[ ! -d /local/scratch/$USER/RCS_ROOT/software ]]; then
+    die "not a directory: /local/scratch/$USER/RCS_ROOT/software, cannot use simulator mibs"
+  else
+    cd /local/scratch/$USER/RCS_ROOT/software
+    EricssonMibs=`find . -type d -path '*/com-*/*' -path '*/opt/*' ! -path '*/tgt_i686_32/*' -name mibs | sed -e 's|^\./||'`
+    if [[ `find $EricssonMibs -maxdepth 1 -type f | wc --lines` -eq 0 ]]; then
+      die "no files in directory: $EricssonMibs; try reinstalling the simulator"
+    fi
+  fi
+fi
+
+
+if [[ -z "$EricssonMibs" ]]; then
+  warning "no Ericsson mibs directory specified, consider using -s or -e, try -h for help"
+fi
+
+
+# Basic SNMP mibfiles
+declare -r BasicMibs=`net-snmp-config --default-mibdirs`
+
+
+if netstat --udp --listening --numeric | sed -e 's|....................||' | grep ".*:$Port" >/dev/null; then
+  die "port $Port seems to be in use"
+fi
+
+info "Using Ericsson mibs: '$EricssonMibs'"
+info "Using basic mibs: '$BasicMibs'"
+
+
+if [[ -z "$OutFile" ]]; then
+  declare -r LogDest=o
+  declare -r LogDestination="standard output"
+else
+  declare -r LogDest=f$OutFile
+  declare -r LogDestination=$OutFile
+fi
+
+info "starting snmptrapd using port $Port and logging to $LogDestination; type Ctrl-C to stop"
+
+if [[ -n "$SnmpV3User" && -n "$EngineId" ]]; then
+  declare -r EngineIdCanonical=`echo $EngineId | tr -d ' ' | tr 'ABCDEF' 'abcdef'`
+  SNMP_PERSISTENT_FILE=/dev/null snmptrapd \
+	  $ExtraOpts \
+          -C \
+	  -t \
+	  -n \
+	  -f \
+	  -A \
+	  -L$LogDest \
+	  -Of \
+	  -OS \
+	  -F 'trap from: %b%v\n' \
+	  -M $EricssonMibs:$BasicMibs \
+	  -m ERICSSON-TOP-MIB:ERICSSON-ALARM-MIB:ERICSSON-DISCOVERY-MIB:ERICSSON-CHANGEIPADDRESS-MIB \
+	  --snmpTrapdAddr=$Port \
+	  --authUser="log $SnmpV3User" \
+          --createUser="-e 0x$EngineIdCanonical $SnmpV3User MD5 $AuthKey DES $PrivKey"
+elif [[ -n "$SnmpV3User" ]]; then
+  if [[ $Verbose == true ]]; then
+    info "executing: SNMP_PERSISTENT_FILE=/dev/null snmptrapd -C $ExtraOpts -t -n -f -Lo --snmpTrapdAddr=$Port --createUser='blumenthal MD5 $AuthKey DES $PrivKey'"
+  fi
+  SNMP_PERSISTENT_FILE=/dev/null snmptrapd \
+    $ExtraOpts \
+    -C \
+    -t \
+    -n \
+    -f \
+    -Lo \
+    --snmpTrapdAddr=$Port \
+    --createUser="blumenthal MD5 $AuthKey DES $PrivKey"
+else
+  SNMP_PERSISTENT_FILE=/dev/null snmptrapd \
+	  $ExtraOpts \
+          -C \
+	  -t \
+	  -n \
+	  -f \
+	  -A \
+	  -L$LogDest \
+	  -Of \
+	  -OS \
+	  -F 'trap from: %b%v\n' \
+	  -M $EricssonMibs:$BasicMibs \
+	  -m ERICSSON-TOP-MIB:ERICSSON-ALARM-MIB:ERICSSON-DISCOVERY-MIB:ERICSSON-CHANGEIPADDRESS-MIB \
+	  --snmpTrapdAddr=$Port \
+	  --disableAuthorization=yes
+fi

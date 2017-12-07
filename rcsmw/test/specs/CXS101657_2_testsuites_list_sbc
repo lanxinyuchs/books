@@ -1,0 +1,121 @@
+## ----------------------------------------------------------
+## #1.    REVISION LOG
+## ----------------------------------------------------------
+## Rev        Date         Name        What
+## --------   --------     --------    ------------------------
+## -          2016-04-08   etxjovp     Created
+##################################################################################################################################################################
+# TIME         execution time in seconds
+# TARGET       label for Jenkins .dus4101, :tcu03, :dus5201:dus3201, :sim ....
+# CONFIG       label for Jenkins :no or :ru ...
+# UPGRADE      " " or upgrade or upgrade:short or upgrade:onlyupgrade or upgrade:short:onlyupgrade
+# TEST SUITE   line to be written into the testspec
+#
+#TIME |TARGET |CONFIG |UPGRADE | TEST SUITE
+##################################################################################################################################################################
+100 |:rcf|:no |:upgrade |{cases, "ALH/test/suites", avli_c_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "test/test/suites/CM", cm_basic_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "test/test/suites/CM", cm_cli_testclass1_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "test/test/suites/CM", cm_safc_basic_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "test/test/suites/COM", com_avc_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "COMSA/test/suites", com_sysm_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "COMSA/test/suites", com_top_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "test/test/suites/COMSA", cli_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{groups, "COI/test/suites", coi_SUITE, cloud}.
+100 |:rcf|:no |:upgrade |{cases, "EQS/test/suites", pri_c_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "EQS/test/suites", vii_c_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "GMF/test/suites", cmsi_c_SUITE, [all]}.
+#100 |:rcf|:no |:upgrade |{groups, "LIH/test/suites", lici_c_SUITE, group_lici_c_1}.
+#100 |:rcf|:no |:upgrade |{groups, "LIH/test/suites", lici_erlang_SUITE, group_lici_erl_1}.
+#100 |:rcf|:no |:upgrade |{cases, "LMA/test/suites", lma_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "LOG/test/suites", log_app_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "LOG/test/suites", log_esi_SUITE, [all]}.
+#100 |:rcf|:no |:upgrade |{cases, "LOG/test/suites", log_sec_event_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "SYS/test/suites", oei_c_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "PMS/test/suites", pms2_com2_basic_sc_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "PMS/test/suites", pms2_com2_err_sc_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "PMS/test/suites", pms2_com2_ext_sc_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "PMS/test/suites", pms2_com2_flex_basic_sc_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "PMS/test/suites", pms2_flex_rop_basic_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "PMS/test/suites", pms2_job_basic_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "PMS/test/suites", pms2_job_ext_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "PMS/test/suites", pms2_job_update_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "PMS/test/suites", pms2_job_update_multi_app_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "PMS/test/suites", pms2_multi_job_update_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "PMS/test/suites", pms2_rop_app_del_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "PMS/test/suites", pms2_rop_basic_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "PMS/test/suites", pms2_rop_ff_pmi2_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "PMS/test/suites", pms2_rop_ff_pmi_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "PMS/test/suites", pms2_rop_file_handling_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "PMS/test/suites", pms2_rop_job_stop_2_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "PMS/test/suites", pms2_rop_job_stop_3_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "PMS/test/suites", pms2_rop_job_stop_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "PMS/test/suites", pms2_rop_mixed_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "PMS/test/suites", pms2_rop_mixed_frag_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "PMS/test/suites", pms2_rop_rm_add_mr_1_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "PMS/test/suites", pms2_rop_rm_add_mr_2_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "PMS/test/suites", pms2_rop_rm_add_mr_3_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "PMS/test/suites", pms2_rop_rm_add_mr_4_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "PMS/test/suites", pms2_rop_rm_add_mr_5_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "PMS/test/suites", pms2_rop_rm_add_mr_6_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "PMS/test/suites", pms2_rop_rm_add_mr_7_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "PMS/test/suites", pms2_rop_rm_add_mr_8_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "PMS/test/suites", pms2_rop_susp_1_pmi2_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "PMS/test/suites", pms2_rop_uc_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "PMS/test/suites", pms_capabilities_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "PMS/test/suites", pms_erl_api_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "PMS/test/suites", pms_job_basic_2_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "PMS/test/suites", pms_job_basic_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "PMS/test/suites", pms_job_ext_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "PMS/test/suites", pms_job_oss_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "PMS/test/suites", pms_job_update_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "PMS/test/suites", pms_job_update_multi_app_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "PMS/test/suites", pms_misc_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "PMS/test/suites", pms_multi_job_update_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "PMS/test/suites", pms_rop_basic_1_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "PMS/test/suites", pms_rop_basic_2_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "PMS/test/suites", pms_rop_ext_1_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "PMS/test/suites", pms_rop_ext_2_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "PMS/test/suites", pms_rop_rm_add_mr_1_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "PMS/test/suites", pms_rop_rm_add_mr_2_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "PMS/test/suites", pms_rop_rm_add_mr_3_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "PMS/test/suites", pms_rop_rm_add_mr_4_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "PMS/test/suites", pms_rop_rm_add_mr_5_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "PMS/test/suites", pms_rop_rm_add_mr_6_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "PMS/test/suites", pms_rop_rm_add_mr_7_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "PMS/test/suites", pms_rop_rm_add_mr_8_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "PMS/test/suites", pms_rop_rp30_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "PMS/test/suites", pms_rop_susp_1_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "PMS/test/suites", pms_rop_susp_2_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "PMS/test/suites", pms_sc_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "PMS/test/suites", pms_sftp_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "PES/test/suites", pes_job_basic_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "PES/test/suites", pes_job_err_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "PES/test/suites", pes_misc_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "PES/test/suites", pes_pei_api_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "test/test/suites/SAF", ntf_alarm_via_ift_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "test/test/suites/SAF", saf_log_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "test/test/suites/SAF", safs_imm_oi_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "SWM/test/suites", swm_backup_SUITE, [all]}.
+#100 |:rcf|:no |:upgrade |{cases, "SWM/test/suites", swm_scheduled_backup_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "OMC/test/suites", omc_tbac_rbac_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "test/test/suites/WEB", web_SUITE, [all]}.
+#100 |:rcf|:no |:upgrade |{cases, "LMA/test/suites", lihi_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "EQS/test/suites", buti_c_SUITE, [all]}.
+#100 |:rcf|:no |:upgrade |{cases, "APPM/test/suites", lmhi_c_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{groups, "SWM/test/suites", swm_failsafe_backup_SUITE, group_1}.
+100 |:rcf|:no |:upgrade |{groups, "SWM/test/suites", swm_failsafe_backup_SUITE, group_2}.
+100 |:rcf|:no |:upgrade |{groups, "SWM/test/suites", swm_scheduled_backup_SUITE, schedule}.
+100 |:rcf|:no |:upgrade |{groups, "SWM/test/suites", swm_scheduled_backup_SUITE, autoexport}.
+#100 |:rcf|:no |:upgrade |{cases, "OOT/test/suites", oot_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "SYS/test/suites", sys_fi_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "LOG/test/suites", log_alarm_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "CLH/test/suites", chi_c_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{cases, "CLH/test/suites", csi_c_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{groups, "test/test/suites/install", basic_tests_SUITE, group_basic_tests }.
+### Temporary removed 2017-03-29 because there is some error with test case. / erahent
+#100 |:rcf|:no |:upgrade |{cases, "TIM/test/suites", tzii_c_SUITE, [all]}.
+#100 |:rcf|:no |:upgrade |{groups, "CCH/test/suites", cci_c_suite, cci_sim_test_group}.
+#100 |:rcf|:no |:upgrade |{cases, "ECOLI/test/suites", fruacc_SUITE, [all]}.
+#100 |:rcf|:no |:upgrade |{cases, "ECOLI/test/suites", fruacc_ru_SUITE, [all]}.
+100 |:rcf|:no |:upgrade |{groups, "VNFC/test/suites/", vnfcs_SUITE, ci_tests}.

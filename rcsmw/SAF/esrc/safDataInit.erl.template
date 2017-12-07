@@ -1,0 +1,170 @@
+%-% Comments like this is part of the template instructions and should
+%-% be removed in the real code file.
+%-% xxx stands for the block prefix and is to be changed to the real name.
+%-%
+%%% #0.    BASIC INFORMATION
+%%% ----------------------------------------------------------
+%%% %CCaseFile:	safDataInit.erl.template %
+%%% Author:	etxbjca
+%%% Description: Data initialization functions used at system installation and
+%%%              software upgrade.
+%%% Modules used:    
+%%%
+%%% ----------------------------------------------------------
+-module(xxxDataInit).
+-behaviour(rcmMnesia). % This ensures that the mandatory callbacks are present
+-id('Updated by CCase').
+-vsn('/main/R2A/1').
+-date('2013-01-11').
+-author('etxbjca').
+%%% ----------------------------------------------------------
+%%% %CCaseTemplateFile:	xxxDataInit.erl %
+%%% %CCaseTemplateId: CCver: /main/2 %
+%%%
+%%% %CCaseCopyrightBegin%
+%%% Copyright (c) Ericsson AB 2013 All rights reserved.
+%%% 
+%%% The information in this document is the property of Ericsson.
+%%% 
+%%% Except as specifically authorized in writing by Ericsson, the 
+%%% receiver of this document shall keep the information contained 
+%%% herein confidential and shall protect the same in whole or in 
+%%% part from disclosure and dissemination to third parties.
+%%% 
+%%% Disclosure and disseminations to the receivers employees shall 
+%%% only be made on a strict need to know basis.
+%%% %CCaseCopyrightEnd%
+%%%
+%%% ----------------------------------------------------------
+%%% #1.    REVISION LOG
+%%% ----------------------------------------------------------
+%%% Rev        Date       Name        What
+%%% -----      -------    --------    ------------------------
+%%% R2A/1      2013-01-11   etxbjca     Created
+%%% ----------------------------------------------------------
+%%% 
+%%% #2.    EXPORT LISTS
+%%% ----------------------------------------------------------
+%%% #2.1   EXPORTED INTERFACE FUNCTIONS
+%%% ----------------------------------------------------------
+
+%-% Mandatory functions that must be implemented.
+-export([init_tables/0,
+	 init_data/0,
+	 post_init/0]).
+
+%-% Optional application upgrade function
+%-% Remove following line if not used.
+%-export([upgrade_init/0]).
+
+%%% ----------------------------------------------------------
+%%% #2.2   EXPORTED INTERNAL FUNCTIONS
+%%% ----------------------------------------------------------
+%-export([internal_function1/2]).
+%%%-export([internal_function2/3]).
+
+%-include("xxxTemplate.hrl").
+
+%%% #3.    CODE
+%%% #---------------------------------------------------------
+%%% #3.1   CODE FOR EXPORTED INTERFACE FUNCTIONS
+%%% #---------------------------------------------------------
+
+%%% ----------------------------------------------------------
+%%% -type init_tables()->                                   %#
+%%%     ok                                                  %#
+%%% Input:                                             
+%%% Output: 
+%%% Exceptions: 
+%%% Description: Create the Mnesia tables needed for XXX.
+%%% ----------------------------------------------------------
+init_tables()->
+    ok.
+
+%-% EXAMPLE CODE:
+%-% -------------
+%-% init_tables()->
+%-%     DbNodes = mnesia:system_info(db_nodes),
+%-%     {atomic, ok} = mnesia:create_table(xxxDataTable,
+%-%                                        [{type, set},
+%-%				            {disc_copies, DbNodes}, 
+%-%				            {attributes, [key, value]}])),
+%-%     ok.
+
+%%% ----------------------------------------------------------
+%%% -type init_data()->                                     %#
+%%%     ok                                                  %#
+%%% Input: 
+%%% Output: 
+%%% Exceptions: 
+%%% Description: Initiate Mnesia data tables for XXX.
+%%% ----------------------------------------------------------
+init_data()->
+    ok.
+
+%-% EXAMPLE CODE:
+%-% -------------
+%-% init_data()->
+%-%     mnesia:dirty_write(#xxxDataTable{key=1, value=example1}),
+%-%     ok.	
+
+%%% ----------------------------------------------------------
+%%% -type post_init()->                                     %#
+%%%     ok                                                  %#
+%%% Input: 
+%%% Output: 
+%%% Exceptions: 
+%%% Description: Register things for XXX that require init_data phase
+%%%              to have been done.
+%%% ----------------------------------------------------------
+post_init()->
+     ok.
+
+%%% ----------------------------------------------------------
+%%% -type upgrade_init()->                                  %#
+%%%     ok                                                  %#
+%%% Input: Type: atom() 
+%%%        OldVersion: string()
+%%% Output: 
+%%% Exceptions: 
+%%% Description: Application code change for XXX.
+%%% ----------------------------------------------------------
+%upgrade_init()->
+%    ok.
+
+%-% EXAMPLE CODE:
+%-% -------------
+%-% upgrade_init()->
+%-%     merge_data_from_old_node(),
+%-%     ok.
+
+%%% #---------------------------------------------------------
+%%% #3.2   CODE FOR EXPORTED INTERNAL FUNCTIONS
+%%% #---------------------------------------------------------
+
+%%% ----------------------------------------------------------
+%%% #           internal_function1(One, Two)
+%%% Input: 
+%%% Output: 
+%%% Exceptions: 
+%%% Description: 
+%%% ----------------------------------------------------------
+%internal_function1(One, Two)->
+%   nnn.
+
+%%% #---------------------------------------------------------
+%%% #3.3   CODE FOR INTERNAL FUNCTIONS
+%%% #---------------------------------------------------------
+
+%%% ----------------------------------------------------------
+%%% #           even_more_internal_function1(One, Two)
+%%% Input: 
+%%% Output: 
+%%% Exceptions: 
+%%% Description: 
+%%% ----------------------------------------------------------
+%even_more_internal_function1(One, Two)->
+%   nnn.
+
+%%% #4     CODE FOR TEMPORARY CORRECTIONS
+%%% #---------------------------------------------------------

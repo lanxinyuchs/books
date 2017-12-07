@@ -1,0 +1,2 @@
+{excl_mods,[logAppData,logDataInit, logExtHandler, logExtServer, logDbg]}.
+{expected_coverage , 40 }.

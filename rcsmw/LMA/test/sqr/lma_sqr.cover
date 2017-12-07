@@ -1,0 +1,2 @@
+{excl_mods,[lmaDataInit]}.
+{expected_coverage , 50 }.

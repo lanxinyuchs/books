@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!--
+# ========================================================== 
+# %CCaseFile:	pmEventProducer.xsd % 
+# %CCaseRev:	/main/R3A/5 % 
+# %CCaseDate:	2014-11-10 % 
+#                                                            
+# Author:	etxjotj
+# Description:	XML schema definition for PM event filters
+#                                                            
+# ========================================================== 
+#                                                            
+# %CCaseCopyrightBegin%
+# Copyright (c) Ericsson AB 2014 All rights reserved.
+# 
+# The information in this document is the property of Ericsson.
+# 
+# Except as specifically authorized in writing by Ericsson, the 
+# receiver of this document shall keep the information contained 
+# herein confidential and shall protect the same in whole or in 
+# part from disclosure and dissemination to third parties.
+# 
+# Disclosure and disseminations to the receivers employees shall 
+# only be made on a strict need to know basis.
+# %CCaseCopyrightEnd%
+#                                                            
+# ========================================================== 
+# REVISION LOG 
+# ========================================================== 
+#                                                            
+# Rev        Date       Name        What 
+# ========   ========== ========    ======================== 
+# R3A/1      2014-10-31 etxjotj     Created
+# ========================================================== 
+#
+-->
+                                                           
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="appdata" type="RcsPmepType"/>
+
+  <xs:complexType name="RcsPmepType">
+    <xs:sequence>
+      <xs:element name="eventProducer" type="EventProducerType"
+		  minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="target" type="TargetType" use="required"/>
+  </xs:complexType>
+
+
+  <xs:simpleType name="TargetType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="pmEventProducer" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="EventProducerType">
+    <xs:sequence>
+      <xs:element name="eventProducerId"  type="xs:string"
+		  minOccurs="1" maxOccurs="1" />
+      <xs:element name="streamingCapabilities" type="StreamingCapabilities"
+		  minOccurs="0" maxOccurs="1" />
+      <xs:element name="filePullCapabilities" type="FilePullCapabilities"
+		  minOccurs="0" maxOccurs="1" />
+      <xs:element name="eventCapabilities" type="EventCapabilities"
+		  minOccurs="1" maxOccurs="1" />
+    </xs:sequence>
+  </xs:complexType>
+
+
+
+  <xs:complexType name="StreamingCapabilities">
+    <xs:sequence>
+      <xs:element name="streamCapabilitiesId"  type="xs:string"
+		  minOccurs="1" maxOccurs="1" />
+      <xs:element name="supportedCompressionTypes" type="CompressionTypes" 
+		  minOccurs="0" maxOccurs="2"/>
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:simpleType name="CompressionTypes">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="GZIP"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+
+
+  <xs:complexType name="FilePullCapabilities">
+    <xs:sequence>
+      <xs:element name="filePullCapabilitiesId"  type="xs:string"
+		  minOccurs="1" maxOccurs="1" />
+      <xs:element name="alignedReportingPeriod" type="xs:boolean"
+		  minOccurs="1" maxOccurs="1" />
+      <xs:element name="finalROP" type="xs:boolean"
+		  minOccurs="1" maxOccurs="1" />
+      <xs:element name="outputDirectory" type="xs:string"
+		  minOccurs="1" maxOccurs="1" />
+      <xs:element name="supportedCompressionTypes" type="CompressionTypes"
+		  minOccurs="0" maxOccurs="2" />
+      <xs:element name="supportedReportingPeriods" type="TimePeriod"
+		  minOccurs="1" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+  
+
+    
+  <xs:complexType name="EventCapabilities">
+    <xs:sequence>
+      <xs:element name="eventCapabilitiesId"  type="xs:string"
+		  minOccurs="1" maxOccurs="1" />
+      <xs:element name="maxNoOfJobs" type="xs:string" 
+		  minOccurs="0" maxOccurs="1"/>
+    </xs:sequence>
+  </xs:complexType>
+  
+
+
+  <xs:simpleType name="TimePeriod">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="ONE_MIN" />
+      <xs:enumeration value="FIVE_MIN" />
+      <xs:enumeration value="FIFTEEN_MIN" />
+      <xs:enumeration value="THIRTY_MIN" />
+      <xs:enumeration value="ONE_HOUR" />
+      <xs:enumeration value="TWELVE_HOUR" />
+      <xs:enumeration value="ONE_DAY" />
+      <xs:enumeration value="TEN_SECONDS" />
+      <xs:enumeration value="THIRTY_SECONDS" />
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

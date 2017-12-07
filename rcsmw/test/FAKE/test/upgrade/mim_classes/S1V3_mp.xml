@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Copyright (c) 2015 Ericsson AB. 
+	All rights reserved 
+
+	DX ECIM Tool-chain generated this file on Apr 27, 2015 9:46:00 AM using:
+	* com.ericsson.ecim.m2m 2.12.0.201410170020
+	* com.ericsson.ecim.dsl 2.12.0.201410170020
+	* com.ericsson.ecim.edm 2.12.0.201410170020
+--><!DOCTYPE models SYSTEM "mp.dtd">
+<models>
+  <dtdVersion>G</dtdVersion>
+  <momMetaData>
+    <momTitle>title</momTitle>
+    <momSubTitle>sub title</momSubTitle>
+    <momIdentity>
+      <docNum>0</docNum>
+      <docLang>English</docLang>
+      <docRev>0</docRev>
+      <docDate>date</docDate>
+    </momIdentity>
+  </momMetaData>
+  <mim author="" contact="" correction="0" date="" docNo="" name="S1V3" namespace="urn:com:ericsson:ecim:S1V3" namespacePrefix="s1v3" organization="" release="1" revision="" version="1">
+    <description>_</description>
+    <domainExtension domain="ECIM">
+      <extension name="immNamespace" value="MOM_NAME"/>
+    </domainExtension>
+    <class name="RootS1V3">
+      <description>_</description>
+      <root/>
+      <attribute name="rootS1V3Id">
+        <description>_</description>
+        <mandatory/>
+        <noNotification/>
+        <restricted/>
+        <key/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+    </class>
+    <class name="AlphaS1V3">
+      <description>_</description>
+      <attribute name="alphaS1V3Id">
+        <description>_</description>
+        <mandatory/>
+        <noNotification/>
+        <restricted/>
+        <key/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="alphaA">
+        <description>_</description>
+        <mandatory/>
+        <dataType>
+          <int32/>
+        </dataType>
+      </attribute>
+    </class>
+    <class name="Coe">
+      <description>A persistent runtime class.</description>
+      <attribute name="coeId">
+        <description>_</description>
+        <mandatory/>
+        <noNotification/>
+        <restricted/>
+        <key/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="shoeSize">
+        <description>_</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <readOnly/>
+        <isNillable/>
+        <dataType>
+          <uint32/>
+        </dataType>
+      </attribute>
+    </class>
+    <relationship name="RootS1V3_to_AlphaS1V3">
+      <containment>
+        <parent>
+          <hasClass name="RootS1V3">
+            <mimName>S1V3</mimName>
+          </hasClass>
+        </parent>
+        <child>
+          <hasClass name="AlphaS1V3">
+            <mimName>S1V3</mimName>
+          </hasClass>
+          <cardinality>
+            <min>0</min>
+          </cardinality>
+        </child>
+      </containment>
+    </relationship>
+    <relationship name="RootS1V3_to_Coe">
+      <containment>
+        <parent>
+          <hasClass name="RootS1V3">
+            <mimName>S1V3</mimName>
+          </hasClass>
+        </parent>
+        <child>
+          <hasClass name="Coe">
+            <mimName>S1V3</mimName>
+          </hasClass>
+          <cardinality>
+            <min>0</min>
+          </cardinality>
+        </child>
+      </containment>
+    </relationship>
+  </mim>
+  <interMim>
+    <relationship name="ManagedElement_to_RootS1V3">
+      <domainExtension domain="CoreMW">
+        <extension name="splitImmDn" value="true"/>
+      </domainExtension>
+      <containment>
+        <parent>
+          <hasClass name="ManagedElement">
+            <mimName>ECIM_Top</mimName>
+          </hasClass>
+        </parent>
+        <child>
+          <hasClass name="RootS1V3">
+            <mimName>S1V3</mimName>
+          </hasClass>
+          <cardinality>
+            <min>1</min>
+            <max>1</max>
+          </cardinality>
+        </child>
+      </containment>
+    </relationship>
+  </interMim>
+</models>

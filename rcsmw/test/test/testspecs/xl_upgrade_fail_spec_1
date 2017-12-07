@@ -1,0 +1,27 @@
+%%%-----------------------------------------------------------------------------
+%%% @author etxivri
+%%% @copyright Ericsson AB 2013-2015
+%%% @doc
+%%%
+%%% @end
+%%% Created :  13 Dec 2013 by ETXIVRI
+%%%-----------------------------------------------------------------------------
+
+%%------------------------------------------------------------------------------
+%%       -- 
+%%
+%%------------------------------------------------------------------------------
+      {merge_tests, false}.
+      {define, 'Top', ".."}.
+      {define, 'T1', "'Top'/suites/SWM"}.
+      {cases, 'T1', swm_max_allowed_ups_SUITE, [all]}.
+      {cases, 'T1', swm_create_fail_SUITE, [all]}.
+      {cases, 'T1', swm_create_fail_u4_SUITE, [all]}.
+      {cases, 'T1', swm_prepare_fail_SUITE, [all]}.
+      {cases, 'T1', swm_prepare_fail_p6_SUITE, [all]}.
+      {cases, 'T1', swm_prepare_fail_p7_SUITE, [all]}.
+      {cases, 'T1', swm_verify_fail_v2_SUITE, [all]}.
+      {cases, 'T1', swm_activate_fail_a12_SUITE, [all]}.
+      {cases, 'T1', swm_commit_fail_c6_SUITE, [all]}.
+      {cases, 'T1', swm_commit_cease_fbs_alarm_c5_SUITE, [all]}.
+%%      {cases, "../suites/install",fetch_esi_SUITE , [all]}.

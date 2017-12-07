@@ -1,0 +1,7 @@
+erl  = bld.path.ant_glob("esrc/*.erl")
+
+bld(source=erl,
+# TODO: the OTP/tgt might not be correct place to take the SAFE from. 
+includes=['../../../OTP/tgt_i686_32/lib/'])
+
+bld.install_files('saf-rpc/ebin', [f.change_ext('.beam') for f in erl])

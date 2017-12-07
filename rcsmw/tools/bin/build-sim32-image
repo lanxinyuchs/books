@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+source ${MODULESHOME-/app/modules/0}/init/bash
+
+module use /app/rbs/modules
+module use /app/rbs/cs/modules
+module use ${TOPDIR}/modules
+module add makevm sim32
+
+in=$1
+out=$2
+indir=`dirname ${in}`
+infile=`basename ${in}`
+
+# add image configuration script to "source" 
+cp -f ${TOPDIR}/tools/rcs-sim-setup.sh ${indir}
+
+# create the bootable SIM32 VM image.
+( cd ${indir} && exec sim32-g2ee_make_vm.sh -U ${infile} -i -o ${out} )

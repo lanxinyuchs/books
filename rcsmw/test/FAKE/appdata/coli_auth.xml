@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!--
+# ========================================================== 
+# %CCaseFile:	coli_auth.xml % 
+# %CCaseRev:	/main/R4A/1 % 
+# %CCaseDate:	2015-07-31 % 
+#                                                            
+# Author:	etxpejn
+# Description:	CAX appdata file   
+#                                                            
+# ========================================================== 
+#                                                            
+# %CCaseCopyrightBegin%
+# Copyright (c) Ericsson AB 2014-2015 All rights reserved.
+# 
+# The information in this document is the property of Ericsson.
+# 
+# Except as specifically authorized in writing by Ericsson, the 
+# receiver of this document shall keep the information contained 
+# herein confidential and shall protect the same in whole or in 
+# part from disclosure and dissemination to third parties.
+# 
+# Disclosure and disseminations to the receivers employees shall 
+# only be made on a strict need to know basis.
+# %CCaseCopyrightEnd%
+#                                                            
+# ========================================================== 
+# REVISION LOG 
+# ========================================================== 
+#                                                            
+# Rev        Date       Name        What 
+# ========   ========   ========    ======================== 
+# R4A/1      20150730   uabesvi     created
+# ========================================================== 
+#
+-->                                                         
+
+<!-- COLI authorization -->
+<appdata target="coli_auth">
+
+
+<!-- ========= DU TEST COLI CMDS ======================= -->
+
+  <coli_authorization
+      cli_name = "stina"
+      cli_path = "/dabrowsky"
+      authorization = "expert"/>
+  
+  <coli_authorization
+      cli_name = "gunhild"
+      cli_path = "/dabrowsky"
+      authorization = "expert"/>
+
+  
+<!-- ========= RU TEST COLI CMDS ======================= -->
+
+  <coli_authorization
+      cli_name = "sven"
+      cli_path = "/wollter"
+      authorization = "expert"/>
+  
+  <coli_authorization
+      cli_name = "justus"
+      cli_path = "/wollter"
+      authorization = "expert"/>
+  
+  <coli_authorization
+      cli_name = "fredrik"
+      cli_path = "/wollter"
+      authorization = "expert"/>
+
+
+
+  <coli_authorization
+      cli_name = "lena"
+      cli_path = "/nyman"
+      authorization = "expert"/>
+  
+  <coli_authorization
+      cli_name = "anna"
+      cli_path = "/nyman"
+      authorization = "expert"/>
+  
+  <coli_authorization
+      cli_name = "elisabet"
+      cli_path = "/nyman"
+      authorization = "expert"/>
+
+
+
+<!-- ========= XMU TEST COLI CMDS ======================= -->
+
+  <coli_authorization
+      cli_name = "rolf"
+      cli_path = "/lassgaard"
+      authorization = "expert"/>
+  
+  
+</appdata>

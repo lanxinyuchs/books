@@ -1,0 +1,29 @@
+%% -*- erlang -*-
+%%%-----------------------------------------------------------------------------
+%%% @author etxivri
+%%% @copyright Ericsson AB 2014-2017
+%%% @doc
+%%%
+%%% @end
+%%% Created :  13 Dec 2013 by ETXIVRI
+%%%-----------------------------------------------------------------------------
+
+%%------------------------------------------------------------------------------
+%%       -- 
+%%
+%%------------------------------------------------------------------------------
+      {merge_tests, false}.
+      {define, 'Top', ".."}.
+      {define, 'T1', "'Top'/suites/SWM"}.
+      {define, 'T2', "'Top'/suites/install"}.
+
+%      {groups, 'T1', swm_rob_all_restore_loop_SUITE, short_group_1}.
+      {groups, 'T1', swm_rob_all_restore_loop_SUITE, group_1}.
+
+%      {groups, 'T1', swm_rob_all_remove_loop_SUITE, short_group_1}.
+      {groups, 'T1', swm_rob_all_remove_loop_SUITE, group_1}.
+
+%      {groups, 'T1', swm_rob_all_loop_SUITE, short_group_1}.
+      {groups, 'T1', swm_rob_all_loop_SUITE, group_1}.
+
+      {cases, 'T2',fetch_esi_SUITE , [all]}.

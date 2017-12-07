@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!--
+# ========================================================== 
+# %CCaseFile:	pmEvent.xsd % 
+# %CCaseRev:	/main/R3A/6 % 
+# %CCaseDate:	2014-11-10 % 
+#                                                            
+# Author:	etxjotj
+# Description:	XML schema definition for alarm registrations
+#                                                            
+# ========================================================== 
+#                                                            
+# %CCaseCopyrightBegin%
+# Copyright (c) Ericsson AB 2014 All rights reserved.
+# 
+# The information in this document is the property of Ericsson.
+# 
+# Except as specifically authorized in writing by Ericsson, the 
+# receiver of this document shall keep the information contained 
+# herein confidential and shall protect the same in whole or in 
+# part from disclosure and dissemination to third parties.
+# 
+# Disclosure and disseminations to the receivers employees shall 
+# only be made on a strict need to know basis.
+# %CCaseCopyrightEnd%
+#                                                            
+# ========================================================== 
+# REVISION LOG 
+# ========================================================== 
+#                                                            
+# Rev        Date       Name        What 
+# ========   ========== ========    ======================== 
+# R3A/1      2014-10-31 etxjotj     Created
+# ========================================================== 
+#
+-->
+                                                           
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+
+  <xs:element name="appdata" type="RcsPmeType"/>
+
+
+  <xs:complexType name="RcsPmeType">
+    <xs:sequence>
+      <xs:element name="eventGroup" type="EventGroupType"
+		  minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="target" type="PmeType" use="required"/>
+  </xs:complexType>
+
+
+  <xs:simpleType name="PmeType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="pmEvent" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="EventGroupType">
+    <xs:sequence>
+      <xs:element name="eventGroupId"  type="xs:string"
+		  minOccurs="1" maxOccurs="1" />
+      <xs:element name="description"   type="xs:string"
+		  minOccurs="0" maxOccurs="1" />
+      <xs:element name="moClass"       type="MoClassType"
+		  minOccurs="0" maxOccurs="1" />
+      <xs:element name="validFilters"  type="xs:string"
+		  minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="eventType"     type="EventTypeType"
+		  minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="eventProducer" type="xs:string"
+		  minOccurs="1" maxOccurs="1" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="MoClassType">
+    <xs:sequence>
+      <xs:element name="mimName"     type="xs:string"/>
+      <xs:element name="moClassName" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:complexType name="EventTypeType">
+    <xs:sequence>
+      <xs:element name="eventTypeId" type="xs:string"
+		  minOccurs="1" maxOccurs="1" />
+      <xs:element name="triggerDescription" type="xs:string"
+		  minOccurs="0" maxOccurs="1" />
+    </xs:sequence>
+  </xs:complexType>
+
+</xs:schema>

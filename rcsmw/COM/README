@@ -1,0 +1,34 @@
+##########################################################
+# Need to build COM on SLES 11 type of Linux hub  #
+# since Jenkins slave machines are of that type!         #
+#                                                        #
+# RCSCI1 functional user is currently only one           #
+# with write permissions to /proj/5G_rcs/3pp!            #
+##########################################################
+
+# To check Linux host type use next command:            
+lsb_release -d
+
+#For example we have built COM com-6.0.2-1 on server 8488
+ssh -X rcsci1@esekilxv8488
+
+# Clone the repo
+cd /repo/rcsci1/
+git clone ssh://gerritmirror-ha.rnd.ki.sw.ericsson.se:29418/rcsmw/rcsmw
+cd rcsmw
+
+# Start new shell process to reset environment setup
+bash
+
+TOPDIR=`pwd`
+
+# Clean existing COM 3pp repository if already cloned
+rm -rf $TOPDIR/COM/com-main*
+
+# Build COM
+$TOPDIR/COM/update.sh
+
+# Check the build results, sym links should point on new COM release
+ls -la COM/tgt_i686_32
+
+# DONE!

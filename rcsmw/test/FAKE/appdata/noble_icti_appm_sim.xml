@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+# ==========================================================
+# %CCaseFile:	noble_icti_appm_i386.xml %
+# %CCaseRev:	/main/R2A/R3A/R5A/R12A/1 %
+# %CCaseDate:	2017-10-26 %
+#
+# Author:	erarafo
+# Description:  Metadata of executables and a shared library. The
+#               executables perform MO conversions at upgrade. This
+#               file is for ARM exclusively.
+#
+# ==========================================================
+#
+# %CCaseCopyrightBegin%
+# Copyright (c) Ericsson AB 2014-2017 All rights reserved.
+# 
+# The information in this document is the property of Ericsson.
+# 
+# Except as specifically authorized in writing by Ericsson, the 
+# receiver of this document shall keep the information contained 
+# herein confidential and shall protect the same in whole or in 
+# part from disclosure and dissemination to third parties.
+# 
+# Disclosure and disseminations to the receivers employees shall 
+# only be made on a strict need to know basis.
+# %CCaseCopyrightEnd%
+#
+# ==========================================================
+# REVISION LOG
+# ==========================================================
+#
+# Rev        Date         Name        What
+# ========   ==========   ========    ========================
+# R2A/1      2014-01-30   erarafo     First version.
+# R2A/2      2014-03-19   erarafo     Corrected 'id' attribute
+# R2A/3      2014-03-29   erarafo     Added noble_icti_dyn
+# R3A/1      2014-10-30   erarafo     Added noble_upi
+# R12A/1     2017-10-26 etxarnu     Updates for git 
+
+
+
+# ==========================================================
+-->
+<appdata target="appm">
+  <loadmodule tag="central" name="noble_icti" id="CAX2010001_1" rev="R1A1" date="2014-01-30T10:30:00">
+    <file type="i386" relpath="*/fake-*/priv/tgt_i686/bin/noble_icti"/>
+  </loadmodule>
+  <loadmodule tag="dynamic" name="noble_icti_dyn" id="CAX2010001_1" rev="R1A1" date="2014-03-29T09:30:00">
+    <file type="i386" relpath="*/fake-*/priv/tgt_i686/bin/noble_icti_dyn"/>
+  </loadmodule>
+  <loadmodule tag="upi" name="noble_upi" id="CAX2010001_1" rev="R1A1" date="2014-10-30T15:30:00">
+    <file type="i386" relpath="*/fake-*/priv/tgt_i686/bin/noble_upi"/>
+  </loadmodule>
+</appdata>

@@ -1,0 +1,67 @@
+<!--
+# ========================================================== 
+# %CCaseFile:	appm_alarm.xml % 
+# %CCaseRev:	/main/R2A/R3A/R8A/1 % 
+# %CCaseDate:	2016-12-08 % 
+#                                                            
+# Author:	etxxarnu
+# Description:  Alarm registrations file
+#                                                            
+# ========================================================== 
+#                                                            
+# %CCaseCopyrightBegin%
+# Copyright (c) Ericsson AB 2014-2016 All rights reserved.
+# 
+# The information in this document is the property of Ericsson.
+# 
+# Except as specifically authorized in writing by Ericsson, the 
+# receiver of this document shall keep the information contained 
+# herein confidential and shall protect the same in whole or in 
+# part from disclosure and dissemination to third parties.
+# 
+# Disclosure and disseminations to the receivers employees shall 
+# only be made on a strict need to know basis.
+# %CCaseCopyrightEnd%
+#                                                            
+# ========================================================== 
+# REVISION LOG 
+# ========================================================== 
+#                                                            
+# Rev        Date         Name        What 
+# ========   ========     ========    ======================== 
+# R2A/1      2014-03-04   etxarnu     Created
+# R2A/2      2014-03-21   etxarnu     Added FruGeneralProblem
+#                                     and corrected some other parts
+# R2A/3      2014-04-23   etxarnu     Renamed FruGeneralProblem to
+#                                     SystemGeneralProblem
+# R2A/4      2014-06-26   etxarnu     Added config fault to SystemGeneralProblem
+# R2A/5      2014-06-26   etxarnu     Added config fault to SystemGeneralProblem
+# R3A/1      2015-04-10   etxarnu     HT65401: Spelling mistake: occured -> occurred
+# R8A/1      2016-12-08   etxjotj     Updated after MOM forum text edit
+# ========================================================== 
+#
+# 
+-->                                                         
+
+<appdata target="alarm">
+  <alarmtype
+      name="RollbackEscalationStarted"
+      majorType="193"
+      minorType="9175066"
+      moClasses="SysM"
+      specificProblem="Rollback Escalation Started"
+      eventType="PROCESSINGERRORALARM"
+      probableCause="348"
+      isStateful="true"
+      additionalText="Software error occured. Rollback to previous backup starts in one hour unless operator logs into ME."/>
+  <alarmtype
+      name="SystemGeneralProblem"
+      majorType="193"
+      minorType="9175067"
+      moClasses="SystemFunctions"
+      specificProblem="System General Problem"
+      eventType="PROCESSINGERRORALARM"
+      probableCause="348"
+      isStateful="true"
+      additionalText="This is a non-recoverable SW error, a HWfault not detectable by HW test, or a configuration fault."/>
+</appdata>

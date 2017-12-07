@@ -1,0 +1,7 @@
+#!/bin/sh
+RCS_SIM_ROOT=${RCS_SIM_ROOT:-/local/scratch/$USER/RCS_ROOT}
+PIPE_DIR=${PIPE_DIR:-${RCS_SIM_ROOT}/tmp}
+SNAME=${SNAME:-$USER}
+toProc=`pgrep -u ${USER} -fl "to_erl" | grep ${RCS_SIM_ROOT} | awk '{ print $1 }'`	
+kill -9 ${toProc} 2> /dev/null
+to_erl ${PIPE_DIR}/${SNAME}@`hostname`/

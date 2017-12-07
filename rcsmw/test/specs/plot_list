@@ -1,0 +1,34 @@
+## ----------------------------------------------------------
+## Copyright (c) Ericsson AB 2012 - 2014 All rights reserved.
+##
+## The information in this document is the property of Ericsson.
+##
+## Except as specifically authorized in writing by Ericsson, the
+## receiver of this document shall keep the information contained
+## herein confidential and shall protect the same in whole or in
+## part from disclosure and dissemination to third parties.
+##
+## Disclosure and disseminations to the receivers employees shall
+## only be made on a strict need to know basis.
+## ----------------------------------------------------------
+## #1.    REVISION LOG
+## ----------------------------------------------------------
+## Rev        Date         Name        What
+## --------   --------     --------    ------------------------
+## -          2014-02-10   etxjovp     Created
+## -          2015-03-04   etxjovp     Remove plot for DUW and DUS41
+## -          2015-09-02   etxjovp     Added plot for TCU04
+##################################################################################################################################################################
+#TEST SUITE 	JENKINS JOB 	PLOT STATE 
+##################################################################################################################################################################
+swm_SUITE dus5101 config_long_dus_upgrade_spec_2_plot :SUCCESS:UNSTABLE:
+#
+measure_restart_SUITE dus5101 config_long_dus_spec_3_plot :SUCCESS:UNSTABLE:
+measure_restart_SUITE tcu04 config_long_tcu_spec_3_plot :SUCCESS:UNSTABLE:
+#
+measure_memory_imm_oi_SUITE dus5101 config_xl_mem_check_1hour_imm_oi_spec_dus41_plot :SUCCESS:UNSTABLE:
+#
+measure_memory_saf_ntf_SUITE dus5101 config_xl_mem_check_1hour_ntf_spec_dus41_plot :SUCCESS:UNSTABLE:
+#
+xl_install_SUITE tcu04 config_xl_multi_install_10hours_spec_tcu03_plot    :SUCCESS:UNSTABLE:FAILED:
+xl_install_SUITE dus5201 config_xl_multi_install_10hours_spec_dus52_plot  :SUCCESS:UNSTABLE:FAILED:

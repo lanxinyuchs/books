@@ -1,0 +1,105 @@
+heat_template_version: '2014-10-16'
+
+description: >
+  HOT template to create a standalone E-NFVO instance
+
+parameters:
+  server_name:
+    type: string
+    description: E-NFVO server name
+    default: enfvo
+
+  image:
+    type: string
+    description: image name to use.
+
+  flavor:
+    type: string
+    description: flavor for E-NFVO
+    default: VRCS
+
+  infra_network:
+    type: string
+    description: The network for the VM
+    default: om_ran
+
+  nfs_volume_size:
+    type: number
+    description: The size of the volume
+    default: 10
+    constraints:
+      - range: { min: 1, max: 1024 }
+        description: must be between 1 and 1024 Gb.
+
+  volume_mountpoint:
+    type: string
+    description: The location where the volume is exposed on the instance.
+    default: /dev/vdc
+
+  boot_cmds:
+    type: string
+    description: The initilization boot command, connect multiple lines with &&
+    default: echo 'VNFM init done'
+
+
+resources:
+  boot_config:
+    type: OS::Heat::CloudConfig
+    properties:
+      cloud_config:
+        bootcmd:
+          - { get_param: boot_cmds}
+
+        write_files:
+          - path: /root/nfvo.cfg
+            owner: "root:root"
+            permissions: '0744'
+            content: |
+              # NFVO HTTP server URL, type, and API version
+              nfvo_http_url: 
+              nfvo_type: 
+              nfvo_version: '0'
+              nfvo_to_vnfm_port: 0
+          - path: /root/storage.cfg
+            owner: "root:root"
+            permissions: '0744'
+            content:
+              str_replace:
+                template: |
+                  $storage_id
+                params:
+                  $storage_id: { get_resource: nfs_volume }
+
+
+  enfvo:
+    type: OS::Nova::Server
+    properties:
+      name: { get_param: server_name }
+      config_drive: True
+      image: { get_param: image }
+      flavor: { get_param: flavor }
+      networks:
+        - port: { get_resource: eth0 }
+      user_data_format: RAW
+      user_data: { get_resource: boot_config }
+
+  nfs_volume:
+    type: OS::Cinder::Volume
+    properties:
+      size: { get_param: nfs_volume_size }
+
+  nfs_volume_attachment:
+    type: OS::Cinder::VolumeAttachment
+    properties:
+      volume_id: { get_resource: nfs_volume }
+      instance_uuid: { get_resource: enfvo }
+
+  eth0:
+    type: OS::Neutron::Port
+    properties:
+      network: { get_param: infra_network }
+
+outputs:
+  enfvo_infra_ip:
+    description: Public IP address of the newly created enfvo instance on infra_network.
+    value: { get_attr: [eth0, fixed_ips] }

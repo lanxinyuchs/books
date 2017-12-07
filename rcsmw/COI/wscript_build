@@ -1,0 +1,2 @@
+APP = bld.rcsErlApp("coi", ["../COM/ext_include/model"], cxaid="186", cxcid="131", )
+bld(features=['edoc'], source = 'esrc/coi.erl', install_path=bld.getBldtime('coi')+"/edoc")

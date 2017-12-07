@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!--
+# ==========================================================
+# %CCaseFile:	log.xsd %
+# %CCaseRev:	/main/R1A/R2A/R5A/R9A/1 %
+# %CCaseDate:	2017-02-08 %
+#
+# Author:	erarafo
+# Description:	XML schema definition for log registrations
+#
+# ==========================================================
+#
+# %CCaseCopyrightBegin%
+# Copyright (c) Ericsson AB 2012-2017 All rights reserved.
+# 
+# The information in this document is the property of Ericsson.
+# 
+# Except as specifically authorized in writing by Ericsson, the 
+# receiver of this document shall keep the information contained 
+# herein confidential and shall protect the same in whole or in 
+# part from disclosure and dissemination to third parties.
+# 
+# Disclosure and disseminations to the receivers employees shall 
+# only be made on a strict need to know basis.
+# %CCaseCopyrightEnd%
+#
+# ==========================================================
+# REVISION LOG
+# ==========================================================
+#
+# Rev        Date       Name        What
+# ========   ========== ========    ========================
+# R1A/1      2012-02-15 etxjotj     Created
+# R1A/2      2012-11-01 etxjotj     Changed to rotatingSegments
+# R5A/1      2016-02-19 erarafo     Aligned with IWD
+# ==========================================================
+#
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="appdata" type="RcsDataType"/>
+
+  <!-- require at least one 'log' element -->
+  <xs:complexType name="RcsDataType">
+    <xs:sequence>
+      <xs:element name="log" type="LogType"
+                  minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="target" type="LogTargetType" use="required"/>
+  </xs:complexType>
+
+  <!-- require target="log" attribute in 'appdata' -->
+  <xs:simpleType name="LogTargetType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="log"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- attributes in 'log' element; all optional except for 'name' -->
+  <xs:complexType name="LogType">
+    <xs:attribute name="name" type="LogNameType" use="required"/>
+    <xs:attribute name="maxSize" type="xs:positiveInteger"/>
+    <xs:attribute name="rotatingSegments" type="Unsigned3To256Type"/>
+    <xs:attribute name="recordSize" type="Unsigned3To256Type"/>
+  </xs:complexType>
+
+  <!-- 'name' must be non-empty -->
+  <xs:simpleType name="LogNameType">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- 'rotatingSegments' value in range 3..256 -->
+  <xs:simpleType name="Unsigned3To256Type">
+    <xs:restriction base="xs:positiveInteger">
+      <xs:minInclusive value="3"/>
+      <xs:maxInclusive value="256"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>

@@ -1,0 +1,15 @@
+%% -*- erlang -*-
+
+%%%-----------------------------------------------------------------------------
+%%% @author uabesvi
+%%% @copyright Ericsson AB 2014-2016
+%%% @doc
+%%%
+%%% @end
+%%% Created :  11 Jun 2014 by ETXPENO
+%%%-----------------------------------------------------------------------------
+
+{define, 'Top', "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/ECOLI/ECOLI_CNX9013069/test/suites"}.
+
+{cases, 'Top', fruacc_SUITE, [all]}.
+{cases, 'Top', fruacc_ru_SUITE, [all]}.

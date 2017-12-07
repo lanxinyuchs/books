@@ -1,0 +1,22 @@
+%%%-----------------------------------------------------------------------------
+%%% @author etxivri
+%%% @copyright Ericsson AB 2014
+%%% @doc
+%%%
+%%% @end
+%%% Created :  13 Dec 2013 by ETXIVRI
+%%%-----------------------------------------------------------------------------
+
+%%------------------------------------------------------------------------------
+%%       -- 
+%%
+%%------------------------------------------------------------------------------
+      {define, 'Top', ".."}.
+      {define, 'T1', "'Top'/suites/SWM"}.
+
+%      {groups, 'T1', swm_rob_all_restore_loop_SUITE, group_1}.
+      {groups, 'T1', swm_rob_all_restore_loop_SUITE, short_group_1}.
+      {groups, 'T1', swm_rob_all_restore_loop_SUITE, group_2}.  
+
+%      {groups, 'T1', swm_rob_all_loop_SUITE, group_1}.
+       {groups, 'T1', swm_rob_all_loop_SUITE, short_group_1}.

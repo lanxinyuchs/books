@@ -1,0 +1,225 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+# Print basic usage information
+#
+
+print_usage () {
+    echo "Usage: $(basename $0) [ --clean ] [ --version <version> ] <artifact>..."
+    echo "       $(basename $0) --cleanall"
+    echo " Build and package the given aritfacts and store them in the \"out\" directory"
+    echo "Options:"
+    echo "  --clean:    clean the artifact so that it will be rebuilt"
+    echo "  --cleanall: clean all artifacts that they will be rebuilt"
+    echo "  --help:     show this help"
+    echo "  --man-page: display the man page"
+    echo "  --version:  version to give built artifacts"
+}
+
+# Declared variables
+
+args=''
+clean=''
+cleanall=''
+
+
+# Print arguments to stderr and exit with a non-zero value
+# param: text to print
+die() {
+    echo "$@" 1>&2
+    exit 1
+}
+
+# Parse options
+#
+
+handle_options () {
+
+    # Program options
+    GETOPT=$(getopt --options 'hm' --long clean,cleanall,help,man-page,version: -n $0 -- "$@")
+
+    if [[ $? != 0 ]] ; then echo "Error parsing arguments." >&2 ; exit 1 ; fi
+
+    eval set -- "$GETOPT"
+
+    while true ; do
+        case "$1" in
+          --cleanall) cleanall=1;;
+          --clean)    clean=1;;
+          --help)     print_usage; exit ;;
+          --man-page) print_man_page; exit ;;
+          --version)  shift; version=$1;;
+          --) shift ; break ;;
+          *) echo "Internal error!" ; exit 1 ;;
+        esac
+        shift
+    done
+
+    # $@ is local since we are in a function. Copy it to the global variable.
+    args="$@"
+}
+
+# Build the *RCS-ALL product
+# param 1: artifact (section) in delivery.config
+build_rcs_all () {
+    local artifact=$1
+    local number=$(cicd get-id $artifact)
+    [[ $number ]] || die $artifact: Error: failed to retrieve the product number
+
+    cd ${CICDSYS_OUTDIR}
+    if [[ -e $number ]]; then
+        rm -rf $number
+    fi
+    mkdir -p $number
+    cd $number
+
+    # Download the baseline-metadata.config file from the given Jenkins job
+    files="baseline-metadata.config"
+
+    for file in $files; do
+        if [[ ${BUILD_TAG-} ]]; then
+            wget --no-verbose ${UPSTREAM_BUILD_URL}/artifact/$file
+        else
+            echo wget --no-verbose \${UPSTREAM_BUILD_URL}/artifact/$file
+            touch $file
+        fi
+    done
+
+    if [[ ${BUILD_TAG-} ]]; then
+        local version=$(rstatef_ci --project $PROJECT --track $TRACK $number)
+    else
+        local version=P1A01
+    fi
+
+    cp -f baseline-metadata.config $CICDSYS_BASELINE_CONFIG_FILE
+    echo -e "[$artifact]\nversion = $version" >> $CICDSYS_BASELINE_CONFIG_FILE
+
+    generate-delivery-xml $artifact
+
+    tar cvzf ${CICDSYS_OUTDIR}/$(cicd get-file-name $artifact) *
+    cd ..
+    rm -rf ${number}
+
+    generate-prs-metadata $artifact
+}
+
+# Main program.
+
+main () {
+
+    if [[ $cleanall ]]; then
+        # Clean all artifacts to force rebuild
+        echo Cleaning all
+        exec git clean -xfd
+    fi
+
+    if [[ $clean ]]; then
+        # Clean the given artifacts. There is only one artifact to
+        # clean at the moment.
+        echo Cleaning "$@"
+        [[ ${CICDSYS_OUTDIR-} ]] || die "Error: CICDSYS_OUTDIR is not set"
+        exec git clean -xdf ${CICDSYS_OUTDIR}
+    fi
+
+    # Build the given artifacts
+
+    set -x
+
+    cd $(readlink -f $(dirname ${BASH_SOURCE[0]}))
+    cd $(git rev-parse --show-toplevel)
+    mkdir -p ${CICDSYS_OUTDIR}
+
+    for artifact in "$@"; do
+        case $artifact in
+            vrcs-all)
+                build_rcs_all vrcs-all
+                ;;
+            msrcs-all)
+                build_rcs_all msrcs-all
+                ;;
+            *)
+                echo $artifact: Error: product not configured for building;;
+        esac
+    done
+}
+
+
+######################################################################
+### Man page should be the last part in the file
+
+print_man_page () {
+    if [[ ! $PAGER ]]; then
+        export PAGER=less
+    fi
+
+    if perldoc -l Term::ANSIColor > /dev/null 2>&1; then
+        color=--color
+    fi
+
+    ( pod2text --loose $color - <<EOPOD
+
+=head1 NAME
+
+$(basename $0) - build product
+
+=head1 SYNOPSIS
+
+$(basename $0) [ B<--clean> ] [ --version I<version> ] I<artifact>
+
+$(basename $0) B<--cleanall>
+
+$(basename $0) { B<--help> | B<--man-page> }
+
+=head1 DESCRIPTION
+
+Build or clean the given product. After a build is complete, the artifact is
+expected to be packaged and stored in the C<$CICDSYS_OUTDIR> dirctory, which
+is set to "out" in the repo top, by default. If I<version> is given then
+the artifact should be built with that version. Whether version will be
+provided or not, depends on the general configuration of the build process.
+
+The purpose of the B<--clean> and B<--cleanall> options are to support force
+rebuilds. Thus data must be removed in a way that the artifact(s) are forcibly
+rebuilt. Note that cleaning should only clean artifacts, not build them -
+cleaning and building will be separate calls to this program.
+
+=head1 OPTIONS
+
+=over 4
+
+=item B<--clean>
+
+Clean data so that the given products are forcibly rebuilt
+
+=item B<--cleanall>
+
+Clean data so that all products are forcibly rebuilt
+
+=item B<--help>
+
+Print short help text
+
+=item B<--man-page>
+
+Show this man page
+
+=item B<--version> I<version>
+
+Set the version for the built products
+
+=back
+
+=head1 SEE ALSO
+
+-
+
+EOPOD
+  ) | $PAGER
+}
+
+# The sole purpose of the calls below is to allow the man page to stay at the end
+# of the file
+
+handle_options "$@"
+main $args

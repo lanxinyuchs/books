@@ -1,0 +1,16 @@
+%% -*- erlang -*-
+
+%%%-----------------------------------------------------------------------------
+%%% @author etxberb
+%%% @copyright Ericsson AB 2015
+%%% @doc
+%%%
+%%% @end
+%%% Created : 04 Feb 2015 by ETXBERB
+%%%-----------------------------------------------------------------------------
+
+{define, 'RCS_TOP', "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266"}.
+{define, 'Coi', "'RCS_TOP'/COI/COI_CNX9013375"}.
+{define, 'T1', "'Coi'/test/suites"}.
+
+{groups, 'T1', coi_SUITE, delivery_test_sim}.  

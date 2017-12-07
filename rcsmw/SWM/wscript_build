@@ -1,0 +1,5 @@
+APP = bld.rcsErlApp("swm", ["model", "../COM/ext_include/model"], cxaid="201", cxcid="131", appdataroot="swm", )
+
+bld.install_files("${PREFIX}/"+APP+"/priv/bin/", ['esrc/swm_sudo.sh'], chmod=0755)
+bld.install_files("${PREFIX}/"+APP+"/priv",
+   bld.path.ant_glob("appdata/*"), relative_trick=True)

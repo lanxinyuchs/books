@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?><!-- 
+  Copyright (c) 2012 Ericsson AB.
+  All rights reserved
+
+  DX ECIM Tool-chain generated this file on Sep 28, 2012 2:32:10 PM using 
+    * coremw.m2m (2.2.0.201204021557)
+    * coremw.m2t (2.2.0.201204021557)
+    * coremw.dsl (2.2.0.201204021557)
+    * coremw.imm (2.2.0.201204021557)
+--><imm:IMM-contents xmlns:imm="http://www.saforum.org/IMMSchema" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.saforum.org/IMMSchema SAI-AIS-IMM-XSD-A.01.01.xsd">
+    <class name="Transport">
+        <category>SA_CONFIG</category>
+        <rdn>
+            <name>transportId</name>
+            <type>SA_STRING_T</type>
+            <category>SA_CONFIG</category>
+            <flag>SA_INITIALIZED</flag>
+        </rdn>
+    </class>
+</imm:IMM-contents>

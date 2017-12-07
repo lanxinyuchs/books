@@ -1,0 +1,8 @@
+### stable_label defines which Jenkins jobs that must be green for to job to be marked as stable 
+stable_label:test_activity_sbc_CXS101657_2.new_state test_activity_sbc_CXS101665_3_CXS101657_2.new_state
+#### track defines the budit --track option when delivering to node CI
+track:main
+### text string translation for the web presentation
+translation:test_activity_sbc_CXS101657_2:SBC RCF
+translation:test_activity_sbc_CXS101665_3_CXS101657_2:SBC RCF BPU
+

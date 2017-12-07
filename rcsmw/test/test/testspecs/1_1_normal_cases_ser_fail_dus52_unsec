@@ -1,0 +1,48 @@
+%%% -*- erlang -*-
+%%%-----------------------------------------------------------------------------
+%%% @author etxmlar
+%%% @copyright Ericsson AB 2016
+%%% @doc
+%%%
+%%% @end
+%%% Created : 
+%%%-----------------------------------------------------------------------------
+
+%%------------------------------------------------------------------------------
+%%  R5A/1      2016-05-25   etxmlar     Created
+%%  R5A/2      2016-05-25   etxmlar     Updated and checked in
+%%  R5A/3      2016-05-31   etxmlar     Updated and checked in
+%%------------------------------------------------------------------------------
+%%{define, 'Base', "../suites/install"}.
+
+{merge_tests, false}.
+{define, 'Top', ".."}.
+{define, 'T1', "'Top'/suites/install"}.
+{define, 'T2', "'Top'/suites/NL"}.
+
+%%{cases,  'Base', basic_tests_SUITE, [all]}.
+{cases, 'T1', basic_tests_SUITE, [cli,coli,nc_get_config,nc_get,ee_processes,power_cycle,cli,coli,nc_get_config,nc_get,ee_processes,reboot,cli,coli,nc_get_config,nc_get,ee_processes]}.
+
+%% Old normal testcases for semi ai integration 
+{groups, 'T2', nl_ai_actions_SUITE, [all_actions]}.
+{groups, 'T2', nl_ai_actions_SUITE, [hard_factory_reset]}.
+
+%% Old normal testcase for warehouse integration
+{cases, 'T2', ai_gui_test_SUITE, [c_5_2]}.
+
+%% Normal testcases for LMT integration, on-site configuration:
+%% Both without and with local file (unsing browse button) 
+{cases, 'T2', lmt_integration_on_site_conf_SUITE, [all]}.
+
+%% Normal testcases for ZT integration, off-site pre-configuration:
+%% Both without and with local file (unsing browse button) 
+{cases, 'T2', zt_integration_off_site_pre_conf_SUITE, [all]}.
+
+%% Normal testcases for LM integration both Ipv4 and Ipv6 trusted with local file (using browse button)
+{cases, 'T2', lmt_integration_trusted_ipv4_SUITE, [all]}.
+{cases, 'T2', lmt_integration_trusted_ipv6_SUITE, [all]}.
+
+%% Normal testcases for LM integration Ipv4 untrusted with local file (using browse button)
+{cases, 'T2', lmt_integration_untrusted_ipv4_SUITE, [all]}. 
+
+%%Normal testcases for ZT integration,

@@ -1,0 +1,1309 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Copyright (c) 2017 Ericsson AB.
+	All rights reserved
+
+	DX ECIM Tool-chain generated this file on Mar 7, 2017 9:27:02 AM using:
+	* com.ericsson.ecim.m2m 3.3.0.201610162317
+	* com.ericsson.ecim.dsl 3.3.0.201610162317
+	* com.ericsson.ecim.edm 3.3.0.201610162317
+--><!DOCTYPE models SYSTEM "mp.dtd">
+<models>
+    <dtdVersion>G</dtdVersion>
+    <momMetaData>
+        <momTitle>ECIM SNMP </momTitle>
+        <momSubTitle>MOM Fragment</momSubTitle>
+        <momIdentity>
+            <docNum>5/155 54-CNX 901 2610</docNum>
+            <docLang>English</docLang>
+            <docRev>0</docRev>
+            <docDate>2017 08 21</docDate>
+        </momIdentity>
+        <createdBy>
+            <signature>ETXPENO</signature>
+        </createdBy>
+    </momMetaData>
+    <mim author="ETXPENO" contact="ETXPENO" correction="0" date="2017-08-21" docNo="5/155 54-CNX 901 2610" name="RcsSnmp" namespace="urn:com:ericsson:ecim:RcsSnmp" namespacePrefix="rcssnmp" organization="BNEW DNEP BI OM Service Middleware 2" release="12" revision="0" version="10">
+        <description>COM FM model, based on ECIM SNMP Fragment.</description>
+        <domainExtension domain="ECIM">
+            <extension name="ecimMomName" value="ECIM_SNMP"/>
+            <extension name="ecimMomVersion" value="1"/>
+            <extension name="ecimMomRelease" value="4"/>
+            <extension name="ecimMomCorrection" value="0"/>
+        </domainExtension>
+        <implements correction="0" name="ECIM_SNMP" release="4" version="1"/>
+        <struct name="HostAndPort">
+            <description>Host (IP address or DNS name) and port number. </description>
+            <structMember name="host">
+                <description>IP address to listen for SNMP requests.
+Typically 0.0.0.0, which means that requests on any interface is accepted. </description>
+                <derivedDataTypeRef name="IPAddress">
+                    <mimName>RcsSnmp</mimName>
+                </derivedDataTypeRef>
+            </structMember>
+            <structMember name="port">
+                <description>Port number used to listen for incoming SNMP requests. </description>
+                <derivedDataTypeRef name="RcsSnmp_HostAndPort_port">
+                    <mimName>RcsSnmp</mimName>
+                </derivedDataTypeRef>
+            </structMember>
+        </struct>
+        <struct name="EcimPassword">
+            <description>Stores the password.</description>
+            <domainExtension domain="ECIM">
+                <extension name="originatingMimRelease" value="8"/>
+                <extension name="originatingMimName" value="ECIM_CommonLibrary"/>
+                <extension name="originatingMimVersion" value="1"/>
+            </domainExtension>
+            <structMember name="cleartext">
+                <description>Indicates whether or not the password is entered in cleartext.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <derivedDataTypeRef name="EcimEmpty">
+                    <mimName>RcsSnmp</mimName>
+                </derivedDataTypeRef>
+            </structMember>
+            <structMember name="password">
+                <description>Holds the password or passphrase text.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isKey" value="true"/>
+                </domainExtension>
+                <string/>
+            </structMember>
+        </struct>
+        <enum name="AuthProtocol">
+            <description>Valid values for authorization protocol.</description>
+            <enumMember name="NONE">
+                <value>0</value>
+            </enumMember>
+            <enumMember name="MD5">
+                <value>1</value>
+            </enumMember>
+            <enumMember name="SHA1">
+                <value>2</value>
+            </enumMember>
+        </enum>
+        <enum name="SecurityLevel">
+            <description>Used security level.</description>
+            <enumMember name="NO_AUTH_NO_PRIV">
+                <description>Unauthenticated and unencrypted.</description>
+                <value>1</value>
+            </enumMember>
+            <enumMember name="AUTH_NO_PRIV">
+                <description>Authenticated but not encrypted.</description>
+                <value>2</value>
+            </enumMember>
+            <enumMember name="AUTH_PRIV">
+                <description>Authenticated and encrypted.</description>
+                <value>3</value>
+            </enumMember>
+        </enum>
+        <enum name="BasicAdmState">
+            <description>Basic administrative states for a resource.</description>
+            <domainExtension domain="ECIM">
+                <extension name="originatingMimRelease" value="8"/>
+                <extension name="originatingMimName" value="ECIM_CommonLibrary"/>
+                <extension name="originatingMimVersion" value="1"/>
+            </domainExtension>
+            <enumMember name="LOCKED">
+                <description> The resource is administratively prohibited from performing services for its users.</description>
+                <value>0</value>
+            </enumMember>
+            <enumMember name="UNLOCKED">
+                <description>The resource is administratively permitted to perform services for its users.&#13;
+This is independent of its inherent operability.</description>
+                <value>1</value>
+            </enumMember>
+        </enum>
+        <enum name="NotifyType">
+            <description>Method type used. Can be TRAP or INFORM.</description>
+            <enumMember name="TRAP">
+                <value>1</value>
+            </enumMember>
+            <enumMember name="INFORM">
+                <value>2</value>
+            </enumMember>
+        </enum>
+        <enum name="OperState">
+            <description>Operational states of a resource.</description>
+            <domainExtension domain="ECIM">
+                <extension name="originatingMimRelease" value="8"/>
+                <extension name="originatingMimName" value="ECIM_CommonLibrary"/>
+                <extension name="originatingMimVersion" value="1"/>
+            </domainExtension>
+            <enumMember name="DISABLED">
+                <description>The resource is  totally inoperable.</description>
+                <value>0</value>
+            </enumMember>
+            <enumMember name="ENABLED">
+                <description>The resource is partially or fully operable.</description>
+                <value>1</value>
+            </enumMember>
+        </enum>
+        <enum name="PrivProtocol">
+            <description>Allowed values are DES and AES128 cipher.</description>
+            <enumMember name="NONE">
+                <value>0</value>
+            </enumMember>
+            <enumMember name="DES">
+                <value>1</value>
+            </enumMember>
+            <enumMember name="AES128">
+                <value>2</value>
+            </enumMember>
+        </enum>
+        <derivedDataType name="SnmpSecurityName">
+            <description>SNMP security name string.</description>
+            <baseType>
+                <string>
+                    <lengthRange>
+                        <min>1</min>
+                        <max>28</max>
+                    </lengthRange>
+                    <stringLength>
+                        <subrange>
+                            <min>1</min>
+                            <max>28</max>
+                        </subrange>
+                    </stringLength>
+                </string>
+            </baseType>
+        </derivedDataType>
+        <derivedDataType name="EcimEmpty">
+            <description>Represents a leaf that has no value, it conveys information by its presence or absence.</description>
+            <domainExtension domain="ECIM">
+                <extension name="originatingMimRelease" value="8"/>
+                <extension name="originatingMimName" value="ECIM_CommonLibrary"/>
+                <extension name="originatingMimVersion" value="1"/>
+            </domainExtension>
+            <baseType>
+                <boolean/>
+            </baseType>
+        </derivedDataType>
+        <derivedDataType name="SnmpOid">
+            <description>SNMP Object Identifier.</description>
+            <baseType>
+                <string>
+                    <lengthRange>
+                        <min>1</min>
+                    </lengthRange>
+                    <stringLength>
+                        <subrange>
+                            <min>1</min>
+                            <max>*</max>
+                        </subrange>
+                    </stringLength>
+                    <validValues>^([\.]?[0-9]+)+$</validValues>
+                </string>
+            </baseType>
+            <validationRules>
+                <rule exceptionText="" format="posix_ere" name="Pattern Constraint"><![CDATA[^([\.]?[0-9]+)+$]]></rule>
+            </validationRules>
+        </derivedDataType>
+        <derivedDataType name="Timeout">
+            <description>Restricts the Timeout intervals.
+</description>
+            <baseType>
+                <uint32>
+                    <range>
+                        <min>0</min>
+                        <max>2147483647</max>
+                    </range>
+                    <ranges>
+                        <subrange>
+                            <min>0</min>
+                            <max>2147483647</max>
+                        </subrange>
+                    </ranges>
+                </uint32>
+            </baseType>
+        </derivedDataType>
+        <derivedDataType name="IPAddress">
+            <description>IP address or DNS name of a logical interface.
+Hosts can have one or more physical hardware network interfaces, each associated with an IP address. TCP/IP software also supports “loopback” interfaces, 127.0.0.1 in IPv4 and ::1 in IPv6, which do not use physical hardware. There is a special IP address for listening on all interfaces, 0.0.0.0 for IPv4 and ::0 for IPv6.
+&#13;
+Version 4 IP addresses use dotted quad notation, for example 130.100.92.154. RFC 791 describes syntax details.&#13;
+Version 6 IP addresses use 8 groups of 16 bit hexadecimal values separated by colons, for example 2001:0db8:85a3:0000:0000:8a2e:0370:7334. RFC 4291 describes the syntax details.
+DNS names must be fully qualified domain names, for example myhost.ericsson.com. Internet domains are loosely specified but RFC 1034 recommends a syntax.&#13;
+</description>
+            <baseType>
+                <string>
+                    <lengthRange>
+                        <min>1</min>
+                        <max>253</max>
+                    </lengthRange>
+                    <stringLength>
+                        <subrange>
+                            <min>1</min>
+                            <max>253</max>
+                        </subrange>
+                    </stringLength>
+                    <validValues>(^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))|(^\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3}))|:)))(%.+)?\s*$)|(^([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9-]{0,61}[a-zA-Z0-9])(\.([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9-]{0,61}[a-zA-Z0-9]))*$)</validValues>
+                </string>
+            </baseType>
+            <validationRules>
+                <rule exceptionText="" format="posix_ere" name="Pattern Constraint"><![CDATA[(^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))|(^\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3}))|:)))(%.+)?\s*$)|(^([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9-]{0,61}[a-zA-Z0-9])(\.([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9-]{0,61}[a-zA-Z0-9]))*$)]]></rule>
+            </validationRules>
+        </derivedDataType>
+        <derivedDataType name="SnmpCommunity">
+            <description>SNMP community string.</description>
+            <baseType>
+                <string>
+                    <lengthRange>
+                        <min>1</min>
+                        <max>28</max>
+                    </lengthRange>
+                    <stringLength>
+                        <subrange>
+                            <min>1</min>
+                            <max>28</max>
+                        </subrange>
+                    </stringLength>
+                </string>
+            </baseType>
+        </derivedDataType>
+        <derivedDataType name="RcsSnmp_SnmpTargetV1_port">
+            <baseType>
+                <uint32>
+                    <range>
+                        <min>1</min>
+                        <max>65535</max>
+                    </range>
+                    <ranges>
+                        <subrange>
+                            <min>1</min>
+                            <max>65535</max>
+                        </subrange>
+                    </ranges>
+                </uint32>
+            </baseType>
+        </derivedDataType>
+        <derivedDataType name="RcsSnmp_SnmpTargetV1_networkPrefixLength">
+            <baseType>
+                <uint8>
+                    <range>
+                        <min>1</min>
+                        <max>128</max>
+                    </range>
+                    <ranges>
+                        <subrange>
+                            <min>1</min>
+                            <max>128</max>
+                        </subrange>
+                    </ranges>
+                </uint8>
+            </baseType>
+        </derivedDataType>
+        <derivedDataType name="RcsSnmp_SnmpTargetV2C_port">
+            <baseType>
+                <uint32>
+                    <range>
+                        <min>1</min>
+                        <max>65535</max>
+                    </range>
+                    <ranges>
+                        <subrange>
+                            <min>1</min>
+                            <max>65535</max>
+                        </subrange>
+                    </ranges>
+                </uint32>
+            </baseType>
+        </derivedDataType>
+        <derivedDataType name="RcsSnmp_SnmpTargetV2C_networkPrefixLength">
+            <baseType>
+                <uint8>
+                    <range>
+                        <min>1</min>
+                        <max>128</max>
+                    </range>
+                    <ranges>
+                        <subrange>
+                            <min>1</min>
+                            <max>128</max>
+                        </subrange>
+                    </ranges>
+                </uint8>
+            </baseType>
+        </derivedDataType>
+        <derivedDataType name="RcsSnmp_SnmpTargetV3_port">
+            <baseType>
+                <uint32>
+                    <range>
+                        <min>1</min>
+                        <max>65535</max>
+                    </range>
+                    <ranges>
+                        <subrange>
+                            <min>1</min>
+                            <max>65535</max>
+                        </subrange>
+                    </ranges>
+                </uint32>
+            </baseType>
+        </derivedDataType>
+        <derivedDataType name="RcsSnmp_HostAndPort_port">
+            <baseType>
+                <uint32>
+                    <range>
+                        <min>1</min>
+                        <max>65535</max>
+                    </range>
+                    <ranges>
+                        <subrange>
+                            <min>1</min>
+                            <max>65535</max>
+                        </subrange>
+                    </ranges>
+                </uint32>
+            </baseType>
+        </derivedDataType>
+        <derivedDataType name="RcsSnmp_SnmpTargetV3Dtls_port">
+            <baseType>
+                <uint32>
+                    <range>
+                        <min>1</min>
+                        <max>65535</max>
+                    </range>
+                    <ranges>
+                        <subrange>
+                            <min>1</min>
+                            <max>65535</max>
+                        </subrange>
+                    </ranges>
+                </uint32>
+            </baseType>
+        </derivedDataType>
+        <class name="Snmp">
+            <description>Configuration of the SNMP protocol, for example IP addresses and ports.</description>
+            <systemCreated/>
+            <validationRules>
+                <rule exceptionText="" format="ECIM_Schematron_1.0" name="every $value in @nodeCredential and @trustCategory satisfies exists($value)"><![CDATA[<schema xmlns="http://purl.oclc.org/dsdl/schematron">
+	<pattern>
+		<rule>
+			<assert test='(every $value in @nodeCredential satisfies exists($value))'>ERROR: the attribute value must be an existing NodeCredential MO.</assert>
+			<assert test='(every $value in @trustCategory satisfies exists($value))'>ERROR: the attribute value must be an existing TrustCategory MO.</assert>
+		</rule>
+	</pattern>
+	</schema>]]></rule>
+            </validationRules>
+            <root/>
+            <dependenciesScript><![CDATA[<schema xmlns="http://purl.oclc.org/dsdl/schematron">
+	<pattern>
+		<rule>
+			<assert test='(every $value in @nodeCredential satisfies exists($value))'>ERROR: the attribute value must be an existing NodeCredential MO.</assert>
+			<assert test='(every $value in @trustCategory satisfies exists($value))'>ERROR: the attribute value must be an existing TrustCategory MO.</assert>
+		</rule>
+	</pattern>
+	</schema>]]></dependenciesScript>
+            <attribute name="snmpId">
+                <description>Holds the name used when identifying the MO.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="operationalState">
+                <description>The operational status of the SNMP functionality.
+If DISABLED, there is some problem that degrades the SNMP functionality.</description>
+                <noNotification/>
+                <readOnly/>
+                <dataType>
+                    <enumRef name="OperState">
+                        <mimName>RcsSnmp</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="administrativeState">
+                <description>The administrative state for the SNMP protocol.
+If LOCKED, no SNMP Traps are generated, for example, alarm, alerts or heartbeats. Also, all access to the SNMP protocol is disabled.  </description>
+                <dataType>
+                    <enumRef name="BasicAdmState">
+                        <defaultValue>UNLOCKED</defaultValue>
+                        <mimName>RcsSnmp</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="agentAddress">
+                <description>Listen addresses for the SNMP agent.
+Attribute defines ports and IP addresses the agent listens to for incoming SNMP requests that use UDP protocol. Typical configurations use one port with IP address 0.0.0.0 and port 161, which means that the standard SNMP port is used on all interfaces.</description>
+                <dataType>
+                    <sequence>
+                        <structRef name="HostAndPort">
+                            <mimName>RcsSnmp</mimName>
+                        </structRef>
+                        <minLength>0</minLength>
+                    </sequence>
+                </dataType>
+            </attribute>
+            <attribute name="nodeCredential">
+                <description>Node credential used for SNMP notifications with Transport Security Model.
+Specifies the DN of a NodeCredential MO in Certificate Management. If Transport Security Model, DTLS, is not used, the attribute value can be empty.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <moRef name="ManagedObject"/>
+                </dataType>
+            </attribute>
+            <attribute name="agentAddressDtls">
+                <description>Listen addresses for SNMP agent that uses DTLS.
+Attribute defines ports and IP addresses the agent listens to for incoming SNMP requests that use DTLS transport protocol. The typical configuration uses one port with IP address 0.0.0.0 and port 10161. This means that the standard port for SNMP over DTLS is used on all interfaces.</description>
+                <dataType>
+                    <sequence>
+                        <structRef name="HostAndPort">
+                            <mimName>RcsSnmp</mimName>
+                        </structRef>
+                        <minLength>0</minLength>
+                    </sequence>
+                </dataType>
+            </attribute>
+            <attribute name="trustCategory">
+                <description>The trust category used for authentication of DTLS protocol users.
+Specifies the DN of a TrustCategory MO in Certificate Management.
+If the DTLS protocol is not used, the attribute value can be empty.  </description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <moRef name="ManagedObject"/>
+                </dataType>
+            </attribute>
+            <attribute name="enableSourceCheckForV1V2C">
+                <description>Enables source IP check on the agent for community based Snmp V1 and Snmp V2C protocol access.
+If false, agent may accept SNMP GET, SET messages from any IP address.
+If true, agent only accepts SNMP GET, SET messages from configured target IP subnet.</description>
+                <dataType>
+                    <boolean>
+                        <defaultValue>false</defaultValue>
+                    </boolean>
+                </dataType>
+            </attribute>
+            <attribute name="port">
+                <description>Port number used by agent to listen for incoming SNMP requests over OamAccessPoint interface.
+Note that OamAccessPoint interface is configured in System Management.
+The agent uses the value only if agentAddress attribute is not configured in this MO.</description>
+                <dataType>
+                    <uint16>
+                        <defaultValue>161</defaultValue>
+                    </uint16>
+                </dataType>
+            </attribute>
+            <attribute name="portDtls">
+                <description>Port number used by agent to listen for SNMP with DTLS requests over OamAccessPoint interface.
+Note that OamAccessPoint interface is configured in System Management.
+The agent uses the value only if agentAddressDtls attribute is not configured in this MO.</description>
+                <dataType>
+                    <uint16>
+                        <defaultValue>10161</defaultValue>
+                    </uint16>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="SnmpTargetV1">
+            <description>An SNMP target defines a trap receiver and gives access privileges.
+This class, defines V1 protocol attributes.</description>
+            <attribute name="snmpTargetV1Id">
+                <description>Holds the name used when identifying the MO.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="community">
+                <description>The SNMP community string. </description>
+                <mandatory/>
+                <dataType>
+                    <derivedDataTypeRef name="SnmpCommunity">
+                        <mimName>RcsSnmp</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="administrativeState">
+                <description>Administrative state for the SNMP target.
+When LOCKED, traps are not sent and access is not allowed for this MO instance.</description>
+                <dataType>
+                    <enumRef name="BasicAdmState">
+                        <defaultValue>UNLOCKED</defaultValue>
+                        <mimName>RcsSnmp</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="address">
+                <description>Host address or DNS name for the SNMP trap target.</description>
+                <mandatory/>
+                <dataType>
+                    <derivedDataTypeRef name="IPAddress">
+                        <mimName>RcsSnmp</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="port">
+                <description>UDP port number for this SNMP trap target.
+</description>
+                <dataType>
+                    <derivedDataTypeRef name="RcsSnmp_SnmpTargetV1_port">
+                        <defaultValue>162</defaultValue>
+                        <mimName>RcsSnmp</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="isMibWritable">
+                <description>Specifies if user has write-access to MIB.
+If false, user is only allowed to perform read-access, such as SNMP GET.
+Attribute value has no relevance if SnmpViewV1 exists for the community of this instance. Permissions in the view override this attribute.</description>
+                <dataType>
+                    <boolean>
+                        <defaultValue>true</defaultValue>
+                    </boolean>
+                </dataType>
+            </attribute>
+            <attribute name="operationalState">
+                <description>The operational status of this SNMP target.</description>
+                <noNotification/>
+                <readOnly/>
+                <dataType>
+                    <enumRef name="OperState">
+                        <mimName>RcsSnmp</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="networkPrefixLength">
+                <description>The network prefix length identifying the number of subnet mask bits in the target address.
+For IPv4 target address, range 1-32
+For IPv6 target address, range 1-128
+
+The value of this attribute is used only if Snmp MO's enableSourceCheckForV1V2C is set to true. In which case, the agent uses the value to determine the source IP address range permitted to execute Snmp GET and SET on managed device. An empty value in that case will mean that Snmp GET and SET shall be permitted from just a single target IP as configured in address attribute of this MO.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <derivedDataTypeRef name="RcsSnmp_SnmpTargetV1_networkPrefixLength">
+                        <mimName>RcsSnmp</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="SnmpTargetV2C">
+            <description>SNMP target defines a trap receiver and gives access privileges.
+This class, defines V2C protocol attributes.</description>
+            <attribute name="snmpTargetV2CId">
+                <description>Holds the name used when identifying the MO.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="community">
+                <description>SNMP community string.</description>
+                <mandatory/>
+                <dataType>
+                    <derivedDataTypeRef name="SnmpCommunity">
+                        <mimName>RcsSnmp</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="informRetryCount">
+                <description>The number of retries attempted when no response is received for a notification.
+Attribute value relevant only if transportMethod is set to INFORM.</description>
+                <dataType>
+                    <uint32>
+                        <defaultValue>1</defaultValue>
+                    </uint32>
+                </dataType>
+            </attribute>
+            <attribute name="address">
+                <description>Host address or DNS name for the SNMP trap target.</description>
+                <mandatory/>
+                <dataType>
+                    <derivedDataTypeRef name="IPAddress">
+                        <mimName>RcsSnmp</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="port">
+                <description>UDP port number for this SNMP trap target.
+</description>
+                <dataType>
+                    <derivedDataTypeRef name="RcsSnmp_SnmpTargetV2C_port">
+                        <defaultValue>162</defaultValue>
+                        <mimName>RcsSnmp</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="informTimeout">
+                <description>Timeout for SNMP INFORM.
+If SNMP INFORM is not acknowledged during this time, the implementation can assume that the notification was not delivered. Attribute value relevant only if transportMethod is set to INFORM. The unit is hundredth of a second, 0.01 seconds.</description>
+                <dataType>
+                    <derivedDataTypeRef name="Timeout">
+                        <defaultValue>300</defaultValue>
+                        <mimName>RcsSnmp</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="transportMethod">
+                <description>Method type used. Can be TRAP or INFORM.</description>
+                <dataType>
+                    <enumRef name="NotifyType">
+                        <defaultValue>TRAP</defaultValue>
+                        <mimName>RcsSnmp</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="isMibWritable">
+                <description>Specifies if users have write-access to MIB.
+If false, users are only allowed to perform read-access, such as SNMP GET.
+Attribute value has no relevance if SnmpViewV2C exists for the community of this instance. Permissions in the view override this attribute.</description>
+                <dataType>
+                    <boolean>
+                        <defaultValue>true</defaultValue>
+                    </boolean>
+                </dataType>
+            </attribute>
+            <attribute name="operationalState">
+                <description> The operational status of this SNMP target.</description>
+                <noNotification/>
+                <readOnly/>
+                <dataType>
+                    <enumRef name="OperState">
+                        <mimName>RcsSnmp</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="administrativeState">
+                <description>Administrative state for SNMP target.
+If LOCKED, traps are not sent and access is not allowed for this MO instance.</description>
+                <dataType>
+                    <enumRef name="BasicAdmState">
+                        <defaultValue>UNLOCKED</defaultValue>
+                        <mimName>RcsSnmp</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="networkPrefixLength">
+                <description>The network prefix length identifying the number of subnet mask bits in the target address.
+For IPv4 target address, range 1-32
+For IPv6 target address, range 1-128
+
+The value of this attribute is used only if Snmp MO's enableSourceCheckForV1V2C is set to true. In which case, the agent uses the value to determine the source IP address range permitted to execute Snmp GET and SET on managed device. An empty value in that case will mean that Snmp GET and SET shall be permitted from just a single target IP as configured in address attribute of this MO.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <derivedDataTypeRef name="RcsSnmp_SnmpTargetV2C_networkPrefixLength">
+                        <mimName>RcsSnmp</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="SnmpTargetV3">
+            <description>SNMP target defines a trap receiver and gives access privileges.
+This class, defines V3 USM protocol attributes.</description>
+            <attribute name="snmpTargetV3Id">
+                <description>Holds the name used when identifying the MO.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="user">
+                <description>SNMP V3 user name for the SNMP V3 message.</description>
+                <mandatory/>
+                <dataType>
+                    <derivedDataTypeRef name="SnmpSecurityName">
+                        <mimName>RcsSnmp</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="authProtocol">
+                <description>Authentication protocol used.
+Value relevant only if authorization is enabled. See attribute snmpSecurityLevel.</description>
+                <dataType>
+                    <enumRef name="AuthProtocol">
+                        <defaultValue>MD5</defaultValue>
+                        <mimName>RcsSnmp</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="privProtocol">
+                <description>Privacy protocol used.
+Attribute value relevant only if privacy is enabled. See attribute snmpSecurityLevel.</description>
+                <dataType>
+                    <enumRef name="PrivProtocol">
+                        <defaultValue>DES</defaultValue>
+                        <mimName>RcsSnmp</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="informRetryCount">
+                <description>The number of retries attempted when no response is received for a notification.
+Attribute value relevant only if transportMethod is set to INFORM.</description>
+                <dataType>
+                    <uint32>
+                        <defaultValue>1</defaultValue>
+                    </uint32>
+                </dataType>
+            </attribute>
+            <attribute name="administrativeState">
+                <description>Administrative state for SNMP target.
+If LOCKED, traps are not sent and access is not allowed for this MO instance.</description>
+                <dataType>
+                    <enumRef name="BasicAdmState">
+                        <defaultValue>UNLOCKED</defaultValue>
+                        <mimName>RcsSnmp</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="address">
+                <description>Host address or DNS name for the SNMP trap target.</description>
+                <mandatory/>
+                <dataType>
+                    <derivedDataTypeRef name="IPAddress">
+                        <mimName>RcsSnmp</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="port">
+                <description>UDP port number for this SNMP trap target.
+ </description>
+                <dataType>
+                    <derivedDataTypeRef name="RcsSnmp_SnmpTargetV3_port">
+                        <defaultValue>162</defaultValue>
+                        <mimName>RcsSnmp</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="informTimeout">
+                <description>Timeout for SNMP INFORM.
+If SNMP INFORM is not acknowledged during this time, the implementation can assume that the notification was not delivered. Attribute value relevant only if transportMethod is set to INFORM. The unit is hundredth of a second, 0.01 seconds.</description>
+                <dataType>
+                    <derivedDataTypeRef name="Timeout">
+                        <defaultValue>300</defaultValue>
+                        <mimName>RcsSnmp</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="transportMethod">
+                <description>Method type used. Can be TRAP or INFORM.</description>
+                <dataType>
+                    <enumRef name="NotifyType">
+                        <defaultValue>TRAP</defaultValue>
+                        <mimName>RcsSnmp</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="snmpSecurityLevel">
+                <description>Specifies the level of security applied to messages exchanged with this target.</description>
+                <dataType>
+                    <enumRef name="SecurityLevel">
+                        <defaultValue>AUTH_PRIV</defaultValue>
+                        <mimName>RcsSnmp</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="privKey">
+                <description>Privacy key used for encryption.
+User's privKey encrypts the data portion of the message.
+Key must contain at least 8 characters.
+Must have a value, but the value is used only if privacy is enabled. See attribute snmpSecurityLevel.
+If privacy is disabled, attribute can contain any arbitrary value.</description>
+                <mandatory/>
+                <dataType>
+                    <structRef name="EcimPassword">
+                        <mimName>RcsSnmp</mimName>
+                    </structRef>
+                </dataType>
+            </attribute>
+            <attribute name="authKey">
+                <description>Authentication key used for signing SNMP notifications.
+AuthKey used to sign the messages sent. Key must contain at least 8 characters.
+Must have a value, but the value is used only if authorization is enabled.
+See attribute snmpSecurityLevel.
+If authorization is disabled, attribute can contain any arbitrary value.</description>
+                <mandatory/>
+                <dataType>
+                    <structRef name="EcimPassword">
+                        <mimName>RcsSnmp</mimName>
+                    </structRef>
+                </dataType>
+            </attribute>
+            <attribute name="isMibWritable">
+                <description>Specifies if users have write-access to MIB.
+If false, users are only allowed to perform read-access, such as SNMP GET.
+Attribute value has no relevance if SnmpViewV3 exists for the community of this instance. Permissions in the view override this attribute.</description>
+                <dataType>
+                    <boolean>
+                        <defaultValue>true</defaultValue>
+                    </boolean>
+                </dataType>
+            </attribute>
+            <attribute name="operationalState">
+                <description>The operational status of this SNMP target.</description>
+                <noNotification/>
+                <readOnly/>
+                <dataType>
+                    <enumRef name="OperState">
+                        <mimName>RcsSnmp</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="SnmpViewV1">
+            <description>SNMP view gives users access to SNMP MIBs.
+This class explicitly defines a view for SNMP V1 users. Users are identified by community name.
+
+Communities that are not configured in any view, are given by default access to the following SNMP MIBs:
+- Ericsson Alarm MIB
+- SNMP-FRAMEWORK-MIB
+- MIB-2
+
+Default status denies access to other SNMP MIBs. Create a new view configuration if default behaviour is insufficient.</description>
+            <attribute name="snmpViewV1Id">
+                <description>Holds the name used when identifying the MO.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="community">
+                <description>The SNMP V1 communities that this view shall be applied on.
+If a specific community is set in more than one V1 view, the user will get access to the sum of the views. The information in this object will override the attribute isMibWriteable in all SnmpTargetV1 for these communities.    </description>
+                <dataType>
+                    <sequence>
+                        <string/>
+                        <minLength>0</minLength>
+                    </sequence>
+                </dataType>
+            </attribute>
+            <attribute name="readOids">
+                <description>Defines which SNMP OIDs the user is allowed to read.
+The defined OIDs and all contained OIDs are readable. </description>
+                <dataType>
+                    <sequence>
+                        <derivedDataTypeRef name="SnmpOid">
+                            <mimName>RcsSnmp</mimName>
+                        </derivedDataTypeRef>
+                        <minLength>0</minLength>
+                    </sequence>
+                </dataType>
+            </attribute>
+            <attribute name="writeOids">
+                <description>Defines which SNMP OIDs the user is allowed to write.
+The defined OIDs and all contained OIDs are writeable.</description>
+                <dataType>
+                    <sequence>
+                        <derivedDataTypeRef name="SnmpOid">
+                            <mimName>RcsSnmp</mimName>
+                        </derivedDataTypeRef>
+                        <minLength>0</minLength>
+                    </sequence>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="SnmpViewV2C">
+            <description>SNMP view gives users access to SNMP MIBs.
+This class explicitly defines a view for SNMP V2C users. Users are identified by community name.
+
+Communities that are not configured in any view, are given by default access to the following SNMP MIBs:
+- Ericsson Alarm MIB
+- SNMP-FRAMEWORK-MIB
+- MIB-2
+
+Default status denies access to other SNMP MIBs. Create a new view configuration if default behaviour is insufficient.</description>
+            <attribute name="snmpViewV2CId">
+                <description>Holds the name used when identifying the MO.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="community">
+                <description>The SNMP V2C communities that this view shall be applied on.
+If a specific community is set in more than one V2 view, the user will get access to the sum of the views. The information in this object will override the attribute isMibWriteable in all SnmpTargetV2C for these communities.  </description>
+                <dataType>
+                    <sequence>
+                        <string/>
+                        <minLength>0</minLength>
+                    </sequence>
+                </dataType>
+            </attribute>
+            <attribute name="readOids">
+                <description>Defines which SNMP OIDs the user is allowed to read.
+The defined OIDs and all contained OIDs are readable. </description>
+                <dataType>
+                    <sequence>
+                        <derivedDataTypeRef name="SnmpOid">
+                            <mimName>RcsSnmp</mimName>
+                        </derivedDataTypeRef>
+                        <minLength>0</minLength>
+                    </sequence>
+                </dataType>
+            </attribute>
+            <attribute name="writeOids">
+                <description>Defines which SNMP OIDs the user is allowed to write.
+The defined OIDs and all contained OIDs are writeable.</description>
+                <dataType>
+                    <sequence>
+                        <derivedDataTypeRef name="SnmpOid">
+                            <mimName>RcsSnmp</mimName>
+                        </derivedDataTypeRef>
+                        <minLength>0</minLength>
+                    </sequence>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="SnmpViewV3">
+            <description>SNMP view gives users access to SNMP MIBs.
+This class explicitly defines a view for SNMP V3 users. Users are identified by community name.
+
+Communities that are not configured in any view, are given by default access to the following SNMP MIBs:
+- Ericsson Alarm MIB
+- SNMP-FRAMEWORK-MIB
+- MIB-2
+
+Default status denies access to other SNMP MIBs. Create a new view configuration if default behaviour is insufficient.</description>
+            <attribute name="snmpViewV3Id">
+                <description>Holds the name used when identifying the MO.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="user">
+                <description>The SNMP V3 users that this view shall be applied on.
+If a specific user is defined in more than one V3 view, the user will get access to the sum of the views. The information in this object will override the attribute isMibWriteable in all SnmpTargetV3 for these users.  </description>
+                <dataType>
+                    <sequence>
+                        <string/>
+                        <minLength>0</minLength>
+                    </sequence>
+                </dataType>
+            </attribute>
+            <attribute name="readOids">
+                <description>Defines which SNMP OIDs the user is allowed to read.
+The defined OIDs and all contained OIDs are readable. </description>
+                <dataType>
+                    <sequence>
+                        <derivedDataTypeRef name="SnmpOid">
+                            <mimName>RcsSnmp</mimName>
+                        </derivedDataTypeRef>
+                        <minLength>0</minLength>
+                    </sequence>
+                </dataType>
+            </attribute>
+            <attribute name="writeOids">
+                <description>Defines which SNMP OIDs the user is allowed to write.
+The defined OIDs and all contained OIDs are writeable.</description>
+                <dataType>
+                    <sequence>
+                        <derivedDataTypeRef name="SnmpOid">
+                            <mimName>RcsSnmp</mimName>
+                        </derivedDataTypeRef>
+                        <minLength>0</minLength>
+                    </sequence>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="SnmpTargetV3Dtls">
+            <description>SNMP target defines a trap receiver and gives access privileges.
+This class defines attributes needed for SNMP over DTLS. Attributes nodeCredential and trustCategory defined in the Snmp MO class/instance are used. DTLS is used as transport protocol for incoming requests, outgoing responses and SNMP notifications.</description>
+            <attribute name="snmpTargetV3DtlsId">
+                <description>Holds the name used when identifying the MO.
+</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="informRetryCount">
+                <description>The number of retries attempted when no response is received for a notification.
+Attribute value relevant only if transportMethod is set to INFORM.</description>
+                <dataType>
+                    <uint32>
+                        <defaultValue>1</defaultValue>
+                    </uint32>
+                </dataType>
+            </attribute>
+            <attribute name="administrativeState">
+                <description>Administrative state for SNMP target.
+If LOCKED, traps are not sent and access is not allowed for this MO instance.</description>
+                <dataType>
+                    <enumRef name="BasicAdmState">
+                        <defaultValue>UNLOCKED</defaultValue>
+                        <mimName>RcsSnmp</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="address">
+                <description>Host address or DNS name for the SNMP trap target.</description>
+                <mandatory/>
+                <dataType>
+                    <derivedDataTypeRef name="IPAddress">
+                        <mimName>RcsSnmp</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="port">
+                <description>UDP port number for this SNMP trap target.
+</description>
+                <dataType>
+                    <derivedDataTypeRef name="RcsSnmp_SnmpTargetV3Dtls_port">
+                        <defaultValue>10162</defaultValue>
+                        <mimName>RcsSnmp</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="informTimeout">
+                <description>Timeout for SNMP INFORM.
+If SNMP INFORM is not acknowledged during this time, the implementation can assume that the notification was not delivered. Attribute value relevant only if transportMethod is set to INFORM. The unit is hundredth of a second, 0.01 seconds.</description>
+                <dataType>
+                    <derivedDataTypeRef name="Timeout">
+                        <defaultValue>300</defaultValue>
+                        <mimName>RcsSnmp</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="transportMethod">
+                <description>Method type used. Can be TRAP or INFORM.</description>
+                <dataType>
+                    <enumRef name="NotifyType">
+                        <defaultValue>TRAP</defaultValue>
+                        <mimName>RcsSnmp</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="isMibWritable">
+                <description>Specifies if users have write-access to MIB.
+If false, users are only allowed to perform read-access, such as SNMP GET.
+Attribute value has no relevance if SnmpViewV3 exists for the community of this instance. Permissions in the view override this attribute.</description>
+                <dataType>
+                    <boolean>
+                        <defaultValue>true</defaultValue>
+                    </boolean>
+                </dataType>
+            </attribute>
+            <attribute name="operationalState">
+                <description>The operational status of this SNMP target.</description>
+                <noNotification/>
+                <readOnly/>
+                <dataType>
+                    <enumRef name="OperState">
+                        <mimName>RcsSnmp</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="user">
+                <description>SNMP V3 user name.
+Used for authorization of incoming SNMP requests. Defined by the subject alternative name field, from the certificate provided by the client during DTLS session setup.</description>
+                <mandatory/>
+                <dataType>
+                    <derivedDataTypeRef name="SnmpSecurityName">
+                        <mimName>RcsSnmp</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+        </class>
+        <relationship name="Snmp_to_SnmpTargetV2C">
+            <containment>
+                <parent>
+                    <hasClass name="Snmp">
+                        <mimName>RcsSnmp</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="SnmpTargetV2C">
+                        <mimName>RcsSnmp</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+        <relationship name="Snmp_to_SnmpTargetV3">
+            <containment>
+                <parent>
+                    <hasClass name="Snmp">
+                        <mimName>RcsSnmp</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="SnmpTargetV3">
+                        <mimName>RcsSnmp</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+        <relationship name="Snmp_to_SnmpTargetV1">
+            <containment>
+                <parent>
+                    <hasClass name="Snmp">
+                        <mimName>RcsSnmp</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="SnmpTargetV1">
+                        <mimName>RcsSnmp</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+        <relationship name="Snmp_to_SnmpViewV1">
+            <containment>
+                <parent>
+                    <hasClass name="Snmp">
+                        <mimName>RcsSnmp</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="SnmpViewV1">
+                        <mimName>RcsSnmp</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+        <relationship name="Snmp_to_SnmpViewV2C">
+            <containment>
+                <parent>
+                    <hasClass name="Snmp">
+                        <mimName>RcsSnmp</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="SnmpViewV2C">
+                        <mimName>RcsSnmp</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+        <relationship name="Snmp_to_SnmpViewV3">
+            <containment>
+                <parent>
+                    <hasClass name="Snmp">
+                        <mimName>RcsSnmp</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="SnmpViewV3">
+                        <mimName>RcsSnmp</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+        <relationship name="Snmp_to_SnmpTargetV3Dtls">
+            <containment>
+                <parent>
+                    <hasClass name="Snmp">
+                        <mimName>RcsSnmp</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="SnmpTargetV3Dtls">
+                        <mimName>RcsSnmp</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+    </mim>
+    <interMim>
+        <relationship name="SysM_to_Snmp">
+            <containment>
+                <parent>
+                    <hasClass name="SysM">
+                        <mimName>ECIM_SysM</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="Snmp">
+                        <mimName>RcsSnmp</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>1</min>
+                        <max>1</max>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="false"/>
+                    <extension name="canDelete" value="false"/>
+                </domainExtension>
+                <notCreatable/>
+                <notDeleteable/>
+            </containment>
+        </relationship>
+    </interMim>
+</models>

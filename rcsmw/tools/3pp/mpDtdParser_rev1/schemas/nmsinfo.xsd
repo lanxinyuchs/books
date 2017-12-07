@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Initial version 0.05 -->
+<xs:schema elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<!-- UpgradePackage root: used types are defined later -->
+<!-- Constraints: cardinality -->
+	<xs:element name="UpgradePackage">
+		<xs:complexType>
+			<xs:sequence>
+                <xs:element maxOccurs="1" minOccurs="1" name="ManagedElementTypes" type="ManagedElementTypesXSDType"/>
+				<xs:element maxOccurs="1" minOccurs="1" name="UpgradePackageContent" type="UpgradePackageContentXSDType"/>
+				<xs:element minOccurs="0" name="NmsContent" type="NmsContentXSDType"/>
+			</xs:sequence>
+
+            <xs:attribute name="name" use="required">
+             			<xs:simpleType>
+                           <xs:restriction base="xs:string">
+                            	<xs:whiteSpace value="preserve"/>
+                           </xs:restriction>
+              			</xs:simpleType>
+       		</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	
+	
+	
+<!-- Types: Initial version -->
+<!-- Constrains: Only a few constraints on attribute formats, but mainly unrestricted strings  -->
+
+<!-- Sequences -->
+
+	<xs:complexType name="ManagedElementTypesXSDType">
+		<xs:sequence>
+			<xs:element maxOccurs="unbounded" minOccurs="1" name="ManagedElementType">
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="ManagedElementTypeXSDType"/>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="UpgradePackageContentXSDType">
+		<xs:sequence>
+			<xs:element maxOccurs="unbounded" minOccurs="1" name="ProductData">
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="ProductDataXSDType"/>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	
+<!-- Simpler types -->
+
+	<xs:complexType name="ManagedElementTypeXSDType">
+		<xs:attribute name="platform" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:whiteSpace value="preserve"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="productDesignation" use="optional">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:whiteSpace value="preserve"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="productNumber" use="optional">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:whiteSpace value="preserve"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="productRevision" use="optional">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:whiteSpace value="preserve"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="ProductDataXSDType">
+		<xs:attribute name="productName" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:whiteSpace value="preserve"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="productNumber" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:whiteSpace value="preserve"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="productRevision" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:whiteSpace value="preserve"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="productionDate" type="xs:dateTime" use="optional"/>
+		<xs:attribute name="description" use="optional">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:whiteSpace value="preserve"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="type" use="optional">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:whiteSpace value="preserve"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="NmsContentXSDType">
+		<xs:sequence>
+			<xs:element maxOccurs="unbounded" minOccurs="1" name="Content" type="ContentXSDType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ContentXSDType">
+		<xs:attribute name="type" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:whiteSpace value="preserve"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="path" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:whiteSpace value="preserve"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+</xs:schema>
+

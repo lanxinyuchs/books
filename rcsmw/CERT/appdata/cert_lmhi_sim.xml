@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!--
+# ==========================================================
+# %CCaseFile:	cert_lmhi_sim.xml %
+# %CCaseRev:	/main/R6A/R12A/2 %
+# %CCaseDate:	2017-10-26 %
+#
+# Author:	etxbjca
+# Description:	CAX appdata file
+#
+# ==========================================================
+#
+# %CCaseCopyrightBegin%
+# Copyright (c) Ericsson AB 2016-2017 All rights reserved.
+# 
+# The information in this document is the property of Ericsson.
+# 
+# Except as specifically authorized in writing by Ericsson, the 
+# receiver of this document shall keep the information contained 
+# herein confidential and shall protect the same in whole or in 
+# part from disclosure and dissemination to third parties.
+# 
+# Disclosure and disseminations to the receivers employees shall 
+# only be made on a strict need to know basis.
+# %CCaseCopyrightEnd%
+#
+# ==========================================================
+# REVISION LOG
+# ==========================================================
+#
+# Rev        Date       Name        What
+# ========   ========   ========    ========================
+# R5A/1      2016-01-14 etxarnu     Created
+# ==========================================================
+#         1         2         3         4         5         6         7
+#1234567890123456789012345678901234567890123456789012345678901234567890123456789
+#
+-->
+<appdata target="appm">
+   <loadmodule
+      tag="shared_lib"
+      name="seci"
+      id="CAX2010001_1"
+      rev="R1A01"
+      date="20160121"
+      >
+    <file type="i386"
+	  relpath="*/cert*/priv/tgt_i686/lib32/libseci.so"/>
+   </loadmodule>
+</appdata>

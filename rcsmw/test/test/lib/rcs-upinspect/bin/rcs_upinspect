@@ -1,0 +1,390 @@
+#! /bin/bash
+##
+## %CCaseFile:	rcs_upinspect %
+## %CCaseRev:	/main/R5A/R6A/R8A/3 %
+## %CCaseDate:	2017-01-16 %
+## Author: <name>, <e-mail address>
+##
+## Purpose: Tool for inspection of a G2 upgrade package.
+##
+## Dependencies:
+##
+## %CCaseCopyrightBegin%
+## Copyright (c) Ericsson AB 2016-2017 All rights reserved.
+##
+## The information in this document is the property of Ericsson.
+##
+## Except as specifically authorized in writing by Ericsson, the
+## receiver of this document shall keep the information contained
+## herein confidential and shall protect the same in whole or in
+## part from disclosure and dissemination to third parties.
+##
+## Disclosure and disseminations to the receivers employees shall
+## only be made on a strict need to know basis.
+## %CCaseCopyrightEnd%
+##
+## ----------------------------------------------------------------------
+##
+## Revision history:
+##
+## Rev        Date       Name        What
+## -----      -------    --------    ------------------------------------
+## R5A/1      2016-02-11 erarafo     First version
+## R5A/2      2016-02-11 erarafo     Ensure absolute path to UP
+## R5A/3      2016-02-12 erarafo     Added reporting of OTP version
+## R5A/4      2016-02-12 erarafo     Inconsistent defaultSeverity flagged as ERROR
+## R5A/5      2016-02-15 erarafo     Inspection of gmfImm appdata
+## R5A/6      2016-02-15 erarafo     Inspection of alarm variants extended
+## R5A/7      2016-02-18 erarafo     Refactoring of schema validation
+## R5A/8      2016-02-19 erarafo     Validation of APPM config files
+## R5A/9      2016-02-22 erarafo     Option for reporting alarm appdata filenames
+## R5A/10     2016-02-24 erarafo     Refactoring and bugfix
+## R5A/11     2016-02-25 erarafo     Deprecation warnings, "appm" validation
+## R5A/12     2016-02-26 erarafo     Search path for beams adjusted
+## R5A/13     2016-02-26 erarafo     Bad beam path fixed
+## R6A/1      2016-04-23 erarafo     Publish to /proj
+## R6A/2      2016-04-27 erarafo     Analysis of gmfMim appdata
+## R6A/3      2016-04-28 erarafo     Cosmetic
+## R6A/4      2016-04-29 erarafo     Version R6A/4; comments added
+## R6A/5      2016-05-02 erarafo     Version R6A/5; report hidden IMM classes
+## R6A/6      2016-05-22 erarafo     Report classes and structs per MOM
+## R6A/7      2016-06-01 erarafo     Better diagnostic when metadata mismatch
+## R6A/8      2016-09-13 erarafo     Fixed fault in presentation
+## R8A/1      2016-12-01 erarafo     Support for HW/SW compatibility
+## R8A/2      2016-12-02 erarafo     Help text elaborated
+## R8A/3      2017-01-16 erarafo     Adaptations for VRCS
+declare -r Version="R8A/3 using upInspect R8A/6"
+## ----------------------------------------------------------------------
+
+declare -r PUBL=/proj/rcs
+declare -r PUBL_BIN=$PUBL/bin
+declare -r PUBL_LIBEXEC=$PUBL/lib/rcs-upinspect/bin
+declare -r PUBL_EBIN=$PUBL/lib/rcs-upinspect/ebin
+declare -r PUBL_SCHEMA=$PUBL/lib/rcs-upinspect/schema
+
+declare -r Out=$RCT_TOP/test/lib/rcs-upinspect/out
+declare -r ReleaseEbin=$RCT_TOP/test/release/rcs-upinspect/ebin
+
+declare -r Script=rcs_upinspect
+declare -r ScriptDir=$RCT_TOP/test/lib/rcs-upinspect/bin
+
+declare -r WdirDefault=/local/scratch/$USER/up-`date +%y%m%d-%H%M`
+declare -r UpTypeDefault=legacy
+
+## When adding another target, make sure to
+##  - update the built-in help if needed
+##  - make the esrc/inspXyz.erl file a ClearCase element
+##  - extend the Makefile PROJ_FILES variable
+##  - add a target in Makefile for copying the .beam to /proj
+##  - remove /proj/rcs/lib/rcs-upinspect/schema/timestamp
+##  - run `clearmake publish_to_proj'
+
+declare -r ValidTargets=":gmfImm:gmfMim:appm:alarm:"
+
+function info() {
+  if [[ ! ($Quiet == true) ]]; then
+    printf "INFO: $1\n"
+  fi
+  if [[ -n "$OutputFile" ]]; then
+    printf "INFO: $1\n" >>$OutputFile
+  fi
+}
+
+function priorityInfo() {
+  printf "INFO: $1\n" >&2
+}
+
+
+
+function warning() {
+  printf "WARNING: $1\n" >&2
+}
+
+function die() {
+  printf "$Script: FATAL: $1\n" >&2
+  exit 1
+}
+
+
+########################################################################
+# Execution begins here
+
+declare OptionPatterns=""
+OptionPatterns+="a:"
+OptionPatterns+="T:"
+OptionPatterns+="h"
+OptionPatterns+="k"
+OptionPatterns+="c:"
+OptionPatterns+="w:"
+OptionPatterns+="A"
+OptionPatterns+="D"
+OptionPatterns+="n"
+OptionPatterns+="o:"
+OptionPatterns+="q"
+OptionPatterns+="M:"
+
+
+
+function help() {
+  cat <<EOF
+$Script version $Version
+
+Usage is: $Script [OPTIONS] UPGRADE_PACKAGE
+
+Options are:
+  -h               this help
+  -T UP_TYPE       UP type, one of 'legacy' or 'vrcs' (defaults to $UpTypeDefault)
+  -w WORKING_DIR   working directory (default is $WdirDefault)
+  -k               keep the working directory
+  -c               HwCategory and HwModel, separated by a comma
+  -a TARGETS       analyze only selected appdata types
+  -M MOMS          extended analysis of moms (comma-separated list or 'all')
+  -A               report alarm type filenames
+  -D               include deprecation warnings
+  -n               treat schema validation failures as warnings
+  -o FILE          output to file
+  -q               quiet
+
+The UPGRADE_PACKAGE argument may be a file (zipfile or gzipped tar)
+or an URL.
+
+If the UP supports HW/SW compatibility and the -c option is not given
+the inspection will terminate early, listing the existing board lists.
+
+The Erlang log, as well as the rcs/bootlogs/nl_debug.* log, tells which
+particular HW category and model that RCS is running on. Look for a
+log entry mentioning swmBoardList in the Erlang log.
+
+The TARGETS option must be a comma-separated list of appdata target
+names. Valid target names are:
+  `echo $ValidTargets | tr ':' '\n' | sed -e 's|^|  |'`
+
+If the -a option is not given then all appdata types will be inspected.
+Specifying '-a none' causes inspections to be skipped.
+
+The working directory is scratched when the script finishes, unless
+the -w or -k options were given.
+EOF
+}
+
+
+declare UpType=$UpTypeDefault
+declare Wdir=$WdirDefault
+declare Keep=false
+declare Targets=""
+declare HwCatMod=none
+declare InspAlarmsVerbose=false
+declare DeprecationWarnings=false
+declare OutputFile=""
+declare Quiet=false
+declare ExtendedMomAnalysis=""
+declare SchemaValidationStrict=true
+while getopts $OptionPatterns OPT; do
+  case "$OPT" in
+    a)
+      Targets=$OPTARG;;
+    T)
+      UpType="$OPTARG";;
+    h)
+      help
+      exit;;
+    k)
+      Keep=true;;
+    w)
+      Keep=true
+      Wdir=$OPTARG;;
+    c)
+      HwCatMod=$OPTARG;;
+    A)
+      InspAlarmsVerbose=true;;
+    D)
+      DeprecationWarnings=true;;
+    n)
+      SchemaValidationStrict=false;;
+    o)
+      OutputFile=$OPTARG;;
+    q)
+      Quiet=true;;
+    M)
+      ExtendedMomAnalysis=$OPTARG;;
+    *)
+      die "Unknown option, try -h for help"
+  esac
+done
+
+shift $((OPTIND - 1))
+
+if [[ $# -lt 1 ]]; then
+  die "no UP specified"
+elif [[ $# -gt 1 ]]; then
+  die "cannot process more than one UP"
+else
+  declare UpgradePackage=$1
+fi
+
+case "$UpType" in
+  legacy|vrcs)
+    true;;
+  *)
+    die "unknown UP type: '$UpType'"
+esac
+
+
+if [[ -z "$Targets" ]]; then
+  Targets=all
+elif [[ "$Targets" == none ]]; then
+  true
+else
+  for target in `echo $Targets | tr ',' ' '`; do
+    if echo $ValidTargets | grep --silent ":$target:"; then
+      true
+    else
+      die "unknown target: $target"
+    fi
+  done
+fi
+
+if [[ -z "$ExtendedMomAnalysis" ]]; then
+  ExtendedMomAnalysis=none
+elif [[ -n "$ExtendedMomAnalysis" ]]; then
+  if [[ "$Targets" == all ]]; then
+    true
+  else
+    if echo ,$Targets, | grep --silent ',gmfMim,'; then
+      true
+    else
+      die "option -M requires the gmfMim target (try -h for help on the -a option)"
+    fi
+  fi
+fi
+
+
+if ! mkdir -p $Wdir; then
+  die "cannot create working directory: $Wdir"
+else
+  declare Probe=`mktemp -u XXXXXXXX`
+  if ! touch $Wdir/$Probe; then
+    die "working directory not writable: $Wdir"
+  else
+    rm $Wdir/$Probe
+    if [[ `find $Wdir -maxdepth 1 | wc --lines` -gt 1 ]]; then
+      die "directory not empty: $Wdir"
+    fi
+  fi
+fi
+
+
+declare Filename=""
+declare DownloadedPackage=false
+if [[ ! -r $UpgradePackage ]]; then
+  case "$UpgradePackage" in
+    http://*|https://*|ftp://*)
+      FileName=`basename $UpgradePackage`
+      if ! wget --output-document $Wdir/$FileName $UpgradePackage; then
+        die "failed to download: $UpgradePackage"
+      else
+        UpgradePackage=$Wdir/$FileName
+        DownloadedPackage=true
+      fi;;
+    *)
+      die "cannot read or download: $UpgradePackage"
+  esac
+fi
+
+if [[ -n "$OutputFile" ]]; then
+  if ! touch $OutputFile; then
+    die "cannot write: $OutputFile"
+  else
+    cat /dev/null >$OutputFile
+  fi
+fi
+
+if [[ $HwCatMod == none ]]; then
+  declare -r HwCategory=none
+  declare -r HwModel=none
+else
+  case "$HwCatMod" in
+    ?*,?*)
+      declare -r HwCategory=`echo $HwCatMod | (IFS=, read X _ && echo $X)`
+      declare -r HwModel=`echo $HwCatMod | (IFS=, read _ Y && echo $Y)`;;
+    *)
+      die "invalid -c option value; the format must be -c abc,xyz"
+  esac
+fi
+
+# Beams in .../out will have precedence
+declare -r Command="erl -noshell -pa $PUBL_EBIN $ReleaseEbin $Out \
+  -run upInspect start \
+    $Keep \
+    `readlink -f $UpgradePackage` \
+    $Wdir \
+    $DownloadedPackage \
+    `if [[ -n "$RCS_TOP" && -d "$RCS_TOP" ]]; then echo $RCS_TOP; else echo $PUBL_SCHEMA; fi` \
+    $Targets \
+    $ValidTargets \
+    $InspAlarmsVerbose \
+    $DeprecationWarnings \
+    $ExtendedMomAnalysis \
+    $HwCategory \
+    $HwModel \
+    $UpType \
+    $SchemaValidationStrict \
+"
+
+
+
+info "$Script version: $Version"
+
+
+if ! command -v erl >/dev/null; then
+  eval `/app/modules/0/bin/modulecmd bash unload erlang`
+  eval `/app/modules/0/bin/modulecmd bash load erlang/otp_18.3`
+fi
+
+if ! command -v erl >/dev/null; then
+  die "no usable Erlang installed"
+else
+  info "using: `erl -version 2>&1 | tr -d '\r'`"
+fi
+
+if ! command -v unsquashfs >/dev/null; then
+  export MODULEPATH="$MODULEPATH:/app/rbs/modules"
+  eval `/app/modules/0/bin/modulecmd bash load wrhosttools`
+fi
+
+if ! command -v unsquashfs >/dev/null; then
+  die "no unsquashfs program available"
+else
+  info "using: `unsquashfs -version | grep 'unsquashfs version'`"
+fi
+
+
+if ! command -v xmllint >/dev/null; then
+  die "no xmllint program available"
+else
+  info "using: `xmllint --version 2>&1 | head -n 1`"
+fi
+
+
+if [[ $Quiet == true && $Keep == false ]]; then
+  warning "the expanded file tree ($Wdir) will be deleted; consider using the -k or -w options"
+fi
+
+
+if [[ $Quiet == true && $Keep == true && $Wdir == $WdirDefault ]]; then
+  priorityInfo "expanded file tree created as: $Wdir"
+fi
+
+
+
+export PATH="$ScriptDir:$PUBL_LIBEXEC:$PATH"
+
+if [[ -n "$OutputFile" && $Quiet == true ]]; then
+  $Command >>$OutputFile
+elif [[ -n "$OutputFile" ]]; then
+  $Command | tee --append $OutputFile
+elif [[ $Quiet == true ]]; then
+  $Command >/dev/null
+else
+  $Command
+fi

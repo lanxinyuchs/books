@@ -1,0 +1,69 @@
+@startuml
+
+legend
+__**Legend**__
+
+<back:lightgreen>Complete</back>
+<back:yellow>Incomplete</back>
+<<RPC>>>: incomplete: R=R-state,
+end legend
+
+
+[RCS-MW\nCAX 103 4073] as RCSMW #Yellow
+
+[CNX 901] <<RPC>> as CNX901     #Yellow
+[CRX 901] as CRX901             #Yellow
+[SS: RCP\nCSX 101 79] as SS     #Yellow
+
+[CXC173] as CXC173
+[VRCS-DUMMY\nCXP 902 9207/2] as DUMMYCXP
+[VRCS-UP\nCXS 101 657/2] as DUMMYUP
+
+[VRCS-EE\nCXC 173 9272/2] as EECXC
+[VRCS-MW\nCXC 173 9608/4] as MWCXC
+
+rectangle {
+[VRCS-EE\nCXP 902 9177/2] as EECXP
+[VRCS-MW\nCXP 902 9176/4] as MWCXP
+[CXA 114 nn/4] as CXA114
+}
+[VRCSI\nCXS 101 659] as VRCSI
+
+[VRCS-ALL\nCXS 101 654] as VRCSALL
+[AS: VRCS\nCSX 101 79/2] as VRCSAS
+
+
+RCSMW -up- CNX901
+RCSMW -up-> CXC173
+RCSMW -up-> EECXC
+RCSMW -up-> MWCXC
+RCSMW -up-> CXA114
+
+CNX901 -up- CRX901
+
+CRX901 -up- SS
+
+CXC173 -up- DUMMYCXP
+
+DUMMYCXP -up- DUMMYUP
+DUMMYCXP -right- VRCSALL
+
+DUMMYUP -up- VRCSAS
+
+VRCSALL -up- VRCSAS
+
+EECXC -up- EECXP
+
+EECXP -up- DUMMYUP
+EECXP -up- VRCSALL
+
+MWCXC -up- MWCXP
+
+MWCXP -up- DUMMYUP
+MWCXP -up- VRCSALL
+
+CXA114 -up- VRCSI
+
+VRCSI -up-> VRCSAS
+
+@enduml

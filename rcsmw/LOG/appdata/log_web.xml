@@ -1,0 +1,44 @@
+<!--
+# ========================================================== 
+# %CCaseFile:	log_web.xml % 
+# %CCaseRev:	/main/R9A/2 % 
+# %CCaseDate:	2017-04-05 % 
+#                                                            
+# Author:	uabesvi
+# Description:	Web directory registrations file
+#                                                            
+# ========================================================== 
+#                                                            
+# %CCaseCopyrightBegin%
+# Copyright (c) Ericsson AB 2017 All rights reserved.
+# 
+# The information in this document is the property of Ericsson.
+# 
+# Except as specifically authorized in writing by Ericsson, the 
+# receiver of this document shall keep the information contained 
+# herein confidential and shall protect the same in whole or in 
+# part from disclosure and dissemination to third parties.
+# 
+# Disclosure and disseminations to the receivers employees shall 
+# only be made on a strict need to know basis.
+# %CCaseCopyrightEnd%
+#                                                            
+# ========================================================== 
+# REVISION LOG 
+# ========================================================== 
+#                                                            
+# Rev        Date       Name        What 
+# ========   ========== ========    ======================== 
+# R9A/1      2017-03-28 etxberb     Created
+# ========================================================== 
+-->
+
+<appdata target="web">
+  <erl_script_alias url="/erilog" module="logWebIv1"/>
+  <mime extension="json" type="application/json"/>
+  <registerOnNodes>
+    <node type="vPP" />
+    <node type="vRC" />
+    <node type="vSD" />
+  </registerOnNodes>
+</appdata>

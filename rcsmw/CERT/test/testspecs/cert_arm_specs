@@ -1,0 +1,17 @@
+%%%-----------------------------------------------------------------------------
+%%% @author enekdav
+%%% @copyright Ericsson AB 2014-2017
+%%% @doc
+%%%
+%%% @end
+%%% Created :  25 Mar 2014 by ETXASTA
+%%%-----------------------------------------------------------------------------
+
+{define, 'Cert', "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/CERT/CERT_CNX9013071/test"}.
+      {define, 'T1', "'Cert'/suites"}.
+
+      {cases,  'T1', certm_SUITE, [all]}.
+      {cases,  'T1', cert_seci_c_SUITE, [all]}.
+      {groups,  'T1', certSecCredu_suite, sdc_group}.
+
+

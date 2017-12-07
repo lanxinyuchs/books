@@ -1,0 +1,91 @@
+//----------------------------------------------------------------------
+//
+// %EricssonCopyright%
+// %CopyrightBegin%
+// 
+// Copyright Ericsson AB 2012. All Rights Reserved.
+// 
+// The program may be used and/or copied only with the written permission from
+// Ericsson AB, or in accordance with the terms and conditions stipulated in
+// the agreement/contract under which the program has been supplied.
+// 
+// %CopyrightEnd%
+//
+//--------------------------------------------------------------------
+enum safsDispatchFlags {
+    SA_DISPATCH_ONE = 1;
+    SA_DISPATCH_ALL = 2;
+    SA_DISPATCH_BLOCKING = 3;
+}
+
+enum safsAisError {
+   sa_ais_ok = 1;
+   sa_ais_err_library = 2;
+   sa_ais_err_version = 3;
+   sa_ais_err_init = 4;
+   sa_ais_err_timeout = 5;
+   sa_ais_err_try_again = 6;
+   sa_ais_err_invalid_param = 7;
+   sa_ais_err_no_memory = 8;
+   sa_ais_err_bad_handle = 9;
+   sa_ais_err_busy = 10;
+   sa_ais_err_access = 11;
+   sa_ais_err_not_exist = 12;
+   sa_ais_err_name_too_long = 13;
+   sa_ais_err_exist = 14;
+   sa_ais_err_no_space = 15;
+   sa_ais_err_interrupt = 16;
+   sa_ais_err_name_not_found = 17;
+   sa_ais_err_no_resources = 18;
+   sa_ais_err_not_supported = 19;
+   sa_ais_err_bad_operation = 20;
+   sa_ais_err_failed_operation = 21;
+   sa_ais_err_message_error = 22;
+   sa_ais_err_queue_full = 23;
+   sa_ais_err_queue_not_available = 24;
+   sa_ais_err_bad_flags = 25;
+   sa_ais_err_too_big = 26;
+   sa_ais_err_no_sections = 27;
+   sa_ais_err_no_op = 28;          
+   sa_ais_err_repair_pending = 29;
+   sa_ais_err_no_bindings = 30;
+   sa_ais_err_unavailable = 31;
+   sa_ais_err_campaign_error_detected = 32;
+   sa_ais_err_campaign_proc_failed = 33;
+   sa_ais_err_campaign_canceled = 34;
+   sa_ais_err_campaign_failed = 35;
+   sa_ais_err_campaign_suspended = 36;
+   sa_ais_err_campaign_suspending = 37;
+   sa_ais_err_access_denied = 38;
+   sa_ais_err_not_ready = 39;
+   sa_ais_err_deployment = 40;
+}
+
+enum safsServices {
+    sa_svc_hpi  =  1;
+    sa_svc_amf  =  2;
+    sa_svc_clm  =  3;
+    sa_svc_ckpt =  4;
+    sa_svc_evt  =  5;
+    sa_svc_msg  =  6;
+    sa_svc_lck  =  7;
+    sa_svc_imms =  8; 
+    sa_scv_log  =  9;
+    sa_svc_ntf  =  10;
+    sa_svc_nam  =  11;
+    sa_svc_tmr  =  12;
+    sa_svc_smf  =  13;
+    sa_svc_sec  =  14;
+    sa_svc_plm  =  15;
+}
+
+message safsAny {
+	required uint64 bufferSize = 1;
+	required bytes bufferAddr = 2; //SaUint8T  *bufferAddr;
+}
+
+message safsVersion {
+     required uint32 releaseCode = 1;
+     required uint32 majorVersion = 2;
+     required uint32 minorVersion = 3;
+  }

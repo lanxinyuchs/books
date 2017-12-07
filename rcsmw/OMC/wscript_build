@@ -1,0 +1,8 @@
+APP = bld.rcsErlApp("omc", ["model"], extra_erl = bld.path.ant_glob("esrc/*.xrl esrc/*.yrl"), cxaid="196", cxcid="131", appdataroot="omc", )
+
+bld.program(source="csrc/pipe_pty.c", target="pipe_pty",
+   install_path = bld.getBin(APP))
+
+bld.install_files("${PREFIX}/"+APP+"/priv",
+   bld.path.ant_glob("appdata/*"),
+   relative_trick=True)

@@ -1,0 +1,18 @@
+%%%-----------------------------------------------------------------------------
+%%% @author etxarnu
+%%% @copyright Ericsson AB 2014
+%%% @doc
+%%%
+%%% @end
+%%% Created :  6 May 2014 by ETXARNU
+%%%-----------------------------------------------------------------------------
+
+{define, 'Top', "/vobs/rcs/dev/RCP_CSX10179/RCT_CRX901275/test"}.
+{define, 'Appm', "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/APPM/APPM_CNX9012632/test"}.
+{define, 'T1', "'Top'/suites/install"}.
+{define, 'T2', "'Appm'/suites"}.
+{define, 'T3', "'Top'/suites/ROB"}.
+
+{cases,  'T1', basic_tests_SUITE, [all]}.
+{cases,  'T2', lmhi_c_SUITE, [all]}.
+{cases,  'T3', restartable_programs_SUITE, [all]}.

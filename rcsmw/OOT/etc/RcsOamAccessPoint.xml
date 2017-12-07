@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Copyright (c) 2015 Ericsson AB. 
+	All rights reserved 
+
+	DX ECIM Tool-chain generated this file on Jul 8, 2015 10:33:09 AM using:
+	* com.ericsson.ecim.m2m 2.14.1.201504211247
+	* com.ericsson.ecim.dsl 2.14.1.201504211247
+	* com.ericsson.ecim.edm 2.14.1.201504211247
+--><!DOCTYPE models SYSTEM "mp.dtd">
+<models>
+  <dtdVersion>G</dtdVersion>
+  <momMetaData>
+    <momTitle>title</momTitle>
+    <momSubTitle>sub title</momSubTitle>
+    <momIdentity>
+      <docNum>1/155 54-CNX 901 3316</docNum>
+      <docLang>English</docLang>
+      <docRev>0</docRev>
+      <docDate>2015-01-22</docDate>
+    </momIdentity>
+  </momMetaData>
+  <mim author="ETXJOTJ" contact="UABESVI" correction="0" date="2015-07-08" docNo="1/155 54-CNX 901 3316" name="RcsOamAccessPoint" namespace="urn:com:ericsson:ecim:RcsOamAccessPoint" namespacePrefix="rcsoamaccesspoint" organization="" release="2" revision="" version="1">
+    <description>This model contains configuration for the OAM access.</description>
+    <domainExtension domain="ECIM">
+      <extension name="immNamespace" value="NONE"/>
+    </domainExtension>
+    <derivedDataType name="RcsOamAccessPoint_OamAccessPoint_dscp">
+      <baseType>
+        <uint8>
+          <range>
+            <min>0</min>
+            <max>63</max>
+          </range>
+          <ranges>
+            <subrange>
+              <min>0</min>
+              <max>63</max>
+            </subrange>
+          </ranges>
+        </uint8>
+      </baseType>
+    </derivedDataType>
+    <class name="OamAccessPoint">
+      <description>This class contains configuration for OAM access.</description>
+      <systemCreated/>
+      <root/>
+      <attribute name="oamAccessPointId">
+        <description>The value component of the RDN.</description>
+        <mandatory/>
+        <noNotification/>
+        <restricted/>
+        <key/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="sshPort">
+        <description>Port for accessing the CLI over ssh.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <isNillable/>
+        <dataType>
+          <uint16/>
+        </dataType>
+      </attribute>
+      <attribute name="netconfPort">
+        <description>Port for accessing the netconf interface.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <isNillable/>
+        <dataType>
+          <uint16/>
+        </dataType>
+      </attribute>
+      <attribute name="dscp">
+        <description>The Differentiated Services Code Point (DSCP) value for OAM services related IP packets. 
+Only IP packets originated from the node are taged with the DSCP value.
+
+The DSCP value is used by Differentiated Services enabled hosts and routers to identify different service levels. When set, te DSCP value is mapped to a Per-Hop Behaviour (PHB) by forwarding devices along the path between the source and destination. A PHB dictates how each package is handled, that is, what type of service that is applied to the packet when it is forwarded.</description>
+        <dataType>
+          <derivedDataTypeRef name="RcsOamAccessPoint_OamAccessPoint_dscp">
+            <defaultValue>0</defaultValue>
+            <mimName>RcsOamAccessPoint</mimName>
+          </derivedDataTypeRef>
+        </dataType>
+        <specification>RFC 2597</specification>
+      </attribute>
+      <attribute name="ipv4address">
+        <description>Refers to the IPv4 interface address to which the OAM services shall bind.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <isNillable/>
+        <dataType>
+          <moRef name="ManagedObject"/>
+        </dataType>
+      </attribute>
+      <attribute name="accessPoint">
+        <description>The OaM access point.
+Points to an address or an IP interface which can either be an Ipv4 or an Ipv6 format.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <isNillable/>
+        <dataType>
+          <moRef name="ManagedObject"/>
+        </dataType>
+      </attribute>
+    </class>
+  </mim>
+  <interMim>
+    <relationship name="SysM_to_OamAccessPoint">
+      <domainExtension domain="CoreMW">
+        <extension name="splitImmDn" value="false"/>
+      </domainExtension>
+      <containment>
+        <parent>
+          <hasClass name="SysM">
+            <mimName>ECIM_SysM</mimName>
+          </hasClass>
+        </parent>
+        <child>
+          <hasClass name="OamAccessPoint">
+            <mimName>RcsOamAccessPoint</mimName>
+          </hasClass>
+          <cardinality>
+            <min>1</min>
+            <max>1</max>
+          </cardinality>
+        </child>
+        <domainExtension domain="ECIM">
+          <extension name="canCreate" value="false"/>
+          <extension name="canDelete" value="false"/>
+        </domainExtension>
+        <notCreatable/>
+        <notDeleteable/>
+      </containment>
+    </relationship>
+  </interMim>
+</models>

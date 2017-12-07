@@ -1,0 +1,69 @@
+%% -*- erlang -*-
+%% #0.    BASIC INFORMATION
+%% ----------------------------------------------------------
+%% %CCaseFile:	coi.appSrc %
+%% %CCaseRev:	/main/R3A/4 %
+%% %CCaseDate:	2015-01-12 %
+%% %CCaseDocNo:	 %
+%%
+%% Author:	etxbjca
+%% Description: Attribute file for <text>
+%%
+%% ----------------------------------------------------------
+%% %CCaseTemplateFile:	APP.appSrc %
+%% %CCaseTemplateId: CCver: /main/3 %
+%%
+%%
+%% %CCaseCopyrightBegin%
+%% Copyright (c) Ericsson AB 2014-2015 All rights reserved.
+%% 
+%% The information in this document is the property of Ericsson.
+%% 
+%% Except as specifically authorized in writing by Ericsson, the 
+%% receiver of this document shall keep the information contained 
+%% herein confidential and shall protect the same in whole or in 
+%% part from disclosure and dissemination to third parties.
+%% 
+%% Disclosure and disseminations to the receivers employees shall 
+%% only be made on a strict need to know basis.
+%% %CCaseCopyrightEnd%
+%% 
+%% ----------------------------------------------------------
+%% #1.    REVISION LOG
+%% ----------------------------------------------------------
+%% Rev        Date         Name        What
+%% --------   --------     --------    ------------------------
+%% R3A/1      2014-12-10   etxbjca     Created
+%% R3A/2      2015-01-09   etxberb     First version for delivery.
+%% ----------------------------------------------------------
+%% 
+%% Attributes managed by clearmake:  
+%%   [{id, string()}, {vsn, string()}, {modules, [atom()]}
+%%
+%% Environment attributes with special meaning
+%%
+%% {'#children#', [{Name, Start, Restart, Shutdown, Type, Modules}]}
+%% {'#supervisor#', [{name, string()}, {maxR, integer()}, {maxT, integer()}]}
+%%   See supervisor doucmentation
+%%
+%% Optional environment attributes:
+%%    {'#go#', {Module, Function}}, 
+%%    {'#takeover#', {Module, Function}} 
+%%
+
+
+{application, coi,
+ [
+  {id,				"&id&"},
+  {vsn,				"&vsn&"},
+  {modules,			"&modules&"},
+  {mod,                         {sysApp, [{initmodule, coiDataInit}]}},
+  {description,			"Control system Oam Interface"},
+  {maxP,			infinity}, % infinity | integer()
+  {maxT,			infinity}, % infinity | integer()
+  {registered,			[]}, % [Name1, Name2|...]
+  {applications,		[]}, % [Appl1, Appl2|...]
+  {included_applications,	[]}, % [Appl1, Appl2|...]
+  {env,				[]}
+ ]}.
+

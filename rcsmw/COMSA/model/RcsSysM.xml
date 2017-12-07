@@ -1,0 +1,804 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Copyright (c) 2015 Ericsson AB. 
+	All rights reserved 
+
+	DX ECIM Tool-chain generated this file on Jul 7, 2015 1:14:44 PM using:
+	* com.ericsson.ecim.m2m 2.14.1.201504211247
+	* com.ericsson.ecim.dsl 2.14.1.201504211247
+	* com.ericsson.ecim.edm 2.14.1.201504211247
+--><!DOCTYPE models SYSTEM "mp.dtd">
+<models>
+  <dtdVersion>G</dtdVersion>
+  <momMetaData>
+    <momTitle>title</momTitle>
+    <momSubTitle>sub title</momSubTitle>
+    <momIdentity>
+      <docNum>4/155 54-CNX 901 2610</docNum>
+      <docLang>English</docLang>
+      <docRev>0</docRev>
+      <docDate>2015-07-06</docDate>
+    </momIdentity>
+    <createdBy>
+      <signature>ETXJOTJ</signature>
+    </createdBy>
+    <approvedBy>
+      <signature>ETXJOTJ</signature>
+    </approvedBy>
+  </momMetaData>
+  <mim author="ETXJOTJ" contact="ETXJOTJ" correction="3" date="2017-06-30" docNo="4/155 54-CNX 901 2610" name="RcsSysM" namespace="urn:com:ericsson:ecim:RcsSysM" namespacePrefix="rcssysm" organization="BURA DURA BT OM MW 1" release="0" revision="A" version="1">
+    <description>This fragment defines the features used by other fragments or by the managed element itself. &#13;
+These include the schema for the managed element that will define the version handling for the model parts and the handling of the NTP server information.&#13;
+</description>
+    <domainExtension domain="ECIM">
+      <extension name="ecimMomName" value="ECIM_SysM"/>
+      <extension name="ecimMomVersion" value="3"/>
+      <extension name="ecimMomRelease" value="3"/>
+      <extension name="ecimMomCorrection" value="0"/>
+    </domainExtension>
+    <implements correction="0" name="ECIM_SysM" release="3" version="3"/>
+    <enum name="BasicAdmState">
+      <description>Basic administrative states for a resource.</description>
+      <domainExtension domain="ECIM">
+        <extension name="originatingMimVersion" value="2"/>
+        <extension name="originatingMimName" value="ECIM_CommonLibrary"/>
+        <extension name="originatingMimRelease" value="0"/>
+      </domainExtension>
+      <enumMember name="LOCKED">
+        <description> The resource is administratively prohibited from performing services for its users.</description>
+        <value>0</value>
+      </enumMember>
+      <enumMember name="UNLOCKED">
+        <description>The resource is administratively permitted to perform services for its users.&#13;
+This is independent of its inherent operability.</description>
+        <value>1</value>
+      </enumMember>
+    </enum>
+    <derivedDataType name="IpDNSAddress">
+      <description>The IpDNSAddress type represents an IP address or a DNS domain name.&#13;
+A version 4 IP address is specified in dotted quad notation, for example 130.100.92.154. RFC 791 describes the syntax in detail.&#13;
+A version 6 IP address is specified by 8 groups of 16 bit hexadecimal values separated by colons, for example, 2001:0db8:85a3:0000:0000:8a2e:0370:7334. RFC 4291 describes the syntax in detail.&#13;
+A DNS name is specified as a fully qualified domain name, for example, myhost.ericsson.com. The internet domain is loosely specified but RFC 1034 recommends a syntax.&#13;
+</description>
+      <domainExtension domain="ECIM">
+        <extension name="originatingMimVersion" value="2"/>
+        <extension name="originatingMimName" value="ECIM_CommonLibrary"/>
+        <extension name="originatingMimRelease" value="0"/>
+      </domainExtension>
+      <baseType>
+        <string>
+          <lengthRange>
+            <min>1</min>
+            <max>253</max>
+          </lengthRange>
+          <stringLength>
+            <subrange>
+              <min>1</min>
+              <max>253</max>
+            </subrange>
+          </stringLength>
+          <validValues>(^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))|(^\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3}))|:)))(%.+)?\s*$)|(^([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9-]{0,61}[a-zA-Z0-9])(\.([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9-]{0,61}[a-zA-Z0-9]))*$)</validValues>
+        </string>
+      </baseType>
+      <validationRules>
+        <rule exceptionText="" format="posix_ere" name="Pattern Constraint"><![CDATA[(^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))|(^\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3}))|:)))(%.+)?\s*$)|(^([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9-]{0,61}[a-zA-Z0-9])(\.([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9-]{0,61}[a-zA-Z0-9]))*$)]]></rule>
+      </validationRules>
+    </derivedDataType>
+    <derivedDataType name="EcimPasswordString">
+      <description>The password string.</description>
+      <baseType>
+        <string/>
+      </baseType>
+    </derivedDataType>
+    <derivedDataType name="RcsSysM_OamAccessPoint_dscp">
+      <baseType>
+        <uint8>
+          <range>
+            <min>0</min>
+            <max>63</max>
+          </range>
+          <ranges>
+            <subrange>
+              <min>0</min>
+              <max>63</max>
+            </subrange>
+          </ranges>
+        </uint8>
+      </baseType>
+    </derivedDataType>
+    <derivedDataType name="RcsSysM_OamTrafficClass_dscp">
+      <baseType>
+        <uint8>
+          <range>
+            <min>0</min>
+            <max>63</max>
+          </range>
+          <ranges>
+            <subrange>
+              <min>0</min>
+              <max>63</max>
+            </subrange>
+          </ranges>
+        </uint8>
+      </baseType>
+    </derivedDataType>
+    <class name="SysM">
+      <description>This is the System Management MO. &#13;
+&#13;
+It is a parent to the MOs which represent the system level functions such as time handling and version handling as well as file transfer capabilities and netconf configuration.</description>
+      <systemCreated/>
+      <root/>
+      <attribute name="sysMId">
+        <description>Holds the name used when identifying this MO.</description>
+        <mandatory/>
+        <noNotification/>
+        <restricted/>
+        <key/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="userLabel">
+        <description>An additional descriptive text.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <isNillable/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+    </class>
+    <class name="NtpServer">
+      <description>The NTP server configuration data.&#13;
+&#13;
+This MOC presents a persistent NTP client mode network association with a specified remote server or local reference clock address. </description>
+      <specification>RFC1305; RFC5905</specification>
+      <attribute name="userLabel">
+        <description>An additional descriptive text.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <isNillable/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="ntpServerId">
+        <description>Holds the name used when identifying this MO.</description>
+        <mandatory/>
+        <noNotification/>
+        <restricted/>
+        <key/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="serverAddress">
+        <description>The address of the NTP server with which a persistent client server mode association will be made.&#13;
+&#13;
+The serverAddress represents either a V4 or a V6 IP address or a DNS domain name.</description>
+        <mandatory/>
+        <dataType>
+          <derivedDataTypeRef name="IpDNSAddress">
+            <mimName>RcsSysM</mimName>
+          </derivedDataTypeRef>
+        </dataType>
+      </attribute>
+      <attribute name="administrativeState">
+        <description>Locks or unlocks the operation of the NTP client function. &#13;
+&#13;
+This is a convenience function to permit some or all NtpServer instances to be temporarily locked without having to delete the object.</description>
+        <mandatory/>
+        <dataType>
+          <enumRef name="BasicAdmState">
+            <mimName>RcsSysM</mimName>
+          </enumRef>
+        </dataType>
+      </attribute>
+    </class>
+    <class name="Schema">
+      <description>Represents a MIM model fragment whose corresponding functionality is operational in the ME.</description>
+      <systemCreated/>
+      <action name="export">
+        <description>Pushes the schema file out from the ME.&#13;
+&#13;
+The URI shall contain both the file name and the destination address. The password is optional.</description>
+        <returnType>
+          <void/>
+        </returnType>
+        <parameter name="uri">
+          <description>The URI for file transfer.&#13;
+&#13;
+The URI used for identifying the adress to the remote location to which the file shall be transferred to.</description>
+          <in/>
+          <dataType>
+            <string/>
+          </dataType>
+        </parameter>
+        <parameter name="password">
+          <description>The password used for connecting to the remote file location.</description>
+          <domainExtension domain="ECIM">
+            <extension name="isNillable" value="true"/>
+          </domainExtension>
+          <isNillable/>
+          <in/>
+          <dataType>
+            <derivedDataTypeRef name="EcimPasswordString">
+              <mimName>RcsSysM</mimName>
+            </derivedDataTypeRef>
+          </dataType>
+        </parameter>
+      </action>
+      <attribute name="schemaId">
+        <description>Holds the name used when identifying this MO.</description>
+        <mandatory/>
+        <noNotification/>
+        <restricted/>
+        <key/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="identifier">
+        <description>Represents the name of the data model fragment that the schema represents.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <readOnly/>
+        <isNillable/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="baseModelIdentifier">
+        <description>Represents the name of the common information model fragment that the data model fragment is derived from.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <readOnly/>
+        <isNillable/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="version">
+        <description>Represents the full version information for the data model fragment that the schema represents.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <readOnly/>
+        <isNillable/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="baseModelVersion">
+        <description>The full version information for the common information model fragment that the data model fragment is derived from. </description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <readOnly/>
+        <isNillable/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="selectedModelOptions">
+        <description>Contains the model features used in the generation of the MIM. &#13;
+&#13;
+The MS can query the information from the model without having to access the MIM file itself.</description>
+        <readOnly/>
+        <dataType>
+          <sequence>
+            <string/>
+            <minLength>0</minLength>
+            <nonUnique/>
+          </sequence>
+        </dataType>
+      </attribute>
+    </class>
+    <class name="NetconfTls">
+      <description>Represents the Netconf configuration management service over Transport Layer Security (TLS).</description>
+      <systemCreated/>
+      <attribute name="netconfTlsId">
+        <description>Holds the name used when identifying this MO.</description>
+        <mandatory/>
+        <noNotification/>
+        <restricted/>
+        <key/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="nodeCredential">
+        <description>The credential used for the NETCONF service. &#13;
+Specifies the DN of a NodeCredential MO in Certificate Management.&#13;
+</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <isNillable/>
+        <dataType>
+          <moRef name="ManagedObject"/>
+        </dataType>
+      </attribute>
+      <attribute name="trustCategory">
+        <description>The set of certificates trusted by the NETCONF service. &#13;
+Specifies the DN of a TrustCategory MO in Certificate Management.&#13;
+</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <isNillable/>
+        <dataType>
+          <moRef name="ManagedObject"/>
+        </dataType>
+      </attribute>
+      <attribute name="administrativeState">
+        <description>The administrative state for the Netconf target.&#13;
+When LOCKED all on-going netconf connections will immediately be terminated.&#13;
+&#13;
+NOTE: Setting the administrativState to LOCKED for all Netconf and CLI interfaces disables O&amp;M access to the ME. Refer to product specific troubleshooting instructions to resolve such a scenario.</description>
+        <mandatory/>
+        <dataType>
+          <enumRef name="BasicAdmState">
+            <mimName>RcsSysM</mimName>
+          </enumRef>
+        </dataType>
+      </attribute>
+      <attribute name="port">
+        <description>The OaM port.</description>
+        <mandatory/>
+        <dataType>
+          <uint16/>
+        </dataType>
+      </attribute>
+    </class>
+    <class name="NetconfSsh">
+      <description>Represents the Netconf configuration management service over Secure Shell.</description>
+      <systemCreated/>
+      <attribute name="netconfSshId">
+        <description>Holds the name used when identifying this MO.</description>
+        <mandatory/>
+        <noNotification/>
+        <restricted/>
+        <key/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="administrativeState">
+        <description>The administrative state for the Netconf target.&#13;
+When LOCKED all on-going netconf connections will immediately be terminated.&#13;
+&#13;
+NOTE: Setting the administrativState to LOCKED for all Netconf and CLI interfaces disables O&amp;M access to the ME. Refer to product specific troubleshooting instructions to resolve such a scenario.</description>
+        <mandatory/>
+        <dataType>
+          <enumRef name="BasicAdmState">
+            <mimName>RcsSysM</mimName>
+          </enumRef>
+        </dataType>
+      </attribute>
+      <attribute name="port">
+        <description>The OaM port.</description>
+        <dataType>
+          <uint16>
+            <defaultValue>830</defaultValue>
+          </uint16>
+        </dataType>
+      </attribute>
+    </class>
+    <class name="CliSsh">
+      <description>Represents the CLI configuration management service over Secure Shell.</description>
+      <systemCreated/>
+      <attribute name="cliSshId">
+        <description>Holds the name used when identifying this MO.</description>
+        <mandatory/>
+        <noNotification/>
+        <restricted/>
+        <key/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="administrativeState">
+        <description>The administrative state for the CLI target.&#13;
+When LOCKED all on-going CLI connections will immediately be terminated.&#13;
+&#13;
+NOTE: Setting the administrativState to LOCKED for all Netconf and CLI interfaces disables O&amp;M access to the ME. Refer to product specific troubleshooting instructions to resolve such a scenario.</description>
+        <mandatory/>
+        <dataType>
+          <enumRef name="BasicAdmState">
+            <mimName>RcsSysM</mimName>
+          </enumRef>
+        </dataType>
+      </attribute>
+      <attribute name="port">
+        <description>The OaM port.</description>
+        <mandatory/>
+        <dataType>
+          <uint16/>
+        </dataType>
+      </attribute>
+    </class>
+    <class name="CliTls">
+      <description>Represents the CLI configuration management service over Transport Layer Security (TLS).</description>
+      <systemCreated/>
+      <attribute name="cliTlsId">
+        <description>Holds the name used when identifying this MO.</description>
+        <mandatory/>
+        <noNotification/>
+        <restricted/>
+        <key/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="nodeCredential">
+        <description>The credential used for the CLI service. &#13;
+Specifies the DN of a NodeCredential MO in Certificate Management.&#13;
+</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <isNillable/>
+        <dataType>
+          <moRef name="ManagedObject"/>
+        </dataType>
+      </attribute>
+      <attribute name="trustCategory">
+        <description>The set of certificates trusted by the CLI service. &#13;
+Specifies the DN of a TrustCategory MO in Certificate Management.&#13;
+</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <isNillable/>
+        <dataType>
+          <moRef name="ManagedObject"/>
+        </dataType>
+      </attribute>
+      <attribute name="administrativeState">
+        <description>The administrative state for the CLI target.&#13;
+When LOCKED all on-going netconf connections will immediately be terminated.&#13;
+&#13;
+NOTE: Setting the administrativState to LOCKED for all Netconf and CLI interfaces disables O&amp;M access to the ME. Refer to product specific troubleshooting instructions to resolve such a scenario.</description>
+        <mandatory/>
+        <dataType>
+          <enumRef name="BasicAdmState">
+            <mimName>RcsSysM</mimName>
+          </enumRef>
+        </dataType>
+      </attribute>
+      <attribute name="port">
+        <description>The OaM port.</description>
+        <mandatory/>
+        <dataType>
+          <uint16/>
+        </dataType>
+      </attribute>
+    </class>
+    <class name="OamAccessPoint">
+      <description>An OaM Access Point instance for the ME.</description>
+      <systemCreated/>
+      <attribute name="oamAccessPointId">
+        <description>Holds the name used when identifying this MO.</description>
+        <mandatory/>
+        <noNotification/>
+        <restricted/>
+        <key/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="accessPoint">
+        <description>The OaM access point.
+Refers to an IP interface MO which contains either an IPv4 or IPv6 address. </description>
+       <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <isNillable/>
+        <dataType>
+          <moRef name="ManagedObject"/>
+        </dataType>
+      </attribute>
+      <attribute name="dscp">
+        <description>The Differentiated Services Code Point (DSCP) value for OAM services.
+Only IP packets originated form the node are tagged with the DSCP value.
+
+The DSCP value is used by Differentiated Services enabled hosts and routers to identify different service levels. When set, the DSCP value is mapped to a Per-Hop Behaviour (PHB) by forwarding devices along the path between the source and destination. A PHB dictates how each package is handled, that is, what type of service that is applied to the packet when it is forwarded.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <isNillable/>
+        <dataType>
+          <derivedDataTypeRef name="RcsSysM_OamAccessPoint_dscp">
+            <defaultValue>0</defaultValue>
+            <mimName>RcsSysM</mimName>
+          </derivedDataTypeRef>
+        </dataType>
+        <obsolete/>
+        <statusInformation>Deprecated since 16A. Use attribute OamTrafficClass::dscp instead</statusInformation>
+        <specification>RFC 2597</specification>
+      </attribute>
+      <attribute name="ipv4address">
+        <description>Refers to the IPv4 interface MO to which the OAM services shall bind.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <isNillable/>
+        <dataType>
+          <moRef name="ManagedObject"/>
+        </dataType>
+        <obsolete/>
+        <statusInformation>Deprecated since 16A. Use attribute accessPoint instead.</statusInformation>
+      </attribute>
+      <attribute name="netconfPort">
+        <description>Port for accessing the NETCONF service</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <isNillable/>
+        <dataType>
+          <uint16/>
+        </dataType>
+        <obsolete/>
+        <statusInformation>Deprecated since16A. Use attribute NetconfSsh::port instead</statusInformation>
+      </attribute>
+      <attribute name="sshPort">
+        <description>Port for accessing the Ericsson Command Line interface service</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <isNillable/>
+        <dataType>
+          <uint16/>
+        </dataType>
+        <obsolete/>
+        <statusInformation>Deprecated since 16A. Use attribute CliSsh::port instead.</statusInformation>
+      </attribute>
+    </class>
+    <class name="OamTrafficClass">
+      <description>Defines the traffic class and priority for IP packets.</description>
+      <systemCreated/>
+      <attribute name="oamTrafficClassId">
+        <description>Holds the name used when identifying this MO.</description>
+        <mandatory/>
+        <noNotification/>
+        <restricted/>
+        <key/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="name">
+        <description>Name of the traffic class associated with this DSCP class.</description>
+        <readOnly/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="dscp">
+        <description>The Differentiated Services Code Point (DSCP) value for OAM services related IP packets. &#13;
+Only IP packets originated from the node are tagged with the DSCP value.&#13;
+&#13;
+The DSCP value is used by Differentiated Services enabled hosts and routers to identify different service levels. When set, the DSCP value is mapped to a Per-Hop Behaviour (PHB) by forwarding devices along the path between the source and destination. A PHB dictates how each package is handled, i.e. what type of service that is applied to the packet when it is forwarded.</description>
+        <mandatory/>
+        <dataType>
+          <derivedDataTypeRef name="RcsSysM_OamTrafficClass_dscp">
+            <mimName>RcsSysM</mimName>
+          </derivedDataTypeRef>
+        </dataType>
+      </attribute>
+    </class>
+    <relationship name="SysM_to_NtpServer">
+      <containment>
+        <parent>
+          <hasClass name="SysM">
+            <mimName>RcsSysM</mimName>
+          </hasClass>
+        </parent>
+        <child>
+          <hasClass name="NtpServer">
+            <mimName>RcsSysM</mimName>
+          </hasClass>
+          <cardinality>
+            <min>0</min>
+          </cardinality>
+        </child>
+        <domainExtension domain="ECIM">
+          <extension name="canCreate" value="true"/>
+          <extension name="canDelete" value="true"/>
+        </domainExtension>
+      </containment>
+    </relationship>
+    <relationship name="SysM_to_Schema">
+      <containment>
+        <parent>
+          <hasClass name="SysM">
+            <mimName>RcsSysM</mimName>
+          </hasClass>
+        </parent>
+        <child>
+          <hasClass name="Schema">
+            <mimName>RcsSysM</mimName>
+          </hasClass>
+          <cardinality>
+            <min>2</min>
+          </cardinality>
+        </child>
+        <domainExtension domain="ECIM">
+          <extension name="canCreate" value="false"/>
+          <extension name="canDelete" value="false"/>
+        </domainExtension>
+        <notCreatable/>
+        <notDeleteable/>
+      </containment>
+    </relationship>
+    <relationship name="SysM_to_NetconfTls">
+      <containment>
+        <parent>
+          <hasClass name="SysM">
+            <mimName>RcsSysM</mimName>
+          </hasClass>
+        </parent>
+        <child>
+          <hasClass name="NetconfTls">
+            <mimName>RcsSysM</mimName>
+          </hasClass>
+          <cardinality>
+            <min>0</min>
+            <max>1</max>
+          </cardinality>
+        </child>
+        <domainExtension domain="ECIM">
+          <extension name="canCreate" value="false"/>
+          <extension name="canDelete" value="false"/>
+        </domainExtension>
+        <notCreatable/>
+        <notDeleteable/>
+      </containment>
+    </relationship>
+    <relationship name="SysM_to_NetconfSsh">
+      <containment>
+        <parent>
+          <hasClass name="SysM">
+            <mimName>RcsSysM</mimName>
+          </hasClass>
+        </parent>
+        <child>
+          <hasClass name="NetconfSsh">
+            <mimName>RcsSysM</mimName>
+          </hasClass>
+          <cardinality>
+            <min>0</min>
+            <max>1</max>
+          </cardinality>
+        </child>
+        <domainExtension domain="ECIM">
+          <extension name="canCreate" value="false"/>
+          <extension name="canDelete" value="false"/>
+        </domainExtension>
+        <notCreatable/>
+        <notDeleteable/>
+      </containment>
+    </relationship>
+    <relationship name="SysM_to_CliSsh">
+      <containment>
+        <parent>
+          <hasClass name="SysM">
+            <mimName>RcsSysM</mimName>
+          </hasClass>
+        </parent>
+        <child>
+          <hasClass name="CliSsh">
+            <mimName>RcsSysM</mimName>
+          </hasClass>
+          <cardinality>
+            <min>0</min>
+            <max>1</max>
+          </cardinality>
+        </child>
+        <domainExtension domain="ECIM">
+          <extension name="canCreate" value="false"/>
+          <extension name="canDelete" value="false"/>
+        </domainExtension>
+        <notCreatable/>
+        <notDeleteable/>
+      </containment>
+    </relationship>
+    <relationship name="SysM_to_CliTls">
+      <containment>
+        <parent>
+          <hasClass name="SysM">
+            <mimName>RcsSysM</mimName>
+          </hasClass>
+        </parent>
+        <child>
+          <hasClass name="CliTls">
+            <mimName>RcsSysM</mimName>
+          </hasClass>
+          <cardinality>
+            <min>0</min>
+            <max>1</max>
+          </cardinality>
+        </child>
+        <domainExtension domain="ECIM">
+          <extension name="canCreate" value="false"/>
+          <extension name="canDelete" value="false"/>
+        </domainExtension>
+        <notCreatable/>
+        <notDeleteable/>
+      </containment>
+    </relationship>
+    <relationship name="SysM_to_OamAccessPoint">
+      <containment>
+        <parent>
+          <hasClass name="SysM">
+            <mimName>RcsSysM</mimName>
+          </hasClass>
+        </parent>
+        <child>
+          <hasClass name="OamAccessPoint">
+            <mimName>RcsSysM</mimName>
+          </hasClass>
+          <cardinality>
+            <min>0</min>
+          </cardinality>
+        </child>
+        <domainExtension domain="ECIM">
+          <extension name="canCreate" value="true"/>
+          <extension name="canDelete" value="true"/>
+        </domainExtension>
+      </containment>
+    </relationship>
+    <relationship name="SysM_to_OamTrafficClass">
+      <containment>
+        <parent>
+          <hasClass name="SysM">
+            <mimName>RcsSysM</mimName>
+          </hasClass>
+        </parent>
+        <child>
+          <hasClass name="OamTrafficClass">
+            <mimName>RcsSysM</mimName>
+          </hasClass>
+          <cardinality>
+            <min>0</min>
+          </cardinality>
+        </child>
+        <domainExtension domain="ECIM">
+          <extension name="canCreate" value="true"/>
+          <extension name="canDelete" value="true"/>
+        </domainExtension>
+      </containment>
+    </relationship>
+  </mim>
+  <interMim>
+    <relationship name="SystemFunctions_to_SysM">
+      <containment>
+        <parent>
+          <hasClass name="SystemFunctions">
+            <mimName>ECIM_Top</mimName>
+          </hasClass>
+        </parent>
+        <child>
+          <hasClass name="SysM">
+            <mimName>RcsSysM</mimName>
+          </hasClass>
+          <cardinality>
+            <min>1</min>
+            <max>1</max>
+          </cardinality>
+        </child>
+        <domainExtension domain="ECIM">
+          <extension name="canCreate" value="false"/>
+          <extension name="canDelete" value="false"/>
+        </domainExtension>
+        <notCreatable/>
+        <notDeleteable/>
+      </containment>
+    </relationship>
+  </interMim>
+</models>

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!--
+# ==========================================================
+# %CCaseFile:	appm.xsd %
+# %CCaseRev:	/main/R2A/R4A/R5A/R6A/R8A/1 %
+# %CCaseDate:	2017-01-13 %
+#
+# Author:	etxarnu
+# Description:	XML schema definition for loadmodule and lmlist registrations
+#
+# ==========================================================
+#
+# %CCaseCopyrightBegin%
+# Copyright (c) Ericsson AB 2012-2017 All rights reserved.
+# 
+# The information in this document is the property of Ericsson.
+# 
+# Except as specifically authorized in writing by Ericsson, the 
+# receiver of this document shall keep the information contained 
+# herein confidential and shall protect the same in whole or in 
+# part from disclosure and dissemination to third parties.
+# 
+# Disclosure and disseminations to the receivers employees shall 
+# only be made on a strict need to know basis.
+# %CCaseCopyrightEnd%
+#
+# ==========================================================
+# REVISION LOG
+# ==========================================================
+#
+# Rev        Date       Name        What
+# ========   ========== ========    ========================
+# R1A/1      2012-10-18 etxarnu     Created
+# R2A/1      2013-02-11 etxarnu     Corrected LmType:
+#                                     number-> id
+#                                     revision -> rev
+# R2A/4      2013-11-22 etxarnu     Added programgroup
+# R4A/1      2015-08-12 etxarnu     Changed boardType to element in LmListType
+# R5A/1      2016-02-23 erarafo     Handle deprecated way of declaring boardType
+# R5A/2      2016-02-24 erarafo     Allow free order of appdata content
+# R5A/3      2016-02-24 erarafo     Allow loadmodule with no file element
+# R6A/1      2016-06-16 etxberb     Added hwType.
+# R8A/1      2017-01-13 etxjotj     Added hwcategory has attribute for radio
+# ==========================================================
+-->
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="appdata" type="RcsDataType"/>
+
+  <!-- describes <appdata target="appm"> ... -->
+  <xs:complexType name="RcsDataType">
+    <xs:sequence>
+      <xs:choice minOccurs="1" maxOccurs="unbounded">
+        <xs:element name="loadmodule" type="LmType"/>
+        <xs:element name="lmlist" type="LmListType"/>
+        <xs:element name="programgroup" type="PgmGroupType"/>
+      </xs:choice>
+    </xs:sequence>
+    <xs:attribute name="target" use="required" type="AppmTargetType"/>
+  </xs:complexType>
+
+  <!-- the single allowed value "appm" for <appdata target="..."> -->
+  <xs:simpleType name="AppmTargetType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="appm"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- describes <loadmodule> ... -->
+  <xs:complexType name="LmType">
+    <xs:sequence>
+      <xs:element name="file" type="FileType"
+                  minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="tag" use="required" type="xs:string"/>
+    <xs:attribute name="name" use="required" type="xs:string"/>
+    <xs:attribute name="id" use="required" type="xs:string"/>
+    <xs:attribute name="rev" use="required" type="xs:string"/>
+    <xs:attribute name="date" use="required" type="xs:string"/>
+  </xs:complexType>
+
+  <!-- describes <file/> -->
+  <xs:complexType name="FileType">
+    <xs:attribute name="relpath" use="required" type="xs:string"/>
+    <xs:attribute name="type" use="required" type="xs:string"/>
+  </xs:complexType>
+
+  <!-- describes <lmlist> ... -->
+  <xs:complexType name="LmListType">
+    <xs:sequence>
+      <xs:element name="hwType" type="HwTypeType"
+                  minOccurs="0" maxOccurs="unbounded"/>
+      <!-- TODO: set minOccurs="1" when deprecated attribute removed -->
+      <xs:element name="boardType" type="BoardTypeType"
+                  minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="lm" type="LmRefType"
+                  minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <!-- deprecated attribute 'boardType'; TODO: remove -->
+    <!-- maybe boardType is needed after all. JOTJ 2017-01-13 -->
+    <xs:attribute name="boardType" type="xs:string"/>
+    <xs:attribute name="hwcategory" type="xs:string" use="optional"/>
+  </xs:complexType>
+
+  <!-- describes <hwType/> -->
+  <xs:complexType name="HwTypeType" >
+    <xs:attribute name="category" use="required" type="xs:string"/>
+    <xs:attribute name="model" type="xs:string"/>
+  </xs:complexType>
+
+  <!-- describes <boardType/> -->
+  <xs:complexType name="BoardTypeType" >
+    <xs:attribute name="id" use="required" type="xs:string"/>
+    <xs:attribute name="rev" type="xs:string"/>
+  </xs:complexType>
+
+  <!-- describes <programgroup> ... -->
+  <xs:complexType name="PgmGroupType">
+    <xs:sequence>
+      <xs:element name="lm" type="LmRefType"
+                  minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <!-- xs:NCName means "an initial character followed by 0 or more name characters";
+         the initial character is [A-Za-z_];
+         a name character is [A-Za-z_0-9.-]
+         see https://www.w3.org/TR/1999/WD-xmlschema-2-19990924/#NCName -->
+    <xs:attribute name="name" use="required" type="xs:NCName"/>
+    <xs:attribute name="escalation" use="required" type="xs:NCName"/>
+    <xs:attribute name="maxRestarts" use="required" type="xs:nonNegativeInteger"/>
+    <xs:attribute name="maxTime" use="required" type="xs:nonNegativeInteger"/>
+  </xs:complexType>
+
+  <!-- describes <lm/> -->
+  <xs:complexType name="LmRefType">
+    <xs:attribute name="name" use="required" type="xs:string"/>
+    <xs:attribute name="id" use="required" type="xs:string"/>
+    <xs:attribute name="rev" use="required" type="xs:string"/>
+  </xs:complexType>
+
+</xs:schema>

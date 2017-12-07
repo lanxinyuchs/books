@@ -1,0 +1,636 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Copyright (c) 2015 Ericsson AB. 
+	All rights reserved 
+
+	DX ECIM Tool-chain generated this file on Oct 1, 2015 3:11:08 PM using:
+	* com.ericsson.ecim.m2m 3.0.2.201509292318
+	* com.ericsson.ecim.dsl 3.0.2.201509292318
+	* com.ericsson.ecim.edm 3.0.2.201509292318
+--><!DOCTYPE models SYSTEM "mp.dtd">
+<models>
+  <dtdVersion>G</dtdVersion>
+  <momMetaData>
+    <momTitle>ECIM Security Management</momTitle>
+    <momSubTitle>sub title</momSubTitle>
+    <momIdentity>
+      <docNum>6/155 54-CNX 901 2610</docNum>
+      <docLang>English</docLang>
+      <docRev>0</docRev>
+      <docDate>date</docDate>
+    </momIdentity>
+    <createdBy>
+      <signature>ENENTEO</signature>
+    </createdBy>
+  </momMetaData>
+  <mim author="ENENTEO" contact="" correction="0" date="2016-05-12" docNo="6/155 54-CNX 901 2610" name="RcsSecM" namespace="urn:com:ericsson:ecim:RcsSecM" namespacePrefix="rcssecm" organization="PDU BT OM MW2" release="2" revision="0" version="11">
+    <description>ECIM Security Management fragment. &#13;
+&#13;
+The Security Management fragment must encompass most system security aspects to be configured on the Managed Element. This version of the model contains authentication and authorization, the User Management aspects. Authentication and authorization methods must contribute to the UserManagement MOC in a modular way.</description>
+    <domainExtension domain="ECIM">
+      <extension name="ecimMomName" value="ECIM_Security_Management"/>
+      <extension name="ecimMomVersion" value="2"/>
+      <extension name="ecimMomRelease" value="2"/>
+      <extension name="ecimMomCorrection" value="0"/>
+    </domainExtension>
+    <implements correction="0" name="ECIM_Security_Management" release="2" version="2"/>
+    <struct name="MethodOrder">
+      <description>Struct that represents the order of an authentication or authorization method. &#13;
+&#13;
+The referred method must be used by a security function, that is, authentication or authorization in the given order.</description>
+      <structMember name="orderNumber">
+        <description>The method (1-*) order number.</description>
+        <int16/>
+      </structMember>
+      <structMember name="methodReference">
+        <description>An MO Reference to the method.</description>
+        <moRef name="ManagedObject"/>
+      </structMember>
+      <structMember name="userLabel">
+        <description>Freetext label to describe reason for the method order.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <string/>
+      </structMember>
+    </struct>
+    <struct name="Cipher">
+      <description>Represents a cipher suite.</description>
+      <structMember name="protocolVersion">
+        <description>A keyword that identifies the cipher protocol version.&#13;
+&#13;
+For example: 'TLSv1'.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <string/>
+      </structMember>
+      <structMember name="keyExchange">
+        <description>A keyword that identifies the cipher key exchange algorithm.&#13;
+&#13;
+For example: 'kEDH'.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <string/>
+      </structMember>
+      <structMember name="authentication">
+        <description>A keyword that identifies the cipher authentication algorithm.&#13;
+&#13;
+For example: 'aRSA'.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <string/>
+      </structMember>
+      <structMember name="encryption">
+        <description>A keyword that identifies the cipher encryption algorithm.&#13;
+&#13;
+For example: 'AES'.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <string/>
+      </structMember>
+      <structMember name="mac">
+        <description>A keyword that identifies the cipher Message Authentication Code algorithm.&#13;
+&#13;
+For example: 'SHA'.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <string/>
+      </structMember>
+      <structMember name="export">
+        <description>Shows 'EXPORT' if the cipher is classified as an EXPORT cipher, otherwise empty.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <string/>
+      </structMember>
+      <structMember name="name">
+        <description>A keyword that identifies the cipher name. &#13;
+&#13;
+For example: 'TLS_DHE_RSA_WITH_AES_256_CBC_SHA'.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isKey" value="true"/>
+        </domainExtension>
+        <string/>
+      </structMember>
+    </struct>
+        <derivedDataType name="SshAlgorithm">
+      <description>Derived string for SSH Cipher, Key Exchange and Message Authentication Code strings.</description>
+      <baseType>
+        <string>
+          <validValues>^([a-zA-z0-9])+((-([a-zA-z0-9])*)?)*(@(([a-zA-Z]|[a-zA-Z][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z]|[A-Za-z][A-Za-z0-9\-]*[A-Za-z0-9]))?$</validValues>
+        </string>
+      </baseType>
+      <validationRules>
+        <rule exceptionText="" format="posix_ere" name="Pattern Constraint"><![CDATA[^([a-zA-z0-9])+((-([a-zA-z0-9])*)?)*(@(([a-zA-Z]|[a-zA-Z][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z]|[A-Za-z][A-Za-z0-9\-]*[A-Za-z0-9]))?$]]></rule>
+      </validationRules>
+    </derivedDataType>
+    <derivedDataType name="CipherList">
+      <description>Derived string for the specification of a cipher suite list.&#13;
+&#13;
+Contains colon-delimited (':') cipher strings that can be of any value of the members contained by a Cipher struct. A cipher string indicates an individual cipher or a set of ciphers that use the same protocol version, key exchange etc. The cipher strings can be combined in logical order and operation by character '+'. They can be optionally preceded by either an '!' or a '-' character. Character '!' means that the preceded cipher suite or cipher suite type is permanently deleted from the list. Character '-' means that the preceded cipher suite or cipher suite type is deleted from the list, but any of the cipher suites can be added by later options.&#13;
+&#13;
+They must contain at least one positive expression, that is, without character '!' or '-' in the cipher string, otherwise the filter results in an empty cipher suite list.&#13;
+&#13;
+Cipher strings with special meaning:&#13;
+ALL - all cipher suites except for the NULL encryption ciphers, which must be explicitly enabled. NULL authentication ciphers are included.&#13;
+DEFAULT - all cipher suites except the NULL authentication and NULL encryption ciphers.&#13;
+&#13;
+Example: &#13;
+&#13;
+ALL:!SSLv2:!RSA:!aRSA:!3DES:!DES:!MD5 &#13;
+ALL:!EXP-EDH-RSA-DES-CBC-SHA&#13;
+AES:-kRSA&#13;
+AES:RC4&#13;
+kEDH+EXPORT:-MD5, assume that the listed cipher strings are valid values of members of Cipher structs.</description>
+      <baseType>
+        <string>
+          <validValues>^([!-]?([A-Za-z0-9]+[_-])*[A-Za-z0-9]+(\+([A-Za-z0-9]+[_-])*[A-Za-z0-9]+)*:)*[!-]?([A-Za-z0-9]+[_-])*[A-Za-z0-9]+(\+([A-Za-z0-9]+[_-])*[A-Za-z0-9]+)*$|^$</validValues>
+        </string>
+      </baseType>
+      <validationRules>
+        <rule exceptionText="" format="posix_ere" name="Pattern Constraint"><![CDATA[^([!-]?([A-Za-z0-9]+[_-])*[A-Za-z0-9]+(\+([A-Za-z0-9]+[_-])*[A-Za-z0-9]+)*:)*[!-]?([A-Za-z0-9]+[_-])*[A-Za-z0-9]+(\+([A-Za-z0-9]+[_-])*[A-Za-z0-9]+)*$|^$]]></rule>
+      </validationRules>
+    </derivedDataType>
+        <derivedDataType name="RcsSecM_UserManagement_loginFailureDelay">
+      <baseType>
+        <uint8>
+          <range>
+            <min>1</min>
+          </range>
+          <ranges>
+            <subrange>
+              <min>1</min>
+              <max>*</max>
+            </subrange>
+          </ranges>
+          <unit>seconds</unit>
+        </uint8>
+      </baseType>
+    </derivedDataType>
+    <class name="SecM">
+      <description>Security Management root MOC.</description>
+      <systemCreated/>
+      <root/>
+      <attribute name="secMId">
+        <description>The value component of the RDN.</description>
+        <mandatory/>
+        <noNotification/>
+        <restricted/>
+        <key/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+    </class>
+    <class name="AuthenticationOrder">
+      <description>MO Class used to view the order of authentication methods.</description>
+      <systemCreated/>
+      <attribute name="authenticationOrderId">
+        <description>The value component of the RDN.</description>
+        <mandatory/>
+        <noNotification/>
+        <restricted/>
+        <key/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="authenticationMethodOrder">
+        <description>The order in which authentication methods are to be used. &#13;
+&#13;
+Methods must be called up in the order specified by the orderNumber member. The method is referenced by the methodReference member.</description>
+        <readOnly/>
+        <dataType>
+          <sequence>
+            <structRef name="MethodOrder">
+              <mimName>RcsSecM</mimName>
+            </structRef>
+            <minLength>1</minLength>
+          </sequence>
+        </dataType>
+      </attribute>
+      <attribute name="userLabel">
+        <description>An additional descriptive text.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <isNillable/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+    </class>
+    <class name="AuthorizationOrder">
+      <description>MO Class used to view the order of authorization methods.</description>
+      <systemCreated/>
+      <attribute name="authorizationOrderId">
+        <description>The value component of the RDN.</description>
+        <mandatory/>
+        <noNotification/>
+        <restricted/>
+        <key/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="authorizationMethodOrder">
+        <description>The order in which authorization methods are to be used.&#13;
+&#13;
+Methods must be called up in the order specified by the orderNumber member. The method is referenced by the methodReference member.</description>
+        <readOnly/>
+        <dataType>
+          <sequence>
+            <structRef name="MethodOrder">
+              <mimName>RcsSecM</mimName>
+            </structRef>
+            <minLength>1</minLength>
+          </sequence>
+        </dataType>
+      </attribute>
+      <attribute name="userLabel">
+        <description>An additional descriptive text.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <isNillable/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+    </class>
+    <class name="UserManagement">
+      <description>User Management MOC. </description>
+      <systemCreated/>
+      <attribute name="userManagementId">
+        <description>The value component of the RDN.</description>
+        <mandatory/>
+        <noNotification/>
+        <restricted/>
+        <key/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+            <attribute name="legalNotice">
+        <description>The legal notice presented to the user when starting an O&amp;M session. &#13;
+&#13;
+The message is presented to the client before authentication takes place. Depends on the client capability and configuration if the message is presented to the O&amp;M user. The O&amp;M user may receive this information before authentication if the authentication is password based; otherwise, it is perceived as post-authentication message.  The purpose of the message is to warn the user about the consequences of unauthorized access. No value means there is no legal notice.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <isNillable/>
+        <dataType>
+          <string>
+            <defaultValue>IF YOU ARE NOT AN AUTHORIZED USER, PLEASE EXIT IMMEDIATELY</defaultValue>
+          </string>
+        </dataType>
+      </attribute>
+      <attribute name="loginFailureDelay">
+        <description>Delay after a failed login attempt in seconds.&#13;
+&#13;
+No value means no delay.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <isNillable/>
+        <dataType>
+          <derivedDataTypeRef name="RcsSecM_UserManagement_loginFailureDelay">
+            <defaultValue>5</defaultValue>
+            <mimName>RcsSecM</mimName>
+          </derivedDataTypeRef>
+        </dataType>
+      </attribute>
+      <attribute name="targetType">
+        <description>Lists the target types of the ME for Target Based Access Control (TBAC).&#13;
+&#13;
+This attribute is optional for Authentication Methods that require TBAC configuration. Authentication Methods use TBAC to determine the following: whether a user can be authorized in the ME, and which authorization profiles apply to the user in the ME, based on the target types specified in this attribute.&#13;
+&#13;
+This attribute can contain any classifier string for the ME such as geographical, for example: 'stockholm', network, for example 'ims', or functional identifiers, for example 'cscf', and any combination of these.&#13;
+&#13;
+The generic behavior of TBAC for authorization is as follows:&#13;
+&#13;
+TBAC is LOCKED in the ME: authorization is performed without TBAC. &#13;
+TBAC is UNLOCKED in the ME: authorization is performed if the targets that the user is provided with exactly match at least one string of configured target types. Otherwise, authorization fails.&#13;
+&#13;
+Determining the authorization profiles of the user is specific per Authentication Method.&#13;
+&#13;
+The LOCKED and UNLOCKED states of TBAC in the ME are controlled by the Authentication Methods.&#13;
+&#13;
+Example value: 'cscf.ims.stockholm'.</description>
+        <dataType>
+          <sequence>
+            <string/>
+            <minLength>0</minLength>
+            <nonUnique/>
+          </sequence>
+        </dataType>
+      </attribute>
+      <attribute name="userLabel">
+        <description>An additional descriptive text.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <isNillable/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+    </class>
+    <class name="Tls">
+      <description>Configures system-wide properties of Transport Layer Security (TLS).</description>
+      <systemCreated/>
+      <attribute name="tlsId">
+        <description>The value component of the RDN.</description>
+        <mandatory/>
+        <noNotification/>
+        <restricted/>
+        <key/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="enabledCiphers">
+        <description>Lists the cipher suites as filtered by the attribute cipherFilter. &#13;
+&#13;
+Cipher suites are ordered by strength. The strongest cipher suite is offered first.</description>
+        <readOnly/>
+        <dataType>
+          <sequence>
+            <structRef name="Cipher">
+              <mimName>RcsSecM</mimName>
+            </structRef>
+            <minLength>0</minLength>
+            <nonUnique/>
+          </sequence>
+        </dataType>
+      </attribute>
+      <attribute name="cipherFilter">
+        <description>Specifies a filter for the cipher suite list.&#13;
+&#13;
+Applied on the cipher suites listed in attribute supportedCiphers. The result is shown in attribute enabledCiphers.</description>
+        <dataType>
+          <derivedDataTypeRef name="CipherList">
+            <defaultValue>DEFAULT</defaultValue>
+            <mimName>RcsSecM</mimName>
+          </derivedDataTypeRef>
+        </dataType>
+      </attribute>
+      <attribute name="supportedCiphers">
+        <description>Lists the cipher suites supported by the ME.</description>
+        <readOnly/>
+        <dataType>
+          <sequence>
+            <structRef name="Cipher">
+              <mimName>RcsSecM</mimName>
+            </structRef>
+            <minLength>0</minLength>
+            <nonUnique/>
+          </sequence>
+        </dataType>
+      </attribute>
+    </class>
+      <class name="Ssh">
+      <description>Configures system-wide properties of Secure Shell Transport Layer Protocol (SSH).</description>
+      <systemCreated/>
+      <attribute name="sshId">
+        <description>The value component of the RDN.</description>
+        <mandatory/>
+        <noNotification/>
+        <restricted/>
+        <key/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="selectedCiphers">
+        <description>The list of selected ciphers.&#13;
+&#13;
+The ciphers are offered to the SSH peer in the order as configured. Each value indicates one cipher.</description>
+        <mandatory/>
+        <dataType>
+          <sequence>
+            <derivedDataTypeRef name="SshAlgorithm">
+              <mimName>RcsSecM</mimName>
+            </derivedDataTypeRef>
+            <minLength>1</minLength>
+          </sequence>
+        </dataType>
+      </attribute>
+      <attribute name="supportedCiphers">
+        <description>Lists the supported encryption ciphers.</description>
+        <readOnly/>
+        <dataType>
+          <sequence>
+            <derivedDataTypeRef name="SshAlgorithm">
+              <mimName>RcsSecM</mimName>
+            </derivedDataTypeRef>
+            <minLength>1</minLength>
+          </sequence>
+        </dataType>
+      </attribute>
+      <attribute name="selectedKeyExchanges">
+        <description>The list of selected key exchange algorithms.&#13;
+&#13;
+The algorithms are offered to the SSH peer in the order as configured. Each value indicates one algorithm.</description>
+        <mandatory/>
+        <dataType>
+          <sequence>
+            <derivedDataTypeRef name="SshAlgorithm">
+              <mimName>RcsSecM</mimName>
+            </derivedDataTypeRef>
+            <minLength>1</minLength>
+          </sequence>
+        </dataType>
+      </attribute>
+      <attribute name="supportedKeyExchanges">
+        <description>Lists the supported key exchange algorithms.</description>
+        <readOnly/>
+        <dataType>
+          <sequence>
+            <derivedDataTypeRef name="SshAlgorithm">
+              <mimName>RcsSecM</mimName>
+            </derivedDataTypeRef>
+            <minLength>1</minLength>
+          </sequence>
+        </dataType>
+      </attribute>
+      <attribute name="selectedMacs">
+        <description>The list of selected message authentication codes.&#13;
+&#13;
+The algorithms are offered to the SSH peer in the order as configured. Each value indicates one coding algorithm.</description>
+        <mandatory/>
+        <dataType>
+          <sequence>
+            <derivedDataTypeRef name="SshAlgorithm">
+              <mimName>RcsSecM</mimName>
+            </derivedDataTypeRef>
+            <minLength>1</minLength>
+          </sequence>
+        </dataType>
+      </attribute>
+      <attribute name="supportedMacs">
+        <description>Lists the supported message authentication codes.</description>
+        <readOnly/>
+        <dataType>
+          <sequence>
+            <derivedDataTypeRef name="SshAlgorithm">
+              <mimName>RcsSecM</mimName>
+            </derivedDataTypeRef>
+            <minLength>1</minLength>
+          </sequence>
+        </dataType>
+      </attribute>
+    </class>
+    <relationship name="SecM_to_UserManagement">
+      <containment>
+        <parent>
+          <hasClass name="SecM">
+            <mimName>RcsSecM</mimName>
+          </hasClass>
+        </parent>
+        <child>
+          <hasClass name="UserManagement">
+            <mimName>RcsSecM</mimName>
+          </hasClass>
+          <cardinality>
+            <min>1</min>
+            <max>1</max>
+          </cardinality>
+        </child>
+        <domainExtension domain="ECIM">
+          <extension name="canCreate" value="false"/>
+          <extension name="canDelete" value="false"/>
+        </domainExtension>
+        <notCreatable/>
+        <notDeleteable/>
+      </containment>
+    </relationship>
+    <relationship name="UserManagement_to_AuthenticationOrder">
+      <containment>
+        <parent>
+          <hasClass name="UserManagement">
+            <mimName>RcsSecM</mimName>
+          </hasClass>
+        </parent>
+        <child>
+          <hasClass name="AuthenticationOrder">
+            <mimName>RcsSecM</mimName>
+          </hasClass>
+          <cardinality>
+            <min>0</min>
+            <max>1</max>
+          </cardinality>
+        </child>
+        <domainExtension domain="ECIM">
+          <extension name="canCreate" value="false"/>
+          <extension name="canDelete" value="false"/>
+        </domainExtension>
+        <notCreatable/>
+        <notDeleteable/>
+      </containment>
+    </relationship>
+    <relationship name="UserManagement_to_AuthorizationOrder">
+      <containment>
+        <parent>
+          <hasClass name="UserManagement">
+            <mimName>RcsSecM</mimName>
+          </hasClass>
+        </parent>
+        <child>
+          <hasClass name="AuthorizationOrder">
+            <mimName>RcsSecM</mimName>
+          </hasClass>
+          <cardinality>
+            <min>0</min>
+            <max>1</max>
+          </cardinality>
+        </child>
+        <domainExtension domain="ECIM">
+          <extension name="canCreate" value="false"/>
+          <extension name="canDelete" value="false"/>
+        </domainExtension>
+        <notCreatable/>
+        <notDeleteable/>
+      </containment>
+    </relationship>
+    <relationship name="SecM_to_Tls">
+      <containment>
+        <parent>
+          <hasClass name="SecM">
+            <mimName>RcsSecM</mimName>
+          </hasClass>
+        </parent>
+        <child>
+          <hasClass name="Tls">
+            <mimName>RcsSecM</mimName>
+          </hasClass>
+          <cardinality>
+            <min>0</min>
+            <max>1</max>
+          </cardinality>
+        </child>
+        <domainExtension domain="ECIM">
+          <extension name="canCreate" value="false"/>
+          <extension name="canDelete" value="false"/>
+        </domainExtension>
+        <notCreatable/>
+        <notDeleteable/>
+      </containment>
+    </relationship>
+    <relationship name="SecM_to_Ssh">
+      <containment>
+        <parent>
+          <hasClass name="SecM">
+            <mimName>RcsSecM</mimName>
+          </hasClass>
+        </parent>
+        <child>
+          <hasClass name="Ssh">
+            <mimName>RcsSecM</mimName>
+          </hasClass>
+          <cardinality>
+            <min>0</min>
+            <max>1</max>
+          </cardinality>
+        </child>
+        <domainExtension domain="ECIM">
+          <extension name="canCreate" value="false"/>
+          <extension name="canDelete" value="false"/>
+        </domainExtension>
+        <notCreatable/>
+        <notDeleteable/>
+      </containment>
+    </relationship>
+  </mim>
+  <interMim>
+    <relationship name="SystemFunctions_to_SecM">
+      <containment>
+        <parent>
+          <hasClass name="SystemFunctions">
+            <mimName>ComTop</mimName>
+          </hasClass>
+        </parent>
+        <child>
+          <hasClass name="SecM">
+            <mimName>RcsSecM</mimName>
+          </hasClass>
+          <cardinality>
+            <min>1</min>
+            <max>1</max>
+          </cardinality>
+        </child>
+        <domainExtension domain="ECIM">
+          <extension name="canCreate" value="false"/>
+          <extension name="canDelete" value="false"/>
+        </domainExtension>
+        <notCreatable/>
+        <notDeleteable/>
+      </containment>
+    </relationship>
+  </interMim>
+</models>

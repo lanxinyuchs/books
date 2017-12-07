@@ -1,0 +1,202 @@
+## ----------------------------------------------------------
+## Copyright (c) Ericsson AB 2012 - 2017 All rights reserved.
+##
+## The information in this document is the property of Ericsson.
+##
+## Except as specifically authorized in writing by Ericsson, the
+## receiver of this document shall keep the information contained
+## herein confidential and shall protect the same in whole or in
+## part from disclosure and dissemination to third parties.
+##
+## Disclosure and disseminations to the receivers employees shall
+## only be made on a strict need to know basis.
+## ----------------------------------------------------------
+## #1.    REVISION LOG
+## ----------------------------------------------------------
+## Rev        Date         Name        What
+## --------   --------     --------    ------------------------
+## -          2014-02-10   etxjovp     Created
+## -          2014-03-04   etxjovp     split pms_rop_SUITE to pms_rop_basic_SUITE, pms_rop_ext_SUITE and pms_rop_oss_SUITE
+## R2A/31     2014-03-19   etxjovp     Add lihi_SUITE
+## R2A/32     2014-03-20   etxkols     Commented out sys_tbac_rbac_SUITE
+## R2A/33     2014-03-21   eransbn     Temp removed PMS test, Removed vii test to testsuites_list_qualification and changed ALH  block SUITE path.
+## R2A/34     2014-03-21   eransbn     Added PMS test,
+## R2A/35     2014-03-24   etxjovp     Remove testbox_SUITE,
+## R2A/37     2014-03-25   etxjovp     Added buti_c_SUITE and vii_c_SUITE
+## R2A/38     2014-03-26   etxjovp     buti_c_SUITE only sim
+## R2A/39     2014-03-27   etxjovp     change path to CERT
+## R2A/40     2014-03-27   etxjovp     add omc_tbac_rbac_SUITE
+## R2A/41     2014-04-08   etxkols     removed certm_SUITE from sim
+## R2A/42     2014-06-12   etxjovp     change path to LOG
+## R2A/43     2014-06-19   etxjovp     add dus3201
+## R2A/44     2014-08-25   etxjovp     add swm_failsafe_backup_SUITE and swm_scheduled_backup_SUITE
+## R2A/49     2014-08-26   etxivri     Removed ntf_alarm_SUITE
+## R2A/51     2014-08-27   etxivri     Added ntf_alarm_via_ift_SUITE
+## R2A/52     2014-09-26   etxivri     Added new group from restartable_programs_SUITE to be runed after upgrade.
+## R2A/53     2014-09-29   etxivri     Update so restartable_programs_SUITE group_rob_restartable_prog_1 only runs in long tests.
+## R3A/4      2014-09-17   etxpejn     Added sys_coli_SUITE
+## R3A/5      2014-09-26   etxivri     Added new group from restartable_programs_SUITE to be runed after upgrade.
+## R3A/5      2014-09-29   etxivri     Update so restartable_programs_SUITE group_rob_restartable_prog_1 only runs in long tests.
+## R3A/9      2014-10-14   etxberb     Moved cli_SUITE from testsuites_list_qualification in here.
+## R3A/10     2014-10-14   etxberb     add group_rob_restartable_prog_2 where kill beam runs.
+## R3A/11     2014-10-20   etxivri     Moved TCs from qualification.
+## R3A/12     2014-10-20   etxivri     Update so csi_c_SUITE not to be runed on dus41 and it will run on sim.
+## R3A/13     2014-10-22   etxpeno     Moved the csi_c_SUITE (PPC) from qualification
+## R3A/14     2014-11-06   etxivri     Use of test SUITEs in design block SWM.
+## R3A/15     2014-12-03   etxivri     changed to ug_group_measure_restart_1
+## R3A/18     2015-01-08   etxkols     Removed cm_oi_SUITE
+## R3A/19     2015-02-16   etxberb     Moved coi_SUITE from testsuites_list_qualification in here.
+## R3A/20     2015-02-17   etxberb     Removed restartable_programs from sim.
+## R3A/21     2015-02-20   etxjovp     Removed certm_SUITE  from cover.
+## R3A/21     2015-02-20   etxjovp     add swm_scheduled_backup_SUITE to cover.
+## R3A/25     2015-03-23   eolaand     Split PMS suites into shorter ones.
+## R3A/28     2015-03-25   eolaand     Added 2 PMS and 2 PES suites from qual.
+##################################################################################################################################################################
+# TIME         execution time in seconds
+# TARGET       label for Jenkins .dus4101, :tcu03, :dus5201:dus5301:dus3301:dus3201, :sim ....
+# CONFIG       label for Jenkins :no or :ru ...
+# UPGRADE      " " or upgrade or upgrade:short or upgrade:onlyupgrade or upgrade:short:onlyupgrade
+# TEST SUITE   line to be written into the testspec
+#
+#TIME |TARGET |CONFIG |UPGRADE | TEST SUITE
+##################################################################################################################################################################
+8.000 |:dus4101:tcu03:tcu04:dus5201:dus5301:dus3301:dus3201:sim:cover |:no:arria10 |:upgrade:short |{cases, "ALH/test/suites", avli_c_SUITE, [all]}.
+147.911 |:dus4101:tcu03:tcu04:dus5201:dus5301:dus3301:dus3201: |:no:arria10 |:upgrade:short |{cases, "CERT/test/suites", certm_SUITE, [all]}.
+127.135 |:dus4101:tcu03:tcu04:dus5201:dus5301:dus3301:dus3201:sim:cover |:no:arria10 |:upgrade |{cases, "test/test/suites/CM", cm_basic_SUITE, [all]}.
+76.953 |:dus4101:tcu03:tcu04:dus5201:dus5301:dus3301:dus3201:sim:cover |:no:arria10 |:upgrade:short |{cases, "test/test/suites/CM", cm_cli_testclass1_SUITE, [all]}.
+70.618 |:dus4101:tcu03:tcu04:dus5201:dus5301:dus3301:dus3201:sim:cover |:no:arria10 |:upgrade:short |{cases, "test/test/suites/CM", cm_safc_basic_SUITE, [all]}.
+53.185 |:dus4101:tcu03:tcu04:dus5201:dus5301:dus3301:dus3201:sim:cover |:no:arria10 |:upgrade |{cases, "test/test/suites/COM", com_avc_SUITE, [all]}.
+38.907 |:dus4101:tcu03:tcu04:dus5201:dus5301:dus3301:dus3201:sim:cover |:no:arria10 |:upgrade |{cases, "COMSA/test/suites", com_sysm_SUITE, [all]}.
+73.716 |:dus4101:tcu03:tcu04:dus5201:dus5301:dus3301:dus3201:sim:cover |:no:arria10 |:upgrade |{cases, "COMSA/test/suites", com_top_SUITE, [all]}.
+55.000 |:dus4101:tcu03:tcu04:dus5201:dus5301:dus3301:dus3201:sim:cover |:no:arria10 |:upgrade:short |{cases, "test/test/suites/COMSA", cli_SUITE, [all]}.
+58.000 |:sim:cover |:no:arria10 |:upgrade:short |{groups, "COI/test/suites", coi_SUITE, ci_test_sim}.
+58.000 |:dus4101:tcu03:tcu04:dus5201:dus5301:dus3301:dus3201:cover |:no:arria10 |:upgrade:short |{groups, "COI/test/suites", coi_SUITE, ci_test_target}.
+523.529 |:dus4101:tcu03:tcu04:dus5201:dus5301:dus3301:dus3201:sim |:no:arria10 |:upgrade |{cases, "EQS/test/suites", pri_c_SUITE, [all]}.
+523.529 |:cover |:no |:upgrade |{cases, "EQS/test/suites", pri_c_SUITE, [cor_prot_vers,get_pid,get_hunt_path,get_own_identity3,get_own_identity8,get_own_identity9,get_piuOrDevice_identity8,get_piuOrDevice_identity9]}.
+32.225 |:dus4101:tcu03:tcu04:dus5201:dus5301:dus3301:dus3201:sim:cover |:no:arria10 |:upgrade:short |{cases, "EQS/test/suites", vii_c_SUITE, [all]}.
+161.815 |:dus4101:tcu03:tcu04:dus5201:dus5301:dus3301:dus3201:sim:cover |:no:arria10 |:upgrade:short |{cases, "GMF/test/suites", cmsi_c_SUITE, [all]}.
+#269.485 |:dus4101:tcu03:tcu04:dus5201:dus5301:dus3301:dus3201:sim:cover |:no:arria10 |:upgrade:short |{groups, "LIH/test/suites", lici_c_SUITE, group_lici_c_1}.
+#111.543 |:dus4101:tcu03:tcu04:dus5201:dus5301:dus3301:dus3201:sim:cover |:no:arria10 |:upgrade |{groups, "LIH/test/suites", lici_erlang_SUITE, group_lici_erl_1}.
+95.770 |:dus4101:tcu03:tcu04:dus5201:dus5301:dus3301:dus3201:sim:cover |:no:arria10 |:upgrade |{cases, "LMA/test/suites", lma_SUITE, [all]}.
+94.917 |:dus4101:tcu03:tcu04:dus5201:dus5301:dus3301:dus3201:sim:cover |:no:arria10 |:upgrade |{cases, "LOG/test/suites", log_app_SUITE, [all]}.
+31.921 |:dus4101:tcu03:tcu04:dus5201:dus5301:dus3301:dus3201:sim:cover |:no:arria10 |:upgrade |{cases, "LOG/test/suites", log_esi_SUITE, [all]}.
+99.654 |:dus4101:tcu03:tcu04:dus5201:dus5301:dus3301:dus3201:cover |:no:arria10 |:upgrade:short |{cases, "LOG/test/suites", log_legacy_SUITE, [all]}.
+8.841 |:dus4101:tcu03:tcu04:dus5201:dus5301:dus3301:dus3201:sim:cover |:no:arria10 | :upgrade |{cases, "LOG/test/suites", log_sec_event_SUITE, [all]}.
+355.097 |:dus4101:duw4101:tcu03:tcu04:dus5201:dus5301:dus3301:dus3201 |:no:arria10 | |{groups, "test/test/suites/MEAS", measure_restart_SUITE, group_measure_restart_1}.
+#600.097 |:dus5201 |:no:arria10 | |{cases, "test/test/suites/MEAS", measure_response_time_imm_oi_SUITE, [measure_response_time_nc_operation_imm_oi]}.
+355.097 |:dus4101:duw4101:tcu03:tcu04:dus5201:dus5301:dus3301:dus3201 |:no:arria10 |:upgrade:short:onlyupgrade |{groups, "test/test/suites/MEAS", measure_restart_SUITE, ug_group_measure_restart_1}.
+13.753 |:dus4101:tcu03:tcu04:dus5201:dus5301:dus3301:dus3201:sim:cover |:no:arria10 |:upgrade:short |{cases, "SYS/test/suites", oei_c_SUITE, [all]}.
+300.000 |:sim:cover |:no:arria10 |:upgrade |{cases, "PMS/test/suites", pms2_com2_basic_sc_SUITE, [all]}.
+300.000 |:sim:cover |:no:arria10 |:upgrade |{cases, "PMS/test/suites", pms2_com2_err_sc_SUITE, [all]}.
+300.000 |:sim:cover |:no:arria10 |:upgrade |{cases, "PMS/test/suites", pms2_com2_ext_sc_SUITE, [all]}.
+300.000 |:sim:cover |:no:arria10 |:upgrade |{cases, "PMS/test/suites", pms2_com2_flex_basic_sc_SUITE, [all]}.
+300.000 |:sim:cover |:no:arria10 |:upgrade |{cases, "PMS/test/suites", pms2_flex_rop_basic_SUITE, [all]}.
+270.000 |:sim:cover |:no:arria10 |:upgrade |{cases, "PMS/test/suites", pms2_job_basic_SUITE, [all]}.
+300.000 |:sim:cover |:no:arria10 |:upgrade |{cases, "PMS/test/suites", pms2_job_ext_SUITE, [all]}.
+417.000 |:sim:cover |:no:arria10 |:upgrade |{cases, "PMS/test/suites", pms2_job_update_SUITE, [all]}.
+417.000 |:sim:cover |:no:arria10 |:upgrade |{cases, "PMS/test/suites", pms2_job_update_multi_app_SUITE, [all]}.
+417.000 |:sim:cover |:no:arria10 |:upgrade |{cases, "PMS/test/suites", pms2_multi_job_update_SUITE, [all]}.
+300.000 |:sim:cover |:no:arria10 |:upgrade |{cases, "PMS/test/suites", pms2_rop_app_del_SUITE, [all]}.
+300.000 |:sim:cover |:no:arria10 |:upgrade |{cases, "PMS/test/suites", pms2_rop_basic_SUITE, [all]}.
+300.000 |:sim:cover |:no:arria10 |:upgrade |{cases, "PMS/test/suites", pms2_rop_ff_pmi2_SUITE, [all]}.
+300.000 |:sim:cover |:no:arria10 |:upgrade |{cases, "PMS/test/suites", pms2_rop_ff_pmi_SUITE, [all]}.
+300.000 |:sim:cover |:no:arria10 |:upgrade |{cases, "PMS/test/suites", pms2_rop_file_handling_SUITE, [all]}.
+300.000 |:sim:cover |:no:arria10 |:upgrade |{cases, "PMS/test/suites", pms2_rop_job_stop_2_SUITE, [all]}.
+300.000 |:sim:cover |:no:arria10 |:upgrade |{cases, "PMS/test/suites", pms2_rop_job_stop_3_SUITE, [all]}.
+300.000 |:sim:cover |:no:arria10 |:upgrade |{cases, "PMS/test/suites", pms2_rop_job_stop_SUITE, [all]}.
+367.931 |:sim:cover |:no:arria10 |:upgrade |{cases, "PMS/test/suites", pms2_rop_mixed_SUITE, [all]}.
+300.000 |:sim:cover |:no:arria10 |:upgrade |{cases, "PMS/test/suites", pms2_rop_mixed_frag_SUITE, [all]}.
+300.000 |:sim:cover |:no:arria10 |:upgrade |{cases, "PMS/test/suites", pms2_rop_rm_add_mr_1_SUITE, [all]}.
+300.000 |:sim:cover |:no:arria10 |:upgrade |{cases, "PMS/test/suites", pms2_rop_rm_add_mr_2_SUITE, [all]}.
+300.000 |:sim:cover |:no:arria10 |:upgrade |{cases, "PMS/test/suites", pms2_rop_rm_add_mr_3_SUITE, [all]}.
+300.000 |:sim:cover |:no:arria10 |:upgrade |{cases, "PMS/test/suites", pms2_rop_rm_add_mr_4_SUITE, [all]}.
+300.000 |:sim:cover |:no:arria10 |:upgrade |{cases, "PMS/test/suites", pms2_rop_rm_add_mr_5_SUITE, [all]}.
+300.000 |:sim:cover |:no:arria10 |:upgrade |{cases, "PMS/test/suites", pms2_rop_rm_add_mr_6_SUITE, [all]}.
+300.000 |:sim:cover |:no:arria10 |:upgrade |{cases, "PMS/test/suites", pms2_rop_rm_add_mr_7_SUITE, [all]}.
+300.000 |:sim:cover |:no:arria10 |:upgrade |{cases, "PMS/test/suites", pms2_rop_rm_add_mr_8_SUITE, [all]}.
+417.000 |:sim:cover |:no:arria10 |:upgrade |{cases, "PMS/test/suites", pms2_rop_susp_1_pmi2_SUITE, [all]}.
+367.931 |:sim:cover |:no:arria10 |:upgrade |{cases, "PMS/test/suites", pms2_rop_uc_SUITE, [all]}.
+300.000 |:sim:cover |:no:arria10 |:upgrade |{cases, "PMS/test/suites", pms_capabilities_SUITE, [all]}.
+300.000 |:sim:cover |:no:arria10 |:upgrade |{cases, "PMS/test/suites", pms_erl_api_SUITE, [all]}.
+417.000 |:sim:cover |:no:arria10 |:upgrade |{cases, "PMS/test/suites", pms_job_basic_2_SUITE, [all]}.
+417.000 |:sim:cover |:no:arria10 |:upgrade |{cases, "PMS/test/suites", pms_job_basic_SUITE, [all]}.
+335.312 |:sim:cover |:no:arria10 |:upgrade |{cases, "PMS/test/suites", pms_job_ext_SUITE, [all]}.
+238.003 |:sim:cover |:no:arria10 |:upgrade |{cases, "PMS/test/suites", pms_job_oss_SUITE, [all]}.
+300.000 |:sim:cover |:no:arria10 |:upgrade |{cases, "PMS/test/suites", pms_job_update_SUITE, [all]}.
+300.000 |:sim:cover |:no:arria10 |:upgrade |{cases, "PMS/test/suites", pms_job_update_multi_app_SUITE, [all]}.
+40.000 |:sim:cover |:no:arria10 |:upgrade |{cases, "PMS/test/suites", pms_misc_SUITE, [all]}.
+300.000 |:sim:cover |:no:arria10 |:upgrade |{cases, "PMS/test/suites", pms_multi_job_update_SUITE, [all]}.
+215.000 |:sim:cover |:no:arria10 |:upgrade |{cases, "PMS/test/suites", pms_rop_basic_1_SUITE, [all]}.
+200.000 |:sim:cover |:no:arria10 |:upgrade |{cases, "PMS/test/suites", pms_rop_basic_2_SUITE, [all]}.
+300.000 |:sim:cover |:no:arria10 |:upgrade |{cases, "PMS/test/suites", pms_rop_ext_1_SUITE, [all]}.
+300.000 |:sim:cover |:no:arria10 |:upgrade |{cases, "PMS/test/suites", pms_rop_ext_2_SUITE, [all]}.
+300.000 |:sim:cover |:no:arria10 |:upgrade |{cases, "PMS/test/suites", pms_rop_rm_add_mr_1_SUITE, [all]}.
+300.000 |:sim:cover |:no:arria10 |:upgrade |{cases, "PMS/test/suites", pms_rop_rm_add_mr_2_SUITE, [all]}.
+300.000 |:sim:cover |:no:arria10 |:upgrade |{cases, "PMS/test/suites", pms_rop_rm_add_mr_3_SUITE, [all]}.
+300.000 |:sim:cover |:no:arria10 |:upgrade |{cases, "PMS/test/suites", pms_rop_rm_add_mr_4_SUITE, [all]}.
+300.000 |:sim:cover |:no:arria10 |:upgrade |{cases, "PMS/test/suites", pms_rop_rm_add_mr_5_SUITE, [all]}.
+300.000 |:sim:cover |:no:arria10 |:upgrade |{cases, "PMS/test/suites", pms_rop_rm_add_mr_6_SUITE, [all]}.
+300.000 |:sim:cover |:no:arria10 |:upgrade |{cases, "PMS/test/suites", pms_rop_rm_add_mr_7_SUITE, [all]}.
+300.000 |:sim:cover |:no:arria10 |:upgrade |{cases, "PMS/test/suites", pms_rop_rm_add_mr_8_SUITE, [all]}.
+250.000 |:sim:cover |:no:arria10 |:upgrade |{cases, "PMS/test/suites", pms_rop_rp30_SUITE, [all]}.
+300.000 |:sim:cover |:no:arria10 |:upgrade |{cases, "PMS/test/suites", pms_rop_susp_1_SUITE, [all]}.
+250.000 |:sim:cover |:no:arria10 |:upgrade |{cases, "PMS/test/suites", pms_rop_susp_2_SUITE, [all]}.
+367.931 |:sim:cover |:no:arria10 |:upgrade |{cases, "PMS/test/suites", pms_sc_SUITE, [all]}.
+490.943 |:sim:cover |:no:arria10 |:upgrade |{cases, "PMS/test/suites", pms_sftp_SUITE, [all]}.
+367.931 |:dus4101:tcu03:tcu04:dus5201:dus5301:dus3301:dus3201:sim:cover |:no:arria10 |:upgrade |{cases, "PES/test/suites", pes_job_basic_SUITE, [all]}.
+367.931 |:dus4101:tcu03:tcu04:dus5201:dus5301:dus3301:dus3201:sim:cover |:no:arria10 |:upgrade |{cases, "PES/test/suites", pes_job_err_SUITE, [all]}.
+100.000 |:dus4101:tcu03:tcu04:dus5201:dus5301:dus3301:dus3201:sim:cover |:no:arria10 |:upgrade |{cases, "PES/test/suites", pes_misc_SUITE, [all]}.
+100.000 |:dus4101:tcu03:tcu04:dus5201:dus5301:dus3301:dus3201:sim:cover |:no:arria10 |:upgrade |{cases, "PES/test/suites", pes_pei_api_SUITE, [all]}.
+329.849 |:dus4101:tcu03:tcu04:dus5201:dus5301:dus3301:dus3201 |:no:arria10 | |{groups, "test/test/suites/ROB", restartable_programs_SUITE, group_rob_restartable_prog_1}.
+900.849 |:dus4101:tcu03:tcu04:dus5201:dus5301:dus3301:dus3201 |:no:arria10 | |{groups, "test/test/suites/ROB", restartable_programs_SUITE, group_rob_restartable_prog_2}.
+329.849 |:dus4101:tcu03:tcu04:dus5201:dus5301:dus3301:dus3201 |:no:arria10 |:upgrade:short:onlyupgrade |{groups, "test/test/suites/ROB", restartable_programs_SUITE, group_rob_restartable_prog_ug}.
+20.861 |:dus4101:tcu03:tcu04:dus5201:dus5301:dus3301:dus3201 |:no:arria10 |:upgrade |{cases, "test/test/suites/ROB", test_coredumps_SUITE, [all]}.
+304.411 |:dus4101:tcu03:tcu04:dus5201:dus5301:dus3301:dus3201:sim:cover |:no:arria10 |:upgrade |{cases, "test/test/suites/SAF", ntf_alarm_via_ift_SUITE, [all]}.
+251.984 |:dus4101:tcu03:tcu04:dus5201:dus5301:dus3301:dus3201:sim:cover |:no:arria10 |:upgrade |{cases, "test/test/suites/SAF", saf_log_SUITE, [all]}.
+87.928 |:dus4101:tcu03:tcu04:dus5201:dus5301:dus3301:dus3201:sim:cover |:no:arria10 |:upgrade:short |{cases, "test/test/suites/SAF", safs_imm_oi_SUITE, [all]}.
+1028.934 |:dus4101:tcu03:tcu04:dus5201:dus5301:dus3301:dus3201:sim |:no:arria10 |:upgrade |{cases, "SWM/test/suites", swm_backup_SUITE, [all]}.
+180.000 |:cover |:no |:upgrade |{cases, "SWM/test/suites", swm_backup_SUITE, [create_backup,create_backup_name_validation_failure,create_backup_housekeeping,create_backup_housekeeping_autodelete,export_backup,export_backup_slash_name, export_failure,delete_backup, delete_backup_not_found,import_backup]}.
+#833.241 |sim |:no |:upgrade |{cases, "SWM/test/suites", swm_scheduled_backup_SUITE, [all]}.
+19.413 |:dus4101:tcu03:tcu04:dus5201:dus5301:dus3301:dus3201:sim:cover |:no:arria10 |:upgrade |{cases, "OMC/test/suites", omc_tbac_rbac_SUITE, [all]}.
+11.999 |:dus4101:tcu03:tcu04:dus5201:dus5301:dus3301:dus3201:sim:cover |:no:arria10 |:upgrade |{cases, "test/test/suites/WEB", web_SUITE, [all]}.
+1528.015 |:duw4101:dus4101:tcu03:tcu04:dus5201:dus5301:dus3301:dus3201 |:no:arria10 | |{cases, "test/test/suites/install", basic_tests_SUITE, [all]}.
+#300.000 |:duw4101:dus4101:tcu03:tcu04:dus5201:dus5301:dus3301:dus3201 |:no:arria10 |:upgrade:short:onlyupgrade |{groups, "test/test/suites/install", basic_tests_SUITE, group_basic_tests}.
+420.000 |:duw4101:dus4101:tcu03:tcu04:dus5201:dus5301:dus3301:dus3201 |:no:arria10 |:upgrade:short:onlyupgrade |{groups, "test/test/suites/install", basic_tests_SUITE, group_basic_tests_power_cycle}.
+#420.000 |:duw4101:dus4101:tcu03:tcu04:dus5201:dus5301:dus3301:dus3201 |:no:arria10 |:upgrade:short:onlyupgrade |{groups, "test/test/suites/install", basic_tests_SUITE, group_basic_tests_reboot}.
+#420.000 |:duw4101:dus4101:tcu03:tcu04:dus5201:dus5301:dus3301:dus3201 |:no:arria10 |:upgrade:short:onlyupgrade |{groups, "test/test/suites/install", basic_tests_SUITE, group_basic_tests_init_restart}.
+50.000 |:dus4101:tcu03:tcu04:dus5201:dus5301:dus3301:dus3201:sim:cover |:no:arria10 |:upgrade |{cases, "LMA/test/suites", lihi_SUITE, [all]}.
+100.000 |:sim:cover |:no | |{cases, "EQS/test/suites", buti_c_SUITE, [all]}.
+70.000 |:dus4101:tcu03:tcu04:dus5201:dus5301:dus3301:dus3201:sim:cover |:no:arria10 |:upgrade | {cases, "APPM/test/suites", lmhi_c_SUITE, [all]}.
+700.000 |:dus4101:tcu03:tcu04:dus5201:dus5301:dus3301:sim |:no:arria10 | |{groups, "SWM/test/suites", swm_failsafe_backup_SUITE, group_1}.
+800.000 |:dus4101:tcu03:tcu04:dus5201:dus5301:dus3301:sim |:no:arria10 | |{groups, "SWM/test/suites", swm_failsafe_backup_SUITE, group_2}.
+800.000 |:dus4101:tcu03:tcu04:dus5201:dus5301:dus3301:sim:cover |:no:arria10 | |{groups, "SWM/test/suites", swm_scheduled_backup_SUITE, schedule}.
+800.000 |:dus4101:tcu03:tcu04:dus5201:dus5301:dus3301:sim:cover |:no:arria10 | |{groups, "SWM/test/suites", swm_scheduled_backup_SUITE, autoexport}.
+1800.000 |:dus5201 |:no:arria10 | |{cases, "SWM/test/suites", swm_backup_restore_SUITE, [all]}.
+127.273 |:dus4101:tcu03:tcu04:dus5201:dus5301:dus3301:dus3201 |:no:arria10 |:upgrade |{cases, "SYS/test/suites", sys_coli_SUITE, [all]}.
+22.779 |:dus4101:tcu03:tcu04:dus5201:dus5301:dus3301:dus3201:sim:cover |:no:arria10 |:upgrade |{cases, "OOT/test/suites", oot_SUITE, [all]}.
+38.945 |:dus4101:tcu03:tcu04:dus5201:dus5301:dus3301:dus3201:sim:cover |:no:arria10 |:upgrade |{cases, "SYS/test/suites", sys_fi_SUITE, [all]}.
+56.198 |:dus4101:tcu03:tcu04:dus5201:dus5301:dus3301:dus3201:sim:cover |:no:arria10 |:upgrade |{cases, "LOG/test/suites", log_alarm_SUITE, [all]}.
+80.000 |:dus4101:tcu03:tcu04:dus5201:dus5301:dus3301:dus3201:sim: |:no:arria10 |:upgrade |{cases, "CLH/test/suites", chi_c_SUITE, [all]}.
+30.000 |:dus4101:tcu03:tcu04:dus5201:dus5301:dus3301:dus3201:sim:cover |:no:arria10 |:upgrade |{cases, "CLH/test/suites", csi_c_SUITE, [all]}.
+300.000 |:sim:cover | :no | :upgrade:short | {groups, "test/test/suites/install", basic_tests_SUITE, group_basic_tests }.
+#600.000 |:dus5201:dus5301:dus3301:dus3201:tcu03:tcu04: |:no |:upgrade |{groups, "/vobs/rcs/test/RCT_CRX901275/test/suites/NL", nl_ai_actions_SUITE, all_actions}.
+600.000 |:dus5201:dus5301:dus3301:dus3201:tcu03:tcu04: |:no | |{cases, "/vobs/rcs/test/RCT_CRX901275/test/suites/NL", nl_ai_actions_SUITE, [board_restore, export_ai_log, download_files, integrate]}.
+500.000 |:dus5201:dus5301:dus3301:dus3201:tcu03:tcu04: |:no | |{groups, "/vobs/rcs/test/RCT_CRX901275/test/suites/NL", nl_ai_actions_SUITE, hard_factory_reset}.
+500.000 |:dus5201:dus5301:dus3301:tcu04:sim:cover |:no:arria10 |:upgrade |{cases, "TIM/test/suites", tzii_c_SUITE, [all]}.
+#500.000 |:dus5201:dus5301:dus3301:dus3201:tcu03:tcu04: |:no |:upgrade |{cases, "/vobs/rcs/test/RCT_CRX901275/test/suites/SWM", swm_ug_1_SUITE, [all]}.
+260.000 |:dus5201:dus5301:dus3301:dus3201:tcu03:tcu04 |:no |:upgrade |{cases, "CCH/test/suites", cci_c_suite, [all]}.
+45.000 |:sim:cover |:no |:upgrade |{groups, "CCH/test/suites", cci_c_suite, cci_sim_test_group}.
+300.000 |:dus4101:tcu03:tcu04:dus5201:dus5301:dus3301:dus3201:sim:cover |:no:arria10 |:upgrade |{cases, "ECOLI/test/suites", fruacc_SUITE, [all]}.
+300.000 |:dus4101:tcu03:tcu04:dus5201:dus5301:dus3301:dus3201:sim:cover |:no:arria10 |:upgrade |{cases, "ECOLI/test/suites", fruacc_ru_SUITE, [all]}.
+60.000 |:dus4101:tcu03:tcu04:dus5201:dus3201:sim:cover |:no |:upgrade |{cases, "CERT/test/suites", certm_cmpv2_SUITE, [all]}.
+500.000 |:dus4101:tcu03:tcu04:dus5201:dus3201: |:no |:upgrade |{cases, "CERT/test/suites", certm_ftpes_suite, [all]}.
+300.000 |:sim:cover |:no |:upgrade |{groups, "CERT/test/suites", certm_ftpes_suite, sim_group}.
+#200.000 |:dus4101:tcu03:tcu04:dus5201:dus3201: |:no |:upgrade |{cases, "test/test/suites/SWM", swm_ug_mod1_ftpes_SUITE, [all]}.
+600.000 |:sim |:no |:upgrade |{groups, "PMS/test/suites", pms_sftp_SUITE, ftpes_group}.
+500.000 |:dus4101:tcu03:tcu04:dus5201:dus3201:sim:cover |:no |:upgrade |{groups, "FTPES/test/suites", ftpes_basic_suite, group1}.
+700.000 |:dus4101:tcu03:tcu04:dus5201:dus3201:sim:cover |:no |:upgrade |{groups, "FTPES/test/suites", ftpes_basic_suite, group2}.
+100.000 |:dus4101:tcu03:tcu04:dus5201:dus5301:dus3301:dus3201:sim:cover |:no:arria10 |:upgrade |{groups, "COMSA/test/suites", com_sysm_SUITE, ftpes_group}.
+100.000 |:dus4101:tcu03:tcu04:dus5201:dus5301:dus3301:dus3201:sim:cover |:no:arria10 |:upgrade |{groups, "SYS/test/suites", sys_fi_SUITE, ftpes_group}.
+150.000 |:dus4101:tcu03:tcu04:dus5201:dus5301:dus3301:dus3201 |:no:arria10 |:upgrade |{groups, "SYS/test/suites", sys_coli_SUITE, ftpes_group}.
+200.000 |:dus4101:tcu03:tcu04:dus5201:dus3201:cover |:no |:upgrade |{groups, "LOG/test/suites", log_legacy_SUITE, ftpes_group}.
+200.000 |:dus4101:tcu03:tcu04:dus5201:dus3201:sim:cover |:no |:upgrade |{groups, "LOG/test/suites", log_esi_SUITE, ftpes_group}.

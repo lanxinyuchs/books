@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LoadModuleContainer
+        xmlns="DeliverableProductStructureData"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="DeliverableProductStructureData DeliverableProductStructureData.xsd"
+        functionDesignation="{{ config.get_name(artifact) }}"
+        productNo="{{ config.get_id(artifact) }}"
+        rState="{{ config.get_version(artifact) }}">
+    {% for lm in config.get_includes(artifact) %}
+    <includedLoadModule
+            functionDesignation="{{ config.get_name(lm) }}"
+            productNo="{{ config.get_id(lm) }}"
+            rState="{{ config.get_version(lm) }}"
+        {%- if config.get_key(lm, 'packageurl') %}
+            uri="{{ config.get_key(lm, 'packageurl') }}"
+        {% endif %}>
+        {% for source in config.product_sources %}
+            {% if source.type == 'GitRepository' %}
+        <productSource
+                xsi:type="{{ source.type }}"
+                commitHash="{{ source.commit_id }}"
+                repoURI="{{ source.uri }}"/>
+            {% endif %}
+        {% endfor %}
+    </includedLoadModule>
+    {% endfor %}
+    {% for interface in config.get_providesif(artifact) %}
+    <includedLoadModule
+            functionDesignation="{{ config.get_name(interface) }}"
+            productNo="{{ config.get_id(interface) }}"
+            rState="{{ config.get_version(interface) }}"
+        {%- if config.get_key(interface, 'packageurl') %}
+            uri="{{ config.get_key(interface, 'packageurl') }}"
+        {% endif %}>
+        {% for source in config.product_sources %}
+            {% if source.type == 'GitRepository' %}
+        <productSource
+                xsi:type="{{ source.type }}"
+                commitHash="{{ source.commit_id }}"
+                repoURI="{{ source.uri }}"/>
+            {% endif %}
+        {% endfor %}
+    </includedLoadModule>
+    {% endfor %}
+</LoadModuleContainer>

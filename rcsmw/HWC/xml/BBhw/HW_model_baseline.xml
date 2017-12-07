@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!--HWModelBaseline file-->
+<!---->
+<!--There are three hwcategories; BASEBAND-T, BASEBAND and OTHER. Products are then to be sorted in hwmodels with the difference between hwmodels being that they cannot be loaded with the same LMCs below HALI (not HAL SW compatible, e.g. the EE LMC differ).-->
+<!---->
+<!--Ordinary R-states can be put in an open list (e.g. R1-), thus enabling release of fully SW compatible new R-states without updating the file, but the list must be closed with the last compatible R-state when a new non-compatible R-state is introduced (e.g. R1-R6).-->
+<!--Special R-states with alphabetical suffix, e.g. R1B/A, are included in the open list, but numerical suffixes, e.g. R3B/1, must be specified individually. This due to that they do not have defined interchangeability rules and can be used to handle SW incompatible maintenance releases.-->
+<!--Preliminary R-states must be specified separately, but in the same manner as ordinary R-state, i.e. in open lists and with individual specification for numerical suffixes e.g. P2A/1.-->
+<!---->
+<!--Note that when adding new info in the file for existing products, always consider if an updated metadata file has to be deployed with the HW (type2 SW)!!!-->
+<!---->
+<!--For new MRs, the need and name for a new hwmodel must be analyzed and determined in the pre-study and documented in the NDS.-->
+<!---->
+<!--History:-->
+<!--RevA First revision-->
+<!--RevB Added KDU137925/1 and /2-->
+<!--RevC HwModelBaseline-tag changed to hwBaseline and correction of unwanted carriage returns-->
+<!--RevD Empty spaces in product numbers removed. Changed to open lists for preliminary R-states. Correction of hwmodel for P-states for KDU137925/3 and /4. Added new hwmodel BB6502_6303.-->
+<!--RevE Added KDU137989/1 and /11 (in hwmodel BBT605)-->
+<!--RevF Removed hwmodel BB521_A-->
+<!--RevG Added BB6303/6502 R1- in hwmodel BB6502_6303-->
+<!--RevH Added KDU 137 847/11 and KDU 137 848/11 R1- in hwmodel BB662_3 and removed KDU 137 925/1 and KDU 137 925/2 from hwmodel BB521_S-->
+<!--RevJ Added KDU 137 847/1 and KDU 137 848/1 R1- in hwmodel BB662_3.-->
+<!---->
+<hwBaseline date="2017-05-16" rev="J" docNo="1/192 02-CXA 110 6900/1">
+  <boardLists>
+    <!--BASEBAND-->
+    <boardList hwmodel="BB521_S" hwcategory="BASEBAND">
+      <!--BB5512/16 with StratixV, IDU 5205/09-->
+      <boardType revision="R4-R7" productNumber="KDU137925/3"></boardType>
+      <boardType revision="R9-" productNumber="KDU137925/3"></boardType>
+      <boardType revision="R1-R7" productNumber="KDU137925/31"></boardType>
+      <boardType revision="R9-" productNumber="KDU137925/31"></boardType>
+      <boardType revision="R4-R7" productNumber="KDU137925/4"></boardType>
+      <boardType revision="R9-" productNumber="KDU137925/4"></boardType>
+      <boardType revision="R1-R7" productNumber="KDU137925/41"></boardType>
+      <boardType revision="R9-" productNumber="KDU137925/41"></boardType>
+      <boardType revision="R1-" productNumber="KDU137865/1"></boardType>
+      <boardType revision="R1-" productNumber="KDU137865/11"></boardType>
+      <boardType revision="R1-" productNumber="KDU137866/1"></boardType>
+      <boardType revision="R1-" productNumber="KDU137866/11"></boardType>
+    </boardList>
+    <boardList hwmodel="BB662_3" hwcategory="BASEBAND">
+      <!--BB6620 and BB6630-->
+      <boardType revision="P1-" productNumber="KDU137847/1"></boardType>
+      <boardType revision="R1-" productNumber="KDU137847/1"></boardType>
+      <boardType revision="R1-" productNumber="KDU137847/11"></boardType>
+      <boardType revision="P1-" productNumber="KDU137848/1"></boardType>
+      <boardType revision="R1-" productNumber="KDU137848/1"></boardType>
+      <boardType revision="R1-" productNumber="KDU137848/11"></boardType>
+    </boardList>
+    <boardList hwmodel="BB6502_6303" hwcategory="BASEBAND">
+      <!--BB6303 and BB6502-->
+      <boardType revision="P1-" productNumber="KDU137974/1"></boardType>
+      <boardType revision="R1-" productNumber="KDU137974/1"></boardType>
+      <boardType revision="P1-" productNumber="KDU137974/11"></boardType>
+      <boardType revision="R1-" productNumber="KDU137974/11"></boardType>
+      <boardType revision="P1-" productNumber="KDU137862/1"></boardType>
+      <boardType revision="R1-" productNumber="KDU137862/1"></boardType>
+      <boardType revision="P1-" productNumber="KDU137862/11"></boardType>
+      <boardType revision="R1-" productNumber="KDU137862/11"></boardType>
+    </boardList>
+    <!--BASEBAND-T-->
+    <boardList hwmodel="BBT503" hwcategory="BASEBAND-T">
+      <!--TCU03, Viper FPGA included before KDU /1 P2A! Support for P1x removed.-->
+      <boardType revision="P2-" productNumber="KDU137926/1"></boardType>
+      <boardType revision="R2A/1" productNumber="KDU137926/1"></boardType>
+      <boardType revision="R2-" productNumber="KDU137926/1"></boardType>
+      <boardType revision="R1-" productNumber="KDU137926/11"></boardType>
+    </boardList>
+    <boardList hwmodel="BBT605" hwcategory="BASEBAND-T">
+      <boardType revision="P1-" productNumber="KDU137815/1"></boardType>
+      <boardType revision="P1B/1" productNumber="KDU137815/1"></boardType>
+      <boardType revision="R1-" productNumber="KDU137815/1"></boardType>
+      <boardType revision="P1-" productNumber="KDU137815/11"></boardType>
+      <boardType revision="R1-" productNumber="KDU137815/11"></boardType>
+      <boardType revision="P1-" productNumber="KDU137989/1"></boardType>
+      <boardType revision="R1-" productNumber="KDU137989/1"></boardType>
+      <boardType revision="P1-" productNumber="KDU137989/11"></boardType>
+      <boardType revision="R1-" productNumber="KDU137989/11"></boardType>
+    </boardList>
+    <!--OTHER-->
+    <boardList hwmodel="BBR503" hwcategory="OTHER">
+      <boardType revision="P1-" productNumber="KDU137949/1" />
+      <boardType revision="R1-" productNumber="KDU137949/1" />
+    </boardList>
+  </boardLists>
+</hwBaseline>

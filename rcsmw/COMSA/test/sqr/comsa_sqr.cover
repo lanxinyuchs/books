@@ -1,0 +1,2 @@
+{excl_mods,[comsaDataInit]}.
+{expected_coverage , 31 }.

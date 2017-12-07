@@ -1,0 +1,216 @@
+#!/usr/bin/env python2
+"""
+Generate a metadata file for the given product
+
+SYNOPSIS
+
+generate-prs-metadata-file [--config=<config file>...] [--templates <templates dir>] <name>...
+
+DESCRIPTION
+
+This program generates PRS metadata files for the "<name>" products and stores the
+generated metadata files in the in the current directory.
+
+The program needs one or more delivery.config files, which are used to
+determine products name, number and version. Multiple configuration files can
+be given. If no config files are given, then the program will read the default
+files, if they exist:
+
+* ${CICDSYS_ROOT}/config/delivery.config
+* ${CICDSYS_OUTDIR}/baseline.config
+
+A directory with required templates is needed. The default templates directory
+is "${CICDSYS_ROOT}/templates". The template name must be "prs-metadata".
+
+SEE ALSO
+  -
+
+"""
+
+import argparse
+import logging
+import ConfigParser
+from jinja2 import Environment, FileSystemLoader
+import os
+import time
+
+
+class ProductSource(object):
+    def __init__(self, type):
+        self.type = type
+
+
+class GitProductSource(ProductSource):
+    def __init__(self, commit_id, uri):
+        super(GitProductSource, self).__init__('GitRepository')
+        self.commit_id = commit_id
+        self.uri = uri
+
+
+class Configuration:
+    """
+    Class for reading data from "ini/Apache" style configuration files, and
+    provide product information data from those files.
+    """
+
+    _date = time.strftime("%Y-%m-%dT%H:%M:%S")
+
+    def __init__(self, files):
+        self._config = ConfigParser.ConfigParser()
+        self._config.read(files)
+        self.product_sources = []
+
+    def get_key(self, name, key):
+        """Return the given key in the given section, or None"""
+        for section in (name, name + '-extras'):
+            if self._config.has_section(section) and self._config.has_option(
+                    section, key):
+                return self._config.get(section, key)
+        return None
+
+    def get_artifact(self, name):
+        """Return the name and product number for the given product"""
+        return self.get_key(name, 'artifact')
+
+    def get_artifact_lc(self, name):
+        """Return the name and product number in lower case for the given product"""
+        return self.get_artifact(name).lower()
+
+    def get_id(self, name):
+        """Return the product number for the given product"""
+        artifact = self.get_artifact(name)
+        return artifact.split('_', 1)[1]
+
+    def get_id_lc(self, name):
+        """Return the product number in lower case for the given product"""
+        return self.get_id(name).lower()
+
+    def get_name(self, name):
+        """Return the name of the given product"""
+        artifact = self.get_artifact(name)
+        return artifact.split('_', 1)[0]
+
+    def get_filename(self, name):
+        """Return the name of the given product"""
+        filename = self.get_artifact(name)
+        classifier = self.get_key(name, 'classifier')
+        if classifier:
+            filename += '-' + classifier
+        extension = self.get_key(name, 'extension')
+        if extension:
+            filename += '.' + extension
+        return filename
+
+    def get_name_lc(self, name):
+        """Return the name in lower case for the given product"""
+        return self.get_name(name).lower()
+
+    def get_version(self, name):
+        """Return the version of the given product"""
+        return self.get_key(name, 'version')
+
+    def get_includes(self, name):
+        """Return a list of the included load modules for the given product"""
+        includes = self.get_key(name, 'includes')
+        if not includes:
+            return []
+        return [dep.lstrip('@') for dep in includes.split()]
+
+    def get_providesif(self, name):
+        """Return a list of provided interfaces for the given product"""
+        provides = self.get_key(name, 'providesif')
+        if not provides:
+            return []
+        return [dep.lstrip('@') for dep in provides.split()]
+
+    def get_date(self):
+        """Return ISO date without microsecond component"""
+        return self._date
+
+
+def parse_command_line():
+    """ Parse command line arguments """
+
+    default_configs = []
+    if os.getenv('CICDSYS_DELIVERY_CONFIG_FILE'):
+        default_configs.append(
+            os.path.join(os.getenv('CICDSYS_DELIVERY_CONFIG_FILE')))
+    elif os.getenv('CICDSYS_ROOT'):
+        default_configs.append(os.path.join(os.getenv('CICDSYS_ROOT'),
+                                            'config', 'delivery.config'))
+    if os.getenv('CICDSYS_BASELINE_CONFIG_FILE'):
+        default_configs.append(
+            os.path.join(os.getenv('CICDSYS_BASELINE_CONFIG_FILE')))
+    elif os.getenv('CICDSYS_OUTDIR'):
+        default_configs.append(os.path.join(os.getenv('CICDSYS_OUTDIR'),
+                                            'baseline.config'))
+
+    parser = argparse.ArgumentParser(
+        description='Generate the given file for a product from a template')
+    parser.add_argument(
+        "--config",
+        action="append",
+        default=default_configs,
+        help="configuration file(s). Default are CICDSYS config files")
+    parser.add_argument(
+        "--debug",
+        action="store_true",
+        help="Print debugging information")
+    parser.add_argument(
+        "template",
+        help="template to process")
+    parser.add_argument(
+        "artifact",
+        help="one or more artifacts to generate metadata for")
+    parser.add_argument(
+        "outfile", nargs='?', default='-',
+        help='file to store metadata in. To stdout if not given or "-"')
+    parser.add_argument(
+        "--templates",
+        help="use specific template directory")
+    parser.add_argument(
+        "--test",
+        action="store_true",
+        help="Run in test mode")
+    parser.add_argument(
+        "--verbose",
+        action="store_true",
+        help="Print more information")
+
+    options = parser.parse_args()
+
+    if options.debug:
+        logging.getLogger().setLevel(logging.DEBUG)
+        logging.debug("Loglevel set to: debug")
+    if options.verbose:
+        logging.getLogger().setLevel(logging.INFO)
+        logging.info("Loglevel set to: verbose")
+    return options
+
+
+def main():
+    """Main function"""
+    logging.basicConfig(format='%(asctime)s %(levelname)s %(message)s')
+    options = parse_command_line()
+    logging.getLogger().debug("Options parsed: %s", options)
+
+    if options.templates:
+        templates = options.templates
+    else:
+        templates = os.path.join(os.getenv('CICDSYS_ROOT'), 'templates')
+
+    config = Configuration(options.config)
+    loader = FileSystemLoader(templates)
+    jinja = Environment(loader=loader, trim_blocks=True, lstrip_blocks=True)
+    jinja.globals["config"] = config
+
+    template = jinja.get_template(options.template)
+    if options.test or options.outfile == '-':
+        print template.render(artifact=options.artifact)
+    else:
+        with open(options.outfile, 'w') as fp:
+            fp.write(template.render(artifact=options.artifact))
+
+
+if __name__ == '__main__':
+    main()

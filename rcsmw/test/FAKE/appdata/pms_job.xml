@@ -1,0 +1,52 @@
+<!--
+# ========================================================== 
+# %CCaseFile:	pms_job.xml % 
+# %CCaseRev:	/main/R3A/2 % 
+# %CCaseDate:	2014-12-09 % 
+#                                                            
+# Author:	etxjotj
+# Description:	PM job test file
+#                                                            
+# ========================================================== 
+#                                                            
+# %CCaseCopyrightBegin%
+# Copyright (c) Ericsson AB 2014 All rights reserved.
+# 
+# The information in this document is the property of Ericsson.
+# 
+# Except as specifically authorized in writing by Ericsson, the 
+# receiver of this document shall keep the information contained 
+# herein confidential and shall protect the same in whole or in 
+# part from disclosure and dissemination to third parties.
+# 
+# Disclosure and disseminations to the receivers employees shall 
+# only be made on a strict need to know basis.
+# %CCaseCopyrightEnd%
+#                                                            
+# ========================================================== 
+# REVISION LOG 
+# ========================================================== 
+#                                                            
+# Rev        Date       Name        What 
+# ========   ========== ========    ======================== 
+# R3A/1      2014-11-22 uabesvi     Created
+# ========================================================== 
+--> 
+<appdata target="pmsJob">
+  <pmJob> 
+    <pmJobId>PredefJob</pmJobId>
+    <reportingPeriod>FIFTEEN_MIN</reportingPeriod>
+    <jobType>MEASUREMENTJOB</jobType>
+    <jobPriority>MEDIUM</jobPriority>
+    <granularityPeriod>FIFTEEN_MIN</granularityPeriod>
+    <compressionType>GZIP</compressionType>
+    <measurementReader>
+      <measurementReaderId>Predef_mr_1</measurementReaderId>
+      <measurementSpecification>
+        <groupRef>"ManagedElement=1,SystemFunctions=1,Pm=1,PmGroup=Group1"</groupRef>
+      </measurementSpecification>
+    </measurementReader>
+  </pmJob> 
+</appdata>
+
+

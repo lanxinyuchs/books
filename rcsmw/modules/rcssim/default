@@ -1,0 +1,65 @@
+#%Module1.0
+# **********************************************************************
+#
+# Short description:
+# Module that initiate shell for WAF "arm" cross compile 
+#
+# **********************************************************************
+#
+# %CCaseCopyrightBegin%
+# Copyright (c) Ericsson AB 2016 All rights reserved.
+# 
+# The information in this document is the property of Ericsson.
+# 
+# Except as specifically authorized in writing by Ericsson, the 
+# receiver of this document shall keep the information contained 
+# herein confidential and shall protect the same in whole or in 
+# part from disclosure and dissemination to third parties.
+# 
+# Disclosure and disseminations to the receivers employees shall 
+# only be made on a strict need to know basis.
+# %CCaseCopyrightEnd%
+#
+# **********************************************************************
+#
+# Rev        Date       Name        What
+# -----      -------    --------    --------------------------
+# A          2017-02-14 etxbjca     Created
+#
+# **********************************************************************
+
+module-whatis 	"rcssim (i686/WR5) WAF setup"
+
+# Prevent conflicting modules
+if {[module-info mode load]} {
+    foreach i {msrcs sim32 vrcs64} {
+	if {![string match $i/* [module-info name]]} {
+	    if {[is-loaded $i]} {
+		puts stderr "Removing conflicting module $i"
+		module rm $i
+	    }
+	}
+    }
+}
+
+# local variables
+set variant		rcssim
+set blddir		build-$variant
+set tgt			tgt_i686
+set lib			lib32
+
+# Set Build Env's
+setenv BLDDIR		$blddir
+setenv VARIANT		$variant
+setenv TGT		$tgt
+setenv LIB		$lib
+setenv WAFLOCK		.lock-$variant		
+
+# Load Compiler
+module load	wrtools-i686/1.0
+module load 	postrcs
+
+# Emacs support
+# Local Variables:
+# mode:tcl
+# End:

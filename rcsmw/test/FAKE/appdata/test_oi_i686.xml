@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+ <!--
+# ========================================================== 
+# %CCaseFile:	test_oi_i686.xml % 
+# %CCaseRev:	/main/R2A/R5A/1 % 
+# %CCaseDate:	2016-03-06 % 
+#                                                            
+# Author:	etxbjca 
+# Description:	CAX appdata file   
+#                                                            
+# ========================================================== 
+#                                                            
+# %CCaseCopyrightBegin%
+# Copyright (c) Ericsson AB 2012-2016 All rights reserved.
+# 
+# The information in this document is the property of Ericsson.
+# 
+# Except as specifically authorized in writing by Ericsson, the 
+# receiver of this document shall keep the information contained 
+# herein confidential and shall protect the same in whole or in 
+# part from disclosure and dissemination to third parties.
+# 
+# Disclosure and disseminations to the receivers employees shall 
+# only be made on a strict need to know basis.
+# %CCaseCopyrightEnd%
+#                                                            
+# ========================================================== 
+# REVISION LOG 
+# ========================================================== 
+#                                                            
+# Rev        Date       Name        What 
+# ========   ========   ========    ======================== 
+# R1A/1      2013-03-08   etxarnu     Created 
+# ========================================================== 
+#         1         2         3         4         5         6         7         
+#1234567890123456789012345678901234567890123456789012345678901234567890123456789
+#
+
+-->                                                   
+<appdata target="appm">
+  <loadmodule
+      tag="central"
+      name="test_oi"
+      id="CAX2010001_1"
+      rev="R1A"
+      date="20120821" 
+      >
+    <file type="i386_32"  relpath="*/fake-*/priv/test_oi.sh"/>
+    <file type="config" relpath="*/fake-*/priv/test_oi_envvar.xml"/>
+   </loadmodule>
+</appdata>

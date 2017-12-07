@@ -1,0 +1,30 @@
+%%%-----------------------------------------------------------------------------
+%%% @author etxberb
+%%% @copyright Ericsson AB 2014
+%%% @doc
+%%%
+%%% @end
+%%% Created :  20 Mar 2014 by ETXBERB
+%%%-----------------------------------------------------------------------------
+
+{define, 'Top', "/vobs/rcs/dev/RCP_CSX10179/RCT_CRX901275"}.
+{define, 'Block', "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/ALH/ALH_CNX9012924"}.
+      {define, 'T1', "'Top'/test/suites/install"}.
+      {define, 'T2', "'Block'/test/suites"}.
+
+      {cases, 'T1', install_sim_SUITE, [logs]}.
+      {cases, 'T1', basic_tests_SUITE, [
+         check_test_app,
+         cli,
+         coli,
+         nc_get_config,
+         nc_get,
+         nc_getset_config,
+         ee_processes,
+         test_root_mo,
+         test_class1_all,
+         conf_snmpmgr,
+         send_traps
+      ]}.
+
+      {cases,  'T2', avli_c_SUITE, [all]}.

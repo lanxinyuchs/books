@@ -1,0 +1,1984 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Copyright (c) 2016 Ericsson AB. 
+	All rights reserved 
+
+	DX ECIM Tool-chain generated this file on 2016-jan-28 15:12:49 using:
+	* com.ericsson.ecim.m2m 2.14.5.201511210257
+	* com.ericsson.ecim.dsl 2.14.5.201511210257
+	* com.ericsson.ecim.edm 2.14.5.201511210257
+--><!DOCTYPE models SYSTEM "mp.dtd">
+<models>
+    <dtdVersion>G</dtdVersion>
+    <momMetaData>
+        <momTitle>title</momTitle>
+        <momSubTitle>sub title</momSubTitle>
+        <momIdentity>
+            <docNum>1/155 54-CNX 901 3071</docNum>
+            <docLang>English</docLang>
+            <docRev>0</docRev>
+            <docDate>2016-03-08</docDate>
+        </momIdentity>
+        <createdBy>
+            <signature>ETXASTA</signature>
+        </createdBy>
+    </momMetaData>
+    <mim author="etomist" contact="etomist" correction="0" date="2017-03-14" docNo="1/155 54-CNX 901 3071" name="RcsCertM" namespace="urn:com:ericsson:ecim:RcsCertM" namespacePrefix="rcscertm" organization="BURAERJC" release="8" revision="" version="2">
+        <description>The ECIM CertM MOM.</description>
+        <domainExtension domain="ECIM">
+            <extension name="ecimMomName" value="ECIM_CertM"/>
+            <extension name="ecimMomVersion" value="2"/>
+            <extension name="ecimMomRelease" value="7"/>
+            <extension name="ecimMomCorrection" value="0"/>
+        </domainExtension>
+        <implements correction="0" name="ECIM_CertM" release="7" version="2"/>
+        <struct name="AsyncActionProgress">
+            <description>Records the progress of an asynchronous action.</description>
+            <domainExtension domain="ECIM">
+                <extension name="originatingMimVersion" value="1"/>
+                <extension name="originatingMimName" value="ECIM_CommonLibrary"/>
+                <extension name="originatingMimRelease" value="8"/>
+            </domainExtension>
+            <structMember name="actionName">
+                <description>Name of the invoked asynchronous action.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <string/>
+            </structMember>
+            <structMember name="additionalInfo">
+                <description>Used for logging significant messages during execution of an action.</description>
+                <sequence>
+                    <string/>
+                    <minLength>0</minLength>
+                </sequence>
+            </structMember>
+            <structMember name="progressInfo">
+                <description>Textual information that describes the actual state of the action execution.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <string/>
+            </structMember>
+            <structMember name="progressPercentage">
+                <description>Progress of the action.&#13;
+The range is between 0 and 100.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <uint8/>
+            </structMember>
+            <structMember name="result">
+                <description>Result state of a completed action.&#13;
+This field has value NOT_AVAILABLE if the action is not finished.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <enumRef name="ActionResultType">
+                    <mimName>RcsCertM</mimName>
+                </enumRef>
+            </structMember>
+            <structMember name="resultInfo">
+                <description>Textual description of the outcome/result of the action containing useful information for the NMS.&#13;
+If the action failed, it can contain an error message.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <string/>
+            </structMember>
+            <structMember name="state">
+                <description>Current state of the action.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <enumRef name="ActionStateType">
+                    <mimName>RcsCertM</mimName>
+                </enumRef>
+            </structMember>
+            <structMember name="actionId">
+                <description>Uniquely identifies the invocation of an action.&#13;
+Identifies the invocation of an action when the managed object allows invocation of more than one action at a time.</description>
+                <uint16/>
+            </structMember>
+            <structMember name="timeActionStarted">
+                <description>Date and time when the current action was started.</description>
+                <derivedDataTypeRef name="DateTime">
+                    <mimName>RcsCertM</mimName>
+                </derivedDataTypeRef>
+            </structMember>
+            <structMember name="timeActionCompleted">
+                <description>Date and time when the action was completed (successfully or unsuccessfully).</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <derivedDataTypeRef name="DateTime">
+                    <mimName>RcsCertM</mimName>
+                </derivedDataTypeRef>
+            </structMember>
+            <structMember name="timeOfLastStatusUpdate">
+                <description>Date and time when the struct member state was last updated.</description>
+                <derivedDataTypeRef name="DateTime">
+                    <mimName>RcsCertM</mimName>
+                </derivedDataTypeRef>
+            </structMember>
+        </struct>
+        <struct name="CertificateContent">
+            <description>The content of the X.509 certificate.</description>
+            <structMember name="version">
+                <description>The version of the encoded certificate.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <string/>
+            </structMember>
+            <structMember name="serialNumber">
+                <description>The serial number of the certificate assigned by the CA.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <string/>
+            </structMember>
+            <structMember name="signatureAlgorithm">
+                <description>The identifier for the algorithm and hash function used by the CA in signing the certificate.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <string/>
+            </structMember>
+            <structMember name="issuer">
+                <description>The X.501 distinguished name of the CA that signed and issued the certificate.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <string/>
+            </structMember>
+            <structMember name="validFrom">
+                <description>The certificate is valid from this date.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <derivedDataTypeRef name="DateTime">
+                    <mimName>RcsCertM</mimName>
+                </derivedDataTypeRef>
+            </structMember>
+            <structMember name="validTo">
+                <description>The certificate is valid to this date.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <derivedDataTypeRef name="DateTime">
+                    <mimName>RcsCertM</mimName>
+                </derivedDataTypeRef>
+            </structMember>
+            <structMember name="publicKey">
+                <description>Carries the public key.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <string/>
+            </structMember>
+            <structMember name="publicKeyAlgorithm">
+                <description> Identifies the algorithm of which this public key is an instance.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <string/>
+            </structMember>
+            <structMember name="keyUsage">
+                <description>The usage category for which the certificate was issued as defined by X.509 key usage extension.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <string/>
+            </structMember>
+            <structMember name="extensionContent">
+                <description>Contains the X.509 certificate extensions.&#13;
+&#13;
+An extension string is displayed in Field:Value format.</description>
+                <sequence>
+                    <string/>
+                    <minLength>0</minLength>
+                </sequence>
+            </structMember>
+            <structMember name="subject">
+                <description>The X.501 distinguished name of the subject associated with the public-key.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isKey" value="true"/>
+                </domainExtension>
+                <string/>
+            </structMember>
+        </struct>
+        <enum name="KeyInfo">
+            <description>Indicates the key type and length in bits.&#13;
+&#13;
+This enumeration supports Rivest Shamir Adleman (RSA) and Elliptic Curve Digital Signature Algorithm (ECDSA).</description>
+            <enumMember name="RSA_1024">
+                <description>1024-bit long key generated for the RSA algorithm.</description>
+                <value>0</value>
+                <deprecated/>
+                <statusInformation>Outdated key type.</statusInformation>
+            </enumMember>
+            <enumMember name="RSA_2048">
+                <description>2048-bit long key generated for the RSA algorithm.</description>
+                <value>1</value>
+            </enumMember>
+            <enumMember name="RSA_3072">
+                <description>3072-bit long key generated for the RSA algorithm.</description>
+                <value>2</value>
+            </enumMember>
+            <enumMember name="RSA_4096">
+                <description>4096-bit long key generated for the RSA algorithm.</description>
+                <value>3</value>
+            </enumMember>
+            <enumMember name="ECDSA_160">
+                <description>ECDSA algorithm with P-160 curve.</description>
+                <value>4</value>
+                <deprecated/>
+                <statusInformation>Improperly specified key type.</statusInformation>
+            </enumMember>
+            <enumMember name="ECDSA_224">
+                <description>ECDSA algorithm with P-224 curve.</description>
+                <value>5</value>
+                <deprecated/>
+                <statusInformation>Improperly specified key type.</statusInformation>
+            </enumMember>
+            <enumMember name="ECDSA_256">
+                <description>ECDSA algorithm with P-256 curve.</description>
+                <value>6</value>
+                <deprecated/>
+                <statusInformation>Improperly specified key type.</statusInformation>
+            </enumMember>
+            <enumMember name="ECDSA_384">
+                <description>ECDSA algorithm with P-384 curve.</description>
+                <value>7</value>
+                <deprecated/>
+                <statusInformation>Improperly specified key type.</statusInformation>
+            </enumMember>
+            <enumMember name="ECDSA_512">
+                <description>ECDSA algorithm with P-512 curve.</description>
+                <value>8</value>
+                <deprecated/>
+                <statusInformation>Improperly specified key type.</statusInformation>
+            </enumMember>
+            <enumMember name="ECDSA_521">
+                <description>ECDSA algorithm with P-521 curve.</description>
+                <value>9</value>
+                <deprecated/>
+                <statusInformation>Improperly specified key type.</statusInformation>
+            </enumMember>
+            <enumMember name="ECDSA_BRAINPOOL_256">
+                <description>ECDSA algorithm with Brainpool P-256 r1 curve.</description>
+                <value>10</value>
+            </enumMember>
+            <enumMember name="ECDSA_BRAINPOOL_320">
+                <description>ECDSA algorithm with Brainpool P-320 r1 curve.</description>
+                <value>11</value>
+            </enumMember>
+            <enumMember name="ECDSA_BRAINPOOL_384">
+                <description>ECDSA algorithm with Brainpool P-384 r1 curve.</description>
+                <value>12</value>
+            </enumMember>
+            <enumMember name="ECDSA_BRAINPOOL_512">
+                <description>ECDSA algorithm with Brainpool P-512 r1 curve.</description>
+                <value>13</value>
+            </enumMember>
+            <enumMember name="ECDSA_SECP_256_R1">
+                <description>ECDSA algorithm with SECP 256 r1 curve.</description>
+                <value>14</value>
+            </enumMember>
+            <enumMember name="ECDSA_SECP_384_R1">
+                <description>ECDSA algorithm with SECP 384 r1 curve.</description>
+                <value>15</value>
+            </enumMember>
+            <enumMember name="ECDSA_SECP_521_R1">
+                <description>ECDSA algorithm with SECP 521 r1 curve.</description>
+                <value>16</value>
+            </enumMember>
+        </enum>
+        <enum name="CertificateState">
+            <description>Certificate states.</description>
+            <enumMember name="NOT_VALID_YET">
+                <description>Based on the validFrom date, the certificate is not yet valid.</description>
+                <value>1</value>
+            </enumMember>
+            <enumMember name="VALID">
+                <description>Based on the validFrom and validTo dates, the certificate is valid.</description>
+                <value>0</value>
+            </enumMember>
+            <enumMember name="EXPIRED">
+                <description>Based on the validTo date having passed, the certificate expired.</description>
+                <value>2</value>
+            </enumMember>
+            <enumMember name="REVOKED">
+                <description>The certificate was revoked by a trusted CA.</description>
+                <value>3</value>
+            </enumMember>
+        </enum>
+        <enum name="ActionStateType">
+            <description>Lists the action states.</description>
+            <domainExtension domain="ECIM">
+                <extension name="originatingMimVersion" value="1"/>
+                <extension name="originatingMimName" value="ECIM_CommonLibrary"/>
+                <extension name="originatingMimRelease" value="8"/>
+            </domainExtension>
+            <enumMember name="CANCELLING">
+                <description>Cancellation is in progress.</description>
+                <value>1</value>
+            </enumMember>
+            <enumMember name="RUNNING">
+                <description>The execution of the action is currently in progress.</description>
+                <value>2</value>
+            </enumMember>
+            <enumMember name="FINISHED">
+                <description>The action is finished.</description>
+                <value>3</value>
+            </enumMember>
+            <enumMember name="CANCELLED">
+                <description>The action has been cancelled and cancellation has been done.</description>
+                <value>4</value>
+            </enumMember>
+        </enum>
+        <enum name="FingerprintSupport">
+            <description>The SHA fingerprint algorithm the ME supports.</description>
+            <enumMember name="SHA_1">
+                <description>The SHA-1 secure hash algorithm.</description>
+                <value>0</value>
+            </enumMember>
+            <enumMember name="SHA_224">
+                <description>The SHA-224 secure hash algorithm.</description>
+                <value>1</value>
+            </enumMember>
+            <enumMember name="SHA_256">
+                <description>The SHA-256 secure hash algorithm.</description>
+                <value>2</value>
+            </enumMember>
+            <enumMember name="SHA_384">
+                <description>The SHA-384 secure hash algorithm.</description>
+                <value>3</value>
+            </enumMember>
+            <enumMember name="SHA_512">
+                <description>The SHA-512 secure hash algorithm.</description>
+                <value>4</value>
+            </enumMember>
+        </enum>
+        <enum name="AuthorityType">
+            <description>Enrollment authority types.&#13;
+&#13;
+This type is deprecated.</description>
+            <enumMember name="CERTIFICATION_AUTHORITY">
+                <description>An entity that issues certificates.</description>
+                <value>0</value>
+            </enumMember>
+            <enumMember name="REGISTRATION_AUTHORITY">
+                <description>An intermediate PKI entity, separate from the Certification Authority.&#13;
+&#13;
+Used for registration purposes and certificate enrollment.</description>
+                <value>1</value>
+            </enumMember>
+        </enum>
+        <enum name="RenewalMode">
+            <description>Modes for certificate renewal.</description>
+            <enumMember name="MANUAL">
+                <description>Certificate renewal is manually performed by the MS.&#13;
+&#13;
+This renewal mode requires the MS to start an enrollment by manually invoking one of the enrollment actions.</description>
+                <value>0</value>
+            </enumMember>
+            <enumMember name="AUTOMATIC">
+                <description>Certificate renewal is automatically performed by the ME.</description>
+                <value>1</value>
+            </enumMember>
+        </enum>
+        <enum name="EnrollmentProtocol">
+            <description>Enrollment protocols.</description>
+            <enumMember name="SCEP">
+                <description>Simple Certificate Enrollment Protocol.</description>
+                <value>0</value>
+            </enumMember>
+            <enumMember name="CMP">
+                <description>Certificate Management Protocol.</description>
+                <value>1</value>
+            </enumMember>
+        </enum>
+        <enum name="ManagedCertificateState">
+            <description>The states the MS may set for a certificate.</description>
+            <enumMember name="ENABLED">
+                <description>The certificate is enabled.</description>
+                <value>0</value>
+            </enumMember>
+            <enumMember name="DISABLED">
+                <description>The certificate is disabled.</description>
+                <value>1</value>
+            </enumMember>
+        </enum>
+        <enum name="FeatureState">
+            <description>Indicates whether a feature is Activated or Deactivated.</description>
+            <enumMember name="ACTIVATED">
+                <description>The feature is administratively activated.</description>
+                <value>0</value>
+            </enumMember>
+            <enumMember name="DEACTIVATED">
+                <description>The feature is administratively deactivated.</description>
+                <value>1</value>
+            </enumMember>
+        </enum>
+        <enum name="ActionResultType">
+            <description>Lists the different results of an action.</description>
+            <domainExtension domain="ECIM">
+                <extension name="originatingMimVersion" value="1"/>
+                <extension name="originatingMimName" value="ECIM_CommonLibrary"/>
+                <extension name="originatingMimRelease" value="8"/>
+            </domainExtension>
+            <enumMember name="SUCCESS">
+                <description>The asynchronous action ended with success.</description>
+                <value>1</value>
+            </enumMember>
+            <enumMember name="FAILURE">
+                <description>The asynchronous action ended with failure.</description>
+                <value>2</value>
+            </enumMember>
+            <enumMember name="NOT_AVAILABLE">
+                <description>No result is available yet.</description>
+                <value>3</value>
+            </enumMember>
+        </enum>
+        <enum name="EnrollmentSupport">
+            <description>Supportable enrollment methods.</description>
+            <enumMember name="OFFLINE_CSR">
+                <description>Certificate Signing Request-based (CSR) offline enrollment.&#13;
+&#13;
+The certificate for a node credential is manually provided by the MS using a CSR in PKCS#10 format.</description>
+                <value>0</value>
+            </enumMember>
+            <enumMember name="OFFLINE_PKCS12">
+                <description>PKCS#12-based offline enrollment.&#13;
+&#13;
+The node credential is manually provided by the MS using a PKCS#12 format, a certificate accompanied by a private key.</description>
+                <value>1</value>
+            </enumMember>
+            <enumMember name="ONLINE_SCEP">
+                <description>Online enrollment. The node credential is acquired by the Simple Certificate Enrollment Protocol.</description>
+                <value>2</value>
+            </enumMember>
+            <enumMember name="ONLINE_CMP">
+                <description>Online enrollment. The node credential is acquired by the Certificate Management Protocol.</description>
+                <value>3</value>
+            </enumMember>
+        </enum>
+        <derivedDataType name="DateTime">
+            <description>Represents the international standard for the representation of date and time ( ISO 8601).&#13;
+The string format is "YYYY-MM-DDThh:mm:ss.SSSZ" (excluding quotes).&#13;
+A DateTime string consists of a date part, a time part, and an optional time zone information part. The time zone part may be a "Z", representing the Coordinated Universal Time (UTC) time zone (equals to +00) or a time zone offset (for example, +02:00).&#13;
+If the time zone part is not present, the DateTime value represents local time.&#13;
+&#13;
+The following pattern describes the DateTime format:&#13;
+YYYY-MM-DDThh:mm:ss[.S+][Z|+-hh:mm]&#13;
+Where:&#13;
+YYYY = Four digit year&#13;
+MM = Two digit month (01=January, and so on)&#13;
+DD = Two digit day of month (01 through 31)&#13;
+T = Time designator (shows start of time component)&#13;
+hh = Two digits of hour (00 through 23, AM/PM not allowed)&#13;
+mm = Two digits of minute (00 through 59)&#13;
+ss = Two digits of second (00 through 59, leap second not allowed)&#13;
+S+ = One or more digits of decimal fraction of a second&#13;
+Z = Time is UTC&#13;
++- = + or - character indicating positive or negative offset to UTC &#13;
+&#13;
+DateTime values are compliant with ISO 8601 "Representation of dates and times" but are restricted according to RFC 3339 "Date and Time on the Internet: Timestamps". The DateTime format is further restricted as follows:&#13;
+- T and Z designators are upper case.&#13;
+- . (dot) is used to indicate start of fractions of seconds (ISO 8601 also allows comma)&#13;
+&#13;
+</description>
+            <domainExtension domain="ECIM">
+                <extension name="originatingMimVersion" value="1"/>
+                <extension name="originatingMimName" value="ECIM_CommonLibrary"/>
+                <extension name="originatingMimRelease" value="8"/>
+            </domainExtension>
+            <baseType>
+                <string>
+                    <lengthRange>
+                        <min>19</min>
+                        <max>31</max>
+                    </lengthRange>
+                    <stringLength>
+                        <subrange>
+                            <min>19</min>
+                            <max>31</max>
+                        </subrange>
+                    </stringLength>
+                    <validValues>^([0-9]{4})-(1[0-2]|0[1-9])-(0[1-9]|[1|2][0-9]|3[0-1])T(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])([\.][0-9]+){0,1}(([\+|\-](0[0-9]|1[0-9]|2[0-4])(:[0-5][0-9])?)|(Z)?)$</validValues>
+                </string>
+            </baseType>
+            <validationRules>
+                <rule exceptionText="" format="posix_ere" name="Pattern Constraint"><![CDATA[^([0-9]{4})-(1[0-2]|0[1-9])-(0[1-9]|[1|2][0-9]|3[0-1])T(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])([\.][0-9]+){0,1}(([\+|\-](0[0-9]|1[0-9]|2[0-4])(:[0-5][0-9])?)|(Z)?)$]]></rule>
+            </validationRules>
+        </derivedDataType>
+        <derivedDataType name="Fingerprint">
+            <description>A derived string type that allows hexadecimal digits.&#13;
+&#13;
+The string must be entered in two-digit groups separated by colons. For example: b7:a8:c6:d5:43:fa:50:43</description>
+            <baseType>
+                <string>
+                    <validValues>^(([a-fA-F0-9]{2}[:])*([a-fA-F0-9]{2}))$|^(NULL)$</validValues>
+                </string>
+            </baseType>
+            <validationRules>
+                <rule exceptionText="" format="posix_ere" name="Pattern Constraint"><![CDATA[^(([a-fA-F0-9]{2}[:])*([a-fA-F0-9]{2}))$|^(NULL)$]]></rule>
+            </validationRules>
+        </derivedDataType>
+        <derivedDataType name="ExpiryAlarmThresholdRange">
+            <description>Range in days for certificate expiry alarm threshold.</description>
+            <baseType>
+                <uint16>
+                    <range>
+                        <min>1</min>
+                        <max>365</max>
+                    </range>
+                    <ranges>
+                        <subrange>
+                            <min>1</min>
+                            <max>365</max>
+                        </subrange>
+                    </ranges>
+                </uint16>
+            </baseType>
+        </derivedDataType>
+        <derivedDataType name="DistinguishedName">
+            <description>Represents the international standard for the representation of Distinguished Name (RFC 4517).&#13;
+The DistinguishedName syntax is defined in RFC4517. The string representation of the Distinguished Name structure is as follows:&#13;
+&#13;
+distinguishedName = [ relativeDistinguishedName ( COMMA relativeDistinguishedName ) ]&#13;
+relativeDistinguishedName = attributeTypeAndValue ( PLUS attributeTypeAndValue )&#13;
+attributeTypeAndValue = attributeType EQUALS attributeValue&#13;
+attributeType = descr/numericoid&#13;
+attributeValue = string/hexstring</description>
+            <domainExtension domain="ECIM">
+                <extension name="originatingMimVersion" value="1"/>
+                <extension name="originatingMimName" value="ECIM_CommonLibrary"/>
+                <extension name="originatingMimRelease" value="8"/>
+            </domainExtension>
+            <baseType>
+                <string>
+                    <lengthRange>
+                        <min>3</min>
+                        <max>65535</max>
+                    </lengthRange>
+                    <stringLength>
+                        <subrange>
+                            <min>3</min>
+                            <max>65535</max>
+                        </subrange>
+                    </stringLength>
+                    <validValues>^([^=,]*=(\\,|[^,])*,)*([^=,]*=(\\,|[^,])*)$</validValues>
+                </string>
+            </baseType>
+            <validationRules>
+                <rule exceptionText="" format="posix_ere" name="Pattern Constraint"><![CDATA[^([^=,]*=(\\,|[^,])*,)*([^=,]*=(\\,|[^,])*)$]]></rule>
+            </validationRules>
+        </derivedDataType>
+        <derivedDataType name="EcimPasswordString">
+            <description>Password string.</description>
+            <baseType>
+                <string/>
+            </baseType>
+        </derivedDataType>
+        <class name="CertM">
+            <description>The top class of the Certificate Management model. &#13;
+&#13;
+Certificate management encompasses management of node credentials and trusted certificates.</description>
+            <systemCreated/>
+            <root/>
+            <action name="installTrustedCertFromUri">
+                <description>Installs a trusted certificate from the specified Uniform Resource Identifier (URI).&#13;&#13;
+&#13;
+The action can be invoked if no other action in progress on this MO.&#13;
+The action returns immediately after invocation. The progress of the action can be tracked via the reportProgress attribute.&#13;
+&#13;
+The action returns with TRUE after successful invocation, otherwise it returns with FALSE.&#13;
+&#13;
+The generic URI syntax is defined by RFC 3986.&#13;
+Example: sftp://myuser@myhostname.ericsson.local/dir/subdir/certificate&#13;
+Example: http://myhostname.ericsson.local/dir/subdir/certificate</description>
+                <returnType>
+                    <boolean/>
+                </returnType>
+                <parameter name="uri">
+                    <description>This parameter contains a URI assumed to point to the certificate file.&#13;
+&#13;
+The generic URI syntax is defined by RFC 3986.&#13;
+Example: sftp://myuser@myhostname.ericsson.local/dir/subdir/certificate&#13;
+The URI must not contain any password. The password shall be provided in the second parameter of this action.</description>
+                    <in/>
+                    <dataType>
+                        <string/>
+                    </dataType>
+                </parameter>
+                <parameter name="uriPassword">
+                    <description>The password section of the URI.&#13;
+&#13;
+If a password is not required, the 'NULL' string must be provided.</description>
+                    <domainExtension domain="ECIM">
+                        <extension name="isNillable" value="true"/>
+                    </domainExtension>
+                    <isNillable/>
+                    <in/>
+                    <dataType>
+                        <derivedDataTypeRef name="EcimPasswordString">
+                            <mimName>RcsCertM</mimName>
+                        </derivedDataTypeRef>
+                    </dataType>
+                </parameter>
+                <parameter name="fingerprint">
+                    <description>The Secure Hash Algorithm (SHA) fingerprint of the certificate to be installed.&#13;
+&#13;
+The fingerprint is checked against the fingerprint calculated on the installed file. If fingerprint verification is not required, the 'NULL' string has to be provided. The hash must be calculated by the SHA algorithm indicated in fingerprintSupport of the CertMCapabilities MO.</description>
+                    <domainExtension domain="ECIM">
+                        <extension name="isNillable" value="true"/>
+                    </domainExtension>
+                    <isNillable/>
+                    <in/>
+                    <dataType>
+                        <derivedDataTypeRef name="Fingerprint">
+                            <mimName>RcsCertM</mimName>
+                        </derivedDataTypeRef>
+                    </dataType>
+                </parameter>
+            </action>
+            <action name="cancel">
+                <description>Cancels an ongoing action on this MO.&#13;
+&#13;
+Can be invoked during execution of an action.</description>
+                <returnType>
+                    <boolean/>
+                </returnType>
+            </action>
+            <action name="downloadCrl">
+                <description>Downloads the Certificate Revocation List (CRL) files.&#13;
+&#13;
+CRLs are downloaded from Uniform Resource Identifier (URI) locations indicated by the CRL distribution points extension of the peer certificates at the time specified by the extension. This action allows the MS to trigger a download in the special case when CRLs are published prior to the published update times.&#13;
+&#13;
+The action can be invoked if no other action is in progress on this MO and returns immediately after invocation. &#13;
+The progress of the action can be tracked via the reportProgress attribute.&#13;
+&#13;
+The action returns with TRUE after successful invocation, otherwise it returns with FALSE.</description>
+                <returnType>
+                    <boolean/>
+                </returnType>
+                <disturbances>
+Downloading new CRLs can cause loss of traffic if newly downloaded CRLs contain revocations of trusted certificates used for TLS or IPsec.
+                </disturbances>
+            </action>
+            <action name="removeTrustedCert">
+                <description>Removes a trusted certificate.</description>
+                <returnType>
+                    <boolean/>
+                </returnType>
+                <parameter name="trustedCert">
+                    <description>The DN of the TrustedCertificate MO to be removed.</description>
+                    <in/>
+                    <dataType>
+                        <moRef name="TrustedCertificate">
+                            <mimName>RcsCertM</mimName>
+                        </moRef>
+                    </dataType>
+                </parameter>
+            </action>
+            <attribute name="certMId">
+                <description>The value component of the RDN.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="userLabel">
+                <description>An additional descriptive text.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="reportProgress">
+                <description>Reports the progress of the ongoing action on this MO.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <readOnly/>
+                <isNillable/>
+                <dataType>
+                    <structRef name="AsyncActionProgress">
+                        <mimName>RcsCertM</mimName>
+                    </structRef>
+                </dataType>
+            </attribute>
+            <attribute name="localFileStorePath">
+                <description>Contains a file sytem path for locally stored certificates.&#13;
+&#13;
+The default directory path on the ME file system where certificates or credential containers are stored. It may store locally generated files or files generated after push download. </description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <readOnly/>
+                <isNillable/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="activeVendorCredential">
+                <description>Indicates the active vendor credential for initial enrollments.&#13;
+&#13;
+Contains the DN of a VendorCredential MO.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <readOnly/>
+                <isNillable/>
+                <dataType>
+                    <moRef name="VendorCredential">
+                        <mimName>RcsCertM</mimName>
+                    </moRef>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="TrustedCertificate">
+            <description>Represents a trusted certificate.</description>
+            <systemCreated/>
+            <attribute name="trustedCertificateId">
+                <description>The value component of the RDN.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="reservedByCategory">
+                <description>Indicates the trust categories this trusted certificate belongs to.&#13;
+&#13;
+Contains the Distinguished Names of the TrustCategory Managed Objects.</description>
+                <noNotification/>
+                <readOnly/>
+                <dataType>
+                    <sequence>
+                        <moRef name="TrustCategory">
+                            <mimName>RcsCertM</mimName>
+                        </moRef>
+                        <minLength>0</minLength>
+                        <nonUnique/>
+                    </sequence>
+                </dataType>
+            </attribute>
+            <attribute name="managedState">
+                <description>The state of the trusted certificate set by the MS.&#13;
+&#13;
+If set to ENABLED, the certificate is trusted and the state of the certificate is represented by certificateState.&#13;
+If set to DISABLED, the trusted certificate is quarantined, and thus the trust relationship is suspended.</description>
+                <dataType>
+                    <enumRef name="ManagedCertificateState">
+                        <defaultValue>ENABLED</defaultValue>
+                        <mimName>RcsCertM</mimName>
+                    </enumRef>
+                </dataType>
+                <disturbances>
+Disabling a trusted certificate which is used for TLS or IPsec can cause loss of traffic.
+                </disturbances>
+            </attribute>
+            <attribute name="certificateContent">
+                <description>The X.509 content of the certificate.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <readOnly/>
+                <isNillable/>
+                <dataType>
+                    <structRef name="CertificateContent">
+                        <mimName>RcsCertM</mimName>
+                    </structRef>
+                </dataType>
+            </attribute>
+            <attribute name="certificateState">
+                <description>The current state of the certificate.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <readOnly/>
+                <isNillable/>
+                <dataType>
+                    <enumRef name="CertificateState">
+                        <mimName>RcsCertM</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="NodeCredential">
+            <description>Represents the node credential and contains information about the corresponding certificate.&#13;
+&#13;
+</description>
+            <action name="cancelEnrollment">
+                <description>Cancels the enrollment process.&#13;
+&#13;
+If the enrollment runs in online polling mode, this action stops polling the enrollment server. The enrollment rejects to confirm the PKI response from the enrollment server and releases the generated key-pair. The enrollment fails.</description>
+                <returnType>
+                    <boolean/>
+                </returnType>
+            </action>
+            <action name="startOnlineEnrollment">
+                <description>Starts the online enrollment process.&#13;
+&#13;
+For initial enrollment when a vendor credential is not available, a challengePassword must be provided, otherwise the vendor credential or the existing valid node credential signs the PKI request. &#13;
+&#13;
+If the enrollmentSupport attribute of the CertMCapabilities MO indicates that online enrollment is supported, the action can be invoked.&#13;
+&#13;
+As inputs, the action uses subjectName, keyInfo, enrollmentServerGroup and enrollmentAuthority attributes.&#13;
+&#13;
+If no other action is in progress on this MO, the action can be invoked and it returns immediately after invocation. &#13;
+Action progress can be tracked via the enrollmentProgress attribute.&#13;
+&#13;
+The action returns with TRUE after successful invocation, otherwise it returns with FALSE.</description>
+                <returnType>
+                    <boolean/>
+                </returnType>
+                <parameter name="challengePassword">
+                    <description>The one-time challenge password used as a shared-secret between the ME and the enrollment CA.&#13;
+</description>
+                    <domainExtension domain="ECIM">
+                        <extension name="isNillable" value="true"/>
+                    </domainExtension>
+                    <isNillable/>
+                    <in/>
+                    <dataType>
+                        <derivedDataTypeRef name="EcimPasswordString">
+                            <mimName>RcsCertM</mimName>
+                        </derivedDataTypeRef>
+                    </dataType>
+                </parameter>
+            </action>
+            <action name="startOfflineCsrEnrollment">
+                <description>Starts a manual enrollment procedure. &#13;
+&#13;
+Creates a PKCS#10 Certificate Signing Request (CSR) that is stored at the specified local Uniform Resource Identifier URI. A file transfer service can be used to fetch the CSR file from the ME.&#13;
+&#13;
+The action can be invoked if the enrollmentSupport attribute of the CertMCapabilities MO indicates that offline CSR-based enrollment is supported.&#13;
+&#13;
+The action uses attributes subjectName and keyInfo attributes as inputs.&#13;
+&#13;
+If no other action is in progress on this MO, the action can be invoked and it returns immediately after invocation. &#13;
+The action progress can be tracked via the enrollmentProgress attribute.&#13;
+&#13;
+The action returns with TRUE after successful invocation, otherwise it returns with FALSE.</description>
+                <returnType>
+                    <boolean/>
+                </returnType>
+                <parameter name="uri">
+                    <description>This parameter contains a URI assumed to point to the certificate or credential container file. &#13;
+&#13;
+The generic Uniform Resource Identifier (URI) syntax is defined by RFC 3986. &#13;
+Example: sftp://myuser@myhostname.ericsson.local/dir/subdir/file &#13;
+The URI must not contain any password. The password shall be provided in the second parameter of this action.&#13;
+</description>
+                    <in/>
+                    <dataType>
+                        <string/>
+                    </dataType>
+                </parameter>
+                <parameter name="uriPassword">
+                    <description>The password section of the Uniform Resource Identifier (URI).&#13;
+&#13;
+If a password is not required, the 'NULL' string must be provided.</description>
+                    <domainExtension domain="ECIM">
+                        <extension name="isNillable" value="true"/>
+                    </domainExtension>
+                    <isNillable/>
+                    <in/>
+                    <dataType>
+                        <derivedDataTypeRef name="EcimPasswordString">
+                            <mimName>RcsCertM</mimName>
+                        </derivedDataTypeRef>
+                    </dataType>
+                </parameter>
+            </action>
+            <action name="installCredentialFromUri">
+                <description>Installs a node credential or certificate from the specified Uniform Resource Identifier (URI).&#13;
+&#13;
+If the container file is in PKCS#12 format, the action implicitly starts an offline enrollment. If the file is a certificate in Privacy Enhanced Mail (PEM) or Distinguished Encoding Rules (DER) format, this action closes the ongoing offline enrollment process started by the startOfflineCsrEnrollment action.&#13;
+&#13;
+Chain certificates are imported from PEM formatted file or PKCS#12 container file.&#13;
+&#13;
+The action can be invoked if the enrollmentSupport attribute of the CertMCapabilities MO indicates that offline enrollment is supported.&#13;
+&#13;
+For a container file in PKCS#12 format, the action can be invoked if there is no other action in progress on this MO. For a certificate file in PEM or DER format, the action can be invoked if there is a startOfflineCsrEnrollment action in progress on this MO.&#13;
+&#13;
+The action returns immediately after invocation. The progress of the action can be tracked via the enrollmentProgress attribute.&#13;
+&#13;
+The action returns with TRUE after successful invocation, otherwise it returns with FALSE.&#13;
+&#13;
+The generic URI syntax is defined by RFC 3986.&#13;
+Example: sftp://myuser@myhostname.ericsson.local/dir/subdir/certificate&#13;
+Example: http://myhostname.ericsson.local/dir/subdir/certificate</description>
+                <returnType>
+                    <boolean/>
+                </returnType>
+                <parameter name="uri">
+                    <description>This parameter contains a URI assumed to point to the certificate or credential container file.&#13;
+&#13;
+The generic Uniform Resource Identifier (URI) syntax is defined by RFC 3986.&#13;
+Example: sftp://myuser@myhostname.ericsson.local/dir/subdir/file&#13;
+The URI must not contain any password. The password shall be provided in the second parameter of this action.&#13;
+</description>
+                    <in/>
+                    <dataType>
+                        <string>
+                            <defaultValue/>
+                        </string>
+                    </dataType>
+                </parameter>
+                <parameter name="uriPassword">
+                    <description>The password part of the Uniform Resource Identifier (URI).&#13;
+&#13;
+If a password is not required, the 'NULL' string has to be provided.</description>
+                    <domainExtension domain="ECIM">
+                        <extension name="isNillable" value="true"/>
+                    </domainExtension>
+                    <isNillable/>
+                    <in/>
+                    <dataType>
+                        <derivedDataTypeRef name="EcimPasswordString">
+                            <mimName>RcsCertM</mimName>
+                        </derivedDataTypeRef>
+                    </dataType>
+                </parameter>
+                <parameter name="credentialPassword">
+                    <description>The password for decrypting the PKCS#12 container file.&#13;
+&#13;
+If the action is called to install a certificate in Privacy Enhanced Mail (PEM) or Distinguished Encoding Rules (DER) format to finish a running enolment process, the value of password has to be 'NULL'.</description>
+                    <domainExtension domain="ECIM">
+                        <extension name="isNillable" value="true"/>
+                    </domainExtension>
+                    <isNillable/>
+                    <in/>
+                    <dataType>
+                        <derivedDataTypeRef name="EcimPasswordString">
+                            <defaultValue/>
+                            <mimName>RcsCertM</mimName>
+                        </derivedDataTypeRef>
+                    </dataType>
+                </parameter>
+                <parameter name="fingerprint">
+                    <description>The Secure Hash Algorithm (SHA) fingerprint of the certificate to be installed. &#13;
+&#13;
+The fingerprint is checked against the fingerprint calculated on the installed file. If the verification of the fingerprint is not required, the 'NULL' string must be provided. The hash must be calculated by the SHA algorithm indicated in fingerprintSupport of the CertMCapabilities MO.</description>
+                    <domainExtension domain="ECIM">
+                        <extension name="isNillable" value="true"/>
+                    </domainExtension>
+                    <isNillable/>
+                    <in/>
+                    <dataType>
+                        <derivedDataTypeRef name="Fingerprint">
+                            <mimName>RcsCertM</mimName>
+                        </derivedDataTypeRef>
+                    </dataType>
+                </parameter>
+            </action>
+            <attribute name="nodeCredentialId">
+                <description>The value component of the RDN.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="userLabel">
+                <description>An additional descriptive text.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="subjectName">
+                <description>The X.501 DN to be used in the subject field of the requested certificate.&#13;
+&#13;
+For instance: "C=SE,O=Ericsson,CN=someserialnumber.ericsson.com" </description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <restricted/>
+                <isNillable/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="reservedByUser">
+                <description>Indicates the users of this NodeCredential MO.&#13;
+&#13;
+The users are identified by Distinguished Names of Credential User Managed Objects.</description>
+                <noNotification/>
+                <readOnly/>
+                <dataType>
+                    <sequence>
+                        <moRef name="ManagedObject"/>
+                        <minLength>0</minLength>
+                    </sequence>
+                </dataType>
+            </attribute>
+            <attribute name="enrollmentTimer">
+                <description>The enrollment poll timer in minutes. &#13;
+&#13;
+If the time indicated by this timer elapses before the enrollment is finished, the enrollment fails.  Used only for online enrollment.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <uint16>
+                        <defaultValue>60</defaultValue>
+                    </uint16>
+                </dataType>
+            </attribute>
+            <attribute name="enrollmentServerGroup">
+                <description>The DN of the EnrollmentServerGroup used for online enrollments.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <moRef name="EnrollmentServerGroup">
+                        <mimName>RcsCertM</mimName>
+                    </moRef>
+                </dataType>
+            </attribute>
+            <attribute name="keyInfo">
+                <description>Specifies the key type and length that is used for the next enrollment.&#13;
+&#13;
+Deprecated key types are not recommended for new enrollments.&#13;
+&#13;
+For the supported key types see CertMCapabilities MO keySupport attribute.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <enumRef name="KeyInfo">
+                        <mimName>RcsCertM</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="enrollmentProgress">
+                <description>Reports the progress of the ongoing enrollment.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <readOnly/>
+                <isNillable/>
+                <dataType>
+                    <structRef name="AsyncActionProgress">
+                        <mimName>RcsCertM</mimName>
+                    </structRef>
+                </dataType>
+            </attribute>
+            <attribute name="renewalMode">
+                <description>The certificate renewal mode for online enrollment.&#13;
+&#13;
+If configured to AUTOMATIC, renewal will be performed automatic when the node certificate date is about to expire.&#13;
+&#13;
+If an automatic enrollment failed alarm is present on the MO, setting this attribute to MANUAL clears the alarm.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <enumRef name="RenewalMode">
+                        <defaultValue>MANUAL</defaultValue>
+                        <mimName>RcsCertM</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="enrollmentAuthority">
+                <description>The DN of the EnrollmentAuthority used for online enrollments.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <moRef name="EnrollmentAuthority">
+                        <mimName>RcsCertM</mimName>
+                    </moRef>
+                </dataType>
+            </attribute>
+            <attribute name="expiryAlarmThreshold">
+                <description>Threshold value to calculate the date of the alarm indicating the coming expiry of the certificate.&#13;
+&#13;
+The alarm severity is raised to MINOR in case the remaining time to expiry is reduced to the one third of the configured threshold.&#13;
+The alarm severity is raised to MAJOR in case the remaining time to expiry is reduced to the one tenth of the configured threshold or one week.&#13;
+The alarm is cleared and a certificate not available alarm is raised when the certificate expires.</description>
+                <dataType>
+                    <derivedDataTypeRef name="ExpiryAlarmThresholdRange">
+                        <defaultValue>30</defaultValue>
+                        <mimName>RcsCertM</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="subjectAltName">
+          <description>The subjectAltName can be specified either as an IP address or a FQDN. Format is &#60;type&#62;:&#60;value&#62; where:&#13;&#13;
+                      type is either IP (for IP address) or DNS (for FQDN)&#13;&#13;
+                      and value is:&#13;&#13;
+                      An IPv4 address in dotted decimal notation.&#13;
+                      An IPv6 address in colon decimal notation&#13;
+                      An FQDN&#13;&#13;
+                      In case a type identification (IP or DNS) is not present, the type will be interpreted depending on value.&#13;&#13;
+                      Examples:&#13;&#13;
+                      someserialnumber.ericsson.com&#13;
+                      DNS:someserialnumber.ericsson.com&#13;
+                      IP:145.34.23.123&#13;
+                      IP:2001:DB8::8:800:200C:417A&#13;
+</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="certificateContent">
+                <description>The X.509 content of the certificate.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <readOnly/>
+                <isNillable/>
+                <dataType>
+                    <structRef name="CertificateContent">
+                        <mimName>RcsCertM</mimName>
+                    </structRef>
+                </dataType>
+            </attribute>
+            <attribute name="certificateState">
+                <description>The current state of the certificate.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <readOnly/>
+                <isNillable/>
+                <dataType>
+                    <enumRef name="CertificateState">
+                        <mimName>RcsCertM</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="VendorCredential">
+            <description>Represents the vendor credential pre-installed on the ME.</description>
+            <systemCreated/>
+            <attribute name="vendorCredentialId">
+                <description>The value component of the RDN.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="certificateContent">
+                <description>The X.509 content of the certificate.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <readOnly/>
+                <isNillable/>
+                <dataType>
+                    <structRef name="CertificateContent">
+                        <mimName>RcsCertM</mimName>
+                    </structRef>
+                </dataType>
+            </attribute>
+            <attribute name="certificateState">
+                <description>The current state of the certificate.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <readOnly/>
+                <isNillable/>
+                <dataType>
+                    <enumRef name="CertificateState">
+                        <mimName>RcsCertM</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="EnrollmentServerGroup">
+            <description>Maintains a group of enrollment servers for load balancing.</description>
+            <attribute name="enrollmentServerGroupId">
+                <description>The value component of the RDN.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="userLabel">
+                <description>An additional descriptive text.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="EnrollmentAuthority">
+            <description>Represents a Certification or Registration Authority for certificate enrollment.</description>
+            <attribute name="enrollmentAuthorityId">
+                <description>The value component of the RDN.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="enrollmentCaCertificate">
+                <description>The trusted cerificate of the RA or CA used for enrollment authentication.&#13;
+&#13;
+Represents the certificate by the DN of the appropriate TrustedCertificate MO. &#13;
+&#13;
+The RA or CA certificate provided in the PKI response is authenticated by this trusted certificate.&#13;
+&#13;
+If this attribute has any value, the attribute enrollmentCaFingerprint is ignored.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <moRef name="TrustedCertificate">
+                        <mimName>RcsCertM</mimName>
+                    </moRef>
+                </dataType>
+            </attribute>
+            <attribute name="enrollmentCaFingerprint">
+                <description>The SHA fingerprint of the trusted cerificate of the RA or CA used for enrollment authentication.&#13;
+&#13;
+If the trusted certificate is not stored on the ME as a TrustedCertificate MO, the enrollmentCaCertificate attribute cannot refer to the appropriate TrustedCertificate MO, so this attribute at least must be provided. If enrollmentCaCertificate references a TrustedCertificate MO, this attribute displays the fingerprint of the certificate defined by enrollmentCaCertificate, and cannot be modified. &#13;
+&#13;
+The fingerprint of the trusted certificate provided by the PKI response is calculated and compared to this attribute. If a match is found, the certificate is used for authenticating the CA or RA.&#13;
+&#13;
+The hash must be calculated by the Secure Hash Algorithm (SHA) algorithm indicated in fingerprintSupport of the CertMCapabilities MO.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <derivedDataTypeRef name="Fingerprint">
+                        <mimName>RcsCertM</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="authorityType">
+                <description>Indicates the type of the enrollment authority.&#13;
+&#13;
+Used for the verification of the Public Key Infrastructure (PKI) response message. In case of a Certification Authority (CA), the self-signed certificate of the CA is accepted by ME given that the certificate is configured either in attribute enrollmentCaCertificate or enrollmentCaFingerprint. In case of a Registration Authority (RA), the RA certificate is verified using the CA certificate of the RA configured in attribute enrollmentCaCertificate.&#13;
+&#13;
+This entity is deprecated as implemented redundant functionality.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <enumRef name="AuthorityType">
+                        <mimName>RcsCertM</mimName>
+                    </enumRef>
+                </dataType>
+                <deprecated/>
+                <statusInformation>Deprecated in version 2.0. Redundant functionality.</statusInformation>
+            </attribute>
+            <attribute name="userLabel">
+                <description>An additional descriptive text.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="enrollmentAuthorityName">
+                <description>Specifies the name of the issuing CA.&#13;
+&#13;
+The X.501 distinguished name of the issuing CA used for addressing and reference identity.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <derivedDataTypeRef name="DistinguishedName">
+                        <mimName>RcsCertM</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="TrustCategory">
+            <description>Represents a group of trusted certificates that can be referenced by Credential Users on the ME.</description>
+            <attribute name="trustCategoryId">
+                <description>The value component of the RDN.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="userLabel">
+                <description>An additional descriptive text.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="trustedCertificates">
+                <description>The list of trusted certificates that belongs to this trust category.&#13;
+&#13;
+Contains the Distinguished Names of the TrustedCertificate Managed Objects.</description>
+                <mandatory/>
+                <dataType>
+                    <sequence>
+                        <moRef name="TrustedCertificate">
+                            <mimName>RcsCertM</mimName>
+                        </moRef>
+                        <minLength>1</minLength>
+                    </sequence>
+                </dataType>
+            </attribute>
+            <attribute name="reservedByUser">
+                <description>Indicates the users of this TrustCategory MO.&#13;
+&#13;
+The users are identified by Distinguished Names of Credential User Managed Objects.</description>
+                <noNotification/>
+                <readOnly/>
+                <dataType>
+                    <sequence>
+                        <moRef name="ManagedObject"/>
+                        <minLength>0</minLength>
+                    </sequence>
+                </dataType>
+            </attribute>
+            <attribute name="crlCheck">
+                <description>Toggles CRL control.&#13;
+&#13;
+Toggles CRL control for the certificates validated in the chain of a trusted certificate in this TrustCategory MO.&#13;
+If ACTIVATED, CRLs are checked.&#13;
+If DEACTVATED, CRLs are not checked.</description>
+                <dataType>
+                    <enumRef name="FeatureState">
+                        <defaultValue>DEACTIVATED</defaultValue>
+                        <mimName>RcsCertM</mimName>
+                    </enumRef>
+                </dataType>
+                <disturbances>
+Activating CRL check can cause loss of traffic if CRLs contain revocations of trusted certificates used for TLS or IPsec.
+                </disturbances>
+            </attribute>
+        </class>
+        <class name="CertMCapabilities">
+            <description>Contains the certificate management capabilities of the ME.</description>
+            <systemCreated/>
+            <attribute name="certMCapabilitiesId">
+                <description>The value component of the RDN.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="enrollmentSupport">
+                <description>Indicates the enrollment methods supported by the ME.</description>
+                <noNotification/>
+                <readOnly/>
+                <dataType>
+                    <sequence>
+                        <enumRef name="EnrollmentSupport">
+                            <mimName>RcsCertM</mimName>
+                        </enumRef>
+                        <minLength>1</minLength>
+                    </sequence>
+                </dataType>
+            </attribute>
+            <attribute name="fingerprintSupport">
+                <description>The secure hash algorithm the ME supports for fingerprint calculation.&#13;
+&#13;
+The attributes and parameters in the CertM model taking a fingerprint must be provided by calculating the fingerprint using the indicated algorithm.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <noNotification/>
+                <readOnly/>
+                <isNillable/>
+                <dataType>
+                    <enumRef name="FingerprintSupport">
+                        <mimName>RcsCertM</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="keySupport">
+                <description>List of the key types the ME supports.</description>
+                <readOnly/>
+                <dataType>
+                    <sequence>
+                        <enumRef name="KeyInfo">
+                            <mimName>RcsCertM</mimName>
+                        </enumRef>
+                        <minLength>1</minLength>
+                        <nonUnique/>
+                    </sequence>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="EnrollmentServer">
+            <description>Represents an enrollment server.&#13;
+&#13;
+An enrollment server implement the Certificate Management Protocol (CMP).</description>
+            <attribute name="enrollmentServerId">
+                <description>The value component of the RDN.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="userLabel">
+                <description>An additional descriptive text.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="enrollmentAuthority">
+                <description>The Certification Authority or Registration Authority used by this enrollment server.&#13;
+&#13;
+Represents the enrollment authority by the DN of the EnrollmentAuthority MO.&#13;
+&#13;
+This entity is deprecated. If this attribute is specified, the enrollmentAuthority attribute in the NodeCredential MO referring to the EnrollmentServerGroup MO of this EnrollmentServer MO is ignored.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <moRef name="EnrollmentAuthority">
+                        <mimName>RcsCertM</mimName>
+                    </moRef>
+                </dataType>
+                <deprecated/>
+                <statusInformation>Deprecated in version 2.0. Function replaced by enrollmentAuthority attribute in NodeCredential MOC.</statusInformation>
+            </attribute>
+            <attribute name="uri">
+                <description>The URI of the enrollment server.&#13;
+&#13;
+The URI consists of a protocol, an IP or DNS address and an optional port number. Specify the optional port designation by appending a colon followed by the port number to the host part, for example, 192.168.33.27:8080. If no port number is provided, the default port is used.&#13;
+&#13;
+Example for CMP: http://192.168.33.27:8080 or cmp://192.168.33.27</description>
+                <mandatory/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="protocol">
+                <description>The enrollment protocol.</description>
+                <mandatory/>
+                <dataType>
+                    <enumRef name="EnrollmentProtocol">
+                        <mimName>RcsCertM</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="ChainCertificate">
+            <description>Chain certificate belonging to the credential.</description>
+            <systemCreated/>
+            <attribute name="chainCertificateId">
+                <description>The value component of the RDN.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="certificateContent">
+                <description>The X.509 content of the certificate.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <readOnly/>
+                <isNillable/>
+                <dataType>
+                    <structRef name="CertificateContent">
+                        <mimName>RcsCertM</mimName>
+                    </structRef>
+                </dataType>
+            </attribute>
+            <attribute name="certificateState">
+                <description>The current state of the certificate.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <readOnly/>
+                <isNillable/>
+                <dataType>
+                    <enumRef name="CertificateState">
+                        <mimName>RcsCertM</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+        </class>
+        <relationship name="CertM_to_EnrollmentServerGroup">
+            <containment>
+                <parent>
+                    <hasClass name="CertM">
+                        <mimName>RcsCertM</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="EnrollmentServerGroup">
+                        <mimName>RcsCertM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+        <relationship name="CertM_to_EnrollmentAuthority">
+            <containment>
+                <parent>
+                    <hasClass name="CertM">
+                        <mimName>RcsCertM</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="EnrollmentAuthority">
+                        <mimName>RcsCertM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+        <relationship name="CertM_to_TrustedCertificate">
+            <containment>
+                <parent>
+                    <hasClass name="CertM">
+                        <mimName>RcsCertM</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="TrustedCertificate">
+                        <mimName>RcsCertM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="false"/>
+                    <extension name="canDelete" value="false"/>
+                </domainExtension>
+                <notCreatable/>
+                <notDeleteable/>
+            </containment>
+        </relationship>
+        <relationship name="CertM_to_VendorCredential">
+            <containment>
+                <parent>
+                    <hasClass name="CertM">
+                        <mimName>RcsCertM</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="VendorCredential">
+                        <mimName>RcsCertM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                        <max>1</max>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="false"/>
+                    <extension name="canDelete" value="false"/>
+                </domainExtension>
+                <notCreatable/>
+                <notDeleteable/>
+            </containment>
+        </relationship>
+        <relationship name="CertM_to_NodeCredential">
+            <containment>
+                <parent>
+                    <hasClass name="CertM">
+                        <mimName>RcsCertM</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="NodeCredential">
+                        <mimName>RcsCertM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+        <relationship name="CertM_to_TrustCategory">
+            <containment>
+                <parent>
+                    <hasClass name="CertM">
+                        <mimName>RcsCertM</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="TrustCategory">
+                        <mimName>RcsCertM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+        <relationship name="CertM_to_CertMCapabilities">
+            <containment>
+                <parent>
+                    <hasClass name="CertM">
+                        <mimName>RcsCertM</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="CertMCapabilities">
+                        <mimName>RcsCertM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>1</min>
+                        <max>1</max>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="false"/>
+                    <extension name="canDelete" value="false"/>
+                </domainExtension>
+                <notCreatable/>
+                <notDeleteable/>
+            </containment>
+        </relationship>
+        <relationship name="EnrollmentServerGroup_to_EnrollmentServer">
+            <containment>
+                <parent>
+                    <hasClass name="EnrollmentServerGroup">
+                        <mimName>RcsCertM</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="EnrollmentServer">
+                        <mimName>RcsCertM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+        <relationship name="EnrollmentAuthority_enrollmentCaCertificate_to_TrustedCertificate">
+            <uniDirectionalAssociation>
+                <hasClass name="EnrollmentAuthority">
+                    <mimName>RcsCertM</mimName>
+                </hasClass>
+                <associationEnd name="enrollmentCaCertificate">
+                    <hasClass name="TrustedCertificate">
+                        <mimName>RcsCertM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                        <max>1</max>
+                    </cardinality>
+                </associationEnd>
+            </uniDirectionalAssociation>
+        </relationship>
+        <relationship name="TrustedCertificate_reservedByCategory_to_TrustCategory_trustedCertificates">
+            <biDirectionalAssociation>
+                <associationEnd name="trustedCertificates">
+                    <hasClass name="TrustedCertificate">
+                        <mimName>RcsCertM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>1</min>
+                    </cardinality>
+                    <isReserving/>
+                </associationEnd>
+                <associationEnd name="reservedByCategory">
+                    <hasClass name="TrustCategory">
+                        <mimName>RcsCertM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </associationEnd>
+            </biDirectionalAssociation>
+        </relationship>
+        <relationship name="NodeCredential_enrollmentServerGroup_to_EnrollmentServerGroup">
+            <uniDirectionalAssociation>
+                <hasClass name="NodeCredential">
+                    <mimName>RcsCertM</mimName>
+                </hasClass>
+                <associationEnd name="enrollmentServerGroup">
+                    <hasClass name="EnrollmentServerGroup">
+                        <mimName>RcsCertM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                        <max>1</max>
+                    </cardinality>
+                </associationEnd>
+            </uniDirectionalAssociation>
+        </relationship>
+        <relationship name="NodeCredential_enrollmentAuthority_to_EnrollmentAuthority">
+            <uniDirectionalAssociation>
+                <hasClass name="NodeCredential">
+                    <mimName>RcsCertM</mimName>
+                </hasClass>
+                <associationEnd name="enrollmentAuthority">
+                    <hasClass name="EnrollmentAuthority">
+                        <mimName>RcsCertM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                        <max>1</max>
+                    </cardinality>
+                </associationEnd>
+            </uniDirectionalAssociation>
+        </relationship>
+        <relationship name="NodeCredential_to_ChainCertificate">
+            <containment>
+                <parent>
+                    <hasClass name="NodeCredential">
+                        <mimName>RcsCertM</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="ChainCertificate">
+                        <mimName>RcsCertM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="false"/>
+                    <extension name="canDelete" value="false"/>
+                </domainExtension>
+                <notCreatable/>
+                <notDeleteable/>
+            </containment>
+        </relationship>
+        <relationship name="VendorCredential_to_ChainCertificate">
+            <containment>
+                <parent>
+                    <hasClass name="VendorCredential">
+                        <mimName>RcsCertM</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="ChainCertificate">
+                        <mimName>RcsCertM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="false"/>
+                    <extension name="canDelete" value="false"/>
+                </domainExtension>
+                <notCreatable/>
+                <notDeleteable/>
+            </containment>
+        </relationship>
+         <relationship name="CertM_activeVendorCredential_to_VendorCredential">
+            <uniDirectionalAssociation>
+                <hasClass name="CertM">
+                    <mimName>RcsCertM</mimName>
+                </hasClass>
+                <associationEnd name="activeVendorCredential">
+                    <hasClass name="VendorCredential">
+                        <mimName>RcsCertM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                        <max>1</max>
+                    </cardinality>
+                </associationEnd>
+            </uniDirectionalAssociation>
+        </relationship> 
+<!-- Manually added biDir that should be in SysM really -->
+    <relationship name="NetconfTls_to_NodeCredential">
+      <biDirectionalAssociation>
+        <associationEnd name="nodeCredential">
+          <hasClass name="NodeCredential">
+            <mimName>ECIM_CertM</mimName>
+          </hasClass>
+          <cardinality>
+            <min>0</min>
+            <max>1</max>
+          </cardinality>
+          <isReserving/>
+        </associationEnd>
+        <associationEnd name="reservedByUser">
+          <hasClass name="NetconfTls">
+            <mimName>ECIM_SysM</mimName>
+          </hasClass>
+          <cardinality>
+            <min>0</min>
+          </cardinality>
+        </associationEnd>
+      </biDirectionalAssociation>
+    </relationship>
+    <relationship name="NetconfTls_to_TrustCategory">
+      <biDirectionalAssociation>
+        <associationEnd name="trustCategory">
+          <hasClass name="TrustCategory">
+            <mimName>ECIM_CertM</mimName>
+          </hasClass>
+          <cardinality>
+            <min>0</min>
+            <max>1</max>
+          </cardinality>
+          <isReserving/>
+        </associationEnd>
+        <associationEnd name="reservedByUser">
+          <hasClass name="NetconfTls">
+            <mimName>ECIM_SysM</mimName>
+          </hasClass>
+          <cardinality>
+            <min>0</min>
+          </cardinality>
+        </associationEnd>
+      </biDirectionalAssociation>
+    </relationship>
+    <relationship name="CliTls_to_NodeCredential">
+      <biDirectionalAssociation>
+        <associationEnd name="nodeCredential">
+          <hasClass name="NodeCredential">
+            <mimName>ECIM_CertM</mimName>
+          </hasClass>
+          <cardinality>
+            <min>0</min>
+            <max>1</max>
+          </cardinality>
+          <isReserving/>
+        </associationEnd>
+        <associationEnd name="reservedByUser">
+          <hasClass name="CliTls">
+            <mimName>ECIM_SysM</mimName>
+          </hasClass>
+          <cardinality>
+            <min>0</min>
+          </cardinality>
+        </associationEnd>
+      </biDirectionalAssociation>
+    </relationship>
+    <relationship name="CliTls_to_TrustCategory">
+      <biDirectionalAssociation>
+        <associationEnd name="trustCategory">
+          <hasClass name="TrustCategory">
+            <mimName>ECIM_CertM</mimName>
+          </hasClass>
+          <cardinality>
+            <min>0</min>
+            <max>1</max>
+          </cardinality>
+          <isReserving/>
+        </associationEnd>
+        <associationEnd name="reservedByUser">
+          <hasClass name="CliTls">
+            <mimName>ECIM_SysM</mimName>
+          </hasClass>
+          <cardinality>
+            <min>0</min>
+          </cardinality>
+        </associationEnd>
+      </biDirectionalAssociation>
+    </relationship>
+<!-- Manual edit ends here -->
+    </mim>
+    <interMim>
+        <relationship name="SecM_to_CertM">
+            <containment>
+                <parent>
+                    <hasClass name="SecM">
+                        <mimName>ECIM_Security_Management</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="CertM">
+                        <mimName>RcsCertM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>1</min>
+                        <max>1</max>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="false"/>
+                    <extension name="canDelete" value="false"/>
+                </domainExtension>
+                <notCreatable/>
+                <notDeleteable/>
+            </containment>
+        </relationship>
+    </interMim>
+</models>

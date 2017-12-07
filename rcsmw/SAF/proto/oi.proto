@@ -1,0 +1,314 @@
+//----------------------------------------------------------------------
+//
+// %EricssonCopyright%
+// %CopyrightBegin%
+// 
+// Copyright Ericsson AB 2012-2015. All Rights Reserved.
+// 
+// The program may be used and/or copied only with the written permission from
+// Ericsson AB, or in accordance with the terms and conditions stipulated in
+// the agreement/contract under which the program has been supplied.
+// 
+// %CopyrightEnd%
+//
+//--------------------------------------------------------------------
+import "sa_ais.proto";
+import "om.proto";
+
+// Types
+
+// 5.2.1
+// typedef SaUint64T SaImmOiHandleT;
+
+// 5.2.2 
+// typedef SaStringT SaImmOiImplementerNameT;
+
+// 5.2.3 
+// typedef SaUint64T SaImmOiCcbIdT;
+
+// 5.2.4 
+message safsImmOiCallbacks {
+  required bool saImmOiCcbObjectCreateCallback_2 = 1;
+  required bool saImmOiCcbObjectDeleteCallback = 2;
+  required bool saImmOiCcbObjectModifyCallback_2 = 3;
+  required bool saImmOiCcbCompletedCallback = 4;
+  required bool saImmOiCcbApplyCallback = 5;
+  required bool saImmOiCcbAbortCallback = 6;
+  required bool saImmOiAdminOperationCallback_2 = 7;
+  required bool saImmOiRtAttrUpdateCallback = 8;
+}
+
+//
+// Functions
+//
+// 5.3 Life Cycle
+message safsImmOiInitialize {
+  optional safsImmOiCallbacks callbacks = 1;
+  optional safsVersion version = 2;
+} // out parameters in result
+message safsImmOiFinalize {
+  required uint64 handle = 1;
+}
+
+// 5.4 Object Implementer
+message safsImmOiImplementerSet {
+  required uint64 handle = 1;
+  required string implementerName = 2;
+}
+message safsImmOiImplementerClear {
+  required uint64 handle = 1;
+}
+message safsImmOiClassImplementerSet {
+  required uint64 handle = 1;
+  required string className = 2;
+}
+message safsImmOiClassImplementerRelease {
+  required uint64 handle = 1;
+  required string className = 2;
+}
+message safsImmOiObjectImplementerSet {
+  required uint64 handle = 1;
+  required string objectName = 2;
+  required safsImmScope scope = 3;
+}
+message safsImmOiObjectImplementerRelease {
+  required uint64 handle = 1;
+  required string objectName = 2;
+  required safsImmScope scope = 3;
+}
+
+// 5.5 Runtime Object Management
+// One callback 
+message safsImmOiRtObjectCreate_2 {
+  required uint64 handle = 1;
+  required string className = 2;
+  required string parentName = 3;
+  repeated safsImmAttrValues_2 attrValues = 4;
+}
+message safsImmOiRtObjectDelete {
+  required uint64 handle = 1;
+  required string objectName = 2;
+}
+message safsImmOiRtObjectUpdate_2 {
+  required uint64 handle = 1;
+  required string objectName = 2;
+  repeated safsImmAttrModification_2 attrMods = 3;
+}
+message saImmOiRtAttrUpdateCallback {
+  required uint64 handle = 1;
+  required string objectName = 2;
+  repeated string attributeNames = 3;
+}
+
+// 5.6 Configuration Objects Implementer (callbacks)
+message saImmOiCcbObjectCreateCallback_2 {
+  required uint64 handle = 1;
+  required uint64 ccbId = 2;
+  required string className = 3;
+  optional string parentName = 4;
+  repeated safsImmAttrValues_2 attr = 5;
+}
+message saImmOiCcbObjectDeleteCallback {
+  required uint64 handle = 1;
+  required uint64 ccbId = 2;
+  required string objectName = 3;
+}
+message saImmOiCcbObjectModifyCallback_2 {
+  required uint64 handle = 1;
+  required uint64 ccbId = 2;
+  required string objectName = 3;
+  repeated safsImmAttrModification_2 attrMods = 4;
+}
+message saImmOiCcbCompletedCallback {
+  required uint64 handle = 1;
+  required uint64 ccbId = 2;
+}
+message saImmOiCcbApplyCallback {
+  required uint64 handle = 1;
+  required uint64 ccbId = 2;
+}
+message saImmOiCcbAbortCallback {
+  required uint64 handle = 1;
+  required uint64 ccbId = 2;
+}
+
+// 5.7 Administrative Operations
+// One callback 
+message saImmOiAdminOperationCallback_2 {
+  required uint64 handle = 1;
+  required uint64 invocation = 2;
+  required string objectName = 3;
+  required uint64 operationId = 4;
+  repeated safsImmAdminOperationParams_2 params = 5;
+}
+message safsImmOiAdminOperationResult {
+  required uint64 handle = 1;
+  required uint64 invocation = 2;
+  required safsAisError result = 3;
+}
+message safsImmOiAdminOperationResult_o2 {
+  required uint64 handle = 1;
+  required uint64 invocation = 2;
+  required safsAisError result = 3;
+  repeated safsImmAdminOperationParams_2 returnParams = 4;
+}
+
+// Init Callback Message
+message safsImmOiCallbacksInitialize {
+  required uint64 handle = 1;
+}
+
+// Augmented Ccb Initialize
+message safsImmOiAugmentCcbInitialize {
+  required uint64 handle = 1;
+  required uint64 ccbId = 2;
+}
+
+// Ccb Set Error String
+message safsImmOiCcbSetErrorString {
+  required uint64 handle = 1;
+  required uint64 ccbId = 2;
+  required string errorString = 3;
+}
+
+// SAFS special function for notifying late arrival of values
+message safsImmOiRtObjectUpdateDelayedNcValues_s2 {
+  required uint64 handle = 1;
+  required string objectName = 2;
+  repeated string attributeNames = 3;
+}
+
+// OI Message
+message safsImmOiMessage {
+  // One of the following will be filled in.
+  // 5.3 Life Cycle
+  optional safsImmOiInitialize initialize = 1;
+  //  ImmOiSelectionObjectGet
+  //  ImmOiDispatch
+  optional safsImmOiFinalize finalize = 2;
+  // 5.4 Object Implementer
+  optional safsImmOiImplementerSet implementerSet = 3;
+  optional safsImmOiImplementerClear implementerClear = 4;
+  optional safsImmOiClassImplementerSet classImplementerSet = 5;
+  optional safsImmOiClassImplementerRelease classImplementerRelease = 6;
+  optional safsImmOiObjectImplementerSet objectImplementerSet = 7;
+  optional safsImmOiObjectImplementerRelease objectImplementerRelease = 8;
+  // 5.5 Runtime Object Management
+  optional safsImmOiRtObjectCreate_2 rtObjectCreate_2 = 9;
+  optional safsImmOiRtObjectDelete rtObjectDelete = 10;
+  optional safsImmOiRtObjectUpdate_2 rtObjectUpdate_2 = 11;
+  // 5.7 Administrative Operations
+  optional safsImmOiAdminOperationResult adminOperationResult = 12;
+  // Initiate Callbacks
+  optional safsImmOiCallbacksInitialize callbacksInitialize = 13;
+  optional safsImmOiAdminOperationResult_o2 adminOperationResult_o2 = 14;
+  // B.02.11 additions 
+  optional safsImmOiAugmentCcbInitialize augmentCcbInitialize = 15;
+  optional safsImmOiCcbSetErrorString ccbSetErrorString = 16;
+  // Special SAFS function
+  optional safsImmOiRtObjectUpdateDelayedNcValues_s2 rtObjectDelayedNcUpdate_s2 = 17;
+}
+
+// OI Callback Message
+message SaImmOiCallbacks {
+  // One of the following will be used.
+  // Configuration Objects Implementer
+  required uint64 callbackMessageNumber = 1;
+  optional saImmOiCcbObjectCreateCallback_2 ccbObjectCreateCallback_2 = 2;
+  optional saImmOiCcbObjectDeleteCallback ccbObjectDeleteCallback = 3;
+  optional saImmOiCcbObjectModifyCallback_2 ccbObjectModifyCallback_2 = 4;
+  optional saImmOiCcbCompletedCallback ccbCompletedCallback = 5;
+  optional saImmOiCcbApplyCallback ccbApplyCallback = 6;
+  optional saImmOiCcbAbortCallback ccbAbortCallback = 7;
+  // Administrative Operations
+  optional saImmOiAdminOperationCallback_2 adminOperationCallback_2 = 8;
+  // Runtime Objects
+  optional saImmOiRtAttrUpdateCallback rtAttrUpdateCallback = 9;  
+}
+
+
+//
+// Function return values
+//
+// Life Cycle
+message safsImmOiInitializeRet {
+  required safsAisError returnVal = 1;
+  required uint64 handle = 2;
+  required safsVersion version = 3;
+}
+message safsImmOiFinalizeRet {
+  required safsAisError returnVal = 1;
+}
+
+// Object Implementer
+message safsImmOiImplementerSetRet {
+  required safsAisError returnVal = 1;
+}
+message safsImmOiImplementerClearRet {
+  required safsAisError returnVal = 1;
+}
+message safsImmOiClassImplementerSetRet {
+  required safsAisError returnVal = 1;
+}
+message safsImmOiClassImplementerReleaseRet {
+  required safsAisError returnVal = 1;
+}
+message safsImmOiObjectImplementerSetRet {
+  required safsAisError returnVal = 1;
+}
+message safsImmOiObjectImplementerReleaseRet {
+  required safsAisError returnVal = 1;
+}
+
+// Runtime Objects
+message safsImmOiRtObjectCreate2Ret {
+  required safsAisError returnVal = 1;
+}
+message safsImmOiRtObjectDeleteRet {
+  required safsAisError returnVal = 1;
+}
+message safsImmOiRtObjectUpdate2Ret {
+  required safsAisError returnVal = 1;
+}
+
+message safsImmOiAdminOperationResultRet {
+  required safsAisError returnVal = 1;
+}
+
+message safsImmOiAdminOperationResultO2Ret {
+  required safsAisError returnVal = 1;
+}
+
+// Callbacks Initialize Return
+message safsImmOiCallbacksInitializeRet {
+  required safsAisError returnVal = 1;
+}
+
+// Augmented Ccb Initialize Return
+message safsImmOiAugmentCcbInitializeRet {
+  required safsAisError returnVal = 1;
+  required uint64 ccbHandle = 2;
+  required uint64 ownerHandle = 3;
+}
+
+// Ccb Set Error String Return
+message safsImmOiCcbSetErrorStringRet {
+  required safsAisError returnVal = 1;
+}
+
+// SAFS special function for notifying late arrival of values
+message safsImmOiRtObjectUpdateDelayedNcValuesS2Ret {
+  required safsAisError returnVal = 1;
+}
+
+// Callbacks Return Message
+message safsImmOiCallbacksRet {
+  required safsAisError returnVal = 1;
+  required uint64 callbackMessageNumber = 2;
+}
+
+
+//https://developers.google.com/protocol-buffers/docs/overview
+//http://bill.burkecentral.com/2010/10/25/is-google-protocol-buffers-restful/
+
+//./configure --prefix=/ldisk/pgm/protobuf-c-0.15 CXXFLAGS=-I/ldisk/pgm/protobuf-2.4.1/include LDFLAGS=-L/ldisk/pgm/protobuf-2.4.1/lib

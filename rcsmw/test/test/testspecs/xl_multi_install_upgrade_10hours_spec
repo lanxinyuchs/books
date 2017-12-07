@@ -1,0 +1,90 @@
+%%% #0.    BASIC INFORMATION
+%%% ----------------------------------------------------------
+%%% %CCaseFile:	xl_multi_install_upgrade_10hours_spec %
+%%% @author emarktu
+%%% @copyright Ericsson AB 2013-2015
+%%% @version /main/R2A/R4A/1
+%%% ----------------------------------------------------------
+%%% The information in this document is the property of Ericsson.
+%%% 
+%%% Except as specifically authorized in writing by Ericsson, the 
+%%% receiver of this document shall keep the information contained 
+%%% herein confidential and shall protect the same in whole or in 
+%%% part from disclosure and dissemination to third parties.
+%%% 
+%%% Disclosure and disseminations to the receivers employees shall 
+%%% only be made on a strict need to know basis.
+%%% %CCaseCopyrightEnd%
+%%%
+%%% ----------------------------------------------------------
+%%% #1.    REVISION LOG
+%%% ----------------------------------------------------------
+%%% Rev        Date       Name        What
+%%% -----      ---------  --------    ------------------------
+%%% R2A/1      2013-05-16 etxjovp     Created
+
+{merge_tests, false}.
+{define, 'Top', ".."}.
+{define, 'T1', "'Top'/suites/SWM"}.
+{define, 'T2', "'Top'/suites/XL"}.
+{cases, 'T2',xl_install_SUITE, [install]}.
+{cases, 'T1', swm_SUITE, [create, prepare, verify, activate, confirm]}.
+{cases, 'T2',xl_install_SUITE, [install]}.
+{cases, 'T1', swm_SUITE, [create, prepare, verify, activate, confirm]}.
+{cases, 'T2',xl_install_SUITE, [install]}.
+{cases, 'T1', swm_SUITE, [create, prepare, verify, activate, confirm]}.
+{cases, 'T2',xl_install_SUITE, [install]}.
+{cases, 'T1', swm_SUITE, [create, prepare, verify, activate, confirm]}.
+{cases, 'T2',xl_install_SUITE, [install]}.
+{cases, 'T1', swm_SUITE, [create, prepare, verify, activate, confirm]}.
+{cases, 'T2',xl_install_SUITE, [install]}.
+{cases, 'T1', swm_SUITE, [create, prepare, verify, activate, confirm]}.
+{cases, 'T2',xl_install_SUITE, [install]}.
+{cases, 'T1', swm_SUITE, [create, prepare, verify, activate, confirm]}.
+{cases, 'T2',xl_install_SUITE, [install]}.
+{cases, 'T1', swm_SUITE, [create, prepare, verify, activate, confirm]}.
+{cases, 'T2',xl_install_SUITE, [install]}.
+{cases, 'T1', swm_SUITE, [create, prepare, verify, activate, confirm]}.
+{cases, 'T2',xl_install_SUITE, [install]}.
+{cases, 'T1', swm_SUITE, [create, prepare, verify, activate, confirm]}.
+{cases, 'T2',xl_install_SUITE, [install]}.
+{cases, 'T1', swm_SUITE, [create, prepare, verify, activate, confirm]}.
+{cases, 'T2',xl_install_SUITE, [install]}.
+{cases, 'T1', swm_SUITE, [create, prepare, verify, activate, confirm]}.
+{cases, 'T2',xl_install_SUITE, [install]}.
+{cases, 'T1', swm_SUITE, [create, prepare, verify, activate, confirm]}.
+{cases, 'T2',xl_install_SUITE, [install]}.
+{cases, 'T1', swm_SUITE, [create, prepare, verify, activate, confirm]}.
+{cases, 'T2',xl_install_SUITE, [install]}.
+{cases, 'T1', swm_SUITE, [create, prepare, verify, activate, confirm]}.
+{cases, 'T2',xl_install_SUITE, [install]}.
+{cases, 'T1', swm_SUITE, [create, prepare, verify, activate, confirm]}.
+{cases, 'T2',xl_install_SUITE, [install]}.
+{cases, 'T1', swm_SUITE, [create, prepare, verify, activate, confirm]}.
+{cases, 'T2',xl_install_SUITE, [install]}.
+{cases, 'T1', swm_SUITE, [create, prepare, verify, activate, confirm]}.
+{cases, 'T2',xl_install_SUITE, [install]}.
+{cases, 'T1', swm_SUITE, [create, prepare, verify, activate, confirm]}.
+{cases, 'T2',xl_install_SUITE, [install]}.
+{cases, 'T1', swm_SUITE, [create, prepare, verify, activate, confirm]}.
+{cases, 'T2',xl_install_SUITE, [install]}.
+{cases, 'T1', swm_SUITE, [create, prepare, verify, activate, confirm]}.
+{cases, 'T2',xl_install_SUITE, [install]}.
+{cases, 'T1', swm_SUITE, [create, prepare, verify, activate, confirm]}.
+{cases, 'T2',xl_install_SUITE, [install]}.
+{cases, 'T1', swm_SUITE, [create, prepare, verify, activate, confirm]}.
+{cases, 'T2',xl_install_SUITE, [install]}.
+{cases, 'T1', swm_SUITE, [create, prepare, verify, activate, confirm]}.
+{cases, 'T2',xl_install_SUITE, [install]}.
+{cases, 'T1', swm_SUITE, [create, prepare, verify, activate, confirm]}.
+{cases, 'T2',xl_install_SUITE, [install]}.
+{cases, 'T1', swm_SUITE, [create, prepare, verify, activate, confirm]}.
+{cases, 'T2',xl_install_SUITE, [install]}.
+{cases, 'T1', swm_SUITE, [create, prepare, verify, activate, confirm]}.
+{cases, 'T2',xl_install_SUITE, [install]}.
+{cases, 'T1', swm_SUITE, [create, prepare, verify, activate, confirm]}.
+{cases, 'T2',xl_install_SUITE, [install]}.
+{cases, 'T1', swm_SUITE, [create, prepare, verify, activate, confirm]}.
+{cases, 'T2',xl_install_SUITE, [install]}.
+{cases, 'T1', swm_SUITE, [create, prepare, verify, activate, confirm]}.
+

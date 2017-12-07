@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--xtools2_universal_type_manager-->
+<?com.ibm.xtools.emf.core.signature <signature id="com.ibm.xtools.uml.msl.model" version="7.0.0"><feature description="" name="com.ibm.xtools.ruml.feature" url="" version="7.0.0"/></signature>?>
+<?com.ibm.xtools.emf.core.signature <signature id="com.ibm.xtools.mmi.ui.signatures.diagram" version="7.0.0"><feature description="" name="Rational Modeling Platform (com.ibm.xtools.rmp)" url="" version="7.0.0"/></signature>?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Default="http:///schemas/Default/_fNm3AAqoEd6-N_NOT9vsCA/2" xmlns:ECIMBaseProfile="http:///schemas/ECIMBaseProfile/_nfMsYAOYEeWnboDfWIQbJQ/801" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/3.0.0/UML" xsi:schemaLocation="http:///schemas/Default/_fNm3AAqoEd6-N_NOT9vsCA/2 pathmap://UML2_MSL_PROFILES/Default.epx#_fNwoAAqoEd6-N_NOT9vsCA?Default/Default? http:///schemas/ECIMBaseProfile/_nfMsYAOYEeWnboDfWIQbJQ/801 pathmap://ECIM_BASE_PROFILE/ECIM_Base_Profile.epx#_nfMsYQOYEeWnboDfWIQbJQ?ECIM%20Base%20Profile/ECIMBaseProfile?">
+  <uml:Model xmi:id="_NRAMoAwOEdmFcaeZXPdWAQ" name="RmeOamIpSupport" clientDependency="_IUDvgIXbEd-aDpFTCqQrdw">
+    <eAnnotations xmi:id="_NRAMoQwOEdmFcaeZXPdWAQ" source="uml2.diagrams"/>
+    <eAnnotations xmi:id="_FllhQPNtEearwq425oNDBQ" source="com.ibm.xtools.common.ui.reduction.editingCapabilities">
+      <details xmi:id="_FllhQfNtEearwq425oNDBQ" key="com.ericsson.ecim.dsl.uireduction.activity" value="2"/>
+    </eAnnotations>
+    <ownedComment xmi:id="_DDsE4PNwEeaDWNbC9H9mJQ">
+      <body>
+</body>
+    </ownedComment>
+    <packageImport xmi:id="_uWHKUIXbEd-Id79DLfNphQ">
+      <importedPackage xmi:type="uml:Model" href="pathmap://ECIM_DATA_TYPES/EcimDataTypes.emx#_iT7qACCSEd-Egr3-YAWs7Q?EcimDataType?"/>
+    </packageImport>
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_IUDvgIXbEd-aDpFTCqQrdw" name="" client="_NRAMoAwOEdmFcaeZXPdWAQ">
+      <supplier xmi:type="uml:Model" href="pathmap://ECIM_GUIDELIB/ECIM_Guidelines.emx#_tFUKaXhYEd-e29ZwYMJd6w?ECIM%20Guidelines?"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_51RNgPNvEeaDWNbC9H9mJQ" name="RmeOamIpSupport">
+      <ownedComment xmi:id="_Hpzc8POHEea0QYxOrbqBWg">
+        <body>Top of the OamIpSupport branch</body>
+      </ownedComment>
+      <packagedElement xmi:type="uml:Class" xmi:id="_lb4DwPN1EeaTwr7C2XNI-g" name="OamIpSupport">
+        <ownedComment xmi:id="_yZRBUP8oEeaxZq_x6hWd1w">
+          <body>This MO class contains an attribute set by a management system to acknowledge successful setting of the IP address used for OaM access to a node.
+The IP address is received by a management system via an SNMP trap eriChangeAddressEvent.
+</body>
+        </ownedComment>
+        <ownedAttribute xmi:id="_lcGtQPN1EeaTwr7C2XNI-g" name="oamIpSupportId" visibility="public" isUnique="false" isReadOnly="true">
+          <ownedComment xmi:id="_lcK-sPN1EeaTwr7C2XNI-g">
+            <body>Holds the value identifying this MO.</body>
+          </ownedComment>
+          <type xmi:type="uml:DataType" href="pathmap://ECIM_DATA_TYPES/EcimDataTypes.emx#_7LZ54CCSEd-Egr3-YAWs7Q?EcimDataType/EcimString?"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_lcPQIPN1EeaTwr7C2XNI-g" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_lcOpEPN1EeaTwr7C2XNI-g" value="1"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_R_1HgPOFEea0QYxOrbqBWg" name="ipAddressChangeStatus" visibility="public" isUnique="false">
+          <ownedComment xmi:id="_R_5Y8fOFEea0QYxOrbqBWg">
+            <body>Used to acknowledge successful setting of OaM IP address in management system.
+
+Set to value eriChangeIPAddressAckAttributeValue sent in SNMP trap eriChangeIPAddressEvent to acknowledge setting of OaM IP address in management system.
+</body>
+          </ownedComment>
+          <type xmi:type="uml:DataType" href="pathmap://ECIM_DATA_TYPES/EcimDataTypes.emx#_-kmDQCCSEd-Egr3-YAWs7Q?EcimDataType/EcimInt32?"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_R_9qYvOFEea0QYxOrbqBWg" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_dygbEPgJEeaVQYKkJf0GAw"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_b3SKQPOEEea0QYxOrbqBWg" name="NodeSupport_to_OamIpSupport" memberEnd="_b3YQ4POEEea0QYxOrbqBWg _b3ZfAfOEEea0QYxOrbqBWg">
+        <ownedEnd xmi:id="_b3YQ4POEEea0QYxOrbqBWg" name="NodeSupport_to_OamIpSupport" visibility="public" association="_b3SKQPOEEea0QYxOrbqBWg">
+          <type xmi:type="uml:Class" href="RmeSupport.emx#_DShbAPOEEea0QYxOrbqBWg?RmeSupport/RmeSupport/NodeSupport?"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_b3aGEfOEEea0QYxOrbqBWg" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_b3aGEvOEEea0QYxOrbqBWg" value="1"/>
+        </ownedEnd>
+        <ownedEnd xmi:id="_b3ZfAfOEEea0QYxOrbqBWg" name="asdfg" visibility="public" type="_lb4DwPN1EeaTwr7C2XNI-g" aggregation="composite" association="_b3SKQPOEEea0QYxOrbqBWg">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_b3gzwPOEEea0QYxOrbqBWg" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_b3gzwfOEEea0QYxOrbqBWg" value="1"/>
+        </ownedEnd>
+      </packagedElement>
+    </packagedElement>
+    <profileApplication xmi:id="_UeIAINCzEdqK7KjEh4hvHw">
+      <eAnnotations xmi:id="_UeIAIdCzEdqK7KjEh4hvHw" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="pathmap://UML_PROFILES/Standard.profile.uml#_yzU58YinEdqtvbnfB2L_5w"/>
+      </eAnnotations>
+      <appliedProfile href="pathmap://UML_PROFILES/Standard.profile.uml#_0"/>
+    </profileApplication>
+    <profileApplication xmi:id="_UeIAItCzEdqK7KjEh4hvHw">
+      <eAnnotations xmi:id="_UeIAI9CzEdqK7KjEh4hvHw" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="pathmap://UML2_MSL_PROFILES/Default.epx#_fNwoAAqoEd6-N_NOT9vsCA?Default/Default?"/>
+      </eAnnotations>
+      <appliedProfile href="pathmap://UML2_MSL_PROFILES/Default.epx#_a_S3wNWLEdiy4IqP8whjFA?Default?"/>
+    </profileApplication>
+    <profileApplication xmi:id="_UeIAJNCzEdqK7KjEh4hvHw">
+      <eAnnotations xmi:id="_UeIAJdCzEdqK7KjEh4hvHw" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="pathmap://UML2_MSL_PROFILES/Deployment.epx#_IrdAUMmBEdqBcN1R6EvWUw?Deployment/Deployment?"/>
+      </eAnnotations>
+      <appliedProfile href="pathmap://UML2_MSL_PROFILES/Deployment.epx#_vjbuwOvHEdiDX5bji0iVSA?Deployment?"/>
+    </profileApplication>
+    <profileApplication xmi:id="_Fms7kPNtEearwq425oNDBQ">
+      <eAnnotations xmi:id="_F1TYQPNtEearwq425oNDBQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="pathmap://ECIM_BASE_PROFILE/ECIM_Base_Profile.epx#_nfMsYQOYEeWnboDfWIQbJQ?ECIM%20Base%20Profile/ECIMBaseProfile?"/>
+      </eAnnotations>
+      <appliedProfile href="pathmap://ECIM_BASE_PROFILE/ECIM_Base_Profile.epx#_cUcakNQkEd63X4o72aQidQ?ECIM%20Base%20Profile?"/>
+    </profileApplication>
+  </uml:Model>
+  <ECIMBaseProfile:EcimModel xmi:id="_F1V0gPNtEearwq425oNDBQ" base_Model="_NRAMoAwOEdmFcaeZXPdWAQ" createdBy="EXTPENO" docDate="2017-03-01"/>
+  <ECIMBaseProfile:EcimMom xmi:id="_55zvQPNvEeaDWNbC9H9mJQ" hideGroupName="" specification="" statusInformation="" base_Package="_51RNgPNvEeaDWNbC9H9mJQ" author="etxpeno" contact="etxpeno" date="2017-03-01" docNo="" revision="" version="1" release="0" organization="" correction="0"/>
+  <Default:Documentation xmi:id="_DD8jkPNwEeaDWNbC9H9mJQ" base_Comment="_DDsE4PNwEeaDWNbC9H9mJQ"/>
+  <ECIMBaseProfile:EcimMoClass xmi:id="_lcCb0PN1EeaTwr7C2XNI-g" hideGroupName="" specification="" statusInformation="" base_Class="_lb4DwPN1EeaTwr7C2XNI-g" isSystemCreated="true"/>
+  <ECIMBaseProfile:EcimKeyAttribute xmi:id="_lcKXoPN1EeaTwr7C2XNI-g" hideGroupName="" specification="" statusInformation="" dependencies="" disturbances="" precondition="" sideEffects="" takesEffect="" isNotifiable="true" base_Property="_lcGtQPN1EeaTwr7C2XNI-g"/>
+  <Default:Documentation xmi:id="_lcOCAPN1EeaTwr7C2XNI-g" base_Comment="_lcK-sPN1EeaTwr7C2XNI-g"/>
+  <ECIMBaseProfile:EcimContribution xmi:id="_b3gMsPOEEea0QYxOrbqBWg" hideGroupName="" specification="" statusInformation="" base_Association="_b3SKQPOEEea0QYxOrbqBWg" canCreate="false" canDelete="false" isNotifiable="true"/>
+  <ECIMBaseProfile:EcimAttribute_RW xmi:id="_R_5Y8POFEea0QYxOrbqBWg" hideGroupName="" specification="" statusInformation="" dependencies="" disturbances="" precondition="" sideEffects="" takesEffect="" length="" range="" pattern="" patternErrorMsg="" isNotifiable="true" base_Property="_R_1HgPOFEea0QYxOrbqBWg"/>
+  <Default:Documentation xmi:id="_R_9DUPOFEea0QYxOrbqBWg" base_Comment="_R_5Y8fOFEea0QYxOrbqBWg"/>
+  <Default:Documentation xmi:id="_Hp3HUPOHEea0QYxOrbqBWg" base_Comment="_Hpzc8POHEea0QYxOrbqBWg"/>
+  <Default:Documentation xmi:id="_yZY9IP8oEeaxZq_x6hWd1w" base_Comment="_yZRBUP8oEeaxZq_x6hWd1w"/>
+</xmi:XMI>

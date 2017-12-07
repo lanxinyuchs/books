@@ -1,0 +1,3 @@
+#!/bin/csh
+module load erlang/otp_19.1
+erl  -sname observer -hidden -run observer

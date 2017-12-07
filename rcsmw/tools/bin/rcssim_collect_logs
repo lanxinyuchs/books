@@ -1,0 +1,48 @@
+#!/bin/bash
+
+Usage="Usage: $0 [-i installDir]"
+
+if [ $# -gt 0 ]; then
+    case $1 in
+	-i) 
+	    RCS_SIM_ROOT=$2/RCS_ROOT
+	    ;;
+	*)
+	    echo $Usage
+	    exit 1
+	    ;;
+    esac
+else
+    RCS_SIM_ROOT=${RCS_SIM_ROOT:-/local/scratch/${USER}/RCS_ROOT}
+fi
+
+echo "Collecting RCS logs from $RCS_SIM_ROOT"
+
+tmpDir=`mktemp -d`
+tarFile=${tmpDir}/rcs_dump.tar
+logFile=${tmpDir}/rcssim_collect_logs.log
+destFile=$HOME/rcs_dump.tgz
+
+echo "RCS log collection is stored in $destFile"
+
+exec >> ${logFile} 2>&1
+set -x
+
+rcs_dirs=`\ls ${RCS_SIM_ROOT}/rcs | sed "s/swm//g"`
+
+
+ls -l ${RCS_SIM_ROOT}/home/$USER/software > ${tmpDir}/CXPs.txt
+cp ${RCS_SIM_ROOT}/home/$USER/software/*.xml   ${tmpDir}
+echo -n "."
+tar -cf ${tarFile} ${RCS_SIM_ROOT}/home/  > /dev/null 2>&1
+cd ${RCS_SIM_ROOT}
+for f in $rcs_dirs; do
+echo -n "."
+    tar -rf ${tarFile} rcs/$f > /dev/null 2>&1
+done
+echo
+cd ${tmpDir}
+tar -czf $destFile *
+
+cd -  >  /dev/null
+rm -rf ${tmpDir}

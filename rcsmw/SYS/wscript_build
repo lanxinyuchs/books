@@ -1,0 +1,78 @@
+APP_INIT = bld.rcsErlApp("sysinit", inc=["esrc/sys"], subdir="sysinit", enable_cxa=False, cxaid="", cxcid="131", )
+APP_DB   = bld.rcsErlApp("sysdb", inc=["esrc/sys"], subdir="sysdb", enable_cxa=False, cxaid="", cxcid="131", )
+APP      = bld.rcsErlApp("sys", subdir="sys", cxaid="202", cxcid="131", appdataroot="sys", )
+
+bld.program(source=["csrc/restart_logger_main.c", "csrc/com_ericsson_system_start_tp.c"],
+   target="restart_logger",
+   includes="csrc/",
+   use=["rt", "ltt"],
+   install_path = bld.getBin(APP)
+)
+
+bld.program(source=["csrc/restart_trace_main.c", "csrc/com_ericsson_system_start_tp.c"],
+   target="restart_trace",
+   includes="csrc/",
+   use=["rt", "ltt"],
+   install_path = bld.getBin(APP)
+)
+
+bld.program(source=["csrc/pgh_restart_board.c"],
+   target="pgh_restart_board",
+   includes="csrc/",
+   use=["rt", "ltt"],
+   install_path = bld.getBin(APP)
+)
+
+
+
+
+if bld.env.LIB_rhai:
+   bld.program(source="csrc/hwl.c", target="hwl", install_path = bld.getBin(APP), use=["rhai"])
+   bld.program(source="csrc/bootcounter.c", target="bootcounter", install_path = bld.getBin(APP), use=["rhai"])
+   bld.program(source="csrc/bootptr.c", target="bootptr", install_path = bld.getBin(APP), use=["rhai"])
+   bld.program(source="csrc/socket_wrap.c", target="socket_wrap", install_path = bld.getBin(APP), use=["rhai"])
+   bld.program(source="csrc/sys_sysctl.c", target="sys_sysctl", install_path = bld.getBin(APP), use=["rhai"])
+
+if bld.env.LIB_mduif:
+   bld.program(source=[
+      "csrc/itc_link_handler_main.c",
+      "csrc/sys_trace_probe.c"],
+      includes = "csrc",
+      target="itc_link_handler", install_path = bld.getBin(APP), use=["rt", "rhai", "ltt", "crl", "mduif"])
+
+lpath = bld.getLib(APP)
+bld.shlib(source="csrc/cello_oei.c", target="cello_oei", name='oei',  includes=["csrc"], use="cec", install_path = lpath)
+bld.shlib(source="csrc/rcs_oei_2.c", target="rcs_oei_2", name='oei2', includes=["csrc"], use=["cec", "uuid"], install_path = lpath)
+bld.shlib(source="csrc/fi.c",        target="fi",        name='fi',   includes=["csrc"], use="cec", install_path = lpath)
+bld.shlib(source="csrc/tmmi.c",      target="tmmi",      name='tmmi', includes=["csrc"], use="cec", install_path = lpath)
+
+bld.install_files("${PREFIX}/"+APP+"/priv",
+   bld.path.ant_glob("appdata/* images/*"), relative_trick=True)
+
+bld.install_files("${PREFIX}/"+APP+"/priv/bin",
+   bld.path.ant_glob("esrc/sys/*.sh") + [
+      "esrc/sys/make_release.escript",
+      "csrc/sys_ip6tables",
+      "csrc/sys_iptables",
+      "esrc/sys/rcs_start",
+      "esrc/sys/rcs_start-cfg.xml",
+      "esrc/sys/start_g2sim_mw",
+      "esrc/sys/start_g2sim_mw-cfg.xml",
+      "esrc/sys/start_vrcs.sh-cfg.xml",
+      "esrc/sys/mw.lab_env"
+   ],
+   chmod=0755)
+
+bld.install_files("${PREFIX}/"+APP+"/priv/etc",
+   [
+      "etc/README-dev_patches.txt"
+   ],
+   chmod=0644)
+
+bld.install_files(bld.getBldLib("sys"), ['libcello_oei.so', 'libfi.so', 'libtmmi.so', 'librcs_oei_2.so'])
+
+bld(features="eunit",
+    source=[
+      "esrc/sys/bencode_eunit.erl", "esrc/sys/bencode.beam",
+      "esrc/sys/sysUtil_eunit.erl", "esrc/sys/sysUtil.beam",
+      ])

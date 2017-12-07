@@ -1,0 +1,203 @@
+#!/usr/bin/env bash
+
+# Build a VRCS MW product.
+#
+# Sourcing the env-i586.sh file may disturb the user's shell, e.g. "tig" will
+# stop working. This is due to cross-compiling settings. This program wraps
+# the builds so that the user does not need to source the env file, and keep
+# the shell unaffected.
+
+set -euo pipefail
+
+# Print basic usage information
+#
+
+print_usage () {
+    echo "Usage: $(basename $0) [ --target { i586 | x86_64 } ] [ --package ] [ <product> ] [ -- <waf options>... ]"
+    echo " Description"
+    echo "Options:"
+    echo "  --clean:    run \"waf clean\""
+    echo "  --help:     show this help"
+    echo "  --man-page: display the man page"
+    echo "  --package:  package the built product"
+}
+
+# Declared variables
+
+args=""
+clean=""
+package=""
+target=""
+
+# Parse options
+#
+
+handle_options () {
+
+    # Program options
+    GETOPT=$(getopt --options 'hm' --long clean,help,man-page,package,target: -n $0 -- "$@")
+
+    if [[ $? != 0 ]] ; then echo "Error parsing arguments." >&2 ; exit 1 ; fi
+
+    eval set -- "$GETOPT"
+
+    while true ; do
+        case "$1" in
+          --clean) clean=1;;
+          --help) print_usage; exit ;;
+          --man-page) print_man_page; exit ;;
+          --package) package=1;;
+          --target) shift; target=$1;;
+          --) shift ; break ;;
+          *) echo "Internal error!" ; exit 1 ;;
+        esac
+        shift
+    done
+
+    # $@ is local since we are in a function. Copy it to the global variable.
+    args="$@"
+}
+
+# Build the MW CXP
+# Args: <target>
+
+build_rcs_mw_cxp() {
+    target=$1
+    shift
+    (
+    source $TOPDIR/env-$target.sh
+    if [[ $clean ]]; then
+        $TOPDIR/waf clean
+    else
+        $TOPDIR/waf "$@"
+        if [[ $package ]]; then
+            $TOPDIR/tools/package.sh
+        fi
+    fi
+    )
+}
+
+# Build the MW CXP
+# Args: -
+
+build_rcs_up_cxs() {
+    (
+    source $TOPDIR/env-$1.sh
+    set +e
+    $TOPDIR/tools/make_up.sh
+    set -e
+    )
+}
+
+# Main program.
+
+main () {
+    export TOPDIR=$(readlink -f $(dirname $0)/../..)
+
+    if [[ ! $target ]]; then
+      target="i586"
+    fi
+
+    product=$1
+    shift
+
+    product=${product//\//_}
+    case $product in
+    VRCS-MW|MW|CXP9029176_4|VRCS-DUMMY|DUMMY|CXP9029207_4)
+        build_rcs_mw_cxp $target "$@";;
+    VRCS-UP|UP|CXS101657_4)
+        build_rcs_up_cxs $target "$@";;
+    esac
+}
+
+
+######################################################################
+### Man page should be the last part in the file
+
+print_man_page () {
+    if [[ ! ${PAGER-} ]]; then
+        export PAGER=less
+    fi
+
+    if perldoc -l Term::ANSIColor > /dev/null 2>&1; then
+        color=--color
+    fi
+
+    ( pod2text --loose $color - <<EOPOD
+
+=head1 NAME
+
+$(basename $0) - build the middleware products
+
+=head1 SYNOPSIS
+
+$(basename $0) [ --target { B<i586> | B<x86_64> } ] [ B<--package> ] I<product> [ I<waf options>... ]"
+
+=head1 DESCRIPTION
+
+Triggers a build of the middleware CXP, CXA, and CXS products for the given targets,
+or for i586 targets if no target was given.
+
+=head2 Product specification
+
+Products may be specified by number, name, short name, or both name and number
+(but not short name and number). Slashed number may be specified with slashes
+or underscore.
+
+Short names:
+
+=over 12
+
+=item VRCS-MW:
+
+MW
+
+=item VRCS-DUMMY:
+
+DUMMY
+
+=item VRCS-UP:
+
+UP
+
+=back
+
+=head1 OPTIONS
+
+=over 4
+
+=item B<--clean>
+
+Run "waf clean" in the current directory
+
+=item B<--help>
+
+Print short help text
+
+=item B<--man-page>
+
+Show this man page
+
+=item B<--package>
+
+Build then package the products
+
+=item B<--target> I<target>
+
+Tart to build for: i586 or x86_64. Default is i586
+
+=back
+
+=head1 SEE ALSO
+
+-
+
+EOPOD
+  ) | $PAGER
+}
+
+# The sole purpose of the calls below is to allow the man page to stay at the end
+# of the file
+
+handle_options "$@"
+main $args

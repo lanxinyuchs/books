@@ -1,0 +1,190 @@
+#! /bin/bash
+##
+## %CCaseFile:	rcssim_ssh %
+## %CCaseRev:	/main/15 %
+## %CCaseDate:	2015-02-27 %
+## Author: <name>, <e-mail address>
+##
+## Purpose: Perform SSH tasks towards a running simulator.
+##
+## Dependencies:
+##
+## %CCaseCopyrightBegin%
+## Copyright (c) Ericsson AB 2012-2015 All rights reserved.
+## 
+## The information in this document is the property of Ericsson.
+## 
+## Except as specifically authorized in writing by Ericsson, the 
+## receiver of this document shall keep the information contained 
+## herein confidential and shall protect the same in whole or in 
+## part from disclosure and dissemination to third parties.
+## 
+## Disclosure and disseminations to the receivers employees shall 
+## only be made on a strict need to know basis.
+## %CCaseCopyrightEnd%
+##
+## ----------------------------------------------------------------------
+##
+## Revision history:
+##
+## Rev        Date       Name        What
+## -----      -------    --------    ------------------------------------
+## main/10    2014-01-12 erarafo     Copyright inserted; -v option
+## main/11    2014-01-12 erarafo     Using RCS_SIM_ROOT as default
+## main/12    2014-04-25 erarafo     Parsing of port number sharpened
+## main/13    2014-08-07 erarafo     Added -P option
+## main/14    2015-01-23 erarafo     Added 'sftp' to client modes
+## main/15    2015-02-27 etxarnu     Find port.conf in releases/*/port.conf
+## ----------------------------------------------------------------------
+
+declare -r Script=`basename $0`
+
+declare -r SshUserDefault=expert
+declare -r InstallDirDefault=/local/scratch/${USER}/RCS_ROOT
+
+
+function help() {
+  cat <<EOF
+Usage:
+  $Script [OPTIONS] <type>           where <type> = cli|netconf|coli|sftp
+  $Script [OPTIONS] <type> <user>    where <user> is LDAP user
+
+Options are:
+  -h               this help
+  -i INSTALL_DIR   simulator install directory
+  -P               just echo the port that would be used
+  -v               verbose
+
+The <user> argument defaults to '$SshUserDefault'.
+
+The simulator install directory defaults to the value of RCS_SIM_ROOT
+if set in the environment, or else /local/scratch/${USER}/RCS_ROOT.
+
+NOTE: The -i option of this script differs from the -i option of the
+'rccsim' script. If the simulator was started with '-i /a/b/c' then
+'-i /a/b/c/RCS_ROOT' should be used with this script.
+EOF
+}
+
+function die() {
+  printf "$Script: FATAL: $1\n" >&2
+  exit 1
+}
+
+function info() {
+  printf "$Script: INFO: $1\n" >&2
+}
+
+function warning() {
+  printf "$Script: WARNING: $1\n" >&2
+}
+
+
+
+########################################################################
+# Execution begins here
+
+declare OptionPatterns=""
+OptionPatterns+="h"
+OptionPatterns+="i:"
+OptionPatterns+="v"
+OptionPatterns+="P"
+
+declare Verbose=false
+
+declare InstallDir=`[[ -z "${RCS_SIM_ROOT:-}" ]] && echo $InstallDirDefault || echo $RCS_SIM_ROOT`
+declare ReportPort=false
+while getopts $OptionPatterns OPT; do
+  case "$OPT" in
+    h)
+      help
+      exit;;
+    i)
+      InstallDir=$OPTARG;;
+    v)
+      Verbose=true;;
+    P)
+      ReportPort=true;;
+    *)
+      die "Unknown option, try -h for help"
+  esac
+done
+
+shift $((OPTIND - 1))
+
+declare SshUser=$SshUserDefault
+case "$#" in
+  0)
+    help
+    exit;;
+  1)
+    true;;
+  2)
+    SshUser="$2";;
+  *)
+    help
+    exit 1
+esac
+
+
+declare Type
+declare SshSubSystem=""
+case "$1" in
+  netconf)
+    Type=$1
+    SshSubsystem="-s netconf";;
+  cli|coli)
+    Type=$1;;
+  sftp)
+    Type=$1;;
+  *)
+    help
+    exit 1
+esac
+
+
+
+if [[ $Verbose == true ]]; then
+  info "Assuming simulator directory: $InstallDir"
+fi
+
+if [[ ! -d $InstallDir ]]; then
+  die "not a directory: $InstallDir"
+fi
+
+if [[ ! -r `echo $InstallDir/home/$USER/releases/*/port.conf` ]]; then
+  die "cannot read: $InstallDir/home/$USER/releases/*/port.conf"
+fi
+
+
+declare Port=`sed \
+        -e "/{[ \t]*${Type}[ \t]*,/!d" \
+        -e 's|.*,[ \t]*||' \
+        -e 's|[ \t]*}.*||' \
+        $InstallDir/home/$USER/releases/*/port.conf`
+
+if [[ $ReportPort == true ]]; then
+  echo $Port
+else
+  if [[ $Verbose == true ]]; then
+    info "Using port: $Port"
+  fi
+
+  declare -r CommonOptions="-o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
+
+  declare Command
+  case $Type in
+    sftp)
+      declare -r SftpOptions="$CommonOptions -o user=$SshUser -o port=$Port"
+      Command="sftp $SftpOptions localhost";;
+    *)
+      declare -r SshOptions="$CommonOptions -p $Port"`[[ $Verbose == true ]] && echo '' || echo ' -q'`
+      Command="ssh $SshOptions $SshUser@localhost $SshSubsystem"
+  esac
+
+  if [[ $Verbose == true ]]; then
+    info "Executing: `echo $Command`"
+  fi
+
+  exec $Command
+fi

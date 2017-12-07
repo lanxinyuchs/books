@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+# git lfs install
+command -v git-lfs >/dev/null 2>&1 || { echo >&2 "\nThis repository is configured for Git LFS but 'git-lfs' was not found on your path. If you no longer wish to use Git LFS, remove this hook by deleting .git/hooks/pre-push.\n"; exit 2; }
+git lfs pre-push "$@"
+
+# Check that we don't try to commit binaries
+LOGFILE=.binaries.error.log
+SAVEIFS=$IFS
+IFS=$(echo -en "\n\b")
+rm -f ${LOGFILE}
+echo "Looking for binary files (no symlinks) in added and changed files except for files tracked by git lfs:"
+for file in $(comm -23 <(git diff --name-only --diff-filter=AM HEAD^ HEAD) <(git lfs ls-files| cut -d' ' -f3|sort)); do
+    [[ -L $file ]] && continue
+    ls  $file
+    if  grep -qP '[\000-\010\016-\037\177]' $file; then
+       echo $file >>${LOGFILE}
+    fi
+done
+IFS=$SAVEIFS
+
+if [[ -e ${LOGFILE} ]]; then
+   echo "ERROR: The following files are binary files, they should not be committed to git:"
+   cat ${LOGFILE}
+   rm -f ${LOGFILE}
+   echo
+   echo "Make sure that you have git lfs installed and the binary files tracked"
+   echo "To install git lfs: 'source env-<target>.sh'"
+   echo "To fix problem with current files:"
+   echo "    git lfs track <files>"
+   echo "    git rm --cached <files>"
+   echo "    git add <files>"
+   echo "    git add .gitattributes"
+   echo "    git commit --amend"
+   exit 1
+fi
+exit 0

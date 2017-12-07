@@ -1,0 +1,16 @@
+%%%-----------------------------------------------------------------------------
+%%% @author etxnnor
+%%% @copyright Ericsson AB 2016
+%%% @doc
+%%%
+%%% @end
+%%% Created :  16 Sep 2016 by ETXNNOR
+%%%-----------------------------------------------------------------------------
+
+{merge_tests, false}.
+{define, 'Base', "/vobs/rcs/dev/RCP_CSX10179/RCT_CRX901275/test/suites/5G"}.
+{cases,  'Base', itc_5g_predc_SUITE, [all]}.
+
+
+ 
+      

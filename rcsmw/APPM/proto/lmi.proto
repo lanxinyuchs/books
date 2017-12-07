@@ -1,0 +1,187 @@
+/* ----------------------------------------------------------------------
+ * %CCaseCopyrightBegin%
+ * Copyright (c) Ericsson AB 2012-2017 All rights reserved.
+ * 
+ * The information in this document is the property of Ericsson.
+ * 
+ * Except as specifically authorized in writing by Ericsson, the 
+ * receiver of this document shall keep the information contained 
+ * herein confidential and shall protect the same in whole or in 
+ * part from disclosure and dissemination to third parties.
+ * 
+ * Disclosure and disseminations to the receivers employees shall 
+ * only be made on a strict need to know basis.
+ * %CCaseCopyrightEnd%
+ */
+
+//
+// Functions
+//
+//  Life Cycle
+
+message LmiInitialize {
+  optional uint32 version = 1;
+}
+
+message LmiFinalize {
+  required uint64 handle = 1;
+}
+
+// Functions
+
+message LmiAddBoard {
+  required uint64 handle   = 1;
+  required string boardNo  = 2;
+  required string boardRev = 3;
+  required uint32 mboxId   = 4;
+}
+
+message LmiAddExtBoard {
+  required uint64 handle   = 1;
+  required string boardNo  = 2;
+  required string boardRev = 3;
+  required uint32 mboxId   = 4;
+}
+
+message LmiDeleteExtBoard {
+  required uint64 handle   = 1;
+  required string boardNo  = 2;
+  required string boardRev = 3;
+  required uint32 mboxId   = 4;
+}
+
+message LmiGetLMs {
+  required uint64 handle     = 1;
+  required string boardType  = 2;
+  required string tag        = 3;
+  required uint32 phase      = 4;
+  required string boardRev   = 5;
+  required string hwCategory = 6;
+  required string hwModel    = 7;
+}
+
+message LmiStartPgm {
+  required uint64 pid     = 1;
+  required uint64 handle  = 2;
+  required string pgmName = 3;
+  required string lmId    = 4;
+  required uint32 duId    = 5;
+  required uint32 cpuSet  = 6;
+  repeated string arg     = 7;
+  required string ns  	  = 8;
+  required uint32 mboxId  = 9;
+}
+
+message LmiStopPgm {
+  required uint64 pid    = 1;
+  required uint64 handle = 2;
+  required uint32 duId   = 3;
+  required uint32 pgmId  = 4;
+}
+
+message LmiSignPgm {
+  required uint64 pid    = 1;
+  required uint64 handle = 2;
+  required uint32 duId   = 3;
+  required uint32 pgmId  = 4;
+  required uint32 sigNo  = 5;
+}
+
+message LmiHeartbeat {
+  required uint64 pid     = 1;
+  required uint64 handle  = 2;
+  required string pgmName = 3;
+  required string lmId    = 4;
+} 
+
+message LmiGetPids {
+  required uint64 pid    = 1;
+  required uint64 handle = 2;
+  required uint32 duId   = 3;
+  required uint32 pgmId  = 4;
+}
+
+message LmiMessage {
+  optional LmiInitialize      initialize     = 1;
+  optional LmiFinalize        finalize       = 2;
+  optional LmiGetLMs          getLms         = 3;
+  optional LmiStartPgm        startPgm       = 4;
+  optional LmiStopPgm         stopPgm        = 5;
+  optional LmiSignPgm         signPgm        = 6;
+  optional LmiHeartbeat       heartbeat      = 7;
+  optional LmiGetPids         getPids        = 8;
+  optional LmiAddBoard        addBoard       = 9;
+  optional LmiAddExtBoard     addExtBoard    = 10;
+  optional LmiDeleteExtBoard  deleteExtBoard = 11;
+}
+
+//
+// Return Message
+//
+enum LmiResultCode {
+  OK = 0;
+  NOK = 1;
+  WAIT = 2;
+}
+
+message LmiInitializeRet {
+  required LmiResultCode returnVal = 1;
+  required uint64 handle           = 2;
+  required uint32 version          = 3;
+}
+message LmiFinalizeRet {
+  required LmiResultCode returnVal = 1;
+}
+
+message LmiProdId {
+  required string name = 1;
+  required string id   = 2;
+  required string rev  = 3;
+}
+
+message LmiFileInfo {
+  required string type = 1;
+  required string path = 2;
+}
+
+message LmiLmData {
+  required LmiProdId   id = 1;
+  repeated LmiFileInfo file = 2;
+}
+
+message LmiAddBoardRet {
+  required LmiResultCode result = 1;
+}
+
+message LmiAddExtBoardRet {
+  required LmiResultCode result = 1;
+}
+
+message LmiDeleteExtBoardRet {
+  required LmiResultCode result = 1;
+}
+
+message LmiGetLMsResult {
+  required LmiResultCode result = 1;
+  repeated LmiLmData lmdata = 2;
+}
+
+message LmiStartPgmRet {
+  required LmiResultCode result = 1;
+  required uint32        pgmId  = 2;
+}
+
+message LmiStopPgmRet {
+  required LmiResultCode result = 1;
+}
+
+message LmiSignPgmRet {
+  required LmiResultCode result = 1;
+}
+
+message LmiGetPidsResult {
+  required LmiResultCode result = 1;
+  repeated uint32 pidData = 2;
+}
+
+

@@ -1,0 +1,13 @@
+diff --git a/SYS/csrc/tmmi.c b/SYS/csrc/tmmi.c
+index c25bb47..3647dc7 100644
+--- a/SYS/csrc/tmmi.c
++++ b/SYS/csrc/tmmi.c
+@@ -53,7 +53,7 @@
+ */
+ 
+ #define TMMI_SET 0
+-#define CEC_TIMEOUT_MILLIS 43000
++#define CEC_TIMEOUT_MILLIS 48000
+ 
+ static char signature[] = {'T', 'M', 'M', 'I'};
+ 

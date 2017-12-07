@@ -1,0 +1,230 @@
+<!-- 
+   (C) Copyright Ericsson Radio Systems AB, 2008
+
+   The copyright to the computer program(s) herein is the property of Ericsson
+   Radio Systems AB, Sweden. The program(s) may be used and/or copied only with
+   the written permission from Ericsson Radio System AB or in accordance with
+   the terms and conditions stipulated in the agreement/contract under which
+   the program(s) have been supplied.
+
+
+ Document Type Definition for SMO Software Packages.
+   @author etofs/etotrkr
+   @version /main/13
+
+ Scope
+   This document describe the capabilities of SMO to handle data and datatypes.
+   This document also defines the syntax for creating a SwPackage XML document
+   which describes the capabilities of the SwPacakge.
+   The capabilities of the SwPackage (the XML file) is again used when
+   setting up an upgrade job of a NE.
+-->
+
+<!ENTITY DocNo "1/155 19-CXC 172 2473">
+<!ENTITY Revision "E">
+
+<!-- ............................................................... -->
+<!-- Type definitions .............................................. -->
+<!-- ............................................................... -->
+
+<!-- General types -->
+<!ENTITY % boolean            '(true|false)'>
+<!ENTITY % decisionoption     '(Fail|Manual|Continue)'>
+
+
+<!--Types related to the Software Package -->
+<!ENTITY % date               'CDATA "yyyy-mm-dd"'>
+
+<!-- Types related to the Node -->
+<!ENTITY % nodeplatformtype   '(AXE|CELLO|WPP|RBS200|RBS2000|MPC|CPP|EXTREME|RAZOR|PSTU|SIU|PICO|IS|RCS)'>
+
+<!ENTITY % nodefunctiontype   'BSC|MSC|TRC|HLR|SCP|VLR|GMSC|AUC|FNR|TSC|STP|
+			       MGW|RXI|RANAG|PSTU|STN|RNC|RBS|
+			       GGSN|SGSN|BTS|BladeSystem|
+			       other'>
+
+
+<!ELEMENT APG30		EMPTY>
+<!ELEMENT APG40		EMPTY>
+<!ELEMENT APG43		EMPTY>
+<!ELEMENT AUC			EMPTY>
+<!ELEMENT BSC			EMPTY>
+<!ELEMENT BTS			EMPTY>
+<!ELEMENT FNR			EMPTY>
+<!ELEMENT GGSN		EMPTY>
+<!ELEMENT GMSC		EMPTY>
+<!ELEMENT HLR			EMPTY>
+<!ELEMENT IOG11		EMPTY>
+<!ELEMENT IOG20		EMPTY>
+<!ELEMENT MGW			EMPTY>
+<!ELEMENT MSC			EMPTY>
+<!ELEMENT PSTU		EMPTY>
+<!ELEMENT RXI			EMPTY>
+<!ELEMENT RANAG		EMPTY>
+<!ELEMENT RBS			EMPTY>
+<!ELEMENT RNC			EMPTY>
+<!ELEMENT SCP			EMPTY>
+<!ELEMENT SGSN		EMPTY>
+<!ELEMENT STN			EMPTY>
+<!ELEMENT STP			EMPTY>
+<!ELEMENT TRC			EMPTY>
+<!ELEMENT TSC			EMPTY>
+<!ELEMENT VLR			EMPTY>
+<!ENTITY % nodeiotype	'IOG11|IOG20|APG40|APG43|other'>
+
+<!ELEMENT BladeSystem		EMPTY>
+<!ATTLIST BladeSystem		Type CDATA #REQUIRED>
+
+<!ELEMENT other		EMPTY>
+<!ATTLIST other		Type CDATA #REQUIRED>
+
+<!-- A Description may be attached to various elements. -->
+<!ELEMENT Description	(#PCDATA)>
+
+<!-- ............................................................... -->
+<!-- Software Package definition ................................... -->
+<!-- ............................................................... -->
+
+<!-- SoftwarePackage:
+ProductData for this SoftwarePackage must be defined.
+UpgradeWindow defining which products this SwPackage may replace must be given.
+The NodeType (at least the platform type) must be defined.
+If no Automation is given, "no" will be assumed.
+Common parameters valid for all activities may be requested.
+One or more activities to be executed must be named and given a startup policy.
+-->
+<!ELEMENT SoftwarePackage  (ProductData, UpgradeWindow?, NodeType,
+			   Automation?, CommonScriptParams?, Activity+)>
+
+<!-- PRODUCT DATA
+This element is reused in several places.
+All Compare operations on Name, Number and Revision are
+ignore-case-ignore-whiteSpace
+-->
+<!ELEMENT ProductData	EMPTY>
+<!ATTLIST ProductData	Name CDATA #REQUIRED
+				Number CDATA #REQUIRED
+				Revision CDATA #REQUIRED
+				CorrectionNumber CDATA #IMPLIED
+				CorrectionRevision CDATA #IMPLIED
+				ReleaseDate %date;
+				Type (update|upgrade) #REQUIRED
+				Description CDATA #REQUIRED>
+
+<!-- UPGRADE WINDOW
+It's a precondition to have one of the OldSoftwarePackages installed to be
+able to install this package.
+If none is given, this package may be installed anyhow.
+-->
+<!ELEMENT UpgradeWindow (OldSoftwarePackage)*>
+
+<!ELEMENT OldSoftwarePackage (ProductData)>
+
+<!-- Description of the node type this package is valid for. -->
+<!ELEMENT NodeType	(NodePlatform, NodeFunction?, NodeIo?)>
+
+<!-- Which platform type is the SW package targeted for -->
+<!ELEMENT NodePlatform	EMPTY>
+<!ATTLIST NodePlatform	Type %nodeplatformtype; #REQUIRED>
+
+<!-- Which function(s) does the package target.
+     If none is given, the package tagets the core platform. -->
+<!ELEMENT NodeFunction	(%nodefunctiontype;)*>
+
+<!-- Which AXE IO processor(s) does the package target  -->
+<!ELEMENT NodeIo	(%nodeiotype;)*>
+
+<!-- Automatic deployment of the Software Package;
+     "yes" is more extensive than ACD. -->
+<!ELEMENT Automation	EMPTY>
+<!ATTLIST Automation	Type (no|ACD|yes) #REQUIRED>
+
+<!ELEMENT CommonScriptParams	(JobParams?, NeParams?)>
+
+<!-- Parameters to be supplied per job. -->
+<!ELEMENT JobParams (Parameter)*>
+
+<!-- Parameters to be supplied per NE. -->
+<!ELEMENT NeParams  (Parameter)*>
+
+<!-- ............................................................... -->
+<!-- Activity definition ........................................... -->
+<!-- ............................................................... -->
+
+<!-- The activity names must be unique!
+     Parameters may be supplied per activity. -->
+<!ELEMENT Activity	(Description?, Startup, JobParams?, Script?)>
+<!ATTLIST Activity	Name CDATA #REQUIRED>
+<!ATTLIST Activity	Selected %boolean; "true">
+<!ATTLIST Activity	IsManuallyRestartable %boolean; "false">
+<!ATTLIST Activity	Changeable %boolean; "true">
+<!ATTLIST Activity	StartDisconnected %boolean; "false">
+<!ATTLIST Activity	Synchronous %boolean; "false">
+<!ATTLIST Activity	FaultDecision %decisionoption; "Fail">
+<!ATTLIST Activity	OnFallback CDATA #IMPLIED>
+<!ATTLIST Activity	IsFallback %boolean; "false">
+
+<!-- Available Activity Startup policies.
+     If more than one activity is selected as the default, the last one wins.
+     If none is given, Manual will become default. -->
+<!ELEMENT Startup	(Immediate?,Manual,Scheduled?)>
+
+<!ELEMENT Immediate	EMPTY>
+<!ATTLIST Immediate	Default %boolean; "false">
+
+<!ELEMENT Manual	EMPTY>
+<!ATTLIST Manual	Default %boolean; "false">
+
+<!ELEMENT Scheduled	EMPTY>
+<!ATTLIST Scheduled	Default %boolean; "false">
+
+<!-- For certain node types, a script may be executed during the activity. -->
+<!ELEMENT Script	(Description?)>
+<!ATTLIST Script	RelativeFileName CDATA #REQUIRED>
+
+<!-- ............................................................... -->
+<!-- Primitive parameters .......................................... -->
+<!-- ............................................................... -->
+
+<!-- Parameter names must be unique! -->
+<!ELEMENT Parameter     (Boolean|Enum|Number|String|Input|Output)>
+<!ATTLIST Parameter     Name CDATA #REQUIRED>
+<!ATTLIST Parameter     Hidden %boolean; "false">
+
+<!-- The "Prompt" attribute is used for prompting for user input in the GUI, should not be
+more than approx. 25 chars. -->
+<!-- The "Description" attribute is used as tooltip in the GUI, should not be
+more than approx. 150 chars. -->
+<!-- The "Value" attribute defines the default value of the parameter. -->
+
+<!ELEMENT Boolean	EMPTY>
+<!ATTLIST Boolean	Prompt CDATA #IMPLIED
+			Description CDATA #IMPLIED
+			Value %boolean; "false">
+
+<!-- For enums, Items are alternative values. -->
+<!ELEMENT Enum		(Item)+>
+<!ATTLIST Enum	Prompt CDATA #IMPLIED
+			Description CDATA #IMPLIED
+			Value CDATA "">
+
+<!ELEMENT Item		(#PCDATA)>
+
+<!ELEMENT Number	EMPTY>
+<!ATTLIST Number	Prompt CDATA #IMPLIED
+			Description CDATA #IMPLIED
+			Min CDATA "-2147483648"
+			Max CDATA "2147483647"
+			Value CDATA "">
+
+<!ELEMENT String	EMPTY>
+<!ATTLIST String	Prompt CDATA #IMPLIED
+			Description CDATA #IMPLIED
+			MaxLength CDATA "255"
+			Value CDATA "">
+
+<!ELEMENT Input	EMPTY>
+<!ATTLIST Input	OpsName CDATA #REQUIRED>
+
+<!ELEMENT Output	EMPTY>
+<!ATTLIST Output	OpsName CDATA #REQUIRED>

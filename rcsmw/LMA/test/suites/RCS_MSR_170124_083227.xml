@@ -1,0 +1,1809 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<licFile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<body formatVersion="2.0" signatureType="5">
+<sequenceNumber>1000</sequenceNumber>
+<SWLT customerId="946060" productType="Baseband" swltId="RCS_MSR_TEST">
+<generalInfo>
+<generated>2017-01-24T08:32:27</generated>
+<issuer>Ericsson AB</issuer>
+</generalInfo>
+<fingerprint method="11" print="RCS_MSR">
+<featureKey id="CXC4012012">
+<description>AutoconfLteBroadcastSFs</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011327">
+<description>Service Specific DRX</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4020075">
+<description>Channel Element capacity for EUL Smartphones phase 2</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011929">
+<description>UlSpectrumAnalyzer</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4020079">
+<description>HSDPA Dynamic Power Sharing</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011061">
+<description>Dynamic QoS Modification</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011807">
+<description>LoadBasedAccessBarring</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011011">
+<description>WCDMA and TD-SCDMA IRAT handover, coverage triggered</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011479">
+<description>S-GW Relocaton at X2 Handover</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4020005">
+<description>EnhancedUplink</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011070">
+<description>eNodeB Multiple VLAN Support</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011258">
+<description>VarSrCqiPeriodicity</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011377">
+<description>CS Fallback to CDMA 1X</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011937">
+<description>DynamicRABackoff</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011249">
+<description>HCS-Triggered Inter-Frequency Handover</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011376">
+<description>Automated Mobility Optimization</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4020013">
+<description>FAJ1211328; Enhanced Layer 2</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011365">
+<description>LTE Broadcast</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4012081">
+<description>NarrowbandIoTAccess</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4010980">
+<description>PUCCH Overdimensioning</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4040009">
+<description>Two-Way Active Measurement Protocol Responder</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011922">
+<description>CarrierAggregationFddTdd</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011926">
+<description>LteRadioAccessActivation</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011513">
+<description>Enhanced CS Fallback to CDMA 1X</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011808">
+<description>AntennaMuting</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011557">
+<description>Inter-Frequency Offload</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011077">
+<description>Cross-Sector Antenna Sharing Redundancy</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011711">
+<description>PriorityPaging</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4010611">
+<description>16-QAM UL</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4012050">
+<description>FlexibleQoS</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4020030">
+<description>EUL single HARQ process scheduling</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011928">
+<description>GsmRadioAccessActivation</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4012015">
+<description>MixedModeBasebandLte</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011824">
+<description>eNBIdInX2Traces</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011075">
+<description>Packet Forwarding at S1 Handover</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011346">
+<description>SRVCC Handover to GERAN</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011917">
+<description>Support18Cells</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011810">
+<description>NonPlannedPCIRange</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011980">
+<description>FourDlCarrierAggregation</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011968">
+<description>S1OverSatellite</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4020064">
+<description>EulCellFach</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4020054">
+<description>DCH EUL balancing</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4010618">
+<description>GERAN Session Continuity, Coverage Triggered</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4012019">
+<description>RadioResourcePartitioning</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4020043">
+<description>HS-FACH</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011911">
+<description>UeThroughputAwareIflb</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4020025">
+<description>Fractional DPCH and SRB on HS</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011062">
+<description>Differerentiated Admission Control</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011814">
+<description>AdmissionTriggeredOffload</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011737">
+<description>SyncEqualitySupervision</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011842">
+<description>PsiCoverage</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4040011">
+<description>Synchronous Ethernet</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4010841">
+<description>Cell ID-Based Location Support</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4012082">
+<description>CategoryMAccess</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011707">
+<description>BidirectionalFWDetection</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011715">
+<description>Prescheduling</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011068">
+<description>OTDOA Control Plane Location Support</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011259">
+<description>Uplink Fractional Power Control</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4010961">
+<description>RLC in Unacknowledged Mode</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4021014">
+<description>Channel Element capacity for EUL Smartphones</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4012096">
+<description>Int3</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011996">
+<description>Tm8ModeSwitching</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011156">
+<description>Cascadable Radio Units</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011256">
+<description>High Speed UE</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011822">
+<description>RadioDotSystem</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011975">
+<description>UeAssistedAdaptiveDRX</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011838">
+<description>10GEPortCapability</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011959">
+<description>Ericsson Internal Test MOM</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011074">
+<description>Uplink Frequency-Selective Scheduling</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011941">
+<description>InactTrigPUCCHRelAtHighLoad</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011982">
+<description>MultiClusteredPusch</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011444">
+<description>Uplink Coordinated Multi-Point Reception</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4020070">
+<description>Interference Suppression for EUL 10 ms</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4012036">
+<description>UlDynamicResourceAllocation</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011366">
+<description>Multi-Target RRC Connection Re-Establishment</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4010621">
+<description>Support for 3GPP Compatible TMA</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011372">
+<description>LPPa-based E-CID Support</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011823">
+<description>VirtualRouters</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4012013">
+<description>CoverageForReducedCapabilityUE</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011946">
+<description>Ul64Qam</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011966">
+<description>LimitedUplinkAwareIFLB</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4020091">
+<description>Uplink Coordinated Multi-Point Reception</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011057">
+<description>End-User Bitrate Shaping</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4020001">
+<description>DynHSPDSCHCodeAllocation</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011981">
+<description>FiveDlCarrierAggregation</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4020006">
+<description>Extended Range up to 80 km</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011927">
+<description>WcdmaRadioAccessActivation</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011064">
+<description>Delay-Based Scheduling and Grant Estimation</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011183">
+<description>PCI Conflict Reporting</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4010964">
+<description>Enhanced Cell ID User Plane Location Support</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011356">
+<description>7-12 Cell Support</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4020007">
+<description>Extended range up to 200 km</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011264">
+<description>Single Layer Beamforming Performance Package</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4020014">
+<description>HSDPA 64 QAM</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011700">
+<description>CrossDUCASupport</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011802">
+<description>MultiSectorPerRadio</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4010513">
+<description>Frequency-Based Mobility Offset</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4010955">
+<description>Air Interface Load Generator</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4010770">
+<description>Inter-Frequency Session Continuity, Coverage-Triggered</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4010512">
+<description>Best Neighbor Relations for WCDMA IRAT Offload</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4012102">
+<description>InterENBUplinkComp</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4020066">
+<description>Uplink Fast Congestion Control</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4020018">
+<description>4-Way Receiver Diversity</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4020055">
+<description>Enhanced UE DRX</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4020086">
+<description>EUL Low Latency Prescheduling</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011059">
+<description>Service Triggered Mobility</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011242">
+<description>Transmit Data Cloning</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011914">
+<description>VolteFrequencyHopping</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4010830">
+<description>Configuration Management of 3GPP Iuant and AISGv2.0 Compatible ALDs</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011033">
+<description>Minimum Rate Proportional Fair Scheduler</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4020065">
+<description>FAJ1212370; Interference Suppression for all Bearers</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4012016">
+<description>MixedModeBasebandWcdma</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4012101">
+<description>LowEnergySchedulerSolution</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011942">
+<description>PrioOfVolteInAccessBarring</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011943">
+<description>UplinkMultiUserMIMO</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011716">
+<description>OtdoaPrsManagement</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4040006">
+<description>IPv6 Backhaul Support</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011940">
+<description>DynamicUeAdmissionControl</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011480">
+<description>Adjustable CRS Power</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4010619">
+<description>Clock Source over NTP</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4010622">
+<description>Support for 3GPP Compatible RET Antennas</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011262">
+<description>Dual Layer Beamforming Performance Package</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011252">
+<description>Public Warning System</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011930">
+<description>FddTddSameENodeB</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4040007">
+<description>IEEE1588 Frequency Synchronization</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011817">
+<description>CMPv2</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011071">
+<description>Cell Level Oscillating Handover Minimization</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011665">
+<description>SRVCC Handover to CDMA 1X</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4020002">
+<description>HSDPA16qam</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4020032">
+<description>Multi Carrier Inactivity Control</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011065">
+<description>Service Aware Buffer Estimation</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011712">
+<description>FeicicX2Assistance</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011379">
+<description>Cell Border Auto-Adjustment</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011261">
+<description>X2 Assisted ICIC</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011567">
+<description>Supplemental Downlink for Carrier Aggregation</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011443">
+<description>Intra-LTE Inter-Mode Handover</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4010616">
+<description>WCDMA Session Continuity, Coverage Triggered</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4010974">
+<description>Coverage-Triggered Inter-Frequency Handover</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011050">
+<description>TCP Optimization</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011157">
+<description>UE level oscillating handover minimization</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011933">
+<description>UeLocationAtRelease</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4012051">
+<description>CpriCompression</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011618">
+<description>SIB16 Time Information Broadcast</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011345">
+<description>Mobility Control at Poor Coverage</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011976">
+<description>HandoverPrioInLoadControl</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4020098">
+<description>HSDPA Adaptive BLER</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011977">
+<description>LowPrioForDTAInLoadControl</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011613">
+<description>Internal 1</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4020003">
+<description>FlexibleScheduler</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011253">
+<description>TTI Bundling</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4010962">
+<description>OTDOA User Plane Location Support</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011069">
+<description>Enhanced Cell ID Control Plane Location Support</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4012097">
+<description>ConfigurableScellPrio</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4012043">
+<description>CoverageForLowComplexityUE</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011375">
+<description>Service-Specific SR Adaptation</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4040008">
+<description>IEEE1588 Time and Phase Synchronization</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011067">
+<description>A-GPS Control Plane Location Support</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4010976">
+<description>Simplex and Duplex Radio Ports</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011244">
+<description>GTP-U Supervision</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4010613">
+<description>Data Forwarding at Intra-LTE Handover</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4020010">
+<description>RTT Positioning (RBS)</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4020037">
+<description>EUL Multi-Carrier</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4012014">
+<description>MobilityToCSGCell</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011368">
+<description>Combined Cell</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4010956">
+<description>CS Fallback to GERAN and UTRAN</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011918">
+<description>ServiceSpecificInactivityTimer</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4010723">
+<description>Multiple Radio Bearer per User</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011915">
+<description>MultipleEthernetPorts</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011559">
+<description>Dynamic SCell Selection for Carrier Aggregation</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4010609">
+<description>Dual Antenna DL Performance Package</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011667">
+<description>4x4 Quad Antenna Downlink Performance Package</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4012034">
+<description>ElasticRAN</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011370">
+<description>Best Neighbor Relations for Intra-LTE Load Management</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4012089">
+<description>DifferUlPowerControl</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4012017">
+<description>MixedModeBasebandGsm</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4010319">
+<description>Interference Rejection Combining</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011481">
+<description>LPPa-based OTDOA Support</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011921">
+<description>IncEutranFreqRel</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011245">
+<description>Enhanced Cell ID in Traces</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011422">
+<description>Antenna System Monitoring</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011018">
+<description>MixedModeRadioRBS</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4010620">
+<description>Automated Neighbour Relations</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011736">
+<description>ServOrPrioTriggeredIFHo</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4010799">
+<description>VSWR Antenna Supervision</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4012032">
+<description>EsiEncryptionTestLicense</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011699">
+<description>Overlaid Cell Detection</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011820">
+<description>UlInterferenceReporting</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4012052">
+<description>CpriCompressionWithBasebandR</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011958">
+<description>CellSleepMode</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4020081">
+<description>Narrowband Interference Rejection</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4012011">
+<description>Internal2</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011910">
+<description>CqiPuschSinrPowerInTrace</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011951">
+<description>DifferentiatedUeHandling</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011555">
+<description>Internal MCE</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4010798">
+<description>Support for Cascading of AISG2.0 compatible RET Antennas</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011713">
+<description>DynamicLoadControl</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4040013">
+<description>Ip Flow Monitoring</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4010949">
+<description>CS Fallback for Dual-Radio UEs</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4012018">
+<description>AdaptiveRLCPollRetransmission</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011984">
+<description>EricssonLeanCarrier</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4040014">
+<description>EthernetOamService</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011991">
+<description>UeAssistedSignalingReduction</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4012002">
+<description>NetworkAssistedCrsIc</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4012053">
+<description>ARPAwareScheduling</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011036">
+<description>Firmware Download of Antenna Line Devices</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011477">
+<description>Service Specific Load Management</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011812">
+<description>MeasBasedSCellSelection</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011663">
+<description>PSHO-Based CS Fallback to UTRAN</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011155">
+<description>Operator Reserved Cell</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011371">
+<description>Best Neighbors in Redirect with SI</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011813">
+<description>PhichGroupSpreading</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011373">
+<description>Automated Cell Capacity Estimation</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4010511">
+<description>UE Throughput -Based Mobility to WiFi</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011913">
+<description>DlCoordinatedScheduling</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4020061">
+<description>FAJ1211714; Interference Suppression (Grake+)</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4010912">
+<description>Efficient DRX/DTX for Connected UE</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4010959">
+<description>QoS-Aware Scheduler</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4040005">
+<description>Egress IP Traffic Shaping</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4010960">
+<description>Shared LTE RAN</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4012003">
+<description>UlSchedContlForOocUes</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4040016">
+<description>TwampInitiator</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4020069">
+<description>CE Extension for EUL</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011710">
+<description>RANGrandMaster</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4010717">
+<description>PM Initiated UE Measurements</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4012026">
+<description>MixedModeRadioGSMforBaseband</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011931">
+<description>TestOfOptionalPmEvents</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4020008">
+<description>hsdpa incremental redundancy on</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4010320">
+<description>Advanced Cell Supervision</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011266">
+<description>Coverage Triggered TD-SCDMA Session Continuity</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011558">
+<description>MBMS Multi-Carrier Support</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011254">
+<description>Octal Antenna Uplink Performance Package</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011482">
+<description>Enhanced PDCCH Link Adaptation</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011974">
+<description>Support24Cells</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011967">
+<description>AdvancedDiffForResourceFairSch</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011319">
+<description>Inter-Frequency Load Balancing</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4010967">
+<description>Maximum Cell Range</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011485">
+<description>Multiple Frequency Band Indicators</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011803">
+<description>MicroSleepTx</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011374">
+<description>Best WCDMA Neighbors for SI</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4010614">
+<description>CDMA2000 Session Continuity, Coverage Triggered</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011714">
+<description>ThreeDlCarrierAggregation</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4012022">
+<description>TransportPathCharMonitoring</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011317">
+<description>6 Cell Support</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011034">
+<description>Emergency Call Handling for CS Fallback</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011427">
+<description>4x2 Quad Antenna Downlink Performance Package</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011944">
+<description>LoadBasedDistributionAtRelease</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011809">
+<description>MulticabinetControl</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011698">
+<description>Coverage-Adapted Load Management</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011251">
+<description>Relative Priority Scheduling</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011326">
+<description>TM7 Mode Switching</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4012023">
+<description>UpPTSInterferenceReporting</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4012079">
+<description>IdleModeExtendedDrx</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011811">
+<description>MmeOverloadControl</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011554">
+<description>IFLB Activation Threshold</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011512">
+<description>MultiOperatorRAN</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011932">
+<description>TestOfOptionalPmEventParams</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011939">
+<description>RelInactiveUeAtHighLoadHo</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011999">
+<description>MinimizationOfDriveTests</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4012020">
+<description>SdlCarrierAggregationInLaa</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011063">
+<description>Subscriber Triggered Mobility</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4040010">
+<description>Real-Time Security Event Logging</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4040004">
+<description>IPsec</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011072">
+<description>UlTrigInterFreqMob</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011804">
+<description>InterFrequencyOTDOA</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4012095">
+<description>MultipleIPAddressesForS1X2</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4020036">
+<description>Dual-Band HSDPA Multi-Carrier</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011955">
+<description>DynamicPUCCH</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4010973">
+<description>Redirect with System Information</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4020011">
+<description>Enhanced Uplink, 2ms TTI</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011515">
+<description>PDCCH Power Boost</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011060">
+<description>Dynamic GBR Admission Control</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011056">
+<description>Quad Antenna Uplink Performance Package</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011815">
+<description>MultiLayerServTriMobility</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011840">
+<description>TM9OctAntDlPerfPkg</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4010612">
+<description>Intra LTE handover</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011969">
+<description>Dl256Qam</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011936">
+<description>FlexibleGBRBearer</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011983">
+<description>InterENBCarrierAggregation</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4010615">
+<description>CDMA2000 IRAT Handover, Coverage Triggered</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4010990">
+<description>Robust Header Compression</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011666">
+<description>Carrier Aggregation-Aware IFLB</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011476">
+<description>Carrier Aggregation</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4020051">
+<description>Mixed Mode in Multi Standard RBS (WCDMA)</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011378">
+<description>Cell Soft Lock</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4010856">
+<description>Streaming of Events</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4010610">
+<description>64-QAM DL</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011247">
+<description>SRVCC Handover to UTRAN</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011938">
+<description>PrioritizedSrScheduling</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011664">
+<description>Measurement-Based CSFB Target Selection</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011246">
+<description>Automated RACH Root Sequence Allocation</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011478">
+<description>Inter-RAT Offload to WCDMA</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4012024">
+<description>ReturnLossAntSupervision</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4010963">
+<description>A-GPS User Plane Location Support</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011055">
+<description>Limited Service Mode Emergency Call Support</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011973">
+<description>UplinkCarrierAggregation</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011564">
+<description>Uplink PRB Blocking</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4020029">
+<description>Multi Carrier</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<featureKey id="CXC4011163">
+<description>Operator Defined QCI</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</featureKey>
+<capacityKey id="CXC4011039">
+<description>Downlink PRB Capacity</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+<capacity>600</capacity>
+<hardLimit>600</hardLimit>
+</capacityKey>
+<capacityKey id="CXC4012085">
+<description>ExpansionHwacBb6630UtilityMod</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+<capacity>1</capacity>
+<hardLimit>1</hardLimit>
+</capacityKey>
+<capacityKey id="CXC4010626">
+<description>HWAC for Output power 40W to 60W</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+<capacity>18</capacity>
+<hardLimit>18</hardLimit>
+</capacityKey>
+<capacityKey id="CXC4011182">
+<description>HWAC for Output Power 100W to 120W</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+<capacity>18</capacity>
+<hardLimit>18</hardLimit>
+</capacityKey>
+<capacityKey id="CXC4010071/4003">
+<description>WCDMA RBS key for Downlink capacity</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+<capacity>1</capacity>
+<hardLimit>1</hardLimit>
+</capacityKey>
+<capacityKey id="CXC4011622">
+<description>5+5 MHz Sector Carrier</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+<capacity>72</capacity>
+<hardLimit>72</hardLimit>
+</capacityKey>
+<capacityKey id="CXC4021007">
+<description>FAJ 121 2723; NumEULUsersPerCell</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+<capacity>96</capacity>
+<hardLimit>96</hardLimit>
+</capacityKey>
+<capacityKey id="CXC4011956">
+<description>InitialHwacBb5212UtilityModule</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+<capacity>1</capacity>
+<hardLimit>1</hardLimit>
+<ComplementaryData>
+<HWAC>L:;W:;G:</HWAC>
+</ComplementaryData>
+</capacityKey>
+<capacityKey id="CXC4012086">
+<description>InitialHwacBb6620UtilityModule</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+<capacity>1</capacity>
+<hardLimit>1</hardLimit>
+<ComplementaryData>
+<HWAC>L:;W:;G:</HWAC>
+</ComplementaryData>
+</capacityKey>
+<capacityKey id="CXC4010627">
+<description>CXC4010627; HWAC for Channel Bandwidth 5MHz</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+<capacity>18</capacity>
+<hardLimit>18</hardLimit>
+</capacityKey>
+<capacityKey id="CXC4011961">
+<description>InitialHwacBb5216UtilityModule</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+<capacity>1</capacity>
+<hardLimit>1</hardLimit>
+<ComplementaryData>
+<HWAC>L:;W:;G:</HWAC>
+</ComplementaryData>
+</capacityKey>
+<capacityKey id="CXC4012087">
+<description>ExpansionHwacBb6620UtilityMod</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+<capacity>1</capacity>
+<hardLimit>1</hardLimit>
+</capacityKey>
+<capacityKey id="CXC4012088">
+<description>CPRIPortExpansion</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+<capacity>1</capacity>
+<hardLimit>1</hardLimit>
+</capacityKey>
+<capacityKey id="CXC4021001">
+<description>HSDPA codes per cell</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+<capacity>15</capacity>
+<hardLimit>15</hardLimit>
+</capacityKey>
+<capacityKey id="CXC4011962">
+<description>ExpansionHwacBb5216UtilityMod</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+<capacity>1</capacity>
+<hardLimit>1</hardLimit>
+</capacityKey>
+<capacityKey id="CXC4010608">
+<description>Connected Users</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+<capacity>3500</capacity>
+<hardLimit>3500</hardLimit>
+</capacityKey>
+<capacityKey id="CXC4011620">
+<description>HWAC for Output Power 120W to 140W</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+<capacity>18</capacity>
+<hardLimit>18</hardLimit>
+</capacityKey>
+<capacityKey id="CXC4021002">
+<description>NumHSDPAUsersPerCell</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+<capacity>128</capacity>
+<hardLimit>128</hardLimit>
+</capacityKey>
+<capacityKey id="CXC4013000">
+<description>IotCarrier</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+<capacity>1</capacity>
+<hardLimit>1</hardLimit>
+</capacityKey>
+<capacityKey id="CXC4010623">
+<description>FAJ1210544; HWAC for DL BB Capacity</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+<capacity>65535</capacity>
+<hardLimit>65535</hardLimit>
+</capacityKey>
+<capacityKey id="CXC4010718">
+<description>CXC4010718; HWAC for Channel Bandwidth 10MHz</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+<capacity>18</capacity>
+<hardLimit>18</hardLimit>
+</capacityKey>
+<capacityKey id="CXC4011621">
+<description>HWAC for Output Power 140W to 160W</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+<capacity>18</capacity>
+<hardLimit>18</hardLimit>
+</capacityKey>
+<capacityKey id="CXC4011040">
+<description>Uplink PRB Capacity</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+<capacity>600</capacity>
+<hardLimit>600</hardLimit>
+</capacityKey>
+<capacityKey id="CXC4010624">
+<description>FAJ1210545; HWAC for UL BB Capacity</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+<capacity>65535</capacity>
+<hardLimit>65535</hardLimit>
+</capacityKey>
+<capacityKey id="CXC4010719">
+<description>CXC4010719; HWAC for Channel Bandwidth 15MHz</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+<capacity>18</capacity>
+<hardLimit>18</hardLimit>
+</capacityKey>
+<capacityKey id="CXC4012037">
+<description>GSMCellCarrierTRXHWACERS</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+<capacity>48</capacity>
+<hardLimit>48</hardLimit>
+</capacityKey>
+<capacityKey id="CXC4011957">
+<description>ExpansionHwacBb5212UtilityMod</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+<capacity>1</capacity>
+<hardLimit>1</hardLimit>
+</capacityKey>
+<capacityKey id="CXC4011161">
+<description>HWAC for Output Power 60W to 80W</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+<capacity>18</capacity>
+<hardLimit>18</hardLimit>
+</capacityKey>
+<capacityKey id="CXC4012084">
+<description>InitialHwacBb6630UtilityModule</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+<capacity>1</capacity>
+<hardLimit>1</hardLimit>
+<ComplementaryData>
+<HWAC>L:;W:;G:</HWAC>
+</ComplementaryData>
+</capacityKey>
+<capacityKey id="CXC4012021">
+<description>GSMMCPAIntelligentPowerManagementBaseband</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+<capacity>48</capacity>
+<hardLimit>48</hardLimit>
+</capacityKey>
+<capacityKey id="CXC4010720">
+<description>CXC4010720; HWAC for Channel Bandwidth 20MHz</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+<capacity>18</capacity>
+<hardLimit>18</hardLimit>
+</capacityKey>
+<capacityKey id="CXC4010625">
+<description>HWAC for Output power 20W to 40W</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+<capacity>18</capacity>
+<hardLimit>18</hardLimit>
+</capacityKey>
+<capacityKey id="CXC4011162">
+<description>HWAC key Output Power 80W to 100W</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+<capacity>18</capacity>
+<hardLimit>18</hardLimit>
+</capacityKey>
+<capacityKey id="CXC4010071/4002">
+<description>WCDMA RBS key for Uplink capacity</description>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+<capacity>1</capacity>
+<hardLimit>1</hardLimit>
+</capacityKey>
+<emergencyResetKey>
+<start>2017-01-23</start>
+<stop>2018-01-23</stop>
+</emergencyResetKey>
+</fingerprint>
+</SWLT>
+</body>
+<PKIsignature issuer="CN=ProdCA for Signing license files CAX 106 0084/30, OU=License Center, O=Ericsson AB, C=SE" serialnumber="1">ZlsEvUpi//to0e2VDHgJLCVRE2YEpsLwWZY7URwqqH4Sjs0Q54OtHOpblclSeTOhoSsdeDnfuPrQ
+fAmFqte8Un6TPZUBZEnspJ/LVNOMyMuVwB5Zp9oblBYYGv52lH7+JQ8Zj1OAQcKc9kT2R67XjXwx
+KDIpUQ79ajoA6bK0EowBFhihMJuKJs+pXqWbym+gJmAPgU8zr1oZUueYBUGu3YwZnQLXOSEAzixK
+AHHiQqjWlEBvS0cTlVQzsL0RqBeM+OT0lX8Cc0KSkkAXDOXXSM3hvsd7yZ5QigRPepILOgQ9k7jp
+hSQ2rG+yR4+WS2CV58JvjsM9CXehDjNzRWePRw==</PKIsignature>
+<certificatechain>
+<prodcert>-----BEGIN CERTIFICATE-----
+MIIETzCCAzegAwIBAgIBATANBgkqhkiG9w0BAQUFADB3MQswCQYDVQQGEwJTRTEUMBIGA1UEChML
+RXJpY3Nzb24gQUIxFzAVBgNVBAsTDkxpY2Vuc2UgQ2VudGVyMTkwNwYDVQQDEzBQcm9kQ0EgZm9y
+IFNpZ25pbmcgbGljZW5zZSBmaWxlcyBDQVggMTA2IDAwODQvMzAwIhgPMjAxMDA4MTgwMDAwMDBa
+GA8yMDM3MDEyOTAwMDAwMFoweTELMAkGA1UEBhMCU0UxFDASBgNVBAoTC0VyaWNzc29uIEFCMRcw
+FQYDVQQLEw5MaWNlbnNlIENlbnRlcjE7MDkGA1UEAxMyUHJvZENlcnQgZm9yIFNpZ25pbmcgbGlj
+ZW5zZSBmaWxlcyBDQVggMTA2IDAwODQvMzAwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIB
+AQDJGSjP1jKZ2iU/dvPXNnbnnAJzlD7IJCUK52Z05mqkhhKkq3y3yk7csgccVau0bdh1vxcGMaCA
+sWD/AObajxVCnBWRa/UqssBNPT/iUv3XuRyZjfZX3N+2LukAIBHwo1lyHzcbfRp23iOEz1Ukld3M
+K6lZdNYfG4LX4TG7NP84G0mup4IWG2zLMaDmuuu62gNKMyCGTLkZnlit7EYTvaaeKy87tzml3+LV
+XsZg44wdpzKPVjhDLv7MsEvUcMoCPxwEaIhxnmBtDIzOFWLkH7IE/GMCKCIKMEnM72EqAbvDZlAN
+sFzodJrc6dGmkOrh64UMkqqRV2dwGvjTSiib4u1bAgMBAAGjgd8wgdwwHQYDVR0OBBYEFKbrXFxx
++q8fMddvJ+/64doCfCclMIGfBgNVHSMEgZcwgZSAFEScAtYIv8bwxTwbljdHEf5/zOWuoXmkdzB1
+MQswCQYDVQQGEwJTRTEUMBIGA1UEChMLRXJpY3Nzb24gQUIxFzAVBgNVBAsTDkxpY2Vuc2UgQ2Vu
+dGVyMTcwNQYDVQQDEy5Sb290IGZvciBTaWduaW5nIGxpY2Vuc2UgZmlsZXMgQ0FYIDEwNiAwMDg0
+LzMwggEEMAwGA1UdEwEB/wQCMAAwCwYDVR0PBAQDAgeAMA0GCSqGSIb3DQEBBQUAA4IBAQCf4nlk
+WsylZf038+RMM2x++mdxqlYD9SKhbJOwNzZIkscLL9HWNaBsuRD1xEYz3IAlurybSJA0wnIkkzr6
+K6roDoU4fteUj/cYL2rUNT48Sql4X7hgQBuqjCX9g8UFpwKD+DkLXEyyf/w8bjD3Jwq1mvjM38Od
+RRot74KBOA2noWsahpXOGWiqDFHyo8NU7I57dGbof29mlk3lJT5bBa7XiKfdOrZkKHDCNmcrX0Ih
+xTOEyfj7cD4jfnoPq7N8aAMTIsM3wfKjdMI+ImGQ9NZZs9tdAGI3kTgmUtd6Q9Zjx/NJrq6Eg35k
+G5ox6BgWdhkZrCLdW5deZjxDuFZFrvN4
+-----END CERTIFICATE-----</prodcert>
+<cacert>-----BEGIN CERTIFICATE-----
+MIIEYTCCA0mgAwIBAgIBBDANBgkqhkiG9w0BAQUFADB1MQswCQYDVQQGEwJTRTEUMBIGA1UEChML
+RXJpY3Nzb24gQUIxFzAVBgNVBAsTDkxpY2Vuc2UgQ2VudGVyMTcwNQYDVQQDEy5Sb290IGZvciBT
+aWduaW5nIGxpY2Vuc2UgZmlsZXMgQ0FYIDEwNiAwMDg0LzMwMCIYDzIwMTAwODE4MDAwMDAwWhgP
+MjAzNzAxMzAwMDAwMDBaMHcxCzAJBgNVBAYTAlNFMRQwEgYDVQQKEwtFcmljc3NvbiBBQjEXMBUG
+A1UECxMOTGljZW5zZSBDZW50ZXIxOTA3BgNVBAMTMFByb2RDQSBmb3IgU2lnbmluZyBsaWNlbnNl
+IGZpbGVzIENBWCAxMDYgMDA4NC8zMDCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAKQT
+U+028VeuilkrN4gENoz8zgbwdbsKpmggjPHkOR08qn+homYCIuyZBNnZmB9NQ+8/EUwRYO0vKmSD
+fQkKFEKJUejpuqWb6isUZYNg+TiRIRCtR3qA9bf9r6+opJgXeLoKypIl5Uav1TndcUPupUeXv6gr
+XHkTbJjggwjZnZaV5qZcjLUHkE2VqqK7LsBCZA2eD+tqSM8Mdcy2bXvfwL2RhR1FgoVxdtdp7g9V
+yuVZsjDilTM4yNRRpT2h/YjHlg47oqcgQjlunJnHdwrqpfO29FaRocVwhEQi5R9EcbGMRJoBZbFR
+jzn3JNdvjnZehU4AaxotBosiAMOsIjTFBSsCAwEAAaOB9TCB8jAdBgNVHQ4EFgQURJwC1gi/xvDF
+PBuWN0cR/n/M5a4wga8GA1UdIwSBpzCBpIAUMlQWj9gJVHqZdyc0TFqgoFk0RLihgYikgYUwgYIx
+CzAJBgNVBAYTAlNFMQswCQYDVQQHEwJMSTEUMBIGA1UEChMLRXJpY3Nzb24gQUIxFzAVBgNVBAsT
+DkxpY2Vuc2UgQ2VudGVyMTcwNQYDVQQDEy5Sb290IGZvciBTaWduaW5nIGxpY2Vuc2UgZmlsZXMg
+Q0FYIDEwNiAwMDg0LzMwggEBMBIGA1UdEwEB/wQIMAYBAf8CAQAwCwYDVR0PBAQDAgEGMA0GCSqG
+SIb3DQEBBQUAA4IBAQApQbEktThX3XFQCu1KXgzoWzYgXf0lkes3fMeGMQq9MMqMlm0LudG9HHx+
+Hue8gGduChXBXfI04P08yznlHNkF+6FVvOPeu93K704mnr5fU4U3Myzewl6PreSSxBp7uS/11tgk
+12yfkF00JFuxGbG+ERl9Gv3lpC7IVPCTLN4TqHuz+0vFrKC4sTsVhMdGj81h0wz389eZtZBDOZb4
+sgT1UZiZb8/32TQQndtZJaDxr9Z/pvF8seVjNMvrhfqBGyxT6+QAquJK5RLwuOuqXYTjSmJQe5qq
+DILKWj87/NCOe/YQTswqfhnHM+Bz0NZCuXZ4HzLAaQsbqcyTOvR8C4cw
+-----END CERTIFICATE-----</cacert>
+</certificatechain>
+</licFile>

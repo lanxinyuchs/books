@@ -1,0 +1,7 @@
+To manage this product you have to run "clearmake import", to get latest source code.
+
+clearmake import # this fetch all source from git and use then clearfsimport to populate CAX with content
+
+after that all build stages behave as an ordinary RCS-block.
+
+Note! all soft links for ".so"-files need to be manualy created!!! 

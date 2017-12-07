@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Copyright (c) 2016 Ericsson AB. 
+	All rights reserved 
+
+	DX ECIM Tool-chain generated this file on Apr 9, 2016 2:57:16 PM using:
+	* com.ericsson.ecim.m2m 2.14.5.201511210257
+	* com.ericsson.ecim.dsl 2.14.5.201511210257
+	* com.ericsson.ecim.edm 2.14.5.201511210257
+--><!DOCTYPE models SYSTEM "mp.dtd">
+<models>
+    <dtdVersion>G</dtdVersion>
+    <momMetaData>
+        <momTitle>title</momTitle>
+        <momSubTitle>sub title</momSubTitle>
+        <momIdentity>
+            <docNum>0</docNum>
+            <docLang>English</docLang>
+            <docRev>0</docRev>
+            <docDate>date</docDate>
+        </momIdentity>
+    </momMetaData>
+    <mim author="" contact="" correction="0" date="" docNo="" name="ALKALI" namespace="urn:com:ericsson:ecim:ALKALI" namespacePrefix="alkali" organization="" release="1" revision="" version="1">
+        <description>_</description>
+        <domainExtension domain="ECIM">
+            <extension name="immNamespace" value="MOM_NAME"/>
+        </domainExtension>
+        <class name="Lithium">
+            <description>_</description>
+            <root/>
+            <attribute name="lithiumId">
+                <description>_</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="Caesium">
+            <description>_</description>
+            <attribute name="caesiumId">
+                <description>_</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="period">
+                <description>_</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <readOnly/>
+                <isNillable/>
+                <dataType>
+                    <int32/>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="Francium">
+            <description>_</description>
+            <attribute name="halfLife">
+                <description>_</description>
+                <readOnly/>
+                <dataType>
+                    <int32/>
+                </dataType>
+            </attribute>
+            <attribute name="franciumId">
+                <description>_</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+        </class>
+        <relationship name="caesium">
+            <containment>
+                <parent>
+                    <hasClass name="Lithium">
+                        <mimName>ALKALI</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="Caesium">
+                        <mimName>ALKALI</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+        <relationship name="Lithium_to_Francium">
+            <containment>
+                <parent>
+                    <hasClass name="Lithium">
+                        <mimName>ALKALI</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="Francium">
+                        <mimName>ALKALI</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+    </mim>
+    <interMim>
+        <relationship name="Neon_to_Lithium">
+            <domainExtension domain="CoreMW">
+                <extension name="splitImmDn" value="false"/>
+            </domainExtension>
+            <containment>
+                <parent>
+                    <hasClass name="Neon">
+                        <mimName>NOBLE</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="Lithium">
+                        <mimName>ALKALI</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>1</min>
+                        <max>1</max>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+    </interMim>
+</models>

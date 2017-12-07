@@ -1,0 +1,84 @@
+%% -*- erlang -*-
+%% #0.    BASIC INFORMATION
+%% ----------------------------------------------------------
+%% %CCaseFile:	sys.appSrc %
+%% %CCaseRev:	/main/R1A/R2A/R3A/R4A/R5A/R8A/R9A/R10A/3 %
+%% %CCaseDate:	2017-05-24 %
+%% %CCaseDocNo:	 %
+%%
+%% Author:	etxbjca
+%% Description: Attribute file for <text>
+%%
+%% ----------------------------------------------------------
+%% %CCaseTemplateFile:	APP.appSrc %
+%% %CCaseTemplateId: CCver: /main/2 %
+%%
+%%
+%% %CCaseCopyrightBegin%
+%% Copyright (c) Ericsson AB 2012-2017 All rights reserved.
+%% 
+%% The information in this document is the property of Ericsson.
+%% 
+%% Except as specifically authorized in writing by Ericsson, the 
+%% receiver of this document shall keep the information contained 
+%% herein confidential and shall protect the same in whole or in 
+%% part from disclosure and dissemination to third parties.
+%% 
+%% Disclosure and disseminations to the receivers employees shall 
+%% only be made on a strict need to know basis.
+%% %CCaseCopyrightEnd%
+%%
+%% ----------------------------------------------------------
+%% #1.    REVISION LOG
+%% ----------------------------------------------------------
+%% Rev        Date         Name        What
+%% --------   --------     --------    ------------------------
+%% R1A/1      2012-01-04   etxbjca     Created
+%% R1A/14     2012-08-17   etxjotj     Removed the eqm application
+%% R2A/1      2013-03-01   etxjotj     Removed rhc and dbh
+%% R2A/2      2013-03-06   etxjotj     Moved appm to last in start order
+%% R2A/3      2013-03-13   etxpeno     Added cec, alh and clh
+%% R2A/5      2013-09-05   etxlg       Added ecoli
+%% R2A/6      2013-09-13   etxarnu     Added safs to applications
+%% R2A/6      2013-09-23   etxpejn     Added lma to applications
+%% R2A/10     2013-12-06   etxpeno     Added eitc
+%% R2A/11     2014-01-17   etxlg       Added omc
+%% R2A/12     2014-02-26   eolaand     Added oot
+%% R2A/13     2014-04-11   etxtory     Added aic
+%% R3A/1      2014-11-12   etxjotj     Added pes
+%% R3A/1      2014-11-26   etxarnu     Added dbg to applications
+%% R3A/2      2014-11-27   etxarnu     Removed dbg from applications
+%% R3A/3      2014-11-27   etxarnu     Added runtime_tools to applications
+%% R3A/5      2015-01-12   etxberb     Added coi.
+%% R4A/1      2015-07-09   etxjotj     Added tim
+%% R4A/2      2015-10-21   etxberb     Added snmp
+%% R5A/1      2016-01-28   etomist     Added cch
+%% R9A/1      2017-04-06   etxberb     Added jsone & vnfc for 5G.
+%% R9A/2      2017-04-07   etxberb     Moved vnfc to 2nd last place.
+%% R10A/1     2017-04-28   eivmiha     Added ftpes
+%% R10A/2     2017-05-02   eivmiha     Removed ftpes
+%% R10A/3     2017-05-24   estjako     Added ftpes
+%% ----------------------------------------------------------
+
+{application, sys,
+ [
+  {id,"&id&"},
+  {vsn, "&vsn&"},
+  {modules, "&modules&"},
+  {mod, {sysApp,[{initmodule, sysDataInit}]}},
+  {description, "System application for RCS"},
+  {maxP, infinity}, % infinity | integer()
+  {maxT, infinity}, % infinity | integer()
+  {registered, []},
+  {applications, [kernel, stdlib, mnesia, crypto, safs, ssh, eitc,
+		  runtime_tools, snmp]},
+%%% NOTE! cec should be the first of the included applications! peno
+%%% NOTE! APPM should be the last of the included applications! JOTJ
+  {included_applications,  [cec,
+			    jsone,
+			    comte, comsa, coi, log, alh, clh, swm, pms, pes,
+			    lih, lma, cert, gmf, oot, eqs, ecoli, omc, aic,
+			    tim, cch, vnfc, ftpes,
+			    appm]},
+  {env,[]}
+ ]}.

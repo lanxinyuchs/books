@@ -1,0 +1,18 @@
+%%%-----------------------------------------------------------------------------
+%%% @author etxivri
+%%% @copyright Ericsson AB 2016
+%%% @doc
+%%%
+%%% @end
+%%% Created :  4 Apr 2017 by ETXIVRI
+%%%-----------------------------------------------------------------------------
+
+%%------------------------------------------------------------------------------
+%%       -- 
+%%
+%%------------------------------------------------------------------------------
+      {merge_tests, false}.
+      {cases, "./rcsmw/test/test/suites/5G/", create_vnf_from_zip_SUITE, [create_datacenter]}.
+      {cases, "./rcsmw/test/test/suites/5G/", create_vnf_from_zip_SUITE, [create_vnf_using_zip]}.
+      {cases, "./rcsmw/test/test/suites/5G/", create_vnf_from_zip_SUITE, [check_cli_coli_nc]}.
+

@@ -1,0 +1,10 @@
+<appdata target="gmfMim">
+    <mimInfos>
+      <mimInfo file="Transport_mp.xml"
+               path="*/fake-*/priv"
+               ifType="imm"/>
+    </mimInfos>
+ </appdata>
+
+<!--           path="CXC1/priv/model" -->
+<!--           path="CXC2/priv/model" -->

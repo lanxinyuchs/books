@@ -1,0 +1,22 @@
+%%%-----------------------------------------------------------------------------
+%%% @author etxjovp
+%%% @copyright Ericsson AB 2013
+%%% @doc
+%%%
+%%% @end
+%%% Created :  6 Nov 2012 by ETXJOVP
+%%%-----------------------------------------------------------------------------
+
+
+%%------------------------------------------------------------------------------
+%%  R2A/1      2013-04-19  etxjovp     create
+%%------------------------------------------------------------------------------
+      {define, 'Top', ".."}.
+      {define, 'T1', "'Top'/suites/install"}.
+      {define, 'T2', "'Top'/suites/RBS"}.
+      {define, 'T3', "'Top'/suites/ROB"}.
+      {cases, 'T1', basic_tests_SUITE, [power_cycle]}.
+      {cases, 'T2', rbs_meas_restart_SUITE, [measure_reboot_mw_login_com_appl_netconf_time_memsize,
+      measure_power_mw_login_com_appl_netconf_time_memsize, 
+      measure_initial_restart_com_appl_netconf_time_memsize ]}.
+      {cases, 'T3', rob_restart_SUITE, [init_restart_10_times]}.

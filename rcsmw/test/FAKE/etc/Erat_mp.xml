@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Copyright (c) 2013 Ericsson AB. 
+	All rights reserved 
+
+	DX ECIM Tool-chain generated this file on Nov 12, 2013 1:34:09 PM using:
+	* com.ericsson.ecim.m2m 2.8.0.201310082250
+	* com.ericsson.ecim.dsl 2.8.0.201310082250
+	* com.ericsson.ecim.edm 2.8.0.201310082250
+--><!DOCTYPE models SYSTEM "mp.dtd">
+
+
+
+
+<models>
+  <dtdVersion>F</dtdVersion>
+  <momMetaData>
+    <momTitle>title</momTitle>
+    <momSubTitle>sub title</momSubTitle>
+    <momIdentity>
+      <docNum>0</docNum>
+      <docLang>English</docLang>
+      <docRev>0</docRev>
+      <docDate>date</docDate>
+    </momIdentity>
+    <createdBy>
+      <signature>kingdom</signature>
+    </createdBy>
+    <approvedBy>
+      <signature>great_britan</signature>
+    </approvedBy>
+  </momMetaData>
+
+
+
+<mim author="PM team" contact="PM team" correction="0" date="" docNo="" name="Erat" namespace="urn:com:ericsson:ecim:Erat" namespacePrefix="erat" organization="" release="0" revision="" version="1">
+        <description>Base routing fragment.</description>
+        <domainExtension domain="ECIM">
+            <extension name="ecimMomName" value="ECIM_RAT"/>
+            <extension name="ecimMomVersion" value="0"/>
+            <extension name="ecimMomRelease" value="2"/>
+            <extension name="ecimMomCorrection" value="0"/>
+            <extension name="immNamespace" value="NONE"/>
+        </domainExtension>
+        <implements correction="0" name="ECIM_RAT" release="2" version="0"/>
+        <class name="Erat">
+            <description>England RAT parent.</description>
+            <root/>
+                <attribute name="eratId">
+                <description>The value component of the RDN.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+        </class>
+    </mim>
+
+
+
+
+<mim author="PM team" contact="PM team" correction="0" date="" docNo="" name="EratCharles" namespace="urn:com:ericsson:ecim:EratCharles" namespacePrefix="eratCharles" organization="" release="0" revision="" version="1">
+        <description>Prince Charles.</description>
+        <domainExtension domain="ECIM">
+            <extension name="ecimMomName" value="ECIM_RAT_Charles"/>
+            <extension name="ecimMomVersion" value="0"/>
+            <extension name="ecimMomRelease" value="2"/>
+            <extension name="ecimMomCorrection" value="0"/>
+            <extension name="immNamespace" value="NONE"/>
+        </domainExtension>
+        <implements correction="0" name="ECIM_RAT_Charles" release="2" version="0"/>
+        <class name="Charles">
+            <description>Prince Charles</description>
+            <attribute name="charlesId">
+                <description>The value component of the RDN.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>   
+        </class>
+    </mim>
+
+
+
+<mim author="PM team" contact="PM team" correction="0" date="" docNo="" name="EratCharlesSon" namespace="urn:com:ericsson:ecim:EratCharlesSon" namespacePrefix="ratGbCharlesSon" organization="" release="0" revision="" version="1">
+        <description>Prince Charles' son.</description>
+        <domainExtension domain="ECIM">
+            <extension name="ecimMomName" value="ECIM_RAT_CharlesSon"/>
+            <extension name="ecimMomVersion" value="0"/>
+            <extension name="ecimMomRelease" value="2"/>
+            <extension name="ecimMomCorrection" value="0"/>
+            <extension name="immNamespace" value="NONE"/>
+        </domainExtension>
+        <implements correction="0" name="ECIM_RAT_CharlesSon" release="2" version="0"/>
+        <class name="CharlesSon">
+            <description>Charles Son</description>
+            <attribute name="charlesSonId">
+                <description>The value component of the RDN.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>   
+        </class>
+    </mim>
+
+
+
+<mim author="PM team" contact="PM team" correction="0" date="" docNo="" name="EratCharlesSonSon" namespace="urn:com:ericsson:ecim:EratCharlesSonSon" namespacePrefix="eratCharlesSonSon" organization="" release="0" revision="" version="1">
+        <description>Prince Charles' son's son.</description>
+        <domainExtension domain="ECIM">
+            <extension name="ecimMomName" value="ECIM_RAT_CharlesSonSon"/>
+            <extension name="ecimMomVersion" value="0"/>
+            <extension name="ecimMomRelease" value="2"/>
+            <extension name="ecimMomCorrection" value="0"/>
+            <extension name="immNamespace" value="NONE"/>
+        </domainExtension>
+        <implements correction="0" name="ECIM_RAT_CharlesSonSon" release="2" version="0"/>
+        <class name="CharlesSonSon">
+            <description>Charles Sonson </description>
+            <attribute name="charlesSonSonId">
+                <description>The value component of the RDN.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>   
+        </class>
+    </mim>
+
+
+
+<mim author="PM team" contact="PM team" correction="0" date="" docNo="" name="EratElizabeth" namespace="urn:com:ericsson:ecim:EratElizabeth" namespacePrefix="eratElizabeth" organization="" release="0" revision="" version="1">
+        <description>Queen Elizabeth.</description>
+        <domainExtension domain="ECIM">
+            <extension name="ecimMomName" value="ECIM_RAT_Elizabeth"/>
+            <extension name="ecimMomVersion" value="0"/>
+            <extension name="ecimMomRelease" value="2"/>
+            <extension name="ecimMomCorrection" value="0"/>
+            <extension name="immNamespace" value="NONE"/>
+        </domainExtension>
+        <implements correction="0" name="ECIM_RAT_Elizabeth" release="2" version="0"/>
+        <class name="Elizabeth">
+            <description>Queen Elizabeth </description>
+            <attribute name="elizabethId">
+                <description>The value component of the RDN.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>   
+        </class>
+    </mim>
+
+
+
+<mim author="PM team" contact="PM team" correction="0" date="" docNo="" name="EratAndrew" namespace="urn:com:ericsson:ecim:EratAndrew" namespacePrefix="eratAndrew" organization="" release="0" revision="" version="1">
+        <description>Prince Andrew.</description>
+        <domainExtension domain="ECIM">
+            <extension name="ecimMomName" value="ECIM_RAT_Andrew"/>
+            <extension name="ecimMomVersion" value="0"/>
+            <extension name="ecimMomRelease" value="2"/>
+            <extension name="ecimMomCorrection" value="0"/>
+            <extension name="immNamespace" value="NONE"/>
+        </domainExtension>
+        <implements correction="0" name="ECIM_RAT_Andrew" release="2" version="0"/>
+        <class name="Andrew">
+            <description>Prince Andrew </description>
+            <attribute name="andrewId">
+                <description>The value component of the RDN.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>   
+        </class>
+    </mim>
+
+
+<mim author="PM team" contact="PM team" correction="0" date="" docNo="" name="EratBeatrice" namespace="urn:com:ericsson:ecim:EratBeatrice" namespacePrefix="eratBeatrice" organization="" release="0" revision="" version="1">
+        <description>Princess Beatrice.</description>
+        <domainExtension domain="ECIM">
+            <extension name="ecimMomName" value="ECIM_RAT_Beatrice"/>
+            <extension name="ecimMomVersion" value="0"/>
+            <extension name="ecimMomRelease" value="2"/>
+            <extension name="ecimMomCorrection" value="0"/>
+            <extension name="immNamespace" value="NONE"/>
+        </domainExtension>
+        <implements correction="0" name="ECIM_RAT_Beatrice" release="2" version="0"/>
+        <class name="Beatrice">
+            <description>Princess Beatrice </description>
+            <attribute name="beatriceId">
+                <description>The value component of the RDN.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>   
+        </class>
+    </mim>
+
+
+
+<mim author="PM team" contact="PM team" correction="0" date="" docNo="" name="EratEugenie" namespace="urn:com:ericsson:ecim:EratEugenie" namespacePrefix="eratEugenie" organization="" release="0" revision="" version="1">
+        <description>Princess Eugenie.</description>
+        <domainExtension domain="ECIM">
+            <extension name="ecimMomName" value="ECIM_RAT_Eugenie"/>
+            <extension name="ecimMomVersion" value="0"/>
+            <extension name="ecimMomRelease" value="2"/>
+            <extension name="ecimMomCorrection" value="0"/>
+            <extension name="immNamespace" value="NONE"/>
+        </domainExtension>
+        <implements correction="0" name="ECIM_RAT_Eugenie" release="2" version="0"/>
+        <class name="Eugenie">
+            <description>Princess Eugenie </description>
+            <attribute name="eugenieId">
+                <description>The value component of the RDN.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>   
+        </class>
+    </mim>
+
+
+
+
+
+
+    <interMim>
+        <relationship name="Andrew_to_Eugenie">
+            <domainExtension domain="CoreMW">
+                <extension name="splitImmDn" value="false"/>
+            </domainExtension>
+            <containment>
+                <parent>
+                    <hasClass name="Andrew">
+                        <mimName>EratAndrew</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="Eugenie">
+                        <mimName>EratEugenie</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+            </containment>
+        </relationship>
+    </interMim>
+
+
+
+    <interMim>
+        <relationship name="Andrew_to_Beatrice">
+            <domainExtension domain="CoreMW">
+                <extension name="splitImmDn" value="false"/>
+            </domainExtension>
+            <containment>
+                <parent>
+                    <hasClass name="Andrew">
+                        <mimName>EratAndrew</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="Beatrice">
+                        <mimName>EratBeatrice</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+            </containment>
+        </relationship>
+    </interMim>
+
+
+
+    <interMim>
+        <relationship name="Elizabeth_to_Andrew">
+            <domainExtension domain="CoreMW">
+                <extension name="splitImmDn" value="false"/>
+            </domainExtension>
+            <containment>
+                <parent>
+                    <hasClass name="Elizabeth">
+                        <mimName>EratElizabeth</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="Andrew">
+                        <mimName>EratAndrew</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+            </containment>
+        </relationship>
+    </interMim>
+
+
+   
+
+    <interMim>
+        <relationship name="Erat_to_Elizabeth">
+            <domainExtension domain="CoreMW">
+                <extension name="splitImmDn" value="false"/>
+            </domainExtension>
+            <containment>
+                <parent>
+                    <hasClass name="Erat">
+                        <mimName>Erat</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="Elizabeth">
+                        <mimName>EratElizabeth</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+            </containment>
+        </relationship>
+    </interMim>
+
+
+    <interMim>
+        <relationship name="CharlesSon_to_CharlesSonSon">
+            <domainExtension domain="CoreMW">
+                <extension name="splitImmDn" value="false"/>
+            </domainExtension>
+            <containment>
+                <parent>
+                    <hasClass name="CharlesSon">
+                        <mimName>EratCharlesSon</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="CharlesSonSon">
+                        <mimName>EratCharlesSonSon</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+            </containment>
+        </relationship>
+    </interMim>
+
+    <interMim>
+        <relationship name="Charles_to_CharlesSon">
+            <domainExtension domain="CoreMW">
+                <extension name="splitImmDn" value="false"/>
+            </domainExtension>
+            <containment>
+                <parent>
+                    <hasClass name="Charles">
+                        <mimName>EratCharles</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="CharlesSon">
+                        <mimName>EratCharlesSon</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+            </containment>
+        </relationship>
+    </interMim>
+
+
+    <interMim>
+        <relationship name="Erat_to_Charles">
+            <domainExtension domain="CoreMW">
+                <extension name="splitImmDn" value="false"/>
+            </domainExtension>
+            <containment>
+                <parent>
+                    <hasClass name="Erat">
+                        <mimName>Erat</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="Charles">
+                        <mimName>EratCharles</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+            </containment>
+        </relationship>
+    </interMim>
+
+    <interMim>
+        <relationship name="ManagedElement_to_Erat">
+            <domainExtension domain="CoreMW">
+                <extension name="splitImmDn" value="true"/>
+            </domainExtension>
+            <containment>
+                <parent>
+                    <hasClass name="ManagedElement">
+                        <mimName>ECIM_Top</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="Erat">
+                        <mimName>Erat</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                        <max>1</max>
+                    </cardinality>
+                </child>
+            </containment>
+        </relationship>
+    </interMim>
+
+</models>

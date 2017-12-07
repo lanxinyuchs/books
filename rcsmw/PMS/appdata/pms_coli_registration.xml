@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!--
+# ========================================================== 
+# %CCaseFile:	pms_coli_registration.xml % 
+# %CCaseRev:	/main/R2A/R4A/R5A/6 % 
+# %CCaseDate:	2016-03-08 % 
+#                                                            
+# Author:	etxbjca 
+# Description:	CAX appdata file   
+#                                                            
+# ========================================================== 
+#                                                            
+# %CCaseCopyrightBegin%
+# Copyright (c) Ericsson AB 2014-2016 All rights reserved.
+# 
+# The information in this document is the property of Ericsson.
+# 
+# Except as specifically authorized in writing by Ericsson, the 
+# receiver of this document shall keep the information contained 
+# herein confidential and shall protect the same in whole or in 
+# part from disclosure and dissemination to third parties.
+# 
+# Disclosure and disseminations to the receivers employees shall 
+# only be made on a strict need to know basis.
+# %CCaseCopyrightEnd%
+#                                                            
+# ========================================================== 
+# REVISION LOG 
+# ========================================================== 
+#                                                            
+# Rev        Date       Name        What 
+# ========   ========   ========    ======================== 
+# R          2013-10-03   etxpejn     Created 
+# R2A/3      2014-07-03 etxberb     Added DEPRECATED.
+# R2A/4      2014-09-03 etxberb     Removed deprecated commands.
+# ========================================================== 
+#
+# NOTE: authorization specification in sys_coli_authorizations.xml
+# 
+# ========================================================== 
+-->                                                         
+
+<appdata target="coli_reg">
+  <coli_erlang_reg
+      cli_name = "rp"
+      cli_path = "/pms"
+      cli_scope = "central"
+      usage = "Option"
+      module = "pmsI" function = "coli_rp">
+    <description>
+Reporting Period.
+
+Options:
+ecim
+      Set test mode for reporting period.
+      Allow all reporting periods to be used as defined in ECIM PM.
+
+legacy
+      Unset test mode for reporting period.
+      Allow reporting period to only be set to values allowed in legacy.
+    </description>
+  </coli_erlang_reg>  
+
+
+
+
+  <coli_erlang_reg
+      cli_name = "countertracing"
+      cli_path = "/pms"
+      cli_scope = "central"
+      usage = "Options"
+      module = "pmsDebug" function = "counter_filter">
+    <description>
+Deprecated. Use /log/ramlog.
+    </description>
+  </coli_erlang_reg>  
+
+</appdata>

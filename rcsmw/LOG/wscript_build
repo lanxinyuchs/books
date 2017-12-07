@@ -1,0 +1,7 @@
+APP = bld.rcsErlApp("log", ["model"], cxaid="195", cxcid="131", appdataroot="log", )
+
+bld.install_files("${PREFIX}/"+APP+"/priv",
+   bld.path.ant_glob("appdata/*"),
+   relative_trick=True)
+
+bld.install_files(bld.getPrv(APP)+"/gpg", ["esrc/public.key"])

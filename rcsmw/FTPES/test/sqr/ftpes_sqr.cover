@@ -1,0 +1,4 @@
+{excl_mods,[ftpesDataInit]}.
+{expected_coverage, 50}.
+{level, details}.
+{incl_dirs, ["/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/FTPES/FTPES_CNX9013442/FTPES_CAX1034102/out"]}.

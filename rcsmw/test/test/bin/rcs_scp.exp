@@ -1,0 +1,99 @@
+#!/usr/bin/env expect
+## ----------------------------------------------------------
+## Copyright (c) Ericsson AB 2013 All rights reserved.
+##
+## The information in this document is the property of Ericsson.
+##
+## Except as specifically authorized in writing by Ericsson, the
+## receiver of this document shall keep the information contained
+## herein confidential and shall protect the same in whole or in
+## part from disclosure and dissemination to third parties.
+##
+## Disclosure and disseminations to the receivers employees shall
+## only be made on a strict need to know basis.
+## ----------------------------------------------------------
+## #1.    REVISION LOG
+## ----------------------------------------------------------
+## Rev        Date         Name        What
+## --------   --------     --------    ------------------------
+## R2A/1      2012-03-19   etxjovp     Created
+## ----------------------------------------------------------
+
+
+proc usage {} {
+    puts "rcs_scp NODE FILE DESTDIR"   
+    puts "Example:     rcs_scp  dus031 nisse.beam /home/sirpa/dev_patches/"
+    exit
+}
+
+if { $argc != 3 } {
+    usage
+}
+set NODE [lindex $argv 0 ]
+set FILE [lindex $argv 1 ]
+set DESTDIR [lindex $argv 2 ]
+set USER "root"
+set PASSWORD "root"
+set TIMEOUT 2
+set Line [exec cat /proj/webdocs/rbs-rde-wiki/root/data/Main/LabConfig.txt | grep $NODE ]
+set Items [split $Line "|"]
+set IP [lindex $Items 10]
+
+set timeout $TIMEOUT
+log_user 0
+proc cmd {Ip File DestDir} {
+    global USER PASSWORD
+
+    spawn scp $File ${USER}@${Ip}:${DestDir} 
+
+    match_max 5000
+    expect {
+        "password:" {
+            exp_send "${PASSWORD}\r"
+            exp_continue
+        }
+         "Password:" {
+            exp_send "${PASSWORD}\r"
+            exp_continue
+        }
+        "(yes/no)" {
+            exp_send "yes\r"
+            exp_continue
+        }
+        eof {
+             wait
+             return $expect_out(buffer)
+        }
+        "Connection refused" {
+            close
+            wait
+            return "no_login"
+        }
+        "Connection closed by remote host" {
+            close
+            wait
+            return "no_login"
+        }
+        timeout {
+            close
+            wait
+            return "no_login"
+        }
+    }
+}
+
+
+
+set HOME $::env(HOME)
+puts "rm -f ${HOME}/.ssh/known_hosts"
+exec rm -f ${HOME}/.ssh/known_hosts
+set Exit 0
+if {[regexp {([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+).*} $IP matched IP2]} {
+set Result [cmd $IP2 $FILE $DESTDIR]
+     if { $Result == "no_login"} {
+       set Exit 1		    
+      } 		
+    puts "$Result"
+}
+exit $Exit
+

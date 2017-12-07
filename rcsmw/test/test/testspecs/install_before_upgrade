@@ -1,0 +1,36 @@
+%%%-----------------------------------------------------------------------------
+%%% @author etxjovp
+%%% @copyright Ericsson AB 2013
+%%% @doc
+%%%
+%%% @end
+%%% Created :  9 Jan 2013 by ETXJOVP
+%%%-----------------------------------------------------------------------------
+
+%%------------------------------------------------------------------------------
+%%       -- 
+%%
+%%------------------------------------------------------------------------------
+{define, 'Top', ".."}.
+      {define, 'T1', "'Top'/suites/install"}.
+      {define, 'T2', "'Top'/suites/install"}.
+      {define, 'T3', "'Top'/suites/install"}.
+      {cases, 'T1', install_dus_SUITE, [install, check_sw_version]}.
+      {cases, 'T2', check_after_install_SUITE, [logs_and_cpu]}.
+%      {cases, 'T3', basic_tests_SUITE, [
+%         check_test_app,
+%	 cli,
+%	 coli, 
+% 	 nc_get_config, 
+%	 nc_get,
+%	 nc_add_rbsunit, 
+%	 nc_reset_rbsunit, 
+%	 nc_delete_rbsunit, 
+%	 nc_getset_config, 
+%	 check_colid, 
+%	 check_xted, 
+%	 check_linx_ns,
+%	 test_root_mo,
+%	 test_class1_all
+%      ]}.
+

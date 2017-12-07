@@ -1,0 +1,608 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Copyright (c) 2016 Ericsson AB. 
+	All rights reserved 
+
+	DX ECIM Tool-chain generated this file on Jun 15, 2016 3:00:32 PM using:
+	* com.ericsson.ecim.m2m 3.1.1.201512140021
+	* com.ericsson.ecim.dsl 3.1.1.201512140021
+	* com.ericsson.ecim.edm 3.1.1.201512140021
+--><!DOCTYPE models SYSTEM "mp.dtd">
+<models>
+    <dtdVersion>G</dtdVersion>
+    <momMetaData>
+        <momTitle>ECIM Security Management: Local Authorization Method</momTitle>
+        <momSubTitle>sub title</momSubTitle>
+        <momIdentity>
+            <docNum>7/155 54-CNX 901 2610</docNum>
+            <docLang>English</docLang>
+            <docRev>0</docRev>
+            <docDate>date</docDate>
+        </momIdentity>
+        <createdBy>
+            <signature>ETH/XES Balazs Kovacs</signature>
+        </createdBy>
+    </momMetaData>
+    <mim author="EAB/FLE/CD XPRAGPA" contact="" correction="0" date="2017-02-06" docNo="7/155 54-CNX 901 2610" name="RcsLocalAuthorization" namespace="urn:com:ericsson:ecim:RcsLocalAuthorization" namespacePrefix="rcslocalauthorization" organization="EAB/FLE/CD" release="1" revision="0" version="1">
+        <description>Local Role Based Access Control (RBAC) model.</description>
+        <domainExtension domain="ECIM">
+            <extension name="ecimMomName" value="ECIM_Local_Authorization"/>
+            <extension name="ecimMomVersion" value="2"/>
+            <extension name="ecimMomRelease" value="3"/>
+            <extension name="ecimMomCorrection" value="0"/>
+        </domainExtension>
+        <implements correction="0" name="ECIM_Local_Authorization" release="3" version="2"/>
+        <enum name="PermissionType">
+            <description>Permission is the access right a role has on a target object specified by the ruleData attribute.&#13;
+&#13;
+Current permission types follow UNIX/Linux permission enumeration values as follows:&#13;
+0 = NO_ACCESS&#13;
+1 = X (EXECUTE)&#13;
+4 = R (READ)&#13;
+5 = RX (READ and EXECUTE)&#13;
+6 = RW (READ and WRITE)&#13;
+7 = RWX (READ, WRITE and EXECUTE)&#13;
+&#13;
+Reserved values that are not included here are as follows and if required, may be introduced at a later date: &#13;
+&#13;
+2 = W (WRITE)&#13;
+3 = WX (WRITE and EXECUTE).</description>
+            <enumMember name="R">
+                <description>Read only access right.&#13;
+&#13;
+The user can read MOs and can get attribute values.</description>
+                <value>4</value>
+            </enumMember>
+            <enumMember name="RW">
+                <description>Read and write access right.&#13;
+&#13;
+The user can create and delete MOs and set and get attribute values.</description>
+                <value>6</value>
+            </enumMember>
+            <enumMember name="X">
+                <description>Execute access right.&#13;
+&#13;
+This is valid only for actions and specific commands.</description>
+                <value>1</value>
+            </enumMember>
+            <enumMember name="RX">
+                <description>Read and execute access rights.&#13;
+&#13;
+The user can read MOs, get attribute values, and execute any actions.</description>
+                <value>5</value>
+            </enumMember>
+            <enumMember name="RWX">
+                <description>Read, write, and execute access rights.&#13;
+&#13;
+The user can create and delete MOs, and set and get attribute values, and execute any actions.</description>
+                <value>7</value>
+            </enumMember>
+            <enumMember name="NO_ACCESS">
+                <description>No access.&#13;
+&#13;
+The user has no read, write or execute rights to the MO, attribute, or action.</description>
+                <value>0</value>
+            </enumMember>
+        </enum>
+        <enum name="BasicAdmState">
+            <description>Basic administrative states for a resource.</description>
+            <domainExtension domain="ECIM">
+                <extension name="originatingMimRelease" value="8"/>
+                <extension name="originatingMimName" value="ECIM_CommonLibrary"/>
+                <extension name="originatingMimVersion" value="1"/>
+            </domainExtension>
+            <enumMember name="LOCKED">
+                <description> The resource is administratively prohibited from performing services for its users.</description>
+                <value>0</value>
+            </enumMember>
+            <enumMember name="UNLOCKED">
+                <description>The resource is administratively permitted to perform services for its users.&#13;
+This is independent of its inherent operability.</description>
+                <value>1</value>
+            </enumMember>
+        </enum>
+        <derivedDataType name="RuleDataType">
+            <description>This type specifies the target Managed Object (MO) or MO Class (MOC) that a rule applies to.&#13;
+&#13;
+Entire sub-trees can be addressed as well as attributes and actions defined for a specific MO or MOC. Patterns are used for this purpose according to simplified regular expression syntax. Any regular expression can also be defined but must be identified as such using a specific prefix.&#13;
+&#13;
+MOCs are specified in their containment hierarchy separated by commas “,”. For example:  “ManagedElement,ApplFuncX”. &#13;
+ &#13;
+MOs are specified using the 3GPP DN notation, with the exception that the same rule may mix MO and MOC, such as “ManagedElement, ApplFuncX=1”. Omitting the instance Id is the preferred notation for singleton MOCs, which makes the rule applicable for all ManagedElement instances. Thus rule design becomes independent of system implementation for singleton MOC types.&#13;
+&#13;
+If the naming attribute is not the same as the MO Class name + “Id”, the naming attribute is in accordance with the 3GPP part of the DN as well. This means that if ApplFuncX naming attribute is xyz, then the DN is “ManagedElement,ApplFuncX.xyz=2”. However, it is not required nor forbidden to use this more elaborate form of DN. The naming attribute xyz can be omitted.&#13;
+ &#13;
+Attributes and actions are specified after the MO or MOC separated by a dot “.”. Since the ‘,’ character is allowed in the naming attribute of MO of 3GPP DNs, escaping must be used if the character occurs in an attribute value by the reverse solidus (‘\’) character. Several attributes or actions can be specified for the same MO or MOC separated by the the bar “|” character.&#13;
+&#13;
+The rule applies to a single MO or MOC and all its attributes and actions unless the following notation is used:  &#13;
+&#13;
+...,MOC.* 	The rule applies to all attributes and actions that belong to the MO Class, but not to the MOC itself. &#13;
+...,MOC,*	The rule applies to the MOC and all its attributes and actions and all contained (child) MOCs and their attribute and actions.&#13;
+&#13;
+(DEPRECATED: ...,MOC$ 	The rule applies only to the MOC itself and not to its attributes and actions.)&#13;
+&#13;
+The above notations are also valid for MOs and must close an expression.&#13;
+&#13;
+In addition, the ruleData attribute can specify any Perl Compatible Regular Expressions. These regular expressions must only be used by CLI command modules for tailored commands or by Netconf modules for Netconf operations. The permitted content is specified by the CLI and Netconf documentation. The only general restriction to these kinds of rule data is that they must start with “:cli:regexp:” or “:netconf:regexp:” plus a different expression from the wild card “.*”. &#13;
+&#13;
+Examples:&#13;
+1)	Entire MO tree, that is the rule will match all Managed Objects:&#13;
+ManagedElement,*&#13;
+&#13;
+2)	Only MOs and their attributes and actions of ManagedElement MOC:&#13;
+ManagedElement &#13;
+&#13;
+3)	(Deprecated) Only MOs of ManagedElement MOC but not their attributes and actions:&#13;
+ManagedElement$&#13;
+&#13;
+4)	A specific MO including singleton parents:&#13;
+ManagedElement,Equipment,FRU=19&#13;
+ManagedElement=10\.10\.10\.10&#13;
+&#13;
+5)	An entire sub-tree below that includes a specific MO:&#13;
+ManagedElement,Equipment,FRU=17,*&#13;
+&#13;
+6)	An entire sub-tree below that includes a specific MO that belongs to an MO class where the naming attribute is not equal to the MOC Name + “Id”.  Two examples are given, both are valid and accurately describe the same MO tree:&#13;
+ManagedElement,Equipment,Abc.xyz=1,*&#13;
+ManagedElement,Equipment,Abc=1,*&#13;
+&#13;
+7)	All port attributes that belong to MOs of the Boo MOC:&#13;
+ManagedElement,ApplFuncX,Boo.port&#13;
+&#13;
+8)	All ipAddress and port attributes that belong to MOs of the Boo MO class:&#13;
+ManagedElement,ApplFuncX,Boo.ipAddress|port&#13;
+&#13;
+9)	Only the port attribute that belongs to a specific instance of the Boo MOC:&#13;
+ManagedElement,ApplFuncX=1,Boo=17.port&#13;
+&#13;
+10)	The restart action on the ManagedElement MOC:&#13;
+ManagedElement.restart&#13;
+&#13;
+11)	All CLI commands in the command module group 'System':&#13;
+:cli:regexp:System-[a-zA-Z0-9]+ &#13;
+or&#13;
+regexp:System-[a-zA-Z0-9]+ &#13;
+&#13;
+12)	Netconf operation &lt;operationx&gt;:&#13;
+:netconf:regexp:operationx</description>
+            <baseType>
+                <string>
+                    <validValues>(^[^,=[:space:]+&lt;&gt;#;\\"*$|.]+(\.[^,=[:space:]+&lt;&gt;#;\\"*$|.]+)?(=[^,=[:cntrl:]+&lt;&gt;#;"*$|]+)?(,[^,=[:space:]+&lt;&gt;#;\\"*$|.]+(\.[^,=[:space:]+&lt;&gt;#;\\"*$|.]+)?(=[^,=[:cntrl:]+&lt;&gt;#;"*$|]+)?)*((\.[^,=[:space:]+&lt;&gt;#;\\"*$|.]+(\|[^,=[:space:]+&lt;&gt;#;\\"*$|.]+)*)|(,\*)|(\.\*)|(\$))?$)|(^(:(cli|netconf):)?regexp:.*(\[A-Za-z0-9_\]\+)*.*$)</validValues>
+                </string>
+            </baseType>
+            <validationRules>
+                <rule exceptionText="" format="posix_ere" name="Pattern Constraint"><![CDATA[(^[^,=[:space:]+<>#;\\"*$|.]+(\.[^,=[:space:]+<>#;\\"*$|.]+)?(=[^,=[:cntrl:]+<>#;"*$|]+)?(,[^,=[:space:]+<>#;\\"*$|.]+(\.[^,=[:space:]+<>#;\\"*$|.]+)?(=[^,=[:cntrl:]+<>#;"*$|]+)?)*((\.[^,=[:space:]+<>#;\\"*$|.]+(\|[^,=[:space:]+<>#;\\"*$|.]+)*)|(,\*)|(\.\*)|(\$))?$)|(^(:(cli|netconf):)?regexp:.*(\[A-Za-z0-9_\]\+)*.*$)]]></rule>
+            </validationRules>
+        </derivedDataType>
+        <class name="Role">
+            <description>Authorization roles that may be assigned to users.&#13;
+&#13;
+Roles have a containment relationship to the rules which define the access controls to objects.</description>
+            <systemCreated/>
+            <attribute name="roleId">
+                <description>The value component of the RDN.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="roleName">
+                <description>The role name a user may have.&#13;
+&#13;
+The name is matched against role names retrieved from the user information store.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <readOnly/>
+                <isNillable/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="userLabel">
+                <description>An additional descriptive text.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="Rule">
+            <description>The rules that define the access control to objects.&#13;
+&#13;
+A Rule MO is contained by a Role MO which may be then applied to users.</description>
+            <systemCreated/>
+            <attribute name="ruleId">
+                <description>The value component of the RDN.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="ruleName">
+                <description>The rule name.&#13;
+&#13;
+The rule name is a string of '&lt;FunctionName&gt;_&lt;RuleNumber&gt;'&#13;
+&#13;
+&lt;FunctionName&gt; is a unique name for a system, transport, equipment, or application function.  &#13;
+&#13;
+&lt;RuleNumber&gt; is a numerical ID of the Rule MO within a &lt;FunctionName&gt;. &#13;
+&#13;
+Examples:&#13;
+&#13;
+	BackupAndRestoreManagement_1&#13;
+	FileManagement_2&#13;
+	SecurityManagement_2&#13;
+	SystemManagement_1&#13;
+</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <noNotification/>
+                <readOnly/>
+                <isNillable/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="permission">
+                <description>Permission is the access right the rule provides on a target specified by the ruleData attribute. </description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <noNotification/>
+                <readOnly/>
+                <isNillable/>
+                <dataType>
+                    <enumRef name="PermissionType">
+                        <mimName>RcsLocalAuthorization</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="ruleData">
+                <description>Defines the model elements for which the permission is applicable.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <noNotification/>
+                <readOnly/>
+                <isNillable/>
+                <dataType>
+                    <derivedDataTypeRef name="RuleDataType">
+                        <mimName>RcsLocalAuthorization</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="userLabel">
+                <description>An additional descriptive text.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="LocalAuthorizationMethod">
+            <description>The Root MOC of the Local Authorization method.&#13;
+&#13;
+Roles and authorization rules are defined to build a Role Based Access Control (RBAC) model for controlling access to Managed Element resources such as Managed Objects, attributes, actions and CLI commands. </description>
+            <systemCreated/>
+            <root/>
+            <attribute name="localAuthorizationMethodId">
+                <description>The value component of the RDN.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="administrativeState">
+                <description>The administrative state of this authorization method.</description>
+                <mandatory/>
+                <dataType>
+                    <enumRef name="BasicAdmState">
+                        <mimName>RcsLocalAuthorization</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="userLabel">
+                <description>An additional descriptive text.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="CustomRole">
+            <description>Authorization roles defined by the MS that may be assigned to users.&#13;
+&#13;
+CustomRole MO instances are associated to CustomRule MO instances, which define the access controls to objects. </description>
+            <validationRules>
+                <rule exceptionText="" format="ECIM_Schematron_1.0" name="roleName should be unique."><![CDATA[<schema xmlns="http://purl.oclc.org/dsdl/schematron">
+                                <pattern>
+                                  <rule context="LocalAuthorizationMethod">
+                                       <assert  test='(are-distinct-values(CustomRole/@roleName))'>ERROR: roleName should be unique.</assert>
+                                  </rule>
+                                  <rule>
+                                       <assert  test='(every $roleNameCustom in @roleName satisfies every $roleNameSystem in ../Role/@roleName satisfies $roleNameCustom ne $roleNameSystem)'>ERROR: roleName should be unique.</assert>
+                                   </rule>
+                                </pattern>
+                            </schema>]]></rule>
+            </validationRules>
+            <dependenciesScript><![CDATA[<schema xmlns="http://purl.oclc.org/dsdl/schematron">
+                                <pattern>
+                                  <rule context="LocalAuthorizationMethod">
+                                       <assert  test='(are-distinct-values(CustomRole/@roleName))'>ERROR: roleName should be unique.</assert>
+                                  </rule>
+                                  <rule>
+                                       <assert  test='(every $roleNameCustom in @roleName satisfies every $roleNameSystem in ../Role/@roleName satisfies $roleNameCustom ne $roleNameSystem)'>ERROR: roleName should be unique.</assert>
+                                   </rule>
+                                </pattern>
+                            </schema>]]></dependenciesScript>
+            <attribute name="customRoleId">
+                <description>The value component of the RDN.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="roleName">
+                <description>The role name a user may have.&#13;
+&#13;
+The name must match a role name retrieved from the user information store.</description>
+                <mandatory/>
+                <restricted/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="userLabel">
+                <description>An additional descriptive text.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="rules">
+                <description>The rules of the role created by the MS.&#13;
+&#13;
+Contains the Distinguished Names of CustomRule MO instances.</description>
+                <mandatory/>
+                <dataType>
+                    <sequence>
+                        <moRef name="CustomRule">
+                            <mimName>RcsLocalAuthorization</mimName>
+                        </moRef>
+                        <minLength>1</minLength>
+                        <nonUnique/>
+                    </sequence>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="CustomRule">
+            <description>The rules created by the MS that define the access control to objects.&#13;
+&#13;
+The CustomRule MO instances are associated with CustomRole MO instances, which may be then applied to users. </description>
+            <attribute name="customRuleId">
+                <description>The value component of the RDN.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="ruleName">
+                <description>The rule name.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="permission">
+                <description>Permission is the access right the rule provides on a target specified by the ruleData attribute. </description>
+                <mandatory/>
+                <dataType>
+                    <enumRef name="PermissionType">
+                        <mimName>RcsLocalAuthorization</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="ruleData">
+                <description>Defines the model elements for which the permission is applicable.</description>
+                <mandatory/>
+                <dataType>
+                    <derivedDataTypeRef name="RuleDataType">
+                        <mimName>RcsLocalAuthorization</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="reservedByRoles">
+                <description>The roles to which this rule is associated.&#13;
+&#13;
+Indicates the Distinguished Names of CustomRole MO instances that refer to this CustomRule MO.</description>
+                <noNotification/>
+                <readOnly/>
+                <dataType>
+                    <sequence>
+                        <moRef name="CustomRole">
+                            <mimName>RcsLocalAuthorization</mimName>
+                        </moRef>
+                        <minLength>0</minLength>
+                        <nonUnique/>
+                    </sequence>
+                </dataType>
+            </attribute>
+            <attribute name="userLabel">
+                <description>An additional descriptive text.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+        </class>
+        <relationship name="Role_to_Rule">
+            <containment>
+                <parent>
+                    <hasClass name="Role">
+                        <mimName>RcsLocalAuthorization</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="Rule">
+                        <mimName>RcsLocalAuthorization</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>1</min>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="false"/>
+                    <extension name="canDelete" value="false"/>
+                </domainExtension>
+                <notCreatable/>
+                <notDeleteable/>
+            </containment>
+        </relationship>
+        <relationship name="LocalAuthorizationMethod_to_Role">
+            <containment>
+                <parent>
+                    <hasClass name="LocalAuthorizationMethod">
+                        <mimName>RcsLocalAuthorization</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="Role">
+                        <mimName>RcsLocalAuthorization</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="false"/>
+                    <extension name="canDelete" value="false"/>
+                </domainExtension>
+                <notCreatable/>
+                <notDeleteable/>
+            </containment>
+        </relationship>
+        <relationship name="LocalAuthorizationMethod_to_CustomRole">
+            <containment>
+                <parent>
+                    <hasClass name="LocalAuthorizationMethod">
+                        <mimName>RcsLocalAuthorization</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="CustomRole">
+                        <mimName>RcsLocalAuthorization</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+        <relationship name="LocalAuthorizationMethod_to_CustomRule">
+            <containment>
+                <parent>
+                    <hasClass name="LocalAuthorizationMethod">
+                        <mimName>RcsLocalAuthorization</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="CustomRule">
+                        <mimName>RcsLocalAuthorization</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+        <relationship name="CustomRule_reservedByRoles_to_CustomRole_rules">
+            <biDirectionalAssociation>
+                <associationEnd name="rules">
+                    <hasClass name="CustomRule">
+                        <mimName>RcsLocalAuthorization</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>1</min>
+                    </cardinality>
+                </associationEnd>
+                <associationEnd name="reservedByRoles">
+                    <hasClass name="CustomRole">
+                        <mimName>RcsLocalAuthorization</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </associationEnd>
+            </biDirectionalAssociation>
+        </relationship>
+    </mim>
+    <interMim>
+        <relationship name="UserManagement_to_LocalAuthorizationMethod">
+            <containment>
+                <parent>
+                    <hasClass name="UserManagement">
+                        <mimName>RcsSecM</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="LocalAuthorizationMethod">
+                        <mimName>RcsLocalAuthorization</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>1</min>
+                        <max>1</max>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="false"/>
+                    <extension name="canDelete" value="false"/>
+                </domainExtension>
+                <notCreatable/>
+                <notDeleteable/>
+            </containment>
+        </relationship>
+    </interMim>
+</models>

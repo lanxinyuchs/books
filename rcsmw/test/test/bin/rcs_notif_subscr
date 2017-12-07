@@ -1,0 +1,172 @@
+#! /bin/bash
+##
+## %CCaseFile:	rcs_notif_subscr %
+## %CCaseRev:	/main/R4A/R6A/1 %
+## %CCaseDate:	2016-05-04 %
+## Author: <name>, <e-mail address>
+##
+## TODO: Make this a 'nodetool' function.
+##
+## Purpose: Send NETCONF requests towards the running RBS CS.
+## By default a simulated CS is assumed; the -a option allows
+## a target node IP address to be specified.
+##
+## Dependencies: Uses rcssim_ssh, common.sh
+##
+## %CCaseCopyrightBegin%
+## Copyright (c) Ericsson AB 2015-2016 All rights reserved.
+##
+## The information in this document is the property of Ericsson.
+##
+## Except as specifically authorized in writing by Ericsson, the
+## receiver of this document shall keep the information contained
+## herein confidential and shall protect the same in whole or in
+## part from disclosure and dissemination to third parties.
+##
+## Disclosure and disseminations to the receivers employees shall
+## only be made on a strict need to know basis.
+## %CCaseCopyrightEnd%
+## ----------------------------------------------------------------------
+##
+## Revision history:
+##
+## Rev        Date       Name        What
+## -----      -------    --------    ------------------------------------
+## R4A/1      2015-11-05 erarafo     First version
+## R6A/1      2016-05-04 erarafo     Added option: -v
+## ----------------------------------------------------------------------
+
+
+declare -r ssh_wrapper=rcssim_ssh
+declare -r NetconfPortDefault=2022
+declare -r Lib=$RCT_TOP/test/lib/shell
+
+# Script name
+declare -r Script=rcs_notif_subscr
+
+# Script directory
+declare -r ScriptDir=`dirname $0`
+
+function help() {
+  cat <<EOF
+Usage is:
+
+   $Script [OPTIONS] [NODE]
+
+where NODE is 'sim' for the simulator or a node name such as tcu1234.
+
+Options are needed ONLY in untypical use cases. They are:
+
+  -a DOTTED_IP      dotted-IP address of target node
+  -p PORT           non-default NETCONF port
+  -i INSTALL_DIR    simulator installation directory (rcssim_ssh -h for description)
+  -v                verbose
+  -h                this help
+
+EOF
+}
+
+# Print string to stderr and exit nonzero
+function die() {
+  printf "$Script: FATAL: $1\n" >&2
+  exit 1
+}
+
+# Print string to stderr as info message
+function info() {
+  printf "$Script: INFO: $1\n" >&2
+}
+
+# Print string to stderr as warning
+function warning() {
+  printf "$Script: WARNING: $1\n" >&2
+}
+
+
+source $Lib/common.sh
+
+
+########################################################################
+# Execution begins here
+
+declare OptionPatterns=""
+OptionPatterns+="a:"
+OptionPatterns+="h"
+OptionPatterns+="i:"
+OptionPatterns+="p:"
+OptionPatterns+="v"
+
+
+
+declare RcsSimSshOpts=""
+declare Port=$NetconfPortDefault
+declare Address=""
+declare Verbose=false
+while getopts $OptionPatterns OPT; do
+  case "$OPT" in
+    a)
+      Address="$OPTARG";;
+    h)
+      help
+      exit;;
+    i)
+      RcsSimSshOpts+=" -i $OPTARG";;
+    p)
+      Port=$OPTARG;;
+    v)
+      Verbose=true;;
+    *)
+      die "Unknown option, try -h for help"
+  esac
+done
+
+shift $((OPTIND - 1))
+
+declare Node=""
+
+if [[ $# -eq 0 && -z "$Address" ]]; then
+  die "the -a option must be used if NODE not specified, try -h for help"
+elif [[ $# -gt 1 ]]; then
+  die "too many arguments, -h for help"
+elif [[ -n "$Address" && $# -eq 1 ]]; then
+  die "the -a option must not be used if a node is specified, -h for help"
+fi
+
+if [[ $# -eq 1 ]]; then
+  Node=$1; shift
+  if [[ "$Node" != sim ]]; then
+    Address=`getAddress "$Node"`
+    if [[ -z "$Address" ]]; then
+      die "failed to resolve address of node: '$Node'"
+    fi
+  fi
+fi
+
+
+declare Command
+if [[ "$Node" == sim ]]; then
+  Command="$ssh_wrapper $RcsSimSshOpts netconf expert"
+else
+  Command="ssh -l expert -p $Port -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $Address -s netconf"
+fi
+
+if [[ $Verbose == true ]]; then
+  echo $Command
+fi
+
+$Command <<EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<hello xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+   <capabilities>
+      <capability>urn:ietf:params:netconf:base:1.0</capability>
+      <capability>urn:ietf:params:netconf:capability:notification:1.0</capability>
+   </capabilities>
+</hello>]]>]]>
+
+<?xml version="1.0" encoding="UTF-8"?>
+<rpc message-id="1" xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+   <create-subscription xmlns="urn:ietf:params:xml:ns:netconf:notification:1.0">
+   </create-subscription>
+</rpc>]]>]]>
+EOF
+sleep 1

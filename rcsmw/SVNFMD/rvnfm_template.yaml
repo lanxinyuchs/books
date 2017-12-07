@@ -1,0 +1,161 @@
+heat_template_version: '2014-10-16'
+
+description: >
+  HOT template to create R-VNFM instance
+
+parameters:
+  server_name:
+    type: string
+    description: rvnfm server name
+    default: rvnfm
+
+  image:
+    type: string
+    description: image name to use.
+
+  flavor:
+    type: string
+    description: flavor to use for R-VNFM
+    default: vran-vnfm-2
+
+  vnf_mgmt_network:
+    type: string
+    description: The network for the VM
+    default: om_ran
+
+  infra_network:
+    type: string
+    description: The network for the VM
+    default: om_ran
+
+  om_network:
+    type: string
+    description: The network for the traffic
+    default: om_ran
+
+  nfs_volume_size:
+    type: number
+    description: The size of the volume
+    default: 10
+    constraints:
+      - range: { min: 1, max: 1024 }
+        description: must be between 1 and 1024 Gb.
+
+  nfvo_url:
+    type: string
+    description: The NFVO base URL
+    default:  http://localhost:9090
+
+  nfvo_type:
+    type: string
+    description: The NFVO type ('eri', 'hp', or 'None')
+    default: eri
+
+  nfvo_user:
+    type: string
+    description: The NFVO username
+    default: ericsson
+
+  preferred_ip_protocol:
+    type: string
+    description: the preferred IP protocol (in case dual-stack is configured)
+    default: ipv6
+
+  vnfm_nfvo_network:
+    type: string
+    description: The network to be used for VNFM-NFVO communication
+    default: default
+
+  boot_cmds:
+    type: string
+    description: The initilization boot command, connect multiple lines with &&
+    default: echo 'VNFM init done'
+
+
+resources:
+  boot_config:
+    type: OS::Heat::CloudConfig
+    properties:
+      cloud_config:
+        bootcmd:
+          - { get_param: boot_cmds}
+
+        write_files:
+          - path: /root/nfvo.cfg
+            owner: "root:root"
+            permissions: '0744'
+            content:
+              str_replace:
+                template: |
+                  # NFVO HTTP server URL, type, and API version
+                  nfvo_http_url: nfvo_url_param
+                  nfvo_type: nfvo_type_param
+                  nfvo_version: '0'
+                  nfvo_network: nfvo_network_param
+                  nfvo_user: nfvo_user_param
+                params:
+                  nfvo_url_param: {get_param: nfvo_url}
+                  nfvo_type_param: {get_param: nfvo_type}
+                  nfvo_network_param: {get_param: vnfm_nfvo_network}
+                  nfvo_user_param: {get_param: nfvo_user}
+          - path: /root/storage.cfg
+            owner: "root:root"
+            permissions: '0744'
+            content:
+              str_replace:
+                template: |
+                  $storage_id
+                params:
+                  $storage_id: { get_resource: nfs_volume }
+
+
+  rvnfm:
+    type: OS::Nova::Server
+    properties:
+      name: { get_param: server_name }
+      config_drive: True
+      image: { get_param: image }
+      flavor: { get_param: flavor }
+      networks:
+        - port: { get_resource: eth0 }
+        - port: { get_resource: eth1 }
+        - port: { get_resource: eth2 }
+      user_data_format: RAW
+      user_data: { get_resource: boot_config }
+
+  nfs_volume:
+    type: OS::Cinder::Volume
+    properties:
+      size: { get_param: nfs_volume_size }
+
+  nfs_volume_attachment:
+    type: OS::Cinder::VolumeAttachment
+    properties:
+      volume_id: { get_resource: nfs_volume }
+      instance_uuid: { get_resource: rvnfm }
+
+  eth0:
+    type: OS::Neutron::Port
+    properties:
+      network: { get_param: vnf_mgmt_network }
+
+  eth1:
+    type: OS::Neutron::Port
+    properties:
+      network: { get_param: om_network }
+
+  eth2:
+    type: OS::Neutron::Port
+    properties:
+      network: { get_param: infra_network }
+
+outputs:
+  rvnfm_vnf_mgmt_ip:
+    description: IP address on vnf_mgmt network.
+    value: { get_attr: [eth0, fixed_ips] }
+  rvnfm_oam_ip:
+    description: IP address on om network.
+    value: { get_attr: [eth1, fixed_ips] }
+  rvnfm_infra_ip:
+    description: IP address on infra network.
+    value: { get_attr: [eth2, fixed_ips] }

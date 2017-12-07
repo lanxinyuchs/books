@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+# ==========================================================
+# %CCaseFile:	cluster_mim.xml %
+# %CCaseRev:	/main/R3A/R12A/1 %
+# %CCaseDate:	2017-10-26 %
+#
+# Author:       etxpeno
+# Description: Metadata of MO classes used by the cluster implementation.
+#
+# ==========================================================
+#
+# %CCaseCopyrightBegin%
+# Copyright (c) Ericsson AB 2014-2017 All rights reserved.
+# 
+# The information in this document is the property of Ericsson.
+# 
+# Except as specifically authorized in writing by Ericsson, the 
+# receiver of this document shall keep the information contained 
+# herein confidential and shall protect the same in whole or in 
+# part from disclosure and dissemination to third parties.
+# 
+# Disclosure and disseminations to the receivers employees shall 
+# only be made on a strict need to know basis.
+# %CCaseCopyrightEnd%
+#
+# ==========================================================
+# REVISION LOG
+# ==========================================================
+#
+# Rev        Date         Name        What
+# ========   ==========   ========    ========================
+# R3A/1      2014-11-05   etxpeno     First version
+# R12A/1     2017-10-26 etxarnu     Updates for git 
+# ==========================================================
+-->
+<appdata target="gmfMim">
+  <mimInfos>
+    <mimInfo file="ReqEquipment_mp.xml"
+             path="*/fake-*/priv"
+             ifType="imm"/>
+    <mimInfo file="ReqFieldReplaceableUnit_mp.xml"
+             path="*/fake-*/priv"
+             ifType="imm"/>
+    <mimInfo file="RmeMpClusterHandling_mp.xml"
+             path="*/fake-*/priv"
+             ifType="imm"/>
+  </mimInfos>
+</appdata>

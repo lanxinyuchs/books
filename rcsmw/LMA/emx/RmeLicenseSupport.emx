@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--xtools2_universal_type_manager-->
+<?com.ibm.xtools.emf.core.signature <signature id="com.ibm.xtools.uml.msl.model" version="7.0.0"><feature description="" name="com.ibm.xtools.ruml.feature" url="" version="7.0.0"/></signature>?>
+<?com.ibm.xtools.emf.core.signature <signature id="com.ibm.xtools.mmi.ui.signatures.diagram" version="7.0.0"><feature description="" name="Rational Modeling Platform (com.ibm.xtools.rmp)" url="" version="7.0.0"/></signature>?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Default="http:///schemas/Default/_fNm3AAqoEd6-N_NOT9vsCA/2" xmlns:ECIMBaseProfile="http:///schemas/ECIMBaseProfile/_nfMsYAOYEeWnboDfWIQbJQ/801" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/3.0.0/UML" xsi:schemaLocation="http:///schemas/Default/_fNm3AAqoEd6-N_NOT9vsCA/2 pathmap://UML2_MSL_PROFILES/Default.epx#_fNwoAAqoEd6-N_NOT9vsCA?Default/Default? http:///schemas/ECIMBaseProfile/_nfMsYAOYEeWnboDfWIQbJQ/801 pathmap://ECIM_BASE_PROFILE/ECIM_Base_Profile.epx#_nfMsYQOYEeWnboDfWIQbJQ?ECIM%20Base%20Profile/ECIMBaseProfile?">
+  <uml:Model xmi:id="_NRAMoAwOEdmFcaeZXPdWAQ" name="LicenseSupportModel" clientDependency="_vFqtcFWqEeeBB84XeSZL0w">
+    <eAnnotations xmi:id="_NRAMoQwOEdmFcaeZXPdWAQ" source="uml2.diagrams"/>
+    <eAnnotations xmi:id="_5GYR0U0BEeebN7bmffYchQ" source="com.ibm.xtools.common.ui.reduction.editingCapabilities">
+      <details xmi:id="_5GYR0k0BEeebN7bmffYchQ" key="com.ericsson.ecim.coremw.dsl.uireduction.activity" value="2"/>
+    </eAnnotations>
+    <packageImport xmi:id="_8JbBoIW5Ed-FBpQGdJXi3g">
+      <importedPackage xmi:type="uml:Model" href="pathmap://ECIM_DATA_TYPES/EcimDataTypes.emx#_iT7qACCSEd-Egr3-YAWs7Q?EcimDataType?"/>
+    </packageImport>
+    <packagedElement xmi:type="uml:Package" xmi:id="_lpKYQE0OEeebN7bmffYchQ" name="RmeLicenseSupport">
+      <ownedComment xmi:id="_lpP30U0OEeebN7bmffYchQ">
+        <body>
+</body>
+      </ownedComment>
+      <packagedElement xmi:type="uml:Class" xmi:id="_6sa2AE0WEeebN7bmffYchQ" name="LicenseSupport">
+        <ownedComment xmi:id="_6sfHcU0WEeebN7bmffYchQ">
+          <body>Provides support for installation of Area License Keys.</body>
+        </ownedComment>
+        <ownedAttribute xmi:id="_6six0E0WEeebN7bmffYchQ" name="licenseSupportId" visibility="public" isUnique="false" isReadOnly="true">
+          <ownedComment xmi:id="_6smcMU0WEeebN7bmffYchQ">
+            <body>The value component of the RDN.</body>
+          </ownedComment>
+          <type xmi:type="uml:DataType" href="pathmap://ECIM_DATA_TYPES/EcimDataTypes.emx#_7LZ54CCSEd-Egr3-YAWs7Q?EcimDataType/EcimString?"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_6sqtoE0WEeebN7bmffYchQ" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_6sqGkU0WEeebN7bmffYchQ" value="1"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_RenIEFKAEeebN7bmffYchQ" name="licenseAreaId" visibility="public" isUnique="false">
+          <ownedComment xmi:id="_ReqLYlKAEeebN7bmffYchQ">
+            <body>The identity of license area to which this ME belongs. Updating this attribute will uninstall any license keys associated with the previous licenseAreaId.</body>
+          </ownedComment>
+          <type xmi:type="uml:DataType" href="pathmap://ECIM_DATA_TYPES/EcimDataTypes.emx#_7LZ54CCSEd-Egr3-YAWs7Q?EcimDataType/EcimString?"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_VC9w0FW7EeeBB84XeSZL0w" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_RetOsVKAEeebN7bmffYchQ"/>
+        </ownedAttribute>
+        <ownedOperation xmi:id="_9HDXIE9gEeebN7bmffYchQ" name="initialize" visibility="public">
+          <ownedComment xmi:id="_9HIPoU9gEeebN7bmffYchQ">
+            <body>The action is used by OSS to initialize the secure connection with the license server.
+
+The return value is the string with a cryptographic key, if initialization process was not successful an empty string is returned.
+
+This is a synchronous operation.</body>
+          </ownedComment>
+          <ownedParameter xmi:id="_SzyJUE9hEeebN7bmffYchQ" name="returnType" direction="return">
+            <ownedComment xmi:id="_Sz1zsE9hEeebN7bmffYchQ">
+              <body>The return value is the string needed to initialize the connection, if initialization process was not successful an empty string is returned.</body>
+            </ownedComment>
+            <type xmi:type="uml:DataType" href="pathmap://ECIM_DATA_TYPES/EcimDataTypes.emx#_7LZ54CCSEd-Egr3-YAWs7Q?EcimDataType/EcimString?"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Sz43Ak9hEeebN7bmffYchQ" value="1"/>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Sz43AU9hEeebN7bmffYchQ" value="1"/>
+          </ownedParameter>
+        </ownedOperation>
+        <ownedOperation xmi:id="_bbK14E9hEeebN7bmffYchQ" name="installAreaLicenseKeys" visibility="public">
+          <ownedComment xmi:id="_bbPHUE9hEeebN7bmffYchQ">
+            <body>Installs the License Area licensing keys.
+
+This is a synchronous operation.</body>
+          </ownedComment>
+          <ownedParameter xmi:id="_h8Lr0E9hEeebN7bmffYchQ" name="keys">
+            <ownedComment xmi:id="_h8P9QU9hEeebN7bmffYchQ">
+              <body>Internal representation of the licensing keys.</body>
+            </ownedComment>
+            <type xmi:type="uml:DataType" href="pathmap://ECIM_DATA_TYPES/EcimDataTypes.emx#_7LZ54CCSEd-Egr3-YAWs7Q?EcimDataType/EcimString?"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_h8TAkk9hEeebN7bmffYchQ" value="1"/>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_h8TAkU9hEeebN7bmffYchQ" value="1"/>
+          </ownedParameter>
+          <ownedParameter xmi:id="_m4DI4E9hEeebN7bmffYchQ" name="returnType" type="_SC_ukFszEeeBB84XeSZL0w" direction="return">
+            <ownedComment xmi:id="_zVGhEFs2EeeBB84XeSZL0w">
+              <body>Return value is SUCCESS if the installation succeeded, otherwise FAILURE.</body>
+            </ownedComment>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_m4MS0U9hEeebN7bmffYchQ" value="1"/>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_m4MS0E9hEeebN7bmffYchQ" value="1"/>
+          </ownedParameter>
+        </ownedOperation>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_PGFZUFDyEeebN7bmffYchQ" name="" memberEnd="_PGGAYFDyEeebN7bmffYchQ _PGGncVDyEeebN7bmffYchQ">
+        <ownedEnd xmi:id="_PGGAYFDyEeebN7bmffYchQ" name="NodeSupport" visibility="public" association="_PGFZUFDyEeebN7bmffYchQ">
+          <type xmi:type="uml:Class" href="platform:/resource/NodeSupport/RmeSupport.emx#_oSU0oIbLEeOrZrT1jFruWQ?RmeSupport/RmeSupport/NodeSupport?"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_PGHOgFDyEeebN7bmffYchQ" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_PGHOgVDyEeebN7bmffYchQ" value="1"/>
+        </ownedEnd>
+        <ownedEnd xmi:id="_PGGncVDyEeebN7bmffYchQ" name="LicenseSupport" visibility="public" type="_6sa2AE0WEeebN7bmffYchQ" aggregation="composite" association="_PGFZUFDyEeebN7bmffYchQ">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_PGLf8FDyEeebN7bmffYchQ" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_PGLf8VDyEeebN7bmffYchQ" value="1"/>
+        </ownedEnd>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Enumeration" xmi:id="_SC_ukFszEeeBB84XeSZL0w" name="InstallAreaLicenseKeysResult">
+        <ownedComment xmi:id="_SDFOIVszEeeBB84XeSZL0w">
+          <body>Enumeration relating to action installAreaLicenseKeys.</body>
+        </ownedComment>
+        <ownedLiteral xmi:id="_SDI4gVszEeeBB84XeSZL0w" name="SUCCESS" classifier="_SC_ukFszEeeBB84XeSZL0w">
+          <ownedComment xmi:id="_fFMXMF_hEeeBB84XeSZL0w">
+            <body>The action succeeded.</body>
+          </ownedComment>
+          <specification xmi:type="uml:LiteralInteger" xmi:id="_72LEsF_gEeeBB84XeSZL0w"/>
+        </ownedLiteral>
+        <ownedLiteral xmi:id="__gdCEGIlEeeBB84XeSZL0w" name="NOT_READABLE" classifier="_SC_ukFszEeeBB84XeSZL0w">
+          <ownedComment xmi:id="_UJN10GImEeeBB84XeSZL0w">
+            <body>The area license keys string is not readable.</body>
+          </ownedComment>
+          <specification xmi:type="uml:LiteralInteger" xmi:id="__ghTgWIlEeeBB84XeSZL0w" value="1"/>
+        </ownedLiteral>
+        <ownedLiteral xmi:id="_B1iqIGImEeeBB84XeSZL0w" name="UNSUPPORTED_VERSION" classifier="_SC_ukFszEeeBB84XeSZL0w">
+          <ownedComment xmi:id="_SnXokGImEeeBB84XeSZL0w">
+            <body>The version of the area license keys string is not supported.</body>
+          </ownedComment>
+          <specification xmi:type="uml:LiteralInteger" xmi:id="_B1m7kGImEeeBB84XeSZL0w" value="2"/>
+        </ownedLiteral>
+        <ownedLiteral xmi:id="_FG9-oGImEeeBB84XeSZL0w" name="LICENSE_AREA_ID_MISMATCH" classifier="_SC_ukFszEeeBB84XeSZL0w">
+          <ownedComment xmi:id="_RFvdwGImEeeBB84XeSZL0w">
+            <body>The license area identity does not match the license area identity of the node.</body>
+          </ownedComment>
+          <specification xmi:type="uml:LiteralInteger" xmi:id="_FHBpAGImEeeBB84XeSZL0w" value="3"/>
+        </ownedLiteral>
+        <ownedLiteral xmi:id="_IVw14GImEeeBB84XeSZL0w" name="INVALID_SEQUENCE_NUMBER" classifier="_SC_ukFszEeeBB84XeSZL0w">
+          <ownedComment xmi:id="_Ol0esGImEeeBB84XeSZL0w">
+            <body>The sequence number is invalid.</body>
+          </ownedComment>
+          <specification xmi:type="uml:LiteralInteger" xmi:id="_IV0gQWImEeeBB84XeSZL0w" value="4"/>
+        </ownedLiteral>
+        <ownedLiteral xmi:id="_K9yoEGImEeeBB84XeSZL0w" name="OTHER_FAILURE" classifier="_SC_ukFszEeeBB84XeSZL0w">
+          <ownedComment xmi:id="_NHBlcGImEeeBB84XeSZL0w">
+            <body>The action failed for other reasons.</body>
+          </ownedComment>
+          <specification xmi:type="uml:LiteralInteger" xmi:id="_K92ScWImEeeBB84XeSZL0w" value="5"/>
+        </ownedLiteral>
+      </packagedElement>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_vFqtcFWqEeeBB84XeSZL0w" client="_NRAMoAwOEdmFcaeZXPdWAQ">
+      <supplier xmi:type="uml:Model" href="pathmap://ECIM_GUIDELIB/ECIM_Guidelines.emx#_tFUKaXhYEd-e29ZwYMJd6w?ECIM%20Guidelines?"/>
+    </packagedElement>
+    <profileApplication xmi:id="_UeIAINCzEdqK7KjEh4hvHw">
+      <eAnnotations xmi:id="_UeIAIdCzEdqK7KjEh4hvHw" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="pathmap://UML_PROFILES/Standard.profile.uml#_yzU58YinEdqtvbnfB2L_5w"/>
+      </eAnnotations>
+      <appliedProfile href="pathmap://UML_PROFILES/Standard.profile.uml#_0"/>
+    </profileApplication>
+    <profileApplication xmi:id="_UeIAItCzEdqK7KjEh4hvHw">
+      <eAnnotations xmi:id="_UeIAI9CzEdqK7KjEh4hvHw" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="pathmap://UML2_MSL_PROFILES/Default.epx#_fNwoAAqoEd6-N_NOT9vsCA?Default/Default?"/>
+      </eAnnotations>
+      <appliedProfile href="pathmap://UML2_MSL_PROFILES/Default.epx#_a_S3wNWLEdiy4IqP8whjFA?Default?"/>
+    </profileApplication>
+    <profileApplication xmi:id="_UeIAJNCzEdqK7KjEh4hvHw">
+      <eAnnotations xmi:id="_UeIAJdCzEdqK7KjEh4hvHw" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="pathmap://UML2_MSL_PROFILES/Deployment.epx#_IrdAUMmBEdqBcN1R6EvWUw?Deployment/Deployment?"/>
+      </eAnnotations>
+      <appliedProfile href="pathmap://UML2_MSL_PROFILES/Deployment.epx#_vjbuwOvHEdiDX5bji0iVSA?Deployment?"/>
+    </profileApplication>
+    <profileApplication xmi:id="_cikwQHVqEeCBgp9CYCosRQ">
+      <eAnnotations xmi:id="_ciq24HVqEeCBgp9CYCosRQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="pathmap://ECIM_BASE_PROFILE/ECIM_Base_Profile.epx#_nfMsYQOYEeWnboDfWIQbJQ?ECIM%20Base%20Profile/ECIMBaseProfile?"/>
+      </eAnnotations>
+      <appliedProfile href="pathmap://ECIM_BASE_PROFILE/ECIM_Base_Profile.epx#_cUcakNQkEd63X4o72aQidQ?ECIM%20Base%20Profile?"/>
+    </profileApplication>
+  </uml:Model>
+  <ECIMBaseProfile:EcimModel xmi:id="_cqA1AHVqEeCBgp9CYCosRQ" base_Model="_NRAMoAwOEdmFcaeZXPdWAQ"/>
+  <ECIMBaseProfile:EcimMom xmi:id="_lpPQwE0OEeebN7bmffYchQ" hideGroupName="" specification="" statusInformation="" base_Package="_lpKYQE0OEeebN7bmffYchQ" author="" contact="" date="" docNo="" revision="" version="1" release="0" organization="" correction="0"/>
+  <Default:Documentation xmi:id="_lpS7IE0OEeebN7bmffYchQ" base_Comment="_lpP30U0OEeebN7bmffYchQ"/>
+  <ECIMBaseProfile:EcimMoClass xmi:id="_6sfHcE0WEeebN7bmffYchQ" hideGroupName="" specification="" statusInformation="" base_Class="_6sa2AE0WEeebN7bmffYchQ" isSystemCreated="true"/>
+  <Default:Documentation xmi:id="_6siKwE0WEeebN7bmffYchQ" base_Comment="_6sfHcU0WEeebN7bmffYchQ"/>
+  <ECIMBaseProfile:EcimKeyAttribute xmi:id="_6smcME0WEeebN7bmffYchQ" hideGroupName="" specification="" statusInformation="" dependencies="" disturbances="" precondition="" sideEffects="" takesEffect="" isNotifiable="true" base_Property="_6six0E0WEeebN7bmffYchQ"/>
+  <Default:Documentation xmi:id="_6sqGkE0WEeebN7bmffYchQ" base_Comment="_6smcMU0WEeebN7bmffYchQ"/>
+  <ECIMBaseProfile:EcimAction xmi:id="_9HIPoE9gEeebN7bmffYchQ" hideGroupName="" specification="" statusInformation="" dependencies="" disturbances="" precondition="" sideEffects="" takesEffect="" base_Operation="_9HDXIE9gEeebN7bmffYchQ"/>
+  <Default:Documentation xmi:id="_9HLS8E9gEeebN7bmffYchQ" base_Comment="_9HIPoU9gEeebN7bmffYchQ"/>
+  <ECIMBaseProfile:EcimResult xmi:id="_Sz1MoE9hEeebN7bmffYchQ" hideGroupName="" specification="" statusInformation="" length="" unit="" pattern="" patternErrorMsg="" base_Parameter="_SzyJUE9hEeebN7bmffYchQ"/>
+  <Default:Documentation xmi:id="_Sz43AE9hEeebN7bmffYchQ" base_Comment="_Sz1zsE9hEeebN7bmffYchQ"/>
+  <ECIMBaseProfile:EcimAction xmi:id="_bbOgQU9hEeebN7bmffYchQ" hideGroupName="" specification="" statusInformation="" dependencies="" disturbances="" precondition="" sideEffects="" takesEffect="" base_Operation="_bbK14E9hEeebN7bmffYchQ"/>
+  <Default:Documentation xmi:id="_bbSKoE9hEeebN7bmffYchQ" base_Comment="_bbPHUE9hEeebN7bmffYchQ"/>
+  <ECIMBaseProfile:EcimParameter xmi:id="_h8P9QE9hEeebN7bmffYchQ" hideGroupName="" specification="" statusInformation="" length="" pattern="" patternErrorMsg="" base_Parameter="_h8Lr0E9hEeebN7bmffYchQ"/>
+  <Default:Documentation xmi:id="_h8TAkE9hEeebN7bmffYchQ" base_Comment="_h8P9QU9hEeebN7bmffYchQ"/>
+  <ECIMBaseProfile:EcimResult xmi:id="_m4HaUE9hEeebN7bmffYchQ" hideGroupName="" specification="" statusInformation="" length="" range="" unit="" resolution="" multiplicationFactor="" pattern="" patternErrorMsg="" base_Parameter="_m4DI4E9hEeebN7bmffYchQ"/>
+  <ECIMBaseProfile:EcimContribution xmi:id="_PGK44FDyEeebN7bmffYchQ" hideGroupName="" specification="" statusInformation="" base_Association="_PGFZUFDyEeebN7bmffYchQ" canCreate="false" canDelete="false" isNotifiable="true"/>
+  <ECIMBaseProfile:EcimAttribute_RW xmi:id="_ReqLYVKAEeebN7bmffYchQ" hideGroupName="" specification="" statusInformation="" dependencies="" disturbances="" precondition="" sideEffects="" takesEffect="" length="" pattern="" patternErrorMsg="" isNotifiable="true" base_Property="_RenIEFKAEeebN7bmffYchQ"/>
+  <Default:Documentation xmi:id="_RetOsFKAEeebN7bmffYchQ" base_Comment="_ReqLYlKAEeebN7bmffYchQ"/>
+  <ECIMBaseProfile:EcimEnumeration xmi:id="_SDFOIFszEeeBB84XeSZL0w" hideGroupName="" specification="" statusInformation="" base_Enumeration="_SC_ukFszEeeBB84XeSZL0w"/>
+  <Default:Documentation xmi:id="_SDI4gFszEeeBB84XeSZL0w" base_Comment="_SDFOIVszEeeBB84XeSZL0w"/>
+  <ECIMBaseProfile:EcimEnumerationLiteral xmi:id="_SDMi4FszEeeBB84XeSZL0w" hideGroupName="" specification="" statusInformation="" dependencies="" disturbances="" precondition="" sideEffects="" takesEffect="" base_EnumerationLiteral="_SDI4gVszEeeBB84XeSZL0w"/>
+  <Default:Documentation xmi:id="_zVKygFs2EeeBB84XeSZL0w" base_Comment="_zVGhEFs2EeeBB84XeSZL0w"/>
+  <Default:Documentation xmi:id="_fFSd0F_hEeeBB84XeSZL0w" base_Comment="_fFMXMF_hEeeBB84XeSZL0w"/>
+  <ECIMBaseProfile:EcimEnumerationLiteral xmi:id="__ghTgGIlEeeBB84XeSZL0w" hideGroupName="" specification="" statusInformation="" dependencies="" disturbances="" precondition="" sideEffects="" takesEffect="" base_EnumerationLiteral="__gdCEGIlEeeBB84XeSZL0w"/>
+  <ECIMBaseProfile:EcimEnumerationLiteral xmi:id="_B1mUgGImEeeBB84XeSZL0w" hideGroupName="" specification="" statusInformation="" dependencies="" disturbances="" precondition="" sideEffects="" takesEffect="" base_EnumerationLiteral="_B1iqIGImEeeBB84XeSZL0w"/>
+  <ECIMBaseProfile:EcimEnumerationLiteral xmi:id="_FHBB8GImEeeBB84XeSZL0w" hideGroupName="" specification="" statusInformation="" dependencies="" disturbances="" precondition="" sideEffects="" takesEffect="" base_EnumerationLiteral="_FG9-oGImEeeBB84XeSZL0w"/>
+  <ECIMBaseProfile:EcimEnumerationLiteral xmi:id="_IV0gQGImEeeBB84XeSZL0w" hideGroupName="" specification="" statusInformation="" dependencies="" disturbances="" precondition="" sideEffects="" takesEffect="" base_EnumerationLiteral="_IVw14GImEeeBB84XeSZL0w"/>
+  <ECIMBaseProfile:EcimEnumerationLiteral xmi:id="_K92ScGImEeeBB84XeSZL0w" hideGroupName="" specification="" statusInformation="" dependencies="" disturbances="" precondition="" sideEffects="" takesEffect="" base_EnumerationLiteral="_K9yoEGImEeeBB84XeSZL0w"/>
+  <Default:Documentation xmi:id="_NHFP0GImEeeBB84XeSZL0w" base_Comment="_NHBlcGImEeeBB84XeSZL0w"/>
+  <Default:Documentation xmi:id="_Ol5XMGImEeeBB84XeSZL0w" base_Comment="_Ol0esGImEeeBB84XeSZL0w"/>
+  <Default:Documentation xmi:id="_RFzIIGImEeeBB84XeSZL0w" base_Comment="_RFvdwGImEeeBB84XeSZL0w"/>
+  <Default:Documentation xmi:id="_Snb6AGImEeeBB84XeSZL0w" base_Comment="_SnXokGImEeeBB84XeSZL0w"/>
+  <Default:Documentation xmi:id="_UJQ5IGImEeeBB84XeSZL0w" base_Comment="_UJN10GImEeeBB84XeSZL0w"/>
+</xmi:XMI>

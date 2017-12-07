@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+
+git_root=$(cd $CICDSYS_ROOT && git rev-parse --show-toplevel)
+
+if [[ -z ${2+x} ]]; then
+    echo export $1 >> ${git_root}/prop.txt
+else
+    echo export $1="$2" >> ${git_root}/prop.txt
+fi

@@ -1,0 +1,17 @@
+%%% -*- erlang -*-
+%%%-----------------------------------------------------------------------------
+%%% @author etxbjca
+%%% @copyright Ericsson AB 2016
+%%% @doc
+%%%
+%%% @end
+%%%-----------------------------------------------------------------------------
+
+%%------------------------------------------------------------------------------
+%%  Rxx/1      20yy-mm-dd   user    Created
+%%------------------------------------------------------------------------------
+{merge_tests, false}.
+%% Add test suites here
+%%{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/block/block_CNXxxxxx/test/suites", block_yyy_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCT_CRX901275/test/suites/install",fetch_esi_SUITE , [all]}.
+

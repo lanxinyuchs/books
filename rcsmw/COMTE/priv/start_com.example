@@ -1,0 +1,83 @@
+#!/bin/sh
+##
+## Copyright Ericsson AB 2012. All Rights Reserved.
+##
+## The contents of this file are subject to the Erlang Public License,
+## Version 1.1, (the "License"); you may not use this file except in
+## compliance with the License. You should have received a copy of the
+## Erlang Public License along with this software. If not, it can be
+## retrieved online at http://www.erlang.org/.
+##
+## Software distributed under the License is distributed on an "AS IS"
+## basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See
+## the License for the specific language governing rights and limitations
+## under the License.
+##
+## Example start_com_prog.
+##
+## $Author: Raimo Niskanen, Erlang/OTP$
+##
+
+## To be customized during install
+COMTE_COM_LD_LIBRARY_PATH=
+COMTE_COM_RUN_DIR=
+COMTE_COM_BIN=/opt/com/bin/com
+COMTE_COM_CFG=/opt/com/etc/com.cfg
+COMTE_COM_STDOUT_LOG=com_stdout.log
+COMTE_COM_LOGGING_FMAXSIZE=1048576
+
+[ "x$COMTE_COM_RUN_DIR" = x ] || cd "$COMTE_COM_RUN_DIR" || exit 17
+
+# Redirect all the output that follows to the log of limited filesize
+COMTE_COM_STDOUT_PIPE="/tmp/com_stdout_pipe.$$"
+mkfifo $COMTE_COM_STDOUT_PIPE
+sh -c 'stdbuf -o L cat '$COMTE_COM_STDOUT_PIPE' | \
+       stdbuf -o L sh -c "head -c '$COMTE_COM_LOGGING_FMAXSIZE'; \
+       cat > /dev/null" > '$COMTE_COM_STDOUT_LOG.$$ &
+exec 1>$COMTE_COM_STDOUT_PIPE 2>&1
+
+echo "Pid: $$"
+
+## To be customized during install, affects com
+COM_LOGGING_FNAME="${COMTE_COM_RUN_DIR:-.}/com_start.log"
+MAF_LOGGING_FMAXSIZE="10000000"
+MAF_LOGGING_FNAME="${COM_LOGGING_FNAME}"
+MAF_LOGGING_LEVEL=6
+COM_LOGGING_LEVEL=6
+COMEA_ROOT_DIR=/opt/com/comea
+COMEA_CONF_DIR="$COMEA_ROOT_DIR"
+
+SNMPD_CONF="$COMEA_CONF_DIR/etc/snmpd.conf"
+PATH="$COMEA_ROOT_DIR/bin:$PATH"
+
+export COM_LOGGING_FNAME COM_LOGGING_LEVEL
+export MAF_LOGGING_LEVEL MAF_LOGGING_FNAME MAF_LOGGING_FMAXSIZE
+export COMEA_ROOT_DIR COMEA_CONF_DIR SNMPD_CONF PATH
+
+LD_LIBRARY_PATH="$COMTE_COM_LD_LIBRARY_PATH\
+${COMTE_COM_LD_LIBRARY_PATH:+:}$LD_LIBRARY_PATH"
+export LD_LIBRARY_PATH
+
+ulimit -c unlimited
+if pkill -TERM -xf "$COMTE_COM_BIN $COMTE_COM_CFG" ; then
+    echo "Note: pkill -TERM old COM instance(s)"
+    for s in 1 ; do
+	    for t in 1 1 1 1 1 ; do
+	        pgrep -lxf "$COMTE_COM_BIN $COMTE_COM_CFG" || \
+		    break 2
+	        sleep $t
+	    done
+	    pkill -KILL -xf "$COMTE_COM_BIN $COMTE_COM_CFG" && {
+	        echo "Note: pkill -KILL old COM instance(s)"
+	        sleep $s
+	    }
+    done
+fi
+
+## Rotate log files
+mv -f "$COM_LOGGING_FNAME" "$COM_LOGGING_FNAME.old" 1>/dev/null 2>&1
+mv -f "$COMTE_COM_STDOUT_LOG" "$COMTE_COM_STDOUT_LOG.old" 1>/dev/null 2>&1
+mv -f "$COMTE_COM_STDOUT_LOG.$$" "$COMTE_COM_STDOUT_LOG" 1>/dev/null 2>&1
+## ...and, action!
+echo exec ${COM_WRAPPER:+$COM_WRAPPER }"$COMTE_COM_BIN" "$COMTE_COM_CFG"
+exec ${COM_WRAPPER:+$COM_WRAPPER }"$COMTE_COM_BIN" "$COMTE_COM_CFG"

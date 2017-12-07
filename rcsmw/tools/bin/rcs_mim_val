@@ -1,0 +1,23 @@
+#!/bin/sh
+# Script to check the mim files
+# works both in simulated and target environment.
+# just run without any arguments.
+# and it will validate all files in the model_file_list.cfg
+
+RCS_ROOT=${RCS_SIM_ROOT:-/}
+TOP=`readlink -f $RCS_ROOT/software/RCS**/COM*_CXC1733991_*/com-*/priv/tgt_x86*/opt/com`
+FILE=`readlink -f $RCS_ROOT/home/*/releases/*/comte/model_file_list.cfg`
+if [[ -z "$FILE" ]]; then
+    FILE=/tmp/model_file_list.tmp
+    echo "model_file_list.cfg not found, creating new from xml files in $FILE"
+    find  -L ${RCS_ROOT}/software/ -name *.xml | xargs grep "<models>" | awk -F: '{ print $1 }' > $FILE
+fi
+
+if [ -f $TOP/bin/maf_model_validator ]; then
+    LIBTOP=`readlink -f $RCS_ROOT/software/RCS*/COM*_CXC1733991_*/com-*/priv/tgt_*/usr/lib64`
+    export LD_LIBRARY_PATH=$LIBTOP:$TOP/lib:$TOP/lib/sdk:$TOP/lib/comp:$LD_LIBRARY_PATH
+    exec $TOP/bin/maf_model_validator -c $FILE  -p $TOP/lib/libmaf_schematron_static_validator.so
+else
+    echo "Cannot find $TOP/bin/maf_model_validator"
+fi
+

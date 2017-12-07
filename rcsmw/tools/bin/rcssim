@@ -1,0 +1,1449 @@
+#!/bin/bash
+# ----------------------------------------------------------------------
+# %CCaseFile:	rcssim %
+rev=" %CCaseRev:	/main/220 %"
+# %CCaseDate:	2016-12-07 %
+# Author:	etxarnu/etxbjca
+#
+# Short description: Install, initiate and start RCS SIM environment
+#
+# ----------------------------------------------------------------------
+#
+# %CCaseCopyrightBegin%
+# Copyright (c) Ericsson AB 2012-2016 All rights reserved.
+# 
+# The information in this document is the property of Ericsson.
+# 
+# Except as specifically authorized in writing by Ericsson, the 
+# receiver of this document shall keep the information contained 
+# herein confidential and shall protect the same in whole or in 
+# part from disclosure and dissemination to third parties.
+# 
+# Disclosure and disseminations to the receivers employees shall 
+# only be made on a strict need to know basis.
+# %CCaseCopyrightEnd%
+#
+#----------------------------------------------------------------------
+# #1.    REVISION LOG
+#----------------------------------------------------------------------
+# Rev      Date       Name        What
+# -----    -------    --------    -------------------------------------
+# main/1   2012-02-23 etxarnu     Created
+# main/2   2012-02-23 etxbjca     Updated
+# main/80  2013-02-07 etxarnu     Use /repo as installDir if exists
+# main/86  2013-02-20 etxarnu     Add -g option for other GCC libs
+# main/87  2013-02-26 etxarnu     Show WARNING and ERROR REPORTS after start
+# main/89  2013-03-05 etxarnu     SYS path changed
+# main/90  2013-03-07 etxarnu     Remove old OTPs before extracting new
+# main/93  2013-03-12 etxbjca     Added "-nd" option to wget
+# main/99  2013-03-13 etxarnu     -p can now take a URL
+# main/100 2013-03-13 etxarnu     Updated help for -p
+# main/101 2013-03-13 etxarnu     Made -p option portable
+# main/105 2013-03-13 erarafo     Kill restart helper on shutdown
+# main/106 2013-03-22 etxarnu     Support for unique installations
+# main/108 2013-03-25 etxarnu     Use unpacked OTP and squashfs
+# main/115 2013-03-28 etxarnu     Added -B option for board type
+# main/116 2013-03-28 etxarnu     Added -B option for board type
+# main/117 2013-04-02 etxarnu     Abort if unsquashfs is not available
+#                                 Added option -n (don't use --no-proxy in wget)
+# main/119 2013-04-12 etxarnu     Changed "ps -ef" to "ps -efww"
+# main/121 2013-04-30 etxarnu     Added IGNOREEOF=99 to xterm start line
+# main/122 2013-05-02 etxarnu     Added UNIQ to sourceMe
+# main/123 2013-05-16 etxarnu     Added -K option to do rcsEEsim stopall
+# main/124 2013-06-05 etxarnu     Added -m option to use G2 MS package
+# main/125 2013-06-05 etxarnu     More printouts to show what is downloaded
+# main/126 2013-06-05 etxarnu  Now download G2 MS package from node webserver
+# main/130 2013-06-10 etxarnu  Also possible to downlod with label outside CC
+# main/131 2013-06-13 etxarnu  Set shell to bash in sourceMe.* files
+# main/132 2013-07-04 etxarnu  Added check that UP contains RCS-SIM_CXP
+# main/133 2013-09-16 etxarnu  Also start_rcs.sh is debugged if -d used
+# main/143 2013-10-16 etxarnu  Configure lttNgTri if option -t is used
+# main/145 2013-11-04 etxarnu  Do a MIM validation at start and show errors
+# main/146 2013-11-09 etxarnu  Added -x for userScript
+# main/147 2013-11-11 etxarnu  Made -r option work.
+# main/149 2013-11-28 etxarnu  Set "ulimit -c unlimited" to enable core dumps
+# main/150 2013-12-03 etxarnu  Added -D <directory> for run directory
+# main/151 2013-12-05 etxarnu  Removed trailing "/" from installDir
+# main/152 2013-12-18 etxarnu  Now possible to have otp.tar.gz in dev_patches
+# main/154 2014-01-10 etxarnu  Added --no-certificate option to wget
+# main/160 2014-03-13 etxarnu  With -w option the rcssim pid is stored in
+#                              $installDir/rcssim.pid
+# main/168 2014-05-29 etxarnu  Reverted to /160 due to major bug
+# main/169 2014-05-29 etxarnu  Moved rcsEEsim stopall to correct place
+# main/170 2014-06-05 erarafo  Kill hanging snmpd process if ours
+# main/171 2014-06-16 etxarnu  Added check for -up.xml file in UP
+#                              Killing restart_helper safely
+# main/173 2014-06-27 etxarnu  Removed error printouts if OTP already extracted
+# main/175 2014-09-15 etxarnu  Updated to handle new url for Node SIM UP
+# main/180 2014-10-20 etxarnu  Added -f flag to ln when linking dev_patches files
+# main/181 2014-10-23 etxarnu  Added -q option to use 'ipcrm -a' to kill all IPC queues
+# main/182 2014-10-24 etxarnu  Added sleep in KillSim after stopping beam
+# main/183 2014-10-24 etxarnu  Removed unpacking of ROOTFS x86_64
+# main/184 2015-01-08 etxarnu  Handle MS UP in zip format and use correct latest label
+# main/185 2015-01-15 etxpeno  Support for non-active MPs
+# main/188 2015-02-02 etxarnu  Removed -setcookie handling (security risk)
+#                              and added -E option for EPMD port
+#                              Also changed g2url for SIM-UP from node
+# main/189 2015-02-26 etxarnu  Remove /tmp/$USER/rcssim.$RCSSIM_PID if exist at Clean()
+# main/190 2015-03-09 etxarnu  Corrected InstallOnly handling
+# main/191 2015-03-12 etxarnu  Added -z option to ignore crashing apps
+# main/192 2015-03-12 etxarnu  Use ifu to download node UP
+# main/194 2015-04-21 etxarnu  removed -e, -6 options (obsolete)
+#                              and added -R option for base port number
+# main/195 2015-05-06 etxarnu  Added mpid file to rcs/networkloader/
+# main/196 2015-05-08 etxarnu  Copy cluster_config from core
+# main/197 2015-05-08 etxarnu  Copy cluster_config from core again
+# main/198 2015-05-19 etxarnu  Corrected version for Node SIM UP
+# main/199 2015-06-30 etxarnu  Fixed Node SIM UP without label
+# main/200 2015-06-30 etxarnu  more Fixes for Node SIM UP without label
+# main/201 2015-08-12 etxberb  Path to cluster_config changed to home_dir.
+# main/202 2015-08-26 etxarnu  Removed cluster_config & cluster_complete at install
+# main/204 2015-10-08 etxarnu  Removed activation_complete at install
+# main/205 2015-10-13 etxarnu  Now possible to have multiple -x <prog> options
+# main/207 2016-01-22 etxarnu  Remove hanging ipc queue at stop
+# main/208 2016-02-01 etxarnu  Added symlinks to libnetnsnmp*.so.15 files for non SusE hosts
+# main/210 2016-09-07 etxarnu  Changed nodeSimCxp to CXP9023264_4 and CL=2
+# main/213 2016-10-27 etxarnu  Now also handle.zip files as UP file
+# main/214 2016-10-27 etxarnu  Bug fix
+# main/215 2016-10-27 etxarnu  Bug fix
+# main/218 2016-10-31 etxarnu  Make unique directory when unpacking zip file
+# main/219 2016-11-11 etxarnu  Added ncurses to LD_LIBRARY_PATH
+# main/220 2016-12-07 etxarnu  Exported noInstall
+
+#set -x
+
+#enable core dumps
+ulimit -c unlimited
+
+cmdOptions="$*"
+
+echo " "
+echo "###############################################################################"
+echo "rcssim rev: $rev "
+echo "    with arguments [ $cmdOptions ] "
+
+#To handle Clean function from all places
+trap "exit 1" TERM
+export RCSSIM_PID=$$
+
+if [ `arch` != "x86_64" ]
+then
+    echo "Only x86_64 architecture supported"
+    exit 1
+fi
+# Set default variables
+
+procno="$$"
+progname="`basename $0`"
+tmpFile="/tmp/$USER_rcssim"
+installDir=''
+coreDir=''
+patchDir=''
+initFile=''
+gccLibs=''
+label=''
+uniq=''
+fgcolor=''
+bgcolor=''
+epmdPort=''
+basePort=''
+noLinx=''
+noInstall=''
+msPkg=''
+usel="yes"
+useLdap=''
+useProxy=''
+cookie=''
+sname=''
+runDir=''
+boardType=''
+uniqInstall=''
+verbose=''
+noEscFlag=''
+configTri=''
+how2File="${tmpFile}.txt"
+how2FileReg="${tmpFile}.Reg.txt"
+stableWebServer=' https://rbs-rde.rnd.ki.sw.ericsson.se'
+latestWebServer=' https://rbs-rde-dev.rnd.ki.sw.ericsson.se'
+nodeWebServer=' https://rbs-g2.rnd.ki.sw.ericsson.se'
+wgetOpt='-nd -q --no-check-certificate'
+defaultPackage='/vobs/rcs/delivery/RCP_CSX10179_1/RCP-SIM_CXS101549_2/doc/19010/RCP-SIM_CXS101549_2.cxs'
+g2msPackage=''
+nodeSimCxp='CXP9023264_4'
+#g2msPackage='http://rbs-g2.rnd.ki.sw.ericsson.se/vobs/rbs6000/delivery/up/ms_rbs/sim/${nodeSimCxp}.tgz'
+g2url='https://arm001-eiffel001.rnd.ki.sw.ericsson.se:8443/nexus/content/repositories/g2ci_releases/com/ericsson/g2ci/${nodeSimCxp}/'
+defaultInitFile=''
+otpPackageGzip='otp.tar.gz'
+SIM_TGT='tgt_i686'
+otpPackage="OTP2_CXC1733859_2/otp*/priv/${SIM_TGT}"
+rcsSimBin='/vobs/rcs/tools/RDE_LXA119945/tools/rcssim/bin'
+rcsSimBinFiles='rcssim_setup rcsEEsim rcs_mim_val rcssim_ssh rcsapp.sh toerl rcshelp  rcs_erl_call rcssim_collect_logs rcs_observer '
+simCxpDefault='RCS-SIM_CXP2010042_1.cxp'
+# next is used for testing the 64bit version of OTP
+otp64bit='/vobs/rcs/tools/RDE_LXA119945/tools/rcssim/64bit_otp/'
+patchedStartRcs=''
+userScript=''
+
+Exit=0
+
+Usage ()
+{
+cat << EOF
+
+______________________________________________
+
+$0
+rev: $rev
+
+ with options:
+    -a              Use LDAP to authenticate (requires sudo)
+    -b              background (no xterm)
+    -B <dus |duw |tcu> board type, set env var BT to this value.
+                    Default value is dus.
+    -c              clean local installation away
+    -C              Kill all EE daemons for $USER
+    -d              debug
+    -D <dir>        Run directory
+    -E <port no>    EPMD port used for a cluster
+    -f <file>       Use own initial NETCONF file
+    -h              this help text
+    -g <libpath>    use <libpath> instead of /app/gcc/4.5.1/LMWP3/lib
+    -i <dir>        Install directory (default is either
+                                 /local/scratch/$USER or
+                                 /repo/$USER/rcssim or
+                                 /tmp/$USER
+                                  in that order if they exist)
+    -I              Install only (use start_rcs.sh to start)
+    -j  <cxp>       Give the name of simCxp if it's not RCS-SIM_CXP2010042_1.cxp
+    -k  <cookie>    cookie, if separate erlang node 
+    -L              LATEST RBS CS LSV (default STABLE LSV)
+    -l  <label>     Use specific label e.g CXS101549_2-R2Axxxx for RBS CS or
+                    or CXP9023264_1-R1Axxxx for G2 MS SIM
+    -m              Use latest G2 MS SIM LSV
+    -n              Use proxy for download (i.e. don't use --no-proxy option in wget )
+    -N              No EE daemons
+    -o  <bgcolor>   xterm background color
+    -O  <fgcolor>   xterm foreground color
+    -P  <patchdir>  copy patches from patchdir to dev_patches before start
+    -p  <package>   own UP package (.cxs file), complete path to file needed OR
+                    a URI in the form http://SomeServer/path/to/file
+    -q              Kill all IPC queues for user
+    -R  <port no>   Base address for port selection
+    -r              Reuse SW install
+    -S  <dir>       RCS_ROOT of core DU
+    -s  <sname>     own node name (default $\USER)
+    -t              configure LTTng TRI and default sessions
+    -u              unique local installation (multiple parallell installations)
+    -v              verbose
+    -w              background and wait for kill
+    -x  <script>    eXecute own script when rcssim has started
+    -z              Set do_not_escalate_restart flag
+______________________________________________
+EOF
+}
+
+Obsolete ()
+{
+cat << EOF
+
+The -E option is no more since User space Linx i default.
+Use -N if you don't want any EE at all or
+-e to run kernel space Linx ++ daemons
+
+______________________________________________
+
+
+EOF
+
+}
+
+
+
+
+
+#
+# Clean on manual abort
+#
+#trap Abort 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17
+# trap 15 (TERM) is handled at top of script
+trap Abort 1 3
+trap Stop 2
+
+#
+# Get options
+#
+while getopts 1abB:cCdD:E:f:g:hIi:j:k:Ll:mNno:O:p:P:qrR:S:s:tuvwx:z option
+do
+  case ${option} in
+    1)  patchedStartRcs="yes";;
+    a)  useLdap="yes";;
+    b)  backgroundMode="yes";;
+    B)  boardType="${OPTARG}";;
+    c)  cleanInstall="yes";;
+    C)  killAll="yes";;
+    d)  debug="yes";;
+    D)  runDir="${OPTARG}";;
+    E)  epmdPort="${OPTARG}";;
+    f)  initFile="${OPTARG}";;
+    g)  gccLibs="${OPTARG}";;
+    h)	Usage;exit 1;;
+    I)  installOnly="yes";;
+    i)  installDir="${OPTARG}";;
+    j)  simCxp="${OPTARG}";;
+    k)	cookie="${OPTARG}";;
+    L)  latestLSV="yes";;
+    l)	label="${OPTARG}";;
+    m)  msPkg="yes";;
+    N)  noLinx="yes";;
+    n)  useProxy="yes";;
+    o)  bgcolor="${OPTARG}";;
+    O)  fgcolor="${OPTARG}";;
+    P)  patchDir="${OPTARG}";;
+    p)  package="${OPTARG}";;
+    q)	killIpc="yes";;
+    R)  basePort="${OPTARG}";;
+    r)	noInstall="yes";;
+    S)	coreDir="${OPTARG}";;
+    s)	sname="${OPTARG}";;
+    t)  configTri="yes";;
+    u)  uniqInstall="yes";;
+    v)  verbose="yes";;
+    w)  backgroundMode="wait";;
+    x)  userScript="${userScript} ${OPTARG}";;
+    z)  noEscFlag="true";;
+    \?)	Usage;exit 1;;
+  esac
+done
+shift `expr ${OPTIND} - 1`
+
+
+
+#
+# Check number of options
+#
+OptNo="1"
+if [ -n "${installOnly}" ]; then
+    OptNo="`expr ${OptNo} + 1`"
+fi
+
+if [ -n "${noLinx}" ]; then
+    OptNo="`expr ${OptNo} + 1`"
+else
+    export USEL="true"
+fi
+
+if [ -n "${epmdPort}" ]; then 
+    echo Using ERL_EPMD_PORT="${epmdPort}"
+    export ERL_EPMD_PORT="${epmdPort}"
+    OptNo="`expr ${OptNo} + 2`"
+fi
+
+if [ -n "${basePort}" ]; then 
+    echo Using RCSSIM_BASE_PORT="${basePort}"
+    export RCSSIM_BASE_PORT="${basePort}"
+    OptNo="`expr ${OptNo} + 2`"
+fi
+
+
+if [ -n "${latestLSV}" ]; then
+    webServer=${latestWebServer}
+    OptNo="`expr ${OptNo} + 1`"
+else
+    webServer=${stableWebServer}
+fi
+
+if [ -n "${installDir}" ]; then
+    if [ "${installDir}" == "/home/$USER" ]; then
+	echo "ERROR : InstallDir = 'Home directory' not allowed."
+	exit 1
+    elif [ "${installDir}" == "/home/$USER/" ]; then
+	echo "ERROR : InstallDir = 'Home directory' not allowed."
+	exit 1
+    fi
+
+    OptNo="`expr ${OptNo} + 2`"
+    installDir=${installDir%/}  #remove trailing /
+    echo "InstallDir= $installDir"
+else
+    if [ -d "/local/scratch/" ]; then
+	installDir=/local/scratch/${USER}
+    elif [ -d "/repo/" ]; then
+	installDir=/repo/${USER}/rcssim
+    else
+	installDir=/tmp/${USER}
+    fi
+fi
+
+if [ -n "${useLdap}" ]; then
+    export USE_LDAP="true"
+    OptNo="`expr ${OptNo} + 1`"
+fi
+
+if [ -n "${useProxy}" ]; then
+    PROXY=""
+    OptNo="`expr ${OptNo} + 1`"
+else
+    PROXY="--no-proxy"
+fi
+
+if [ -n "${bgcolor}" ]; then
+    OptNo="`expr ${OptNo} + 2`"
+else
+    bgcolor='lightblue'
+fi
+
+if [ -n "${fgcolor}" ]; then
+    OptNo="`expr ${OptNo} + 2`"
+else
+    fgcolor='black'
+fi
+
+if [ -n "${initFile}" ]; then
+    OptNo="`expr ${OptNo} + 2`"
+fi
+
+if [ -n "${boardType}" ]; then
+    export BT="${boardType}"
+    OptNo="`expr ${OptNo} + 2`"
+else
+#default value
+     export BT="dus"
+fi
+
+if [ -n "${gccLibs}" ]; then
+    OptNo="`expr ${OptNo} + 2`"
+    export GCC_LIBS="${gccLibs}"
+fi
+
+if [ -n "${label}" ]; then
+    OptNo="`expr ${OptNo} + 2`"
+    plabel=`echo ${label} | sed 's/.*-//'`
+    pversion="version="'"'${plabel}'"'
+    label="@@/${label}"
+fi
+
+if [ -n "${backgroundMode}" ]; then
+    OptNo="`expr ${OptNo} + 1`"
+fi
+
+if [ -n "${cleanInstall}" ]; then
+    OptNo="`expr ${OptNo} + 1`"
+    if [ -n "${noInstall}" ]; then
+	printf "\n${progname}: Not allowed to have both -c and -r options!\n" >&2
+	exit 1
+    fi
+fi
+
+if [ -n "${noInstall}" ]; then
+    OptNo="`expr ${OptNo} + 1`"
+    if [ -n "${cleanInstall}" ]; then
+	printf "\n${progname}: Not allowed to have both -c and -r options!\n" >&2
+	exit 1
+    fi
+fi
+
+if [ -n "${killAll}" ]; then
+    OptNo="`expr ${OptNo} + 1`"
+fi
+
+if [ -n "${killIpc}" ]; then
+    OptNo="`expr ${OptNo} + 1`"
+fi
+
+if [ -n "${msPkg}" ]; then
+    OptNo="`expr ${OptNo} + 1`"
+fi
+
+
+if [ -n "${configTri}" ]; then
+    OptNo="`expr ${OptNo} + 1`"
+    export CONF_TRI="yes"
+fi
+
+if [ -n "${noEscFlag}" ]; then
+    OptNo="`expr ${OptNo} + 1`"
+fi
+
+if [ -n "${uniqInstall}" ]; then
+    OptNo="`expr ${OptNo} + 1`"
+    uniq=`mktemp -u XXXXXX`
+    installDir=`mktemp -p ${installDir} -u`
+fi
+
+if [ -n "${package}" ]; then
+    OptNo="`expr ${OptNo} + 2`"
+fi
+
+if [ -n "${simCxp}" ]; then
+    OptNo="`expr ${OptNo} + 2`"
+else
+    simCxp=${simCxpDefault}
+fi
+
+if [ -n "${patchDir}" ]; then
+    OptNo="`expr ${OptNo} + 2`"
+fi
+
+if [ -n "${runDir}" ]; then
+    OptNo="`expr ${OptNo} + 2`"
+else
+    runDir='.'
+fi
+
+if [ -n "${patchedStartRcs}" ]; then
+    OptNo="`expr ${OptNo} + 1`"
+fi
+
+if [ -n "${coreDir}" ]; then
+    OptNo="`expr ${OptNo} + 2`"
+fi
+
+if [ -n "${verbose}" ]; then
+    OptNo="`expr ${OptNo} + 1`"
+    wgetOpt='-nd --no-check-certificate'
+fi
+
+if [ -n "${debug}" ]; then
+    OptNo="`expr ${OptNo} + 1`"
+    set -x
+    export RCSSIM_DEBUG=true
+    startRcs='bash -x start_rcs.sh'
+else
+     startRcs='start_rcs.sh'
+fi
+
+if [ -n "${sname}" ]; then
+    OptNo="`expr ${OptNo} + 2`"
+else
+    if [ -n "${uniq}" ]; then
+	sname="${USER}_${uniq}"
+    else
+	sname="${USER}"
+
+    fi
+fi
+
+if [ -n "${cookie}" ]; then
+    OptNo="`expr ${OptNo} + 2`"
+else
+    if [ -e $HOME/.erlang.cookie ]; then
+	cookie=`cat $HOME/.erlang.cookie`
+    else
+	cookie=`mktemp -u XXXXXXXXXXXXXXXXXXXX`
+	echo $cookie > $HOME/.erlang.cookie
+	chmod 400 $HOME/.erlang.cookie
+    fi
+fi
+ 
+if [ -n "${userScript}" ]; then
+    x_no=`echo ${userScript} | wc -w`
+    OptNo="`expr ${OptNo} + $(( 2 * $x_no ))`"
+fi
+
+
+if [ "${OPTIND}" != "${OptNo}" ]; then
+  printf "\n${progname}: Wrong number of arguments!\n" >&2
+  printf "OPTIND=${OPTIND}, OptNo=${OptNo}\n" >&2
+  Usage >&2
+  exit 1
+fi
+
+
+
+#
+# Create "How2" files
+#
+cat <<EOF > ${how2File}
+
+RBS CS simulator (Core)
+=======================
+
+To connect to the erlang shell, execute (in this shell) the command:
+to
+
+To start a COM CLI session in a new window, execute (in this shell) the command:
+xterm -sb -sl 1000 -bg lightyellow -fg black -T "COM CLI" -e rcssim_ssh cli &
+
+To start a RCS COLI session in a new window, execute (in this shell) the command:
+xterm -sb -sl 1000 -bg lightgreen -fg black -T "RCS COLI" -e rcssim_ssh coli &
+
+For more help write:
+
+rcshelp
+
+EOF
+
+cat <<EOF2 > ${how2FileReg}
+
+
+RBS CS simulator (Not core)
+===========================
+
+To connect to the erlang shell, execute (in this shell) the command:
+to
+
+For more help write:
+
+rcshelp
+
+EOF2
+
+if [ -n "${coreDir}" ]; then
+    how2File="${how2FileReg}"
+fi
+
+
+# installPref2 absPath
+#
+# Similar to installPrefix() in rcsEEsim; a different path
+# looked for though.
+
+function installPref2() {
+  local -r absPath="$1"
+  echo $absPath | sed -e "s|/RCS_ROOT/home/$USER/releases/.*||"
+}
+
+
+# stopSnmpd
+#
+# Stops "our" snmpd process. The running daemon is
+# /usr/bin/snmpd with an installation specific config
+# file. The installation path of the config file is
+# used to distinguish "our" process.
+
+function stopSnmpd() {
+  local -r ownSnmpdConf=${RCS_SIM_ROOT}/home/$USER/releases/*/comte/comea/etc/snmpd.conf
+  if [[ ! -f `echo $ownSnmpdConf` ]]; then
+    printf "\nCould not resolve: $ownSnmpdConf!\n" >&2
+  fi
+  local -r pids=`pgrep -u $USER -f snmpd`
+  local snmpdCmd
+  local daemonAbspath
+  local snmpdConf
+  local daemonBasename
+  for pid in $pids; do
+    snmpdCmd=`ps -p $pid --no-headers -o args | (read daemon _ _ conf _ && echo $daemon+$conf)`
+    daemonAbspath=${snmpdCmd%%+*}
+    snmpdConf=${snmpdCmd##*+}
+    daemonBasename=${daemonAbspath##*/}
+    if [[ "$daemonBasename" == snmpd && \
+          `installPref2 $snmpdConf` == `installPref2 $ownSnmpdConf` && \
+          ${snmpdConf##*/} == ${ownSnmpdConf##*/} ]]; then
+      printf "Killing snmpd with pid: ${pid}\n"
+      kill -KILL $pid
+    fi
+  done
+}
+
+
+#
+# Define Clean Procedure
+#
+Clean()
+  {
+    info=''
+    Echo2log "Executed with options: [${cmdOptions}]"
+    if [ "${Exit}" = "1" ]
+    then
+    	Echo2log "Stopped by user!"
+    elif [ "${Exit}" = "2" ]
+    then
+    	Echo2log "Error: Aborted by user!"
+    elif [ "${Exit}" = "3" ]
+    then
+	Echo2log "Error: Install preparation failed!"
+    elif [ "${Exit}" = "4" ]
+    then
+    	Echo2log "Error: RCS package failure!"
+    elif [ "${Exit}" = "5" ]
+    then
+    	Echo2log "Error: OTP package failure!"
+    elif [ "${Exit}" = "6" ]
+    then
+	Echo2log "${progname}: Error: SIM package failure!"
+    elif [ "${Exit}" = "7" ]
+    then
+	Echo2log "${progname}: Error: RCS package extraction failure!"
+    elif [ "${Exit}" = "8" ]
+    then
+	Echo2log "${progname}: Error: Start of RCS SIM Failed!"
+    elif [ "${Exit}" = "9" ]
+    then
+	Echo2log "${progname}: Error: Initial config file missing!"
+    fi
+
+
+
+
+    # Stop RCS SIM
+    KillSim
+
+    if [ "${useLinx}" = "yes" ]
+    then
+	rcsEEsim stop
+    fi
+
+    if [ "${usel}" = "yes" ]
+    then
+	rcsEEsim stopUsel
+    fi
+
+    if [ ! -n "${coreDir}" ]; then
+	stopSnmpd
+    fi
+
+    RemoveHangingIpcQ
+
+    [ -e /tmp/${USER}/rcssim.${RCSSIM_PID} ] && rm -rf /tmp/${USER}/rcssim.${RCSSIM_PID}
+#    exit ${Exit}
+    kill -s TERM $RCSSIM_PID
+
+}
+
+#
+# Define Abort Procedure
+#
+Abort()
+  {
+    Exit=2
+    Clean
+}
+
+Stop()
+  {
+    Exit=1
+    Clean
+}
+
+
+
+
+#
+# Define CheckStart Procedure
+#
+
+
+CheckStart()
+  {
+      Echo2log "\n${progname}: Starting RCS SIM"
+      printf "\n${progname}: Starting RCS SIM"
+      checkTime=0
+      checkTimeOut=120
+      sleepTime=1
+      until [ -n "${beamProc}"  ]
+      do
+	  sleep ${sleepTime}
+	  checkTime=`expr ${checkTime} + ${sleepTime}`
+	  if [ "${checkTime}" -gt "${checkTimeOut}" ]
+	  then
+	      Echo2log "\n\nError: RCS SIM Failed to Start!\n(beam)\n"
+	      return 99
+	  fi
+	  beamProc=`ps -efww |grep  "${USER}" |grep "beam" |grep "${installDir}" | grep -v "usel" | awk '{print $2}'`
+      done
+
+      checkTime=0
+      checkTimeOut=120
+      comProc=` pgrep -u ${USER} -f "com ${installDir}"`
+      until [ -n "${comProc}" -o "${MP_ROLE}" != "active" ]
+      do
+	  printf '.'
+	  sleep ${sleepTime}
+	  checkTime=`expr ${checkTime} + ${sleepTime}`
+	  if [ "${checkTime}" -gt "${checkTimeOut}" ]
+	  then
+	      Echo2log "\n\nError: RCS SIM Failed to Start!\n(COM)\n"
+	      return 99
+	  fi
+
+	  comProc=` pgrep -u ${USER} -f "com ${installDir}"`
+      done
+      Echo2log "\n\nRCS SIM started successfully!\n\n"
+      printf "\n\nRCS SIM started successfully!\n\n"
+
+  }
+
+#
+#
+# Create Directories
+#
+CreateDirectories() {
+	local dir
+	for dir
+	do
+		[ -d $dir ] || {
+			mkdir -p $dir || (Echo2log "Failed to create directory: $dir" ; Exit=3; Clean )
+		}
+	done
+}
+
+
+KillRestartHelper()
+{
+# Kill a previous restart_helper process
+    rsthProc=`ps -efww |grep  "${USER}" |grep "restart_helper" |grep "${installDir}" |  awk '{print $2}'`
+    if [  "${rsthProc}" != "" ]; then
+	Echo2log "Killing old restart helper process pid= ${rsthProc} "
+	kill -9  ${rsthProc} 2>/dev/null
+    fi
+}
+
+#
+# Define SIM Kill Procedure
+#
+KillSim()
+  {
+      beamProc=`ps -efww |grep  "${USER}" |grep "beam" |grep "${installDir}" | grep -v "testnode" | awk '{print $2}'`
+
+      if [  "${beamProc}" != "" ]
+      then
+	Echo2log "Stopping beam with pid = ${beamProc} "
+	${ERL_CALL_CMD}  -a "init stop []" 2> /dev/null
+	Echo2log "Wait a while to let applications close nicely "
+	bp=${beamProc}
+	until [  "${bp}"  == "" ]
+	do 
+	    bp=`ps -efww |grep  "${USER}" |grep "beam" |grep "${installDir}" | grep -v "testnode" | awk '{print $2}'`
+	done
+	Echo2log "Beam has stopped "
+
+      fi
+      pkill -9 -u ${USER} -f "com ${installDir}" 2> /dev/null
+
+      KillRestartHelper
+
+}
+
+# a workaround since one ipc queue element is left after node is taken down.
+RemoveHangingIpcQ()
+{ 
+      if [  "${beamProc}" != "" ]; then
+	  qno=`ipcs -q -p | grep  ${beamProc} | awk '{ print $1 }'`
+	  if [ "${qno}" != "" ]; then
+	      ipcrm -q ${qno}  2> /dev/null
+	      Echo2log "Removing ipc queue ${qno} for beam ${beamProc}"
+	  fi
+      fi
+}
+
+
+#
+# Define SIM Kill Procedure
+#
+StopSim()
+{
+    i=1
+
+    while [ $i -le 10 ]
+    do
+      [ -f "${RCS_SIM_ROOT}/home/${USER}/install_complete" ] && {
+	  ${ERL_CALL_CMD}  -v -d  -a "init stop []" 2> /dev/null
+	  pkill -9 -u ${USER} -f "com ${installDir}" 2> /dev/null
+	  break
+      }
+	# may be the erlang node is not up, sleep 2 secs max of 20 secs in interval of 10
+      sleep 2
+      (( i++ ))
+    done
+    [ $i -gt 10 ] && echo "Could not stop the erlang node." >&2
+}
+
+#
+# Define Echo Procedure
+#
+Echo2log()
+    {
+	printf "\n# `date '+%Y-%m-%d %H:%M:%S'` # ${progname}: $1\n\n"
+}
+
+
+GetG2Rev()
+{
+    Echo2log "Finding latest Node SIM UP"
+    Rev=`wget -q $g2url -O - | egrep "R3A[1-9][0-9][0-9][0-9]" | tail -1 | awk -F\> '{ print $2 }' | awk -F/ '{ print $1 }'`
+    if [ Rev == "" ];then
+	Echo2log "Failed to find Node SIM UP at $g2url"
+	Exit=6
+	Clean
+    else
+	Echo2log "Found Node SIM UP with revision $Rev"
+	pkg=${nodeSimCxp}-$Rev
+	g2msPackage=$g2url/$Rev/$pkg
+	wget --spider  -q $g2msPackage.zip
+	if [ $? -eq 0 ]; then
+	    g2msPackage=$g2url/$Rev/$pkg.zip
+	    packageBasename=`basename ${g2msPackage}`
+	    Echo2log "Found ZIP file  ${packageBasename} , repackage to tgz file /tmp/$pkg.tgz "
+	    wget ${wgetOpt} ${PROXY} --output-document /tmp/${pkg}.zip ${g2msPackage}${label}
+	    tmpdir=/tmp/$pkg.$$
+ 	    mkdir $tmpdir
+	    cd  $tmpdir
+	    unzip /tmp/$pkg.zip
+	    tar czf /tmp/$pkg.tgz *
+	    rm -rf $tmpdir
+	    rm $pkg.zip
+	    g2msPackage=/tmp/$pkg.tgz
+	else
+	    g2msPackage=$g2url/$Rev/${nodeSimCxp}-$Rev.tgz
+	fi
+    fi
+
+}
+
+###############################################################################
+########################### main Main MAIN ####################################
+###############################################################################
+
+Echo2log "Started..."
+
+simBin=${installDir}/bin
+simDownload=${installDir}/Download
+
+# Init/export global variables
+export RCS_MODE=simulated
+export RCS_SIM_ROOT=${RCS_SIM_ROOT:=${installDir}/RCS_ROOT}
+export OTP_ROOT=${installDir}/OTP
+export PATH=${OTP_ROOT}/bin:${simBin}:${RCS_SIM_ROOT}/colish:${PATH}
+export HOST=${HOST:=`uname -n`}
+export SNAME=${sname}
+export RCS_COOKIE=${cookie}
+export PIPE_DIR=${RCS_SIM_ROOT}/tmp
+export UNIQ=${uniq}
+export SIM_TGT
+#export TRI_MAIN_CMD=tex
+export MP_ROLE=${MP_ROLE:-active}
+export MPID=${MPID:-1}
+if [ -n "${ERL_EPMD_PORT}" ]; then
+    export ERL_EPMD_PORT
+fi
+
+export installDir
+
+if [ -n "${cleanInstall}" ] ; then
+    if [[ $PWD/ = ${installDir}/* ]]; then
+        Echo2log "You can't have your current working directory inside the install directory when using option -c"
+	exit 1
+    fi
+fi
+
+
+Echo2log "Testing for unsquashfs"
+if [ `command -v unsquashfs` ]
+then
+    Echo2log "Found in path: `command -v unsquashfs`"
+    export UNSQFS=`command -v unsquashfs`
+elif [ -e '/app/rbs/wrtools/tools-sdk-20130220/usr/sbin/unsquashfs' ]
+then
+    Echo2log "Found /app/rbs/wrtools/tools-sdk-20130220/usr/sbin/unsquashfs"
+    export UNSQFS='/app/rbs/wrtools/tools-sdk-20130220/usr/sbin/unsquashfs'
+else
+    Echo2log "unsquashfs not found, aborting"
+    exit 1
+fi
+
+KillRestartHelper
+
+
+# Clean install dirs on request
+if [ -n "${cleanInstall}" ]
+then
+    Echo2log "Removing everything in ${installDir}"
+    \rm -rf ${installDir:?installDir must be set}
+fi
+
+# Create dir's
+
+CreateDirectories "${installDir}" "${simBin}" "${simDownload}" "${RCS_SIM_ROOT}" "${RCS_SIM_ROOT}/colish" "${OTP_ROOT}"
+\rm -f ${RCS_SIM_ROOT}/colish/*
+
+
+if [ ! -n "${noInstall}" ]
+then
+# Clean previous setup
+    Echo2log "Removing everything in ${simDownload}"
+    \rm -rf ${simDownload:?simDownload must be set}/* > /dev/null 2>&1
+fi
+# Manage RCS package
+
+if [ -n "${msPkg}" ]
+then
+    if [ -e /env/rbsg2/bin/ifu ]
+    then
+	cat <<EOF >${installDir}/nodeSim.xml
+<pkgspec>
+   <meta_data
+      work_dir="${simDownload}"
+   />
+   <containers>
+      <module
+          id="${nodeSimCxp}"
+          ${pversion}
+          confidence_level="2"
+      />
+  </containers>
+</pkgspec>
+
+EOF
+	Echo2log "Downloading  NodeUP  ${nodeSimCxp} ${plabel} to ${simDownload}"
+	/env/rbsg2/bin/ifu --timeout 240 -create -spec ${installDir}/nodeSim.xml --ib
+	g2msPackage=`readlink -f ${simDownload}/${nodeSimCxp}*`
+	case "${g2msPackage}" in
+	    *.zip)
+		pkg=`basename ${g2msPackage} | sed s/.zip//`
+		tmpdir=/tmp/$pkg.$$
+		mkdir $tmpdir
+		cd  $tmpdir
+		unzip ${simDownload}/$pkg.zip
+		tar czf ${simDownload}/$pkg.tgz *
+		rm -rf $tmpdir
+		rm ${simDownload}/$pkg.zip
+		g2msPackage=${simDownload}/$pkg.tgz
+		;;
+	    *)
+		;;
+	esac
+	package=ms
+    else	
+	GetG2Rev
+	package="${g2msPackage}"
+	webServer="${nodeWebServer}"
+    fi
+fi
+
+if [ -z "${package}" ]
+then
+    package="${defaultPackage}"
+fi
+
+if [ -s "${package}${label}" ]
+then
+    packageReadable=yes
+fi 
+
+
+
+packageBasename=`basename ${package}`
+
+if [ ! -n "${noInstall}" ]; then
+    case "${package}" in
+	ms)
+	    package="${g2msPackage}"
+	    packageBasename=`basename ${g2msPackage}`
+	    ;;
+	http*)
+	    wget --spider -q ${package}${label}
+	    if [  $? -ne 0 ]; then
+		package=`echo ${package}|sed s/cxs/zip/`
+		packageBasename=`basename ${package}`
+		wget --spider -q ${package}${label}
+		if [  $? -ne 0 ]; then
+		    Echo2log "Error: Failed to find package [${package}${label}]!"
+		    Exit=4
+		    Clean
+		fi
+	    fi
+	    Echo2log "Downloading ${package}${label} to ${simDownload}"
+	    ( \cd ${simDownload} && wget ${wgetOpt} ${PROXY} --output-document ${packageBasename} ${package}${label} ) || ( Echo2log "Error: Failed to download package [${package}]!" ; Exit=4; Clean ) ;;
+	*)
+	    packDir=`dirname ${package}`
+	    if [ ! -d "${packDir}" ]
+	    then 
+		wget --spider -q ${webServer}${packDir}${label}/${packageBasename}${label}
+		if [  $? -ne 0 ]; then
+		    package=`echo ${package}|sed s/cxs/zip/`
+		    packageBasename=`basename ${package}`
+		    wget --spider -q ${webServer}${packDir}${label}/${packageBasename}${label}
+		    if [  $? -ne 0 ]; then
+			Echo2log "Error: Failed to find package [${webServer}${packDir}${label}/${packageBasename}${label}]!"
+			Exit=4
+			Clean
+		    fi
+		fi
+		
+		Echo2log "Downloading ${webServer}${packDir}${label}/${packageBasename}${label}  to ${simDownload}"
+		( \cd ${simDownload} && wget ${wgetOpt} ${PROXY} --output-document ${packageBasename} ${webServer}${packDir}${label}/${packageBasename}${label} ) \
+		    || ( Echo2log "Error: Failed to download package [${webServer}${packDir}${label}/${packageBasename}${label}]!" ; Exit=4; Clean )
+	    else
+		if [ -e ${packDir}${label}/${packageBasename}${label} ]; then
+		    Echo2log "Linking ${packDir}${label}/${packageBasename}${label} to ${simDownload}/${packageBasename} "
+		    ln -s ${packDir}${label}/${packageBasename}${label} ${simDownload}/${packageBasename}
+		else
+		    package=`echo ${package}|sed s/cxs/zip/`		    
+		    packageBasename=`basename ${package}`
+		    if [ -e ${packDir}${label}/${packageBasename}${label} ]; then
+			Echo2log "Linking ${packDir}${label}/${packageBasename}${label} to ${simDownload}/${packageBasename} "
+			ln -s ${packDir}${label}/${packageBasename}${label} ${simDownload}/${packageBasename}
+		    else
+			Echo2log "Error: Failed to find package [${packDir}${label}/${packageBasename}${label}]!"
+			Exit=4
+			Clean
+		    fi
+		fi
+		    
+	    fi ;;
+    esac
+    pushd ${simDownload} > /dev/null 2>&1
+    t=`file -L ${packageBasename} | grep -i gzip`
+    if [ $? -ne 0 ]; then
+	Echo2log "Repackaging from .zip to .tgz"
+	pkg=`echo ${packageBasename} | sed s/.zip//`
+	tmpdir=/tmp/$pkg.$$
+	mkdir $tmpdir
+	cd  $tmpdir
+	unzip -q ${simDownload}/$pkg.zip
+	tar cf ${simDownload}/$pkg.tgz *
+	rm -rf $tmpdir
+	rm ${simDownload}/$pkg.zip
+	packageBasename=$pkg.tgz
+    fi
+    popd  > /dev/null 2>&1
+
+	    
+# Check that the UP contains a *-up.xml file
+    Echo2log "Checking  ${simDownload}/${packageBasename} for *-up.xml"
+
+    if [ `tar tf ${simDownload}/${packageBasename} | grep "\-up.xml"` ]; then
+	upFile=`tar tf ${simDownload}/${packageBasename} | grep "\-up.xml"`
+	Echo2log "OK: UP does contain $upFile."
+    else
+	Echo2log "Error: UP does not contain a *-up.xml. Check that the UP contains a xml file with the correct naming (*-up.xml)."
+	Echo2log "Aborting"
+	Exit=4
+	Clean
+    fi
+
+
+
+
+
+# Check that the UP contains RCS-SIM_CXP
+    Echo2log "Checking  ${simDownload}/${packageBasename} for ${simCxp}"
+
+    if [ `tar tf ${simDownload}/${packageBasename} | grep ${simCxp}` ]; then
+	Echo2log "OK: UP does contain ${simCxp}."
+    else
+	Echo2log "Error: UP does not contain ${simCxp}. Check that you have a UP for sim environment."
+	Echo2log "Aborting"
+	Exit=4
+	Clean
+    fi
+
+else
+     Echo2log "Reusing old installation ${package}${label} in ${simDownload}."
+
+fi
+
+
+# Do some statistics for rcssim usage
+OS=`uname -r`
+IP=`/sbin/ifconfig | grep 'inet ' | grep -v '127.0.0.1' | head -n1 | awk '{print $2}'|sed s/addr://`
+HST=`hostname -f`
+#wget --no-check-certificate -o /dev/null -O /dev/null  "https://rbs-rde.rnd.ki.sw.ericsson.se/cgi-bin/cu.pl?os=$OS&host=$HST&ip=$IP"
+
+if [ -n "${noInstall}" ]
+then
+    Echo2log "Reusing old installation in  ${installDir}"
+    \rm ${RCS_SIM_ROOT}/home/$USER/install_complete
+    \rm -f ${RCS_SIM_ROOT}/home/$USER/activation_complete  #Used by Jenkins for sim-cluster
+    \rm -f ${RCS_SIM_ROOT}/home/$USER/cluster_config
+    \rm -f ${RCS_SIM_ROOT}/home/$USER/cluster_complete
+    mv ${RCS_SIM_ROOT}/rcs/erlang/erlang.log.1  ${RCS_SIM_ROOT}/rcs/erlang/erlang.log.1.`date +%y-%m-%d.%H:%M`
+    export ERL_CALL=`readlink -f ${OTP_ROOT}/lib/erl_interface-*/bin/erl_call`
+    export ERL_CALL_CMD="${ERL_CALL} -sname ${SNAME} -c ${RCS_COOKIE}  "
+    export noInstall
+else
+
+    # Manage OTP
+    ( cd ${simDownload}
+	\rm -rf OTP/*  > /dev/null 2>&1
+	\rm -rf ${OTP_ROOT:?OTP_ROOT must be set}/*  > /dev/null 2>&1
+	if [ -n "${coreDir}" ]; then
+	    ( 	cd ${installDir}/OTP
+		ln -s ${coreDir}/OTP/* .
+	    )
+	else
+	    if [ -e ${patchDir}/${otpPackage} ]
+	    then
+		Echo2log "Using patched OTP  [${patchDir}/${otpPackage}]!"
+		( \cd ${OTP_ROOT} && ln -s  ${patchDir}/${otpPackage}/* . ) || ( Echo2log "Error: Failed to extract package [${otpPackage}]!" ; Exit=5; Clean )
+	    elif [ -e ${patchDir}/${otpPackageGzip} ]
+	    then
+		Echo2log "Using patched OTP  [${patchDir}/${otpPackageGzip}]!"
+		( \cd ${OTP_ROOT} && tar -xf ${patchDir}/${otpPackageGzip} ) || ( Echo2log "Error: Failed to extract package [${otpPackageGzip}]!" ; Exit=5; Clean )
+	    else
+		tar -xf ${packageBasename} ${simCxp} || ( Echo2log "Error: Failed to extract SIM package [${simCxp}]!" ; Exit=5; Clean )
+		if [ `tar tf ${simCxp} | grep sw.ar` ]; then
+		    tar xf ${simCxp} sw.ar > /dev/null 2>&1 || ( Echo2log "Error: Failed to fetch sw.ar from  [${simCxp}]!" ; Exit=5; Clean )
+		    ar x sw.ar sqfs.img > /dev/null 2>&1 || ( Echo2log "Error: Failed to fetch sqfs.img from sw.ar !" ; Exit=5; Clean )
+		    ${UNSQFS} -f -d . -n sqfs.img OTP*  > /dev/null 2>&1 || ( Echo2log "Error: Failed to fetch OTP package from sqfs.img!" ; Exit=5; Clean )
+		    Echo2log "Using 32-bit OTP from Squashfs!"
+		else
+		    tar --no-anchored --wildcards -xvf ${simDownload}/${simCxp} ${otpPackage}  > /dev/null 2>&1 || ( Echo2log "Error: Failed to fetch OTP package [${otpPackage}]!" ; Exit=5; Clean )
+		    if [ ! -d  ${simDownload}/${otpPackage}/bin ]; then
+			( \cd ${simDownload}/${otpPackage} && tar -xf ${otpPackageGzip} )
+			Echo2log "Unpacking 32-bit OTP from CXP!"
+		    else
+			Echo2log "Using unpacked 32-bit OTP from CXP!"
+		    fi
+		fi
+		( \cd ${OTP_ROOT} && ln -s ${simDownload}/${otpPackage}/* . ) || ( Echo2log "Error: Failed to extract package [${otpPackage}]!" ; Exit=5; Clean )
+	    fi
+	fi
+    )
+
+    export ERL_CALL=`readlink -f ${OTP_ROOT}/lib/erl_interface-*/bin/erl_call`
+    export ERL_CALL_CMD="${ERL_CALL} -sname ${SNAME} -c ${RCS_COOKIE} "
+
+    # Manage SIM and extract the complete RCS structure
+    \rm -rf ${simBin:?simBin must be set}/* > /dev/null 2>&1
+    if [ -n "${coreDir}" ]; then
+	( cd ${simBin}
+	    ln -s ${coreDir}/bin/* .
+	)
+    elif [ `command -v rcssim_setup` ]
+    then
+       # running from clearcase, copy script files
+	pgPath=$(dirname `which rcssim_setup`)
+	( cd ${simBin}
+	    for binFile in ${rcsSimBinFiles}
+	    do
+		cp ${pgPath}/${binFile} . || ( Echo2log "Error: Failed to copy [${binFile}]!" ; Exit=6; Clean )
+	    done
+	    ln -s toerl to > /dev/null 2>&1
+	)
+    else
+	( cd ${simBin}
+	    for binFile in ${rcsSimBinFiles}
+	    do
+		wget ${wgetOpt} ${PROXY} ${stableWebServer}${rcsSimBin}/${binFile} || ( Echo2log "Error: Failed to download [${binFile}]!" ; Exit=6; Clean )
+	    done
+	    chmod +x ${rcsSimBinFiles} || ( Echo2log "Error: Permission failure for SIM!" ; Exit=6; Clean )
+	    ln -s toerl to > /dev/null 2>&1
+	)
+    fi
+    export LD_LIBRARY_PATH=/app/vbuild/SLED11-i686/ncurses/5.9/lib:${LD_LIBRARY_PATH}
+
+    if [ -n "${coreDir}" ]; then
+	rcssim_setup -r ${coreDir} || ( Echo2log "Error: Script execution [rcssim_setup] failed!" ; Exit=7; Clean )
+    else
+	rcssim_setup -p ${simDownload}/${packageBasename} || ( Echo2log "Error: Script execution [rcssim_setup] failed!" ; Exit=7; Clean )
+    fi
+fi
+
+# Create soft link to get "start_rcs.sh" in path
+\rm -f ${simBin}/start_rcs.sh > /dev/null 2>&1
+
+if  [ -n "${patchedStartRcs}" ]; then
+    Echo2log "#####################################"
+    Echo2log "######Using start_rcs from CC #######"
+    Echo2log "#####################################"
+    \ln -s /vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/SYS/SYS_CNX9012620/SYS_CAX1033072/esrc/sys/start_rcs.sh ${simBin}
+ else
+    \ln -s ${RCS_SIM_ROOT}/home/$USER/software/RCS*_CXP*_*/SYS*_CXC1733862*/sys-*/priv/bin/start_rcs.sh ${simBin}
+fi
+
+
+#This is needed by rcsEEsim
+rootfs_path=`readlink -f ${RCS_SIM_ROOT}/software/RCS*_CXP*_*/ROOTFS*_CXC1733870_*/rootfs*/priv/x86`
+[ ! -d ${rootfs_path}/i686 ] &&  {
+    printf "Unpacking i686 ROOTFS\n"
+    mkdir ${rootfs_path}/i686
+    ( \cd ${rootfs_path}/i686 && tar -xf  ${rootfs_path}/rootfs-i686.tgz || fatal "Unpacking ${rootfs_path}/rootfs-i686.tgz failed." )
+}
+ROOTFS=${rootfs_path}/i686
+
+# Kill all EE processes for $USER
+if [ -n "${killAll}" ]
+then
+    Echo2log "Killing all EE processes for $USER"
+    rcsEEsim stopall
+    pkill -9 -f "RCS_ROOT/home/$USER"
+else
+# Stop already running RCS SIM
+    KillSim
+fi
+
+# Kill all IPC stuff for $USER
+if [ -n "${killIpc}" ]
+then
+    Echo2log "Removing all IPC queues for $USER"
+    /app/rbs/wrtools/tools-sdk-20130809/usr/bin/ipcrm -a  > /dev/null 2>&1
+fi
+
+# Set flag to ignore crashing applications
+if [ -n "${noEscFlag}" ]
+then
+    Echo2log "Touching ${RCS_SIM_ROOT}/home/$USER/do_not_escalate_restart"
+    touch ${RCS_SIM_ROOT}/home/$USER/do_not_escalate_restart
+fi
+
+
+# Use own or user config_initial.netconf
+defaultInitFile=${RCS_SIM_ROOT}/home/$USER/software/RCS*_CXP*_*/SYS*_CXC1733862*/sys-*/priv/config_initial.netconf
+tgtInitDir=${RCS_SIM_ROOT}/rcs/networkloader
+tgtInitFile=${tgtInitDir}/config_initial.netconf
+
+mkdir -p ${tgtInitDir}
+[ -n "${MPID}" ] && echo ${MPID} > ${tgtInitDir}/mpid
+
+if  [ -n "${initFile}" ]; then
+    if [ -e "${initFile}" ]; then
+	Echo2log "Copying initFile:${initFile}  to ${tgtInitFile}"
+	\cp ${initFile} ${tgtInitFile}
+    else
+	Echo2log "Error:Initial NETCONF file:${initFile} does not exist, "; Exit=9; Clean
+    fi
+else
+    if [ -e "${defaultInitFile}" ]; then
+	Echo2log "Copying defaultInitFile:${defaultInitFile}  to ${tgtInitFile}"
+	\cp ${defaultInitFile} ${tgtInitFile}
+    else
+	Echo2log "No initfile exist, using default LDAP server address"
+    fi
+fi
+
+# Link user patches to dev_patches if so requested
+if [ -n "${patchDir}" ]
+then
+    mkdir -p ${RCS_SIM_ROOT}/home/${USER}/dev_patches/
+    if [ `ls -1 ${patchDir} | wc -l` -gt 0 ]
+    then
+        \ln -sf  ${patchDir}/* ${RCS_SIM_ROOT}/home/${USER}/dev_patches/
+    fi
+
+fi
+
+# take care of other hosts than SusE
+if [ -e  /usr/lib64/libnetsnmp.so.20 ]; then # Redhat
+    Echo2log "Symlinking to  /usr/lib64/libnetsnmp*.so.20 from dev_patches/libnetsnmp*.so.15"
+    \ln -sf  /usr/lib64/libnetsnmp.so.20 ${RCS_SIM_ROOT}/home/${USER}/dev_patches/libnetsnmp.so.15
+    \ln -sf  /usr/lib64/libnetsnmpmibs.so.20 ${RCS_SIM_ROOT}/home/${USER}/dev_patches/libnetsnmpmibs.so.15
+    \ln -sf  /usr/lib64/libnetsnmpagent.so.20 ${RCS_SIM_ROOT}/home/${USER}/dev_patches/libnetsnmpagent.so.15
+    \ln -sf  /usr/lib64/libnetsnmphelpers.so.20 ${RCS_SIM_ROOT}/home/${USER}/dev_patches/libnetsnmphelpers.so.15
+elif [ -e /usr/lib/x86_64-linux-gnu/libnetsnmp.so.30 ]; then #  Ubuntu LTS 14.04
+    Echo2log "Symlinking to  /usr/lib/x86_64-linux-gnu/libnetsnmp*.so.30 from dev_patches/libnetsnmp*.so.15"
+    \ln -sf  /usr/lib/x86_64-linux-gnu/libnetsnmp.so.30 ${RCS_SIM_ROOT}/home/${USER}/dev_patches/libnetsnmp.so.15
+    \ln -sf  /usr/lib/x86_64-linux-gnu/libnetsnmpmibs.so.30 ${RCS_SIM_ROOT}/home/${USER}/dev_patches/libnetsnmpmibs.so.15
+    \ln -sf  /usr/lib/x86_64-linux-gnu/libnetsnmpagent.so.30 ${RCS_SIM_ROOT}/home/${USER}/dev_patches/libnetsnmpagent.so.15
+    \ln -sf  /usr/lib/x86_64-linux-gnu/libnetsnmphelpers.so.30 ${RCS_SIM_ROOT}/home/${USER}/dev_patches/libnetsnmphelpers.so.15
+fi
+
+if [ -n "${coreDir}" ]; then
+    if [ -e $coreDir/RCS_ROOT/home/${USER}/cluster_config ]; then
+	cp $coreDir/RCS_ROOT/home/${USER}/cluster_config ${installDir}/RCS_ROOT/home/${USER}
+    fi
+fi
+
+if [ -n "${installOnly}" ]; then
+    # Install SIM package only
+    (  \cd ${RCS_SIM_ROOT} &&  INSTALL_ONLY="true" ${startRcs} ) > /dev/null 2>&1
+else
+    # Install and start RCS SIM and wait for COM to start
+    ((\cd ${RCS_SIM_ROOT} && ${startRcs} ) && CheckStart ) || ( Echo2log "Error: Failed to start RCS SIM!" ; Exit=8; Clean )
+    PTH=`${ERL_CALL_CMD} -a 'os getenv ["PATH"]' |tr -d '\"'`
+
+
+    ${ERL_CALL_CMD}  -a 'appmServer get_rcs_env ["unknown"]'  | tr -d '[' | tr -d ']' | sed "s/},/}\n/g" | tr -d '{' | tr -d '}' | awk -F, '{print "setenv " $1 $2 }' | tr -d '"'  > ${RCS_SIM_ROOT}/sourceMe.csh
+
+    cat <<EOF >> ${RCS_SIM_ROOT}/sourceMe.csh
+setenv OTP_ROOT ${OTP_ROOT}
+setenv installDir ${installDir}
+setenv RCS_SIM_ROOT ${RCS_SIM_ROOT}
+setenv SNAME ${SNAME}
+setenv PATH ${PTH}
+setenv BT ${BT}
+setenv UNIQ ${UNIQ}
+setenv RCS_COOKIE ${RCS_COOKIE}
+setenv SHELL /bin/bash
+EOF
+    if [ -n "${ERL_EPMD_PORT}" ]; then
+	echo "setenv ERL_EPMD_PORT ${ERL_EPMD_PORT}" >>  ${RCS_SIM_ROOT}/sourceMe.csh
+    fi
+
+    ${ERL_CALL_CMD}  -a 'appmServer get_rcs_env ["unknown"]'  | tr -d '[' | tr -d ']' | sed "s/},/}\n/g" | tr -d '{' | tr -d '}' | sed "s/, /,/g" | awk -F, '{print "export "$1"="$2 }' | tr -d '"'  > ${RCS_SIM_ROOT}/sourceMe.sh
+    cat <<EOF >> ${RCS_SIM_ROOT}/sourceMe.sh
+export OTP_ROOT=${OTP_ROOT}
+export installDir=${installDir}
+export RCS_SIM_ROOT=${RCS_SIM_ROOT}
+export SNAME=${SNAME}
+export PATH="${PTH}"
+export BT="${BT}"
+export UNIQ="${UNIQ}"
+export RCS_COOKIE=${RCS_COOKIE}
+EOF
+    if [ -n "${ERL_EPMD_PORT}" ]; then
+	echo "export ERL_EPMD_PORT=${ERL_EPMD_PORT}" >>  ${RCS_SIM_ROOT}/sourceMe.sh
+    fi
+    
+    chmod 700 ${RCS_SIM_ROOT}/sourceMe.csh
+    chmod 700 ${RCS_SIM_ROOT}/sourceMe.sh
+
+    grep -B 1 -A 3 "WARNING REPORT" ${RCS_SIM_ROOT}/rcs/erlang/erlang.log.1 > ${RCS_SIM_ROOT}/start_errors.$$.txt
+    grep -B 1 -A 3 "ERROR REPORT" ${RCS_SIM_ROOT}/rcs/erlang/erlang.log.1 >> ${RCS_SIM_ROOT}/start_errors.$$.txt
+    rcs_mim_val |grep ERROR  >> ${RCS_SIM_ROOT}/start_errors.$$.txt
+    warn=`grep "WARNING REPORT" ${RCS_SIM_ROOT}/start_errors.$$.txt | wc -l`
+    err=`grep "ERROR REPORT" ${RCS_SIM_ROOT}/start_errors.$$.txt | wc -l`
+    mim_err=`grep "ERROR," ${RCS_SIM_ROOT}/start_errors.$$.txt | wc -l`
+
+    if [ $warn -gt 0 -o $err -gt 0 -o $mim_err -gt 0 ]
+    then
+	echo                                                                      >> ${RCS_SIM_ROOT}/start_errors.$$.txt
+	echo "================================================================"   >> ${RCS_SIM_ROOT}/start_errors.$$.txt
+	echo "Found $warn WARNING and $err ERROR REPORTS during startup."         >> ${RCS_SIM_ROOT}/start_errors.$$.txt
+	echo "Found $mim_err MIM ERRORs in mim validation."                       >> ${RCS_SIM_ROOT}/start_errors.$$.txt
+	echo "Check above and"                                                    >> ${RCS_SIM_ROOT}/start_errors.$$.txt
+	echo "${RCS_SIM_ROOT}/rcs/erlang/erlang.log.1"                            >> ${RCS_SIM_ROOT}/start_errors.$$.txt
+	echo "for more information."                                              >> ${RCS_SIM_ROOT}/start_errors.$$.txt
+	echo "Use rcs_mim_val to see any MIM errors"                              >> ${RCS_SIM_ROOT}/start_errors.$$.txt
+	echo "================================================================"   >> ${RCS_SIM_ROOT}/start_errors.$$.txt
+	echo                                                                      >> ${RCS_SIM_ROOT}/start_errors.$$.txt
+    fi
+fi
+
+if [ -n "${userScript}" ]; then
+    for script in ${userScript}; do
+	echo  "Now executing user script : ${script} in directory ${RCS_SIM_ROOT}:"
+	( \cd ${RCS_SIM_ROOT} &&  . sourceMe.sh ; ${script} )
+    done
+fi
+
+if [ -z "${backgroundMode}" ]
+then
+    ( \cd ${RCS_SIM_ROOT} && \
+	export IGNOREEOF=99;\
+        xterm -fg  "${fgcolor}" -bg "${bgcolor}" -sl 20000 -title "RCS SIM - Package: ${packageBasename}${label}" \
+	-e "cat ${RCS_SIM_ROOT}/start_errors.$$.txt ${how2File};cd ${runDir};tcsh -f -c 'source  ${RCS_SIM_ROOT}/sourceMe.csh;exec bash' " ) \
+	|| ( Echo2log "Error: Failed to spawn RCS SIM shell in xterm!" ; Exit=8 )
+    Clean
+
+elif [  "${backgroundMode}" = "wait" ]
+then
+#  wait for someone to kill process so it can clean up
+    echo "rcssim started in background mode but staying in wait loop for kill to clean up."
+    echo "To stop the simulator do"
+    echo "kill -2 $$"
+    echo "The pid is also stored in the $installDir/rcssim.pid file"
+    echo
+    echo $$ > $installDir/rcssim.pid
+    while true
+    do
+	sleep 1
+    done
+else
+    port_netconf=`grep netconf  ${RCS_SIM_ROOT}/home/$USER/releases/*/port.conf | grep -v tls | sed s/{//g |sed s/}//g | awk -F, '{print $2}'`
+    port_cli=`grep cli  ${RCS_SIM_ROOT}/home/$USER/releases/*/port.conf | grep -v tls| sed s/{//g |sed s/}//g | awk -F, '{print $2}'`
+    echo "================================="
+    echo "rcssim started in background mode"
+    echo
+    echo "Source environment variables with"
+    echo "source ${RCS_SIM_ROOT}/sourceMe.csh"
+
+    echo "if using csh or"
+    echo ". ${RCS_SIM_ROOT}/sourceMe.sh"
+    echo "if using bourne shell or bash"
+    echo
+    echo "NETCONF port: $port_netconf"
+    echo "CLI port:     $port_cli"
+    echo
+    echo
+fi

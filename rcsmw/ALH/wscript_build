@@ -1,0 +1,16 @@
+APP = bld.rcsErlApp("alh", cxaid="181", cxcid="131", appdataroot="alh", )
+bld.shlib(
+   source=["csrc/alh_trace_probe.c", "csrc/avli_proxy.c"],
+   target="cello_avli",
+   name="avli",
+   includes="csrc",
+   defines="NO_LITS",
+   use = ["ltt", "rt", "cec", "crl"],
+   install_path = bld.getLib(APP)
+   )
+bld(features='edoc', source='esrc/alhI.erl', install_path=bld.getBldtime('alh')+"/edoc")
+
+bld.install_files(bld.getPrv(APP)+"/appdata", ['appdata/coli_registrations.xml',
+   'appdata/alh_lmhi_sim.xml', 'appdata/alh_lmhi_vrcs.xml','appdata/alh_lmhi_vrcs64.xml', 'appdata/alh_lmhi_arm.xml'])
+bld.install_files(bld.getPrv(APP)+"/dtd", ['dtd/RBS_CS_AVAILABILITY_LOG.dtd'])
+bld.install_files(bld.getBldLib("alh"), 'libcello_avli.so')

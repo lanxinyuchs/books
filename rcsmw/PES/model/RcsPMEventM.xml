@@ -1,0 +1,900 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Copyright (c) 2014 Ericsson AB. 
+	All rights reserved 
+
+	DX ECIM Tool-chain generated this file on Nov 10, 2014 2:38:36 PM using:
+	* com.ericsson.ecim.m2m 2.11.3.201409041218
+	* com.ericsson.ecim.dsl 2.11.3.201409041218
+	* com.ericsson.ecim.edm 2.11.3.201409041218
+--><!DOCTYPE models SYSTEM "mp.dtd">
+<models>
+  <dtdVersion>G</dtdVersion>
+  <momMetaData>
+    <momTitle>title</momTitle>
+    <momSubTitle>sub title</momSubTitle>
+    <momIdentity>
+      <docNum>1/155 56-CNX 901 3372</docNum>
+      <docLang>English</docLang>
+      <docRev>0</docRev>
+      <docDate>2014-11-10</docDate>
+    </momIdentity>
+  </momMetaData>
+  <mim author="ETXJOTJ" contact="UABESVI" correction="1" date="2017-06-30" docNo="" name="RcsPMEventM" namespace="urn:com:ericsson:ecim:RcsPMEventM" namespacePrefix="rcspmeventm" organization="EAB/FJP/HD" release="0" revision="A" version="1">
+    <description>This fragment is used to manage the event jobs on the Managed Element. &#13;
+Once an event job is activated the event data can be collected and sent via streaming or file transfer depending on the capabilities specified.</description>
+    <domainExtension domain="ECIM">
+      <extension name="ecimMomName" value="ECIM_PMEventM"/>
+      <extension name="ecimMomVersion" value="1"/>
+      <extension name="ecimMomRelease" value="1"/>
+      <extension name="ecimMomCorrection" value="0"/>
+    </domainExtension>
+    <implements correction="0" name="ECIM_PMEventM" release="1" version="1"/>
+    <struct name="EventFilter">
+      <description>Struct used to specify the event filter criteria.</description>
+      <structMember name="filterName">
+        <description>Filter name.&#13;
+This member contains the name of the referenced EventFilterType MO instance, found in key attribute eventTypeFilterId.</description>
+        <string/>
+      </structMember>
+      <structMember name="filterValue">
+        <description>Filter value.</description>
+        <string/>
+      </structMember>
+    </struct>
+    <struct name="ManagedObjectClass">
+      <description>This struct represents a Managed Object Class (MOC).</description>
+      <structMember name="moClassName">
+        <description>This struct member contains the MOC name.</description>
+        <string/>
+      </structMember>
+      <structMember name="mimName">
+        <description>This struct member contains the name of the Management Information Model(MIM) that contains the MOC.</description>
+        <string/>
+      </structMember>
+    </struct>
+    <enum name="JobControl">
+      <description>The level of MS control of the PMEvent job.</description>
+      <enumMember name="FULL">
+        <description>MS has Full control of the PMEvent Job.&#13;
+MS can create, delete, start and stop a job.</description>
+        <value>0</value>
+      </enumMember>
+      <enumMember name="STARTSTOP">
+        <description>MS has Restricted control of the PMEvent Job.&#13;
+MS can stop and start a job, but cannot delete or create it.&#13;
+</description>
+        <value>1</value>
+      </enumMember>
+      <enumMember name="VIEWONLY">
+        <description>MS can only view the PMEvent job.</description>
+        <value>2</value>
+      </enumMember>
+    </enum>
+    <enum name="FilterMethod">
+      <description>Method of filter classification.</description>
+      <enumMember name="SINGLE_SELECT">
+        <description>Select one value only from a defined set of options.</description>
+        <value>0</value>
+      </enumMember>
+      <enumMember name="MULTI_SELECT">
+        <description>Select multiple values from a predefined set, separated by a space.</description>
+        <value>1</value>
+      </enumMember>
+      <enumMember name="INTERVAL">
+        <description>Select an interval value within the specified range.</description>
+        <value>2</value>
+      </enumMember>
+      <enumMember name="DISTINGUISHED_NAMES">
+        <description>Select one or more Distinguished Names (DNs) according to the given pattern match.</description>
+        <value>3</value>
+      </enumMember>
+      <enumMember name="REGEXP">
+        <description>Regular expression.</description>
+        <value>4</value>
+      </enumMember>
+    </enum>
+    <enum name="JobState">
+      <description>Job state that has been requested.</description>
+      <enumMember name="ACTIVE">
+        <description>The job is requested to be activated.</description>
+        <value>1</value>
+      </enumMember>
+      <enumMember name="STOPPED">
+        <description>The job is requested to be stopped.</description>
+        <value>2</value>
+      </enumMember>
+    </enum>
+    <enum name="CompressionTypes">
+      <description>Supported common File Compression Type(s).</description>
+      <domainExtension domain="ECIM">
+        <extension name="originatingMimVersion" value="1"/>
+        <extension name="originatingMimName" value="ECIM_CommonLibrary"/>
+        <extension name="originatingMimRelease" value="8"/>
+      </domainExtension>
+      <enumMember name="GZIP">
+        <description>GNU zip file compression type.</description>
+        <value>0</value>
+      </enumMember>
+    </enum>
+    <enum name="TimePeriod">
+      <description>The different time periods associated with Event Job.</description>
+      <enumMember name="ONE_MIN">
+        <description>This represents a one-minute time period.</description>
+        <value>3</value>
+      </enumMember>
+      <enumMember name="FIVE_MIN">
+        <description>This represents a five-minute time period.</description>
+        <value>4</value>
+      </enumMember>
+      <enumMember name="FIFTEEN_MIN">
+        <description>This represents a 15-minute time period.</description>
+        <value>5</value>
+      </enumMember>
+      <enumMember name="THIRTY_MIN">
+        <description>This represents a 30-minute time period.</description>
+        <value>6</value>
+      </enumMember>
+      <enumMember name="ONE_HOUR">
+        <description>This represents a one-hour time period.</description>
+        <value>7</value>
+      </enumMember>
+      <enumMember name="TWELVE_HOUR">
+        <description>This represents a 12-hour (720-minute)  time period.</description>
+        <value>8</value>
+      </enumMember>
+      <enumMember name="ONE_DAY">
+        <description>This represents a 24-hour (1440-minute)  time period.</description>
+        <value>9</value>
+      </enumMember>
+      <enumMember name="TEN_SECONDS">
+        <description>This represents a 10-second time period.</description>
+        <value>1</value>
+      </enumMember>
+      <enumMember name="THIRTY_SECONDS">
+        <description>This represents a 30-second time period.</description>
+        <value>2</value>
+      </enumMember>
+    </enum>
+    <enum name="SessionState">
+      <description>Actual job state for an event job.</description>
+      <enumMember name="ACTIVATING">
+        <description>The job is switching from STOPPED to ACTIVE.</description>
+        <value>0</value>
+      </enumMember>
+      <enumMember name="ACTIVE">
+        <description>The job is producing events as intended.</description>
+        <value>1</value>
+      </enumMember>
+      <enumMember name="DEACTIVATING">
+        <description>The job is switching from ACTIVE to STOPPED.</description>
+        <value>3</value>
+      </enumMember>
+      <enumMember name="STOPPED">
+        <description>The job is passive, either by request or due to other reasons (e.g. overload conditions).</description>
+        <value>2</value>
+      </enumMember>
+      <enumMember name="FAILED">
+        <description>The job is permanently failed and deactivated.&#13;
+In this state it will not respond to further attempts to activate it. The job may however leave the FAILED state and enter the STOPPED state if the failure reason is removed.</description>
+        <value>4</value>
+      </enumMember>
+    </enum>
+    <derivedDataType name="IpDNSAddress">
+      <description>The IpDNSAddress type represents an IP address or a DNS domain name.&#13;
+A version 4 IP address is specified in dotted quad notation, for example 130.100.92.154. RFC 791 describes the syntax in detail.&#13;
+A version 6 IP address is specified by 8 groups of 16 bit hexadecimal values separated by colons, for example, 2001:0db8:85a3:0000:0000:8a2e:0370:7334. RFC 4291 describes the syntax in detail.&#13;
+A DNS name is specified as a fully qualified domain name, for example, myhost.ericsson.com. The internet domain is loosely specified but RFC 1034 recommends a syntax.&#13;
+</description>
+      <domainExtension domain="ECIM">
+        <extension name="originatingMimVersion" value="1"/>
+        <extension name="originatingMimName" value="ECIM_CommonLibrary"/>
+        <extension name="originatingMimRelease" value="8"/>
+      </domainExtension>
+      <baseType>
+        <string>
+          <lengthRange>
+            <min>1</min>
+            <max>253</max>
+          </lengthRange>
+          <validValues>(^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))|(^\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])(\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])){3}))|:)))(%.+)?\s*$)|(^([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9-]{0,61}[a-zA-Z0-9])(\.([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9-]{0,61}[a-zA-Z0-9]))*$)</validValues>
+        </string>
+      </baseType>
+    </derivedDataType>
+    <class name="PmEventM">
+      <description>The Performance Management (PM) Event Management fragment.&#13;
+It is used to manage the event jobs on the Managed Element. &#13;
+Once an event job is activated the events can be collected and sent via streaming and/or file transfer.</description>
+      <systemCreated/>
+      <root/>
+      <attribute name="pmEventMId">
+        <description>Value component of the RDN.</description>
+        <mandatory/>
+        <noNotification/>
+        <restricted/>
+        <key/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+    </class>
+    <class name="EventType">
+      <description>Defines the event type that can be generated by the Managed Element.</description>
+      <systemCreated/>
+      <attribute name="eventTypeId">
+        <description>Value component of the RDN.</description>
+        <mandatory/>
+        <noNotification/>
+        <restricted/>
+        <key/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="triggerDescription">
+        <description>Contains information about what causes the event to be raised.</description>
+        <noNotification/>
+        <readOnly/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+    </class>
+    <class name="EventJob">
+      <description>Defines the information to be used to activate and configure an event job on the Managed Element.</description>
+      <attribute name="eventJobId">
+        <description>Value component of the RDN.</description>
+        <mandatory/>
+        <noNotification/>
+        <restricted/>
+        <key/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="description">
+        <description>Describes the content and purpose of the job.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <isNillable/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="eventFilter">
+        <description>Event filter or filters to be applied.&#13;
+&#13;
+This specifies the event criteria which must be valid for the events to be collected and what contents some events shall have.&#13;
+(Examples of what may be specified in a filter:  the CellId in a Cell Trace, UE fraction, events related to QoS values, message encoding format, etc).&#13;
+&#13;
+The filters supported are specified in the EventGroup::validFilters attribute. &#13;
+&#13;
+The following conditions apply:&#13;
+The order the filters are set does not matter.&#13;
+Only one filter of each type shall be set.</description>
+        <dataType>
+          <sequence>
+            <structRef name="EventFilter">
+              <mimName>RcsPMEventM</mimName>
+            </structRef>
+            <minLength>0</minLength>
+            <nonUnique/>
+          </sequence>
+        </dataType>
+      </attribute>
+      <attribute name="requestedJobState">
+        <description>The requested state of the job. It represents the state that the job has been ordered to reach.&#13;
+&#13;
+Possible Values:&#13;
+ACTIVE&#13;
+STOPPED&#13;
+</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <isNillable/>
+        <dataType>
+          <enumRef name="JobState">
+            <defaultValue>ACTIVE</defaultValue>
+            <mimName>RcsPMEventM</mimName>
+          </enumRef>
+        </dataType>
+      </attribute>
+      <attribute name="currentJobState">
+        <description>The current state of the job. &#13;
+&#13;
+Possible Values:&#13;
+ACTIVATING&#13;
+ACTIVE   &#13;
+DEACTIVATING&#13;
+STOPPED&#13;
+FAILED </description>
+        <nonPersistent/>
+        <readOnly/>
+        <dataType>
+          <enumRef name="SessionState">
+            <mimName>RcsPMEventM</mimName>
+          </enumRef>
+        </dataType>
+      </attribute>
+      <attribute name="fileOutputEnabled">
+        <description>Indicates if event data output will be written to file.</description>
+        <mandatory/>
+        <dataType>
+          <boolean/>
+        </dataType>
+      </attribute>
+      <attribute name="streamDestinationIpAddress">
+        <description>The address of the server that event data should be streamed to.&#13;
+Only required if streamOutputEnabled = true.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <isNillable/>
+        <dataType>
+          <derivedDataTypeRef name="IpDNSAddress">
+            <mimName>RcsPMEventM</mimName>
+          </derivedDataTypeRef>
+        </dataType>
+      </attribute>
+      <attribute name="streamDestinationPort">
+        <description>The server port that event data shall be streamed to.&#13;
+Only required if streamOutputEnabled = true.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <isNillable/>
+        <dataType>
+          <uint16/>
+        </dataType>
+      </attribute>
+      <attribute name="reportingPeriod">
+        <description>Specifies how often event data will be made available. &#13;
+Only applicable when fileOutputEnabled =true.&#13;
+The value must be valid according to the supportedReportingPeriods set by the Managed Element.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <isNillable/>
+        <dataType>
+          <enumRef name="TimePeriod">
+            <mimName>RcsPMEventM</mimName>
+          </enumRef>
+        </dataType>
+      </attribute>
+      <attribute name="streamOutputEnabled">
+        <description>Indicates if event data output will be streamed.</description>
+        <mandatory/>
+        <dataType>
+          <boolean/>
+        </dataType>
+      </attribute>
+      <attribute name="jobControl">
+        <description>Describes the level of MS control of the event job.</description>
+        <readOnly/>
+        <dataType>
+          <enumRef name="JobControl">
+            <defaultValue>FULL</defaultValue>
+            <mimName>RcsPMEventM</mimName>
+          </enumRef>
+        </dataType>
+      </attribute>
+      <attribute name="eventGroupRef">
+        <description>The Event Group or Event Groups selected for the job.&#13;
+This attribute is set when an entire group or entire groups of events are &#13;
+to be  selected for the job.&#13;
+</description>
+        <dataType>
+          <sequence>
+            <moRef name="EventGroup">
+              <mimName>RcsPMEventM</mimName>
+            </moRef>
+            <minLength>0</minLength>
+            <nonUnique/>
+          </sequence>
+        </dataType>
+      </attribute>
+      <attribute name="eventTypeRef">
+        <description>The Event Type or Event Types selected for the job.&#13;
+This attribute is set when an individual event or a subset of the events&#13;
+within a group or groups are to be selected for the job.</description>
+        <dataType>
+          <sequence>
+            <moRef name="EventType">
+              <mimName>RcsPMEventM</mimName>
+            </moRef>
+            <minLength>0</minLength>
+            <nonUnique/>
+          </sequence>
+        </dataType>
+      </attribute>
+      <attribute name="fileCompressionType">
+        <description>Compression Type to be applied to file output.&#13;
+Only valid when fileOutputEnabled = true.&#13;
+If this attribute is not set, no compression will be applied to the file output.&#13;
+Can only be assigned a value according to the capability supportedCompressionTypes in the FilePullCapabilities MOC.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <isNillable/>
+        <dataType>
+          <enumRef name="CompressionTypes">
+            <mimName>RcsPMEventM</mimName>
+          </enumRef>
+        </dataType>
+      </attribute>
+      <attribute name="streamCompressionType">
+        <description>Compression Type to be applied to stream output.&#13;
+Only valid when streamOutputEnabled = true.&#13;
+If this attribute is not set, no compression will be applied to the stream output.&#13;
+Can only be assigned a value according to the capability supportedCompressionTypes in the StreamingCapabilities MOC.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <isNillable/>
+        <dataType>
+          <enumRef name="CompressionTypes">
+            <mimName>RcsPMEventM</mimName>
+          </enumRef>
+        </dataType>
+      </attribute>
+    </class>
+    <class name="EventGroup">
+      <description>Represents a group of related Event Types.</description>
+      <systemCreated/>
+      <attribute name="eventGroupId">
+        <description>Value component of the RDN.</description>
+        <mandatory/>
+        <noNotification/>
+        <restricted/>
+        <key/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="description">
+        <description>Describes the content and purpose of the event group.</description>
+        <noNotification/>
+        <readOnly/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="moClass">
+        <description>The Managed Object Class that generates events belonging to the event group.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <noNotification/>
+        <readOnly/>
+        <isNillable/>
+        <dataType>
+          <structRef name="ManagedObjectClass">
+            <mimName>RcsPMEventM</mimName>
+          </structRef>
+        </dataType>
+      </attribute>
+      <attribute name="eventGroupVersion">
+        <description>Event Group version identifier.&#13;
+Unique version identifier associated with a change to the contents of the Event Group, where new Event Types have been added.</description>
+        <noNotification/>
+        <readOnly/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="validFilters">
+        <description>Defines valid filter type definitions for this Event Group.</description>
+        <noNotification/>
+        <readOnly/>
+        <dataType>
+          <sequence>
+            <moRef name="EventFilterType">
+              <mimName>RcsPMEventM</mimName>
+            </moRef>
+            <minLength>0</minLength>
+            <nonUnique/>
+          </sequence>
+        </dataType>
+      </attribute>
+    </class>
+    <class name="StreamingCapabilities">
+      <description>Streaming capabilities.</description>
+      <systemCreated/>
+      <attribute name="streamCapabilitiesId">
+        <description>Value component of the RDN.</description>
+        <mandatory/>
+        <noNotification/>
+        <restricted/>
+        <key/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="supportedCompressionTypes">
+        <description>Supported stream compression type or types.&#13;
+&#13;
+If this attribute is not present, the compression of event data streams is not supported..</description>
+        <readOnly/>
+        <dataType>
+          <sequence>
+            <enumRef name="CompressionTypes">
+              <mimName>RcsPMEventM</mimName>
+            </enumRef>
+            <minLength>0</minLength>
+            <maxLength>2</maxLength>
+            <nonUnique/>
+          </sequence>
+        </dataType>
+      </attribute>
+    </class>
+    <class name="FilePullCapabilities">
+      <description>Event capabilities specific to file pull.</description>
+      <systemCreated/>
+      <attribute name="filePullCapabilitiesId">
+        <description>Value component of the RDN.</description>
+        <mandatory/>
+        <noNotification/>
+        <restricted/>
+        <key/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="supportedReportingPeriods">
+        <description>Specifies the list of reporting periods supported by the ME.&#13;
+</description>
+        <readOnly/>
+        <dataType>
+          <sequence>
+            <enumRef name="TimePeriod">
+              <mimName>RcsPMEventM</mimName>
+            </enumRef>
+            <minLength>1</minLength>
+            <nonUnique/>
+          </sequence>
+        </dataType>
+      </attribute>
+      <attribute name="outputDirectory">
+        <description>Specifies the absolute file path to the Managed Element file system.&#13;
+Event files are fetched form this location.</description>
+        <readOnly/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="alignedReportingPeriod">
+        <description>The managed element will align its reporting periods to the hour if set to true.</description>
+        <readOnly/>
+        <dataType>
+          <boolean>
+            <defaultValue>true</defaultValue>
+          </boolean>
+        </dataType>
+      </attribute>
+      <attribute name="supportedCompressionTypes">
+        <description>Supported file compression type or types.&#13;
+&#13;
+If this attribute is not present, compression of event data files is not supported.</description>
+        <readOnly/>
+        <dataType>
+          <sequence>
+            <enumRef name="CompressionTypes">
+              <mimName>RcsPMEventM</mimName>
+            </enumRef>
+            <minLength>0</minLength>
+            <maxLength>2</maxLength>
+            <nonUnique/>
+          </sequence>
+        </dataType>
+      </attribute>
+      <attribute name="finalROP">
+        <description>Indicates if an event file for the last ROP is expected.&#13;
+When an event job is stopped, this attribute specifies whether a result file for the last ROP is expected (true), or not expected (false).</description>
+        <readOnly/>
+        <dataType>
+          <boolean>
+            <defaultValue>false</defaultValue>
+          </boolean>
+        </dataType>
+      </attribute>
+    </class>
+    <class name="EventCapabilities">
+      <description>Event capabilities.</description>
+      <systemCreated/>
+      <attribute name="eventCapabilitiesId">
+        <description>Value component of the RDN.</description>
+        <mandatory/>
+        <noNotification/>
+        <restricted/>
+        <key/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="maxNoOfJobs">
+        <description>This attribute defines the total maximum number of Event Jobs supported by the application.&#13;
+&#13;
+</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <readOnly/>
+        <isNillable/>
+        <dataType>
+          <uint16/>
+        </dataType>
+      </attribute>
+    </class>
+    <class name="EventFilterType">
+      <description>Describes the available Event Filter Type definitions.</description>
+      <systemCreated/>
+      <attribute name="eventFilterTypeId">
+        <description>Value component of the RDN.</description>
+        <mandatory/>
+        <noNotification/>
+        <restricted/>
+        <key/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="description">
+        <description>Event Filter Type description.</description>
+        <noNotification/>
+        <readOnly/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="filterMethod">
+        <description>Method of filter classification.</description>
+        <noNotification/>
+        <readOnly/>
+        <dataType>
+          <enumRef name="FilterMethod">
+            <mimName>RcsPMEventM</mimName>
+          </enumRef>
+        </dataType>
+      </attribute>
+      <attribute name="valueSpec">
+        <description>Specifies the possible values.</description>
+        <noNotification/>
+        <readOnly/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="defaultValue">
+        <description>Defined format of filter type value.</description>
+        <noNotification/>
+        <readOnly/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+    </class>
+    <class name="EventProducer">
+      <description>Event Producer.&#13;
+Allows for multiple types of Event Producer within an Application describing distinct Event functions and capabilities.&#13;
+&#13;
+</description>
+      <systemCreated/>
+      <attribute name="eventProducerId">
+        <description>Value component of the RDN.</description>
+        <mandatory/>
+        <noNotification/>
+        <restricted/>
+        <key/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+    </class>
+    <relationship name="EventGroup_to_EventType">
+      <containment>
+        <parent>
+          <hasClass name="EventGroup">
+            <mimName>RcsPMEventM</mimName>
+          </hasClass>
+        </parent>
+        <child>
+          <hasClass name="EventType">
+            <mimName>RcsPMEventM</mimName>
+          </hasClass>
+          <cardinality>
+            <min>0</min>
+          </cardinality>
+        </child>
+      </containment>
+    </relationship>
+    <relationship name="EventJob_eventGroupRef_to_EventGroup">
+      <uniDirectionalAssociation>
+        <hasClass name="EventJob">
+          <mimName>RcsPMEventM</mimName>
+        </hasClass>
+        <associationEnd name="eventGroupRef">
+          <hasClass name="EventGroup">
+            <mimName>RcsPMEventM</mimName>
+          </hasClass>
+          <cardinality>
+            <min>0</min>
+          </cardinality>
+        </associationEnd>
+      </uniDirectionalAssociation>
+    </relationship>
+    <relationship name="EventJob_eventTypeRef_to_EventType">
+      <uniDirectionalAssociation>
+        <hasClass name="EventJob">
+          <mimName>RcsPMEventM</mimName>
+        </hasClass>
+        <associationEnd name="eventTypeRef">
+          <hasClass name="EventType">
+            <mimName>RcsPMEventM</mimName>
+          </hasClass>
+          <cardinality>
+            <min>0</min>
+          </cardinality>
+        </associationEnd>
+      </uniDirectionalAssociation>
+    </relationship>
+    <relationship name="EventGroup_validFilters_to_EventFilterType">
+      <uniDirectionalAssociation>
+        <hasClass name="EventGroup">
+          <mimName>RcsPMEventM</mimName>
+        </hasClass>
+        <associationEnd name="validFilters">
+          <hasClass name="EventFilterType">
+            <mimName>RcsPMEventM</mimName>
+          </hasClass>
+          <cardinality>
+            <min>0</min>
+          </cardinality>
+        </associationEnd>
+      </uniDirectionalAssociation>
+    </relationship>
+    <relationship name="PmEventM_to_EventProducer">
+      <containment>
+        <parent>
+          <hasClass name="PmEventM">
+            <mimName>RcsPMEventM</mimName>
+          </hasClass>
+        </parent>
+        <child>
+          <hasClass name="EventProducer">
+            <mimName>RcsPMEventM</mimName>
+          </hasClass>
+          <cardinality>
+            <min>0</min>
+          </cardinality>
+        </child>
+      </containment>
+    </relationship>
+    <relationship name="EventProducer_to_FilePullCapabilities">
+      <containment>
+        <parent>
+          <hasClass name="EventProducer">
+            <mimName>RcsPMEventM</mimName>
+          </hasClass>
+        </parent>
+        <child>
+          <hasClass name="FilePullCapabilities">
+            <mimName>RcsPMEventM</mimName>
+          </hasClass>
+          <cardinality>
+            <min>0</min>
+            <max>1</max>
+          </cardinality>
+        </child>
+      </containment>
+    </relationship>
+    <relationship name="EventProducer_to_EventCapabilities">
+      <containment>
+        <parent>
+          <hasClass name="EventProducer">
+            <mimName>RcsPMEventM</mimName>
+          </hasClass>
+        </parent>
+        <child>
+          <hasClass name="EventCapabilities">
+            <mimName>RcsPMEventM</mimName>
+          </hasClass>
+          <cardinality>
+            <min>1</min>
+            <max>1</max>
+          </cardinality>
+        </child>
+      </containment>
+    </relationship>
+    <relationship name="EventProducer_to_StreamingCapabilities">
+      <containment>
+        <parent>
+          <hasClass name="EventProducer">
+            <mimName>RcsPMEventM</mimName>
+          </hasClass>
+        </parent>
+        <child>
+          <hasClass name="StreamingCapabilities">
+            <mimName>RcsPMEventM</mimName>
+          </hasClass>
+          <cardinality>
+            <min>0</min>
+            <max>1</max>
+          </cardinality>
+        </child>
+      </containment>
+    </relationship>
+    <relationship name="EventProducer_to_EventGroup">
+      <containment>
+        <parent>
+          <hasClass name="EventProducer">
+            <mimName>RcsPMEventM</mimName>
+          </hasClass>
+        </parent>
+        <child>
+          <hasClass name="EventGroup">
+            <mimName>RcsPMEventM</mimName>
+          </hasClass>
+          <cardinality>
+            <min>0</min>
+          </cardinality>
+        </child>
+      </containment>
+    </relationship>
+    <relationship name="EventProducer_to_EventFilterType">
+      <containment>
+        <parent>
+          <hasClass name="EventProducer">
+            <mimName>RcsPMEventM</mimName>
+          </hasClass>
+        </parent>
+        <child>
+          <hasClass name="EventFilterType">
+            <mimName>RcsPMEventM</mimName>
+          </hasClass>
+          <cardinality>
+            <min>0</min>
+          </cardinality>
+        </child>
+      </containment>
+    </relationship>
+    <relationship name="EventProducer_to_EventJob">
+      <containment>
+        <parent>
+          <hasClass name="EventProducer">
+            <mimName>RcsPMEventM</mimName>
+          </hasClass>
+        </parent>
+        <child>
+          <hasClass name="EventJob">
+            <mimName>RcsPMEventM</mimName>
+          </hasClass>
+          <cardinality>
+            <min>0</min>
+          </cardinality>
+        </child>
+      </containment>
+    </relationship>
+  </mim>
+  <interMim>
+    <relationship name="SystemFunctions_to_PmEventM">
+      <containment>
+        <parent>
+          <hasClass name="SystemFunctions">
+            <mimName>ECIM_Top</mimName>
+          </hasClass>
+        </parent>
+        <child>
+          <hasClass name="PmEventM">
+            <mimName>RcsPMEventM</mimName>
+          </hasClass>
+          <cardinality>
+            <min>1</min>
+            <max>1</max>
+          </cardinality>
+        </child>
+      </containment>
+    </relationship>
+  </interMim>
+</models>

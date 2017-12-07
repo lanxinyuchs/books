@@ -1,0 +1,87 @@
+%% -*- erlang -*-
+%% #0.    BASIC INFORMATION
+%% ----------------------------------------------------------
+%% %CCaseFile:	comte.appSrc %
+%% %CCaseRev:	/main/R1A/R2A/2 %
+%% %CCaseDate:	2013-05-14 %
+%% %CCaseDocNo:	 %
+%%
+%% Author:	etxbjca
+%% Description: Attribute file for <text>
+%%
+%% ----------------------------------------------------------
+%% %CCaseTemplateFile:	APP.appSrc %
+%% %CCaseTemplateId: CCver: /main/2 %
+%%
+%%
+%% %CCaseCopyrightBegin%
+%% Copyright (c) Ericsson AB 2012-2013 All rights reserved.
+%% 
+%% The information in this document is the property of Ericsson.
+%% 
+%% Except as specifically authorized in writing by Ericsson, the 
+%% receiver of this document shall keep the information contained 
+%% herein confidential and shall protect the same in whole or in 
+%% part from disclosure and dissemination to third parties.
+%% 
+%% Disclosure and disseminations to the receivers employees shall 
+%% only be made on a strict need to know basis.
+%% %CCaseCopyrightEnd%
+%% 
+%% ----------------------------------------------------------
+%% #1.    REVISION LOG
+%% ----------------------------------------------------------
+%% Rev        Date         Name        What
+%% --------   --------     --------    ------------------------
+%% R1A/1      2012-01-20   etxbjca     Created
+%% ----------------------------------------------------------
+%% 
+%% Attributes managed by clearmake:  
+%%   [{id, string()}, {vsn, string()}, {modules, [atom()]}
+%%
+%% Environment attributes with special meaning
+%%
+%% {'#children#', [{Name, Start, Restart, Shutdown, Type, Modules}]}
+%% {'#supervisor#', [{name, string()}, {maxR, integer()}, {maxT, integer()}]}
+%%   See supervisor doucmentation
+%%
+%% Optional environment attributes:
+%%    {'#go#', {Module, Function}}, 
+%%    {'#takeover#', {Module, Function}} 
+%%
+
+
+{application, comte,
+ [
+  {description, "The COM interface application"},
+    {id, 	"&id&"},
+  {vsn, "&vsn&"},
+  {modules,			"&modules&"},
+  {registered, [comte_bert_server, comte_com, comte_com_sup]},
+  {applications, [kernel, stdlib, mnesia]},
+  {mod, {comte_app,[]}},
+  {env, [{com_conf_dir,"."},
+	 {com_conf_wildcard,"lib*.cfg"},
+	 {start_com_prog, "start_com.example"},
+	 {comte_port, 2002},
+	 {com_port, 2003},
+	 {comte_ip, "localhost"},
+	 {com_ip, "localhost"},
+	 {com_start_mw, true},
+	 {start_com, false},
+	 {pidfile_dir,"/tmp"},
+	 %% {com_initial_ha_mode,Default defined in source code}
+	 {com_initial_ha_mode_timeout,3000},
+
+         {transaction_server, {comte_default_transaction_server, 
+			       [{init_data_callback, {comte_example_callback, init}}
+			       ]}},
+	 {replicated_list, comte_default_replicated_list},
+         {crypto, comte_default_crypto_util},
+	 {callback_registrar,"/tmp/comte_registrar.dets"},
+	 {max_restarts, 5},
+         {max_restarts_time_limit, 300}
+        ]
+  }
+ ]
+}.

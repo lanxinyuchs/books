@@ -1,0 +1,294 @@
+#! /bin/bash
+##
+## %CCaseFile:	cxp_edit %
+## %CCaseRev:	/main/R2A/R3A/R4A/R5A/R6A/R11A/1 %
+## %CCaseDate:	2017-07-13 %
+## Author: <name>, <e-mail address>
+##
+## Purpose: Edit a CXP interactively. Expands the CXP content to
+## temporary filespace, allows interactive editing, and repacks the
+## CXP. A schema validity check is made on the cxp*.xml metadata file.
+## Its content is not otherwise validated.
+##
+## The given CXP is overwritten; no backup is created.
+##
+## In the temporary file tree files will appear as readonly. Use
+## chmod +w to make files writable as needed.
+##
+## If the -r (readonly) option is given the given CXP is not updated.
+##
+## Dependencies:
+##
+## %CCaseCopyrightBegin%
+## Copyright (c) Ericsson AB 2014-2016 All rights reserved.
+##
+## The information in this document is the property of Ericsson.
+##
+## Except as specifically authorized in writing by Ericsson, the
+## receiver of this document shall keep the information contained
+## herein confidential and shall protect the same in whole or in
+## part from disclosure and dissemination to third parties.
+##
+## Disclosure and disseminations to the receivers employees shall
+## only be made on a strict need to know basis.
+## %CCaseCopyrightEnd%
+##
+## ----------------------------------------------------------------------
+##
+## Revision history:
+##
+## Rev        Date       Name        What
+## -----      -------    --------    ------------------------------------
+## R2A/1      2014-01-16 erarafo     First version
+## R2A/2      2014-03-10 erarafo     Scripting mode added
+## R2A/3      2014-05-05 erarafo     Trying to defeat "Stale NFS handle"
+## R3A/1      2015-02-20 erarafo     More of "Stale NFS handle"
+## R6A/1      2016-08-17 erarafo     Using -no-xattrs by default; option X added
+## R11A/1     2017-07-13 etxarnu     Added -m option to create_sig
+## ----------------------------------------------------------------------
+
+
+# Script name
+declare -r Script=cxp_edit
+
+# Script directory
+declare -r ScriptDir=`dirname $0`
+
+
+# Constants
+declare -r TempRoot=/repo/$USER
+declare -r CxpSchema=$RCS_TOP/SWM/SWM_CXA11423/schema/CxpInfo.xsd
+
+
+declare -r PreserveXattrsDefault=false
+
+
+function help() {
+  cat <<EOF
+Usage is: $Script -f CXP_FILE
+
+An xterm session is launched in which the expanded CXP can be
+inspected and modified. If the -e option is given a noninteractive
+modification script is executed instead.
+
+Options are:
+  -e SCRIPT ARGS...    modification script; must be the last option
+  -f                   CXP file
+  -h                   this help
+  -X [true|false]      preserve "xattrs" upon expansion; default is $PreserveXattrsDefault
+  -r                   readonly
+
+The -e and -r options are mutually exclusive.
+EOF
+}
+
+# Print string to stderr and exit nonzero
+function die() {
+  printf "$Script: FATAL: $1\n" >&2
+  exit 1
+}
+
+# Print string to stderr as info message
+function info() {
+  printf "$Script: INFO: $1\n" >&2
+}
+
+# Print string to stderr as warning
+function warning() {
+  printf "$Script: WARNING: $1\n" >&2
+}
+
+
+function metadataFiles() {
+  find . -maxdepth 1 -type f -name 'cxp*.xml'
+}
+
+
+function metadataCheck() {
+  local count=`metadataFiles | wc --lines`
+  if [[ $count -lt 1 ]]; then
+    warning "no metadata file named cxp*.xml"
+    false
+  elif [[ $count -gt 1 ]]; then
+    warning "multiple metadata files: `metadataFiles | tr '\n' ' '`"
+    false
+  else
+    local file=`metadataFiles`
+    if ! command -v xmllint >/dev/null; then
+      warning "cannot find validation tool: xmllint"
+      true
+    elif [[ ! -r $CxpSchema ]]; then
+      warning "cannot find schema: $CxsSchema"
+      true
+    elif xmllint -schema $CxpSchema $file >/dev/null 2>&1; then
+      info "successful schema validation for $file"
+      true
+    else
+      warning "schema validation failure -"
+      xmllint -schema $CxpSchema $file >/dev/null
+    fi
+  fi
+}
+
+
+
+########################################################################
+# Execution begins here
+
+
+declare OptionPatterns=""
+OptionPatterns+="e:"
+OptionPatterns+="f:"
+OptionPatterns+="h"
+OptionPatterns+="r"
+OptionPatterns+="X:"
+
+declare CxpFile="/"
+declare ReadOnly=false
+declare ModScript="/"
+declare PreserveXattrs=$PreserveXattrsDefault
+while getopts $OptionPatterns OPT; do
+  case "$OPT" in
+    e)
+      ModScript="$OPTARG";;
+    f)
+      CxpFile="$OPTARG";;
+    h)
+      help
+      exit;;
+    r)
+      ReadOnly=true;;
+    X)
+      PreserveXattrs=$OPTARG;;
+    *)
+      die "Unknown option, try -h for help"
+  esac
+done
+
+shift $((OPTIND - 1))
+
+
+if [[ $Readonly == true && "$ModScript" != "/" ]]; then
+  die "mutually exclusive options: -e and -r, try -h for help"
+fi
+
+
+if [[ $# -gt 0 && "$ModScript" == "/" ]]; then
+  die "arguments not allowed, try -h for help"
+fi
+
+
+if [[ "$ModScript" != "/" ]]; then
+  if [[ ! -x "$ModScript" ]]; then
+    die "cannot execute: $ModScript"
+  else
+    declare AbsModScript=`readlink -f "$ModScript"`
+  fi
+fi
+
+if [[ "$CxpFile" == "/" ]]; then
+  die "missing option: -f, try -h for help"
+elif [[ -z "$CxpFile" ]]; then
+  die "ill-formed CXP file name; must not be empty"
+fi
+
+declare -r Cxp=$CxpFile
+
+
+mkdir -p $TempRoot
+
+if [[ ! -f $Cxp ]]; then
+  die "cannot find: $Cxp"
+elif [[ ! -r $Cxp ]]; then
+  die "cannot read: $Cxp"
+else
+  if [[ $ReadOnly == false && ! -w $Cxp ]]; then
+    if ! chmod +w $Cxp; then
+      die "cannot make writable: $Cxp"
+    fi
+  fi
+fi
+
+declare UNSQUASHFS_OPTIONS="-n"
+
+case "$PreserveXattrs" in
+  false)
+    UNSQUASHFS_OPTIONS+=" -no-xattrs";;
+  true)
+    UNSQUASHFS_OPTIONS+=" -xattrs";;
+  *)
+    die "invalid value for -X option, try -h for help"
+esac
+
+
+
+
+declare -r AbsCxp=`readlink -f $Cxp`
+
+cd $TempRoot
+
+mkdir -p $$
+cd $$
+info "using working directory: `readlink -f .`"
+
+
+if ! tar -xzf $AbsCxp; then
+  die "expansion failed"
+  ## perhaps the file is already un-gzipped?
+else
+  info "tar.gz file expanded"
+fi
+
+
+ar x sw.ar; rm -f sw.ar verity.img arch-info.txt
+info "ar file expanded"
+
+unsquashfs $UNSQUASHFS_OPTIONS sqfs.img; rm -f sqfs.img *.xml
+info "squashfs image expanded"
+
+cd squashfs-root
+
+metadataCheck
+
+if [[ $ReadOnly == true ]]; then
+  info "Inspect the file tree in the shell window; exit when done"
+else
+  info "Edit the file tree in the shell window; exit when done"
+fi
+
+if [[ "$ModScript" != "/" ]]; then
+  $AbsModScript $*
+  # This code does not handle every possible XML...
+  sed \
+    -i \
+    -e "/<configuration>/,/<date>/s|'|"'"'"|g" \
+    -e '/<configuration>/,/<date>/s|version="\([^"]*\)"|version="\1E"|' \
+    cxp*.xml
+else
+  xterm -e tcsh
+fi
+
+if [[ $ReadOnly == true ]]; then
+  cd ..
+else
+  if ! metadataCheck; then
+    warning "your CXS may not be installable"
+  fi
+  info "please wait while the CXP is repacked..."
+  cd ..
+  cp squashfs-root/cxp*.xml .
+  rm -f squashfs-root/cxp*.xml
+  create_sig.sh -m -v -o $AbsCxp -f cxp*.xml squashfs-root/
+  info "repacked the CXP"
+fi
+
+rm -rf squashfs-root cxp*.xml
+cd ..
+rm -rf $$
+info "cleaned up"
+
+if [[ $ReadOnly == true ]]; then
+  true
+else
+  info "done; your CXP is in $AbsCxp"
+fi

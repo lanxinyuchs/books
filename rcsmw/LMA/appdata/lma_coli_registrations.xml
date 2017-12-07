@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!--
+# ========================================================== 
+# %CCaseFile:	lma_coli_registrations.xml % 
+# %CCaseRev:	/main/R2A/R3A/R4A/1 % 
+# %CCaseDate:	2015-08-28 % 
+#                                                            
+# Author:	etxbjca 
+# Description:	CAX appdata file   
+#                                                            
+# ========================================================== 
+#                                                            
+# %CCaseCopyrightBegin%
+# Copyright (c) Ericsson AB 2013-2015 All rights reserved.
+# 
+# The information in this document is the property of Ericsson.
+# 
+# Except as specifically authorized in writing by Ericsson, the 
+# receiver of this document shall keep the information contained 
+# herein confidential and shall protect the same in whole or in 
+# part from disclosure and dissemination to third parties.
+# 
+# Disclosure and disseminations to the receivers employees shall 
+# only be made on a strict need to know basis.
+# %CCaseCopyrightEnd%
+#                                                            
+# ========================================================== 
+# REVISION LOG 
+# ========================================================== 
+#                                                            
+# Rev        Date       Name        What 
+# ========   ========   ========    ======================== 
+# R          2013-10-03   etxpejn     Created 
+# R2A/3      2014-09-03   etxberb     Removed deprecated commands.
+# R3A/1      2015-04-13   etxpejn     Added adjusttimer
+# R4A/1      2015-07-28   uabesvi     all cmds: cli_scope = central
+# ========================================================== 
+#
+# NOTE: authorization specification in sys_coli_authorizations.xml
+# 
+# ========================================================== 
+-->                                                         
+
+<appdata target="coli_reg">
+  <coli_erlang_reg
+      cli_name = "productionunlock"
+      cli_path = "/license"
+      cli_scope = "central"
+      usage = "[Option]"
+      module = "lmaGlms" function = "pu">
+    <description>
+Production unlock can be used to unlock all restrictions of the license server to 
+configure new nodes without the need to have a LKF for the specific node. 
+Production unlock can only be activated once, and can be active for up to seven days. 
+It is not possible to activate production unlock if a LKF has been installed already.
+
+Deactivated production unlock. Production unlock can only be activated once.
+
+Option:
+-a
+      Activates production unlock.
+      If no options specified, this option is assumed.
+
+-d
+      Deactivates production unlock.
+    </description>
+  </coli_erlang_reg>
+  <coli_erlang_reg
+      cli_name = "adjusttimer"
+      cli_path = "/license"
+      cli_scope = "central"
+      usage = "[Option]"
+      module = "lmaGlms" function = "adjust_glms_timer">
+    <description>
+Adjust the limer of the license server.
+
+The time of the license server can be adjusted for test purpose. Note that the license server
+will be restarted in order for the adjustment to take place.
+
+Option:
+-a
+Activates time adjustment and turns 1 day into 1 sec in the license server.
+      
+-d
+Deactivates time adjustment i.e. the license server will have the default time.
+    </description>
+  </coli_erlang_reg>
+</appdata>

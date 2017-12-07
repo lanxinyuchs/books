@@ -1,0 +1,70 @@
+<!--
+# ========================================================== 
+# %CCaseFile:	cert_alarm.xml % 
+# %CCaseRev:	/main/R2A/R3A/1 % 
+# %CCaseDate:	2014-09-26 % 
+#                                                            
+# Author:	etxasta
+# Description:	Alarm registrations file
+#                                                            
+# ========================================================== 
+#                                                            
+# %CCaseCopyrightBegin%
+# Copyright (c) Ericsson AB 2014 All rights reserved.
+# 
+# The information in this document is the property of Ericsson.
+# 
+# Except as specifically authorized in writing by Ericsson, the 
+# receiver of this document shall keep the information contained 
+# herein confidential and shall protect the same in whole or in 
+# part from disclosure and dissemination to third parties.
+# 
+# Disclosure and disseminations to the receivers employees shall 
+# only be made on a strict need to know basis.
+# %CCaseCopyrightEnd%
+#                                                            
+# ========================================================== 
+# REVISION LOG 
+# ========================================================== 
+#                                                            
+# Rev        Date       Name        What 
+# ========   ========== ========    ======================== 
+# R2A/1      2014-06-10 etxasta     Created 
+# ========================================================== 
+-->                                                           
+
+<appdata target="alarm">
+  <alarmtype
+      name="CertMCertificateNotAvailable" 
+      majorType="193"
+      minorType="9175052"
+      moClasses="NodeCredential"
+      specificProblem="Certificate Management a Valid Certificate is Not Available"
+      eventType="OPERATIONALVIOLATION"
+      probableCause="414"
+      isStateful="true"
+      additionalText="The certificate provided by the alarming object is expired, revoked, or unavailable, which may result in the failure of a secure using this certificate."
+      defaultSeverity="CRITICAL"/>
+  <alarmtype
+      name="CertMCertificateToExpire" 
+      majorType="193"
+      minorType="9175053"
+      moClasses="NodeCredential"
+      specificProblem="Certificate Management the Certificate is to Expire"
+      eventType="QUALITYOFSERVICEALARM"
+      probableCause="351"
+      isStateful="true"
+      additionalText="The threshold before certificate expiration has been crossed, and the certificate should be renewed to prevent a secure service failure."
+      defaultSeverity="WARNING"/>
+  <alarmtype
+      name="CertMAutomaticEnrollmentFailed" 
+      majorType="193"
+      minorType="9175054"
+      moClasses="NodeCredential"
+      specificProblem="Certificate Management Automatic Enrollment Failed"
+      eventType="PROCESSINGERRORALARM"
+      probableCause="307"
+      isStateful="true"
+      additionalText="Automatic enrollment or renewal failed to execute due to local misconfiguration or remote enrollment service denial."
+      defaultSeverity="WARNING"/>
+</appdata>

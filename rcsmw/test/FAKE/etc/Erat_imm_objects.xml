@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?><!-- 
+  Copyright (c) 2012 Ericsson AB.
+  All rights reserved
+
+  DX ECIM Tool-chain generated this file on Sep 28, 2012 2:32:10 PM using 
+    * coremw.m2m (2.2.0.201204021557)
+    * coremw.m2t (2.2.0.201204021557)
+    * coremw.dsl (2.2.0.201204021557)
+    * coremw.imm (2.2.0.201204021557)
+--><imm:IMM-contents xmlns:imm="http://www.saforum.org/IMMSchema" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.saforum.org/IMMSchema SAI-AIS-IMM-XSD-A.01.01.xsd">
+    <object class="Erat">
+        <dn>eratId=1</dn>
+    </object>
+    <object class="Charles">
+        <dn>charlesId=1,eratId=1</dn>
+    </object>
+    <object class="Elizabeth">
+        <dn>elizabethId=1,eratId=1</dn>
+    </object>
+    <object class="CharlesSon">
+        <dn>charlesSonId=william,charlesId=1,eratId=1</dn>
+    </object>
+    <object class="CharlesSon">
+        <dn>charlesSonId=henry,charlesId=1,eratId=1</dn>
+    </object>
+    <object class="CharlesSonSon">
+        <dn>charlesSonSonId=george,charlesSonId=william,charlesId=1,eratId=1</dn>
+    </object>
+    <object class="Andrew">
+        <dn>andrewId=1,elizabethId=1,eratId=1</dn>
+    </object>
+    <object class="Beatrice">
+        <dn>beatriceId=1,andrewId=1,elizabethId=1,eratId=1</dn>
+    </object>
+    <object class="Eugenie">
+        <dn>eugenieId=1,andrewId=1,elizabethId=1,eratId=1</dn>
+    </object>
+</imm:IMM-contents>

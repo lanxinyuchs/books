@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Copyright (c) 2015 Ericsson AB. 
+	All rights reserved 
+
+	DX ECIM Tool-chain generated this file on Jul 16, 2015 2:17:05 PM using:
+	* com.ericsson.ecim.m2m 2.14.1.201504211247
+	* com.ericsson.ecim.dsl 2.14.1.201504211247
+	* com.ericsson.ecim.edm 2.14.1.201504211247
+--><!DOCTYPE models SYSTEM "mp.dtd">
+<models>
+  <dtdVersion>G</dtdVersion>
+  <momMetaData>
+    <momTitle>title</momTitle>
+    <momSubTitle>sub title</momSubTitle>
+    <momIdentity>
+      <docNum>4/155 54-CNX CNA 901 2610</docNum>
+      <docLang>English</docLang>
+      <docRev>0</docRev>
+      <docDate>2015-07-16</docDate>
+    </momIdentity>
+    <createdBy>
+      <signature>ETXJOTJ</signature>
+    </createdBy>
+    <approvedBy>
+      <signature>ETXJOTJ</signature>
+    </approvedBy>
+  </momMetaData>
+  <mim author="ETXJOTJ" contact="ETXJOTJ" correction="1" date="2015-10-02" docNo="4/155 54-CNX CNA 901 2610" name="RmeSupport" namespace="urn:com:ericsson:ecim:RmeSupport" namespacePrefix="rmesupport" organization="" release="0" revision="" version="1">
+    <description>Top of the NodeSupport branch</description>
+    <domainExtension domain="ECIM">
+      <extension name="immNamespace" value="NONE"/>
+    </domainExtension>
+    <class name="NodeSupport">
+      <description>Top MO for the NodeSupport branch</description>
+      <systemCreated/>
+      <root/>
+      <attribute name="nodeSupportId">
+        <description>Holds the name used when identifying this MO.</description>
+        <mandatory/>
+        <noNotification/>
+        <restricted/>
+        <key/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="supportFunction">
+        <description>A read-only attribute boolean supportFunction, default true, always set to true. &#13;
+For use by management systems to distinguish supportFunction implementations.&#13;
+</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <readOnly/>
+        <isNillable/>
+        <dataType>
+          <boolean>
+            <defaultValue>true</defaultValue>
+          </boolean>
+        </dataType>
+      </attribute>
+      <attribute name="userLabel">
+        <description>Used for product free-text description. </description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <isNillable/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="release">
+        <description>The product release of the SupportFunction.</description>
+        <readOnly/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+    </class>
+  </mim>
+  <interMim>
+    <relationship name="ManagedElement_to_NodeSupport">
+      <domainExtension domain="CoreMW">
+        <extension name="splitImmDn" value="true"/>
+      </domainExtension>
+      <containment>
+        <parent>
+          <hasClass name="ManagedElement">
+            <mimName>ECIM_Top</mimName>
+          </hasClass>
+        </parent>
+        <child>
+          <hasClass name="NodeSupport">
+            <mimName>RmeSupport</mimName>
+          </hasClass>
+          <cardinality>
+            <min>1</min>
+            <max>1</max>
+          </cardinality>
+        </child>
+        <domainExtension domain="ECIM">
+          <extension name="canCreate" value="false"/>
+          <extension name="canDelete" value="false"/>
+        </domainExtension>
+        <notCreatable/>
+        <notDeleteable/>
+      </containment>
+    </relationship>
+  </interMim>
+</models>

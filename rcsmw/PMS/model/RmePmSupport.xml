@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Copyright (c) 2016 Ericsson AB. 
+	All rights reserved 
+
+	DX ECIM Tool-chain generated this file on Jan 28, 2016 2:48:25 PM using:
+	* com.ericsson.ecim.m2m 2.14.5.201511210257
+	* com.ericsson.ecim.dsl 2.14.5.201511210257
+	* com.ericsson.ecim.edm 2.14.5.201511210257
+--><!DOCTYPE models SYSTEM "mp.dtd">
+<models>
+    <dtdVersion>G</dtdVersion>
+    <momMetaData>
+        <momTitle/>
+        <momSubTitle/>
+        <momIdentity>
+            <docNum>2/155 54-CNX 901 2618</docNum>
+            <docLang/>
+            <docRev/>
+            <docDate>2015-12-21</docDate>
+        </momIdentity>
+    </momMetaData>
+    <mim author="erasipe" contact="erasipe" correction="0" date="2015-12-21" docNo="2/155 54-CNX 901 2618" name="RmePmSupport" namespace="urn:com:ericsson:ecim:RmePmSupport" namespacePrefix="rmepmsupport" organization="RBS MW" release="0" revision="" version="1">
+        <description>Model for controlling multi ROP file support.</description>
+        <enum name="FileHandlingMethod">
+            <description>Describes the possible file handling methods.</description>
+            <enumMember name="SINGLE_ROP_FILE">
+                <description>The system collects all performance data in one ROP file.</description>
+                <value>1</value>
+            </enumMember>
+            <enumMember name="MULTIPLE_ROP_FILES">
+                <description>The system produces multiple ROP files according to the jobGroup value in the defined PmJob MO's.</description>
+                <value>2</value>
+            </enumMember>
+        </enum>
+        <class name="PmSupport">
+            <description>Holds control for multi ROP file behaviour.</description>
+            <systemCreated/>
+            <root/>
+            <attribute name="pmSupportId">
+                <description>Holds the value identifying this MO.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="ropFileHandling">
+                <description>Controls if all performance data is to be produced in a single ROP file or multiple ROP files.</description>
+                <dataType>
+                    <enumRef name="FileHandlingMethod">
+                        <defaultValue>SINGLE_ROP_FILE</defaultValue>
+                        <mimName>RmePmSupport</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+        </class>
+    </mim>
+    <interMim>
+        <relationship name="NodeSupport_to_PmSupport">
+            <containment>
+                <parent>
+                    <hasClass name="NodeSupport">
+                        <mimName>RmeSupport</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="PmSupport">
+                        <mimName>RmePmSupport</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>1</min>
+                        <max>1</max>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+    </interMim>
+</models>

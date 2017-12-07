@@ -1,0 +1,1920 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Copyright (c) 2016 Ericsson AB. 
+	All rights reserved 
+
+	DX ECIM Tool-chain generated this file on May 25, 2016 2:04:00 PM using:
+	* com.ericsson.ecim.m2m 2.14.5.201511210257
+	* com.ericsson.ecim.dsl 2.14.5.201511210257
+	* com.ericsson.ecim.edm 2.14.5.201511210257
+--><!DOCTYPE models SYSTEM "mp.dtd">
+<models>
+    <dtdVersion>G</dtdVersion>
+    <momMetaData>
+        <momTitle>title</momTitle>
+        <momSubTitle>sub title</momSubTitle>
+        <momIdentity>
+            <docNum>0</docNum>
+            <docLang>English</docLang>
+            <docRev>0</docRev>
+            <docDate>date</docDate>
+        </momIdentity>
+        <createdBy>
+            <signature>satan</signature>
+        </createdBy>
+        <approvedBy>
+            <signature>djavulen</signature>
+        </approvedBy>
+    </momMetaData>
+    <mim author="" contact="" correction="0" date="" docNo="" name="TESTMOM" namespace="urn:com:ericsson:ecim:TESTMOM" namespacePrefix="testmom" organization="" release="1" revision="" version="1">
+        <description>TestMom</description>
+        <domainExtension domain="ECIM">
+            <extension name="ecimMomName" value="TESTMOMNAME"/>
+            <extension name="ecimMomVersion" value="123"/>
+            <extension name="ecimMomRelease" value="XYZ"/>
+            <extension name="immNamespace" value="MOM_NAME"/>
+        </domainExtension>
+        <implements name="TESTMOMNAME" release="XYZ" version="123"/>
+        <struct name="StructP">
+            <description>Struct with only primitive members.</description>
+            <structMember name="intA">
+                <description>_</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <int32/>
+            </structMember>
+            <structMember name="intB">
+                <description>_</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <int32/>
+            </structMember>
+            <structMember name="intC">
+                <description>_</description>
+                <int32/>
+            </structMember>
+            <structMember name="strD">
+                <description>_</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <string/>
+            </structMember>
+            <structMember name="strE">
+                <description>_</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <string/>
+            </structMember>
+            <structMember name="strF">
+                <description>_</description>
+                <string/>
+            </structMember>
+            <structMember name="enumK">
+                <description>_</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <enumRef name="TestEnumSparse">
+                    <mimName>TESTMOM</mimName>
+                </enumRef>
+            </structMember>
+        </struct>
+        <struct name="StructS">
+            <description>Struct with sequence-valued members.</description>
+            <structMember name="intA">
+                <description>_</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <int32/>
+            </structMember>
+            <structMember name="intSeqB">
+                <description>_</description>
+                <sequence>
+                    <int32/>
+                    <minLength>0</minLength>
+                    <nonUnique/>
+                </sequence>
+            </structMember>
+            <structMember name="strSeqC">
+                <description>_</description>
+                <sequence>
+                    <string/>
+                    <minLength>0</minLength>
+                    <nonUnique/>
+                </sequence>
+            </structMember>
+            <structMember name="enumSeqL">
+                <description>_</description>
+                <sequence>
+                    <enumRef name="TestEnumSparse">
+                        <mimName>TESTMOM</mimName>
+                    </enumRef>
+                    <minLength>0</minLength>
+                    <nonUnique/>
+                </sequence>
+            </structMember>
+            <structMember name="enumK">
+                <description>_</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <enumRef name="TestEnumSparse">
+                    <mimName>TESTMOM</mimName>
+                </enumRef>
+            </structMember>
+        </struct>
+        <struct name="StructV">
+            <description>This struct has persistent members</description>
+            <structMember name="intA">
+                <description>_</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <int32/>
+            </structMember>
+            <structMember name="intB">
+                <description>_</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <int32/>
+            </structMember>
+        </struct>
+        <struct name="Struct4">
+            <description>_</description>
+            <structMember name="x">
+                <description>_</description>
+                <int32/>
+            </structMember>
+            <structMember name="y">
+                <description>_</description>
+                <string/>
+            </structMember>
+            <structMember name="z">
+                <description>_</description>
+                <sequence>
+                    <int32/>
+                    <minLength>0</minLength>
+                    <nonUnique/>
+                </sequence>
+            </structMember>
+        </struct>
+        <struct name="Struct3">
+            <description>struct3</description>
+            <structMember name="int32">
+                <description>int32</description>
+                <int32/>
+            </structMember>
+        </struct>
+        <struct name="StructR">
+            <description>Readonly struct used for testing the LRAT seq-of-struct AVC issue. This struct has cached members.</description>
+            <structMember name="intA">
+                <description>_</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <int32/>
+            </structMember>
+            <structMember name="intB">
+                <description>_</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <int32/>
+            </structMember>
+        </struct>
+        <struct name="StructU">
+            <description>Readonly struct used for testing the LRAT seq-of-struct AVC issue. This struct has non-cached members.</description>
+            <structMember name="intA">
+                <description>_</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <int32/>
+            </structMember>
+            <structMember name="intB">
+                <description>_</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <int32/>
+            </structMember>
+        </struct>
+        <struct name="Struct1">
+            <description>struct</description>
+            <structMember name="struct1mem1">
+                <description>structmem1</description>
+                <int32/>
+            </structMember>
+            <structMember name="struct1mem2">
+                <description>structmem2</description>
+                <string/>
+            </structMember>
+        </struct>
+        <struct name="Struct2">
+            <description>struct2</description>
+            <structMember name="struct2mem1">
+                <description>struct2mem1</description>
+                <string>
+                    <defaultValue>bambambigolo</defaultValue>
+                </string>
+            </structMember>
+            <structMember name="struct2key">
+                <description>struct2key</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isKey" value="true"/>
+                </domainExtension>
+                <int32/>
+            </structMember>
+        </struct>
+        <enum name="TestEnum">
+            <description>testEnum</description>
+            <enumMember name="TESTENUM1">
+                <description>TestEnum1</description>
+                <value>1</value>
+            </enumMember>
+            <enumMember name="TESTENUM2">
+                <description>TestEnum2</description>
+                <value>2</value>
+            </enumMember>
+        </enum>
+        <enum name="TestEnumSparse">
+            <description>This ENUM maps member names to integers in a non-contiguous sequence.</description>
+            <enumMember name="V101">
+                <value>101</value>
+            </enumMember>
+            <enumMember name="V117">
+                <value>117</value>
+            </enumMember>
+            <enumMember name="V118">
+                <value>118</value>
+            </enumMember>
+        </enum>
+        <derivedDataType name="TestDerInt">
+            <description>testDerInt</description>
+            <baseType>
+                <int32/>
+            </baseType>
+        </derivedDataType>
+        <class name="TestRoot">
+            <description>Root</description>
+            <root/>
+            <attribute name="testRootId">
+                <description>ok</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="TestClass1">
+            <description>TestClass2</description>
+            <attribute name="struct1">
+                <description>struct1</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <noNotification/>
+                <isNillable/>
+                <dataType>
+                    <structRef name="Struct1">
+                        <mimName>TESTMOM</mimName>
+                    </structRef>
+                </dataType>
+            </attribute>
+            <attribute name="int32">
+                <description>ecim32</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <derivedDataTypeRef name="TestDerInt">
+                        <mimName>TESTMOM</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="testClass1Id">
+                <description>_</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="TestClass2">
+            <description>TestClass2</description>
+            <attribute name="class1">
+                <description>class2Attribute in Class1</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <noNotification/>
+                <isNillable/>
+                <dataType>
+                    <moRef name="TestClass1">
+                        <mimName>TESTMOM</mimName>
+                    </moRef>
+                </dataType>
+            </attribute>
+            <attribute name="struct2">
+                <description>struct2</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <noNotification/>
+                <isNillable/>
+                <dataType>
+                    <structRef name="Struct2">
+                        <mimName>TESTMOM</mimName>
+                    </structRef>
+                </dataType>
+            </attribute>
+            <attribute name="testClass2Id">
+                <description>_</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="TestClass3">
+            <description>testclass3</description>
+            <action name="test1">
+                <description>test1</description>
+                <domainExtension domain="CoreMW">
+                    <extension name="admOpId" value="7"/>
+                </domainExtension>
+                <returnType>
+                    <string/>
+                </returnType>
+                <parameter name="test1Action">
+                    <description>hello</description>
+                    <in/>
+                    <dataType>
+                        <string>
+                            <defaultValue>hello</defaultValue>
+                        </string>
+                    </dataType>
+                </parameter>
+            </action>
+            <action name="test2">
+                <description>test2</description>
+                <domainExtension domain="CoreMW">
+                    <extension name="admOpId" value="8"/>
+                </domainExtension>
+                <returnType>
+                    <void/>
+                </returnType>
+            </action>
+            <action name="test3">
+                <description>test3functions</description>
+                <domainExtension domain="CoreMW">
+                    <extension name="admOpId" value="9"/>
+                </domainExtension>
+                <returnType>
+                    <boolean/>
+                </returnType>
+                <parameter name="test3param">
+                    <description>test3param</description>
+                    <in/>
+                    <dataType>
+                        <structRef name="Struct3">
+                            <mimName>TESTMOM</mimName>
+                        </structRef>
+                    </dataType>
+                </parameter>
+            </action>
+            <action name="testComplexType">
+                <description>Action returning complex type</description>
+                <domainExtension domain="CoreMW">
+                    <extension name="admOpId" value="1"/>
+                </domainExtension>
+                <returnType>
+                    <structRef name="Struct4">
+                        <mimName>TESTMOM</mimName>
+                    </structRef>
+                </returnType>
+                <parameter name="multipleValue">
+                    <description>Specifies whether the action should return multiple values or not</description>
+                    <in/>
+                    <dataType>
+                        <boolean>
+                            <defaultValue>false</defaultValue>
+                        </boolean>
+                    </dataType>
+                </parameter>
+            </action>
+            <action name="testSimpleType">
+                <description>Action returning a simple type</description>
+                <domainExtension domain="CoreMW">
+                    <extension name="admOpId" value="2"/>
+                </domainExtension>
+                <returnType>
+                    <derivedDataTypeRef name="TestDerInt">
+                        <mimName>TESTMOM</mimName>
+                    </derivedDataTypeRef>
+                </returnType>
+                <parameter name="multipleValue">
+                    <description>Specifies whether the action should return multiple values or not
+</description>
+                    <in/>
+                    <dataType>
+                        <boolean>
+                            <defaultValue>false</defaultValue>
+                        </boolean>
+                    </dataType>
+                </parameter>
+            </action>
+            <attribute name="testClass3Id">
+                <description>ok</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="class3">
+                <description>class3</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <noNotification/>
+                <isNillable/>
+                <dataType>
+                    <int32/>
+                </dataType>
+            </attribute>
+            <attribute name="managedElement">
+                <description>x</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <noNotification/>
+                <isNillable/>
+                <dataType>
+                    <string>
+                        <defaultValue>helvete</defaultValue>
+                    </string>
+                </dataType>
+            </attribute>
+            <attribute name="struct3seq">
+                <description>struct3 seq</description>
+                <noNotification/>
+                <dataType>
+                    <sequence>
+                        <structRef name="Struct3">
+                            <mimName>TESTMOM</mimName>
+                        </structRef>
+                        <minLength>0</minLength>
+                        <maxLength>5</maxLength>
+                        <nonUnique/>
+                    </sequence>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="TestClass4">
+            <description>Class4</description>
+            <attribute name="testClass4attr1">
+                <description>attr1</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <noNotification/>
+                <isNillable/>
+                <dataType>
+                    <int32>
+                        <defaultValue>32</defaultValue>
+                    </int32>
+                </dataType>
+            </attribute>
+            <attribute name="testClass4attrenum">
+                <description>testclaas3</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <noNotification/>
+                <isNillable/>
+                <dataType>
+                    <enumRef name="TestEnum">
+                        <mimName>TESTMOM</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="testClass4attrman">
+                <description>attrman</description>
+                <noNotification/>
+                <dataType>
+                    <int32>
+                        <defaultValue>26</defaultValue>
+                    </int32>
+                </dataType>
+            </attribute>
+            <attribute name="intseq">
+                <description>intseq</description>
+                <noNotification/>
+                <dataType>
+                    <sequence>
+                        <int32/>
+                        <minLength>0</minLength>
+                        <nonUnique/>
+                        <seqDefaultValue>
+                            <defaultValue>13</defaultValue>
+                        </seqDefaultValue>
+                    </sequence>
+                </dataType>
+            </attribute>
+            <attribute name="testclass4attrruntime">
+                <description>runtiime</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <noNotification/>
+                <readOnly/>
+                <isNillable/>
+                <dataType>
+                    <int32/>
+                </dataType>
+            </attribute>
+            <attribute name="testclass4hidden">
+                <description>hidden</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <noNotification/>
+                <readOnly/>
+                <isNillable/>
+                <dataType>
+                    <string/>
+                </dataType>
+                <filter>rcstesthidden</filter>
+            </attribute>
+            <attribute name="testClass4notification">
+                <description>notifiable attribute</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="testClass4me">
+                <description>test</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <moRef name="ManagedElement">
+                        <mimName>ECIM_Top</mimName>
+                    </moRef>
+                </dataType>
+            </attribute>
+            <attribute name="testClass4Id">
+                <description>_</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="TestClass5">
+            <description>testclass5</description>
+            <systemCreated/>
+            <attribute name="testClass5attr1">
+                <description>test</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <noNotification/>
+                <readOnly/>
+                <isNillable/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="testClass5Id">
+                <description>ok</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="TestClass6">
+            <description>hiddenclass</description>
+            <filter>rcstesthidden</filter>
+            <attribute name="testclass6attr">
+                <description>jh</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <noNotification/>
+                <isNillable/>
+                <dataType>
+                    <boolean/>
+                </dataType>
+            </attribute>
+            <attribute name="testClass6Id">
+                <description>ok</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="TestClass7">
+            <description>-</description>
+            <attribute name="attr2">
+                <description>-</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <int32/>
+                </dataType>
+            </attribute>
+            <attribute name="attr3">
+                <description>-</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <int32/>
+                </dataType>
+            </attribute>
+            <attribute name="attr4">
+                <description>-</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <int32/>
+                </dataType>
+            </attribute>
+            <attribute name="attr5">
+                <description>-</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <int32/>
+                </dataType>
+            </attribute>
+            <attribute name="attr6">
+                <description>-</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <int32/>
+                </dataType>
+            </attribute>
+            <attribute name="attr1">
+                <description>-</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <int32/>
+                </dataType>
+            </attribute>
+            <attribute name="testClass7Id">
+                <description>ok</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="TestClass8">
+            <description>-</description>
+            <attribute name="uses">
+                <description>-</description>
+                <dataType>
+                    <sequence>
+                        <moRef name="TestClass9">
+                            <mimName>TESTMOM</mimName>
+                        </moRef>
+                        <minLength>0</minLength>
+                        <nonUnique/>
+                    </sequence>
+                </dataType>
+            </attribute>
+            <attribute name="testClass8Id">
+                <description>ok</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="TestClass9">
+            <description>-</description>
+            <attribute name="reservedBy">
+                <description>-</description>
+                <readOnly/>
+                <dataType>
+                    <sequence>
+                        <moRef name="TestClass8">
+                            <mimName>TESTMOM</mimName>
+                        </moRef>
+                        <minLength>0</minLength>
+                        <nonUnique/>
+                    </sequence>
+                </dataType>
+            </attribute>
+            <attribute name="testClass9Id">
+                <description>ok</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="TestClassB">
+            <description>_</description>
+            <attribute name="testClassBId">
+                <description>_</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="uses">
+                <description>_</description>
+                <dataType>
+                    <sequence>
+                        <moRef name="TestClassD">
+                            <mimName>TESTMOM</mimName>
+                        </moRef>
+                        <minLength>0</minLength>
+                        <nonUnique/>
+                    </sequence>
+                </dataType>
+            </attribute>
+            <attribute name="mxyz">
+                <description>_</description>
+                <dataType>
+                    <sequence>
+                        <structRef name="Struct4">
+                            <mimName>TESTMOM</mimName>
+                        </structRef>
+                        <minLength>0</minLength>
+                        <nonUnique/>
+                    </sequence>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="TestClassC">
+            <description>_</description>
+            <attribute name="testClassCId">
+                <description>_</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="reservedBy">
+                <description>_</description>
+                <readOnly/>
+                <dataType>
+                    <sequence>
+                        <moRef name="TestClassA">
+                            <mimName>TESTMOM</mimName>
+                        </moRef>
+                        <minLength>0</minLength>
+                        <nonUnique/>
+                    </sequence>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="TestClassD">
+            <description>_</description>
+            <attribute name="testClassDId">
+                <description>_</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="reservedBy">
+                <description>_</description>
+                <readOnly/>
+                <dataType>
+                    <sequence>
+                        <moRef name="TestClassB">
+                            <mimName>TESTMOM</mimName>
+                        </moRef>
+                        <minLength>0</minLength>
+                        <nonUnique/>
+                    </sequence>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="TestClassA">
+            <description>_</description>
+            <attribute name="testClassAId">
+                <description>_</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="uses">
+                <description>_</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <moRef name="TestClassC">
+                        <mimName>TESTMOM</mimName>
+                    </moRef>
+                </dataType>
+            </attribute>
+            <attribute name="xyz">
+                <description>_</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <structRef name="Struct4">
+                        <mimName>TESTMOM</mimName>
+                    </structRef>
+                </dataType>
+            </attribute>
+            <attribute name="userLabel">
+                <description>_</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="i8">
+                <description>_</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <int8/>
+                </dataType>
+            </attribute>
+            <attribute name="i16">
+                <description>_</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <int16/>
+                </dataType>
+            </attribute>
+            <attribute name="i32">
+                <description>_</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <int32/>
+                </dataType>
+            </attribute>
+            <attribute name="i64">
+                <description>_</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <int64/>
+                </dataType>
+            </attribute>
+            <attribute name="ui8">
+                <description>_</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <uint8/>
+                </dataType>
+            </attribute>
+            <attribute name="ui16">
+                <description>_</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <uint16/>
+                </dataType>
+            </attribute>
+            <attribute name="ui32">
+                <description>_</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <uint32/>
+                </dataType>
+            </attribute>
+            <attribute name="ui64">
+                <description>_</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <uint64/>
+                </dataType>
+            </attribute>
+            <attribute name="bool">
+                <description>_</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <boolean/>
+                </dataType>
+            </attribute>
+            <attribute name="mi8">
+                <description>_</description>
+                <dataType>
+                    <sequence>
+                        <int8/>
+                        <minLength>0</minLength>
+                        <nonUnique/>
+                    </sequence>
+                </dataType>
+            </attribute>
+            <attribute name="mi16">
+                <description>_</description>
+                <dataType>
+                    <sequence>
+                        <int16/>
+                        <minLength>0</minLength>
+                        <nonUnique/>
+                    </sequence>
+                </dataType>
+            </attribute>
+            <attribute name="mi32">
+                <description>_</description>
+                <dataType>
+                    <sequence>
+                        <int32/>
+                        <minLength>0</minLength>
+                        <nonUnique/>
+                    </sequence>
+                </dataType>
+            </attribute>
+            <attribute name="mi64">
+                <description>_</description>
+                <dataType>
+                    <sequence>
+                        <int64/>
+                        <minLength>0</minLength>
+                        <nonUnique/>
+                    </sequence>
+                </dataType>
+            </attribute>
+            <attribute name="mui8">
+                <description>_</description>
+                <dataType>
+                    <sequence>
+                        <uint8/>
+                        <minLength>0</minLength>
+                        <nonUnique/>
+                    </sequence>
+                </dataType>
+            </attribute>
+            <attribute name="mui16">
+                <description>_</description>
+                <dataType>
+                    <sequence>
+                        <uint16/>
+                        <minLength>0</minLength>
+                        <nonUnique/>
+                    </sequence>
+                </dataType>
+            </attribute>
+            <attribute name="mui32">
+                <description>_</description>
+                <dataType>
+                    <sequence>
+                        <uint32/>
+                        <minLength>0</minLength>
+                        <nonUnique/>
+                    </sequence>
+                </dataType>
+            </attribute>
+            <attribute name="mui64">
+                <description>_</description>
+                <dataType>
+                    <sequence>
+                        <uint64/>
+                        <minLength>0</minLength>
+                        <nonUnique/>
+                    </sequence>
+                </dataType>
+            </attribute>
+            <attribute name="mbool">
+                <description>_</description>
+                <dataType>
+                    <sequence>
+                        <boolean/>
+                        <minLength>0</minLength>
+                        <nonUnique/>
+                    </sequence>
+                </dataType>
+            </attribute>
+            <attribute name="enum">
+                <description>_</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <enumRef name="TestEnumSparse">
+                        <mimName>TESTMOM</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="menum">
+                <description>_</description>
+                <dataType>
+                    <sequence>
+                        <enumRef name="TestEnumSparse">
+                            <mimName>TESTMOM</mimName>
+                        </enumRef>
+                        <minLength>0</minLength>
+                        <nonUnique/>
+                    </sequence>
+                </dataType>
+            </attribute>
+            <attribute name="s">
+                <description>_</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="ms">
+                <description>_</description>
+                <dataType>
+                    <sequence>
+                        <string/>
+                        <minLength>0</minLength>
+                        <nonUnique/>
+                    </sequence>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="TestClassE">
+            <description>Class having attributes for testing the coi:getAttributes() function.</description>
+            <attribute name="testClassEId">
+                <description>_</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="intA">
+                <description>_</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <int32/>
+                </dataType>
+            </attribute>
+            <attribute name="intB">
+                <description>_</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <int32/>
+                </dataType>
+            </attribute>
+            <attribute name="intC">
+                <description>_</description>
+                <mandatory/>
+                <dataType>
+                    <int32/>
+                </dataType>
+            </attribute>
+            <attribute name="intD">
+                <description>_</description>
+                <dataType>
+                    <sequence>
+                        <int32/>
+                        <minLength>0</minLength>
+                        <nonUnique/>
+                    </sequence>
+                </dataType>
+            </attribute>
+            <attribute name="strE">
+                <description>_</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="structF">
+                <description>_</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <structRef name="StructS">
+                        <mimName>TESTMOM</mimName>
+                    </structRef>
+                </dataType>
+            </attribute>
+            <attribute name="structG">
+                <description>_</description>
+                <dataType>
+                    <sequence>
+                        <structRef name="StructP">
+                            <mimName>TESTMOM</mimName>
+                        </structRef>
+                        <minLength>0</minLength>
+                        <nonUnique/>
+                    </sequence>
+                </dataType>
+            </attribute>
+            <attribute name="enumK">
+                <description>_</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <enumRef name="TestEnumSparse">
+                        <mimName>TESTMOM</mimName>
+                    </enumRef>
+                </dataType>
+            </attribute>
+            <attribute name="enumSeqL">
+                <description>_</description>
+                <dataType>
+                    <sequence>
+                        <enumRef name="TestEnumSparse">
+                            <mimName>TESTMOM</mimName>
+                        </enumRef>
+                        <minLength>0</minLength>
+                        <nonUnique/>
+                    </sequence>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="TestClassF">
+            <description>For tests of the LRAT seq-of-struct AVC issue.</description>
+            <attribute name="testClassFId">
+                <description>_</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="structSeqA">
+                <description>_</description>
+                <readOnly/>
+                <dataType>
+                    <sequence>
+                        <structRef name="StructR">
+                            <mimName>TESTMOM</mimName>
+                        </structRef>
+                        <minLength>0</minLength>
+                        <nonUnique/>
+                        <ordered/>
+                    </sequence>
+                </dataType>
+            </attribute>
+            <attribute name="structSeqB">
+                <description>_</description>
+                <readOnly/>
+                <dataType>
+                    <sequence>
+                        <structRef name="StructU">
+                            <mimName>TESTMOM</mimName>
+                        </structRef>
+                        <minLength>0</minLength>
+                        <nonUnique/>
+                        <ordered/>
+                    </sequence>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="TestClassG">
+            <description>Purpose is to try and create a test case that captures the HU83277 problem</description>
+            <attribute name="testClassGId">
+                <description>_</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="structV">
+                <description>_</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <readOnly/>
+                <isNillable/>
+                <dataType>
+                    <structRef name="StructV">
+                        <mimName>TESTMOM</mimName>
+                    </structRef>
+                </dataType>
+            </attribute>
+        </class>
+	<class name="LeafConfigReservedMo">
+            <description>LeafConfigReservedMo</description>
+            <attribute name="leafConfigReservedMoId">
+                <description>_</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+	    <attribute name="userLabel">
+                <description>userLabel</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="reservedBy">
+                <description>reservedBy=LeafConfigReserver</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <moRef name="LeafConfigReserver">
+                        <mimName>TESTMOM</mimName>
+                    </moRef>
+                </dataType>
+            </attribute>
+
+        </class>
+	<class name="LeafConfigReserver">
+            <description>LeafConfigReserver</description>
+            <attribute name="leafConfigReserverId">
+                <description>_</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+	    <attribute name="userLabel">
+                <description>userLabel</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+	    <attribute name="leafConfigReservedMoRef">
+                <description>leafConfigReservedMoRef</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <moRef name="LeafConfigReservedMo">
+                        <mimName>TESTMOM</mimName>
+                    </moRef>
+                </dataType>
+            </attribute>
+	    <attribute name="uniRefToLocalConfigReservedMo1">
+                <description>bla </description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <moRef name="LeafConfigReservedMo">
+                        <mimName>TESTMOM</mimName>
+                    </moRef>
+                </dataType>
+            </attribute>
+	    <attribute name="externalUniRefSeqToAny1">
+                <description>Reference to a list of instances of GNodeBSectorCarrier MO.</description>
+                <dataType>
+                    <sequence>
+                        <moRef name="ManagedObject"/>
+                        <minLength>0</minLength>
+                        <maxLength>2</maxLength>
+                    </sequence>
+                </dataType>
+                <takesEffect>Next cell unlock.</takesEffect>
+                <precondition>Cell must be locked.</precondition>
+            </attribute>
+        </class>
+        <relationship name="Root_to_Class1">
+            <description>Root_to_Class1</description>
+            <containment>
+                <parent>
+                    <hasClass name="TestRoot">
+                        <mimName>TESTMOM</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="TestClass1">
+                        <mimName>TESTMOM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+        <relationship name="Root_to_Class2">
+            <description>Root_to_Class2</description>
+            <containment>
+                <parent>
+                    <hasClass name="TestRoot">
+                        <mimName>TESTMOM</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="TestClass2">
+                        <mimName>TESTMOM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+        <relationship name="Class2_to_Class3">
+            <description>Class2_to_Class3</description>
+            <containment>
+                <parent>
+                    <hasClass name="TestClass2">
+                        <mimName>TESTMOM</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="TestClass3">
+                        <mimName>TESTMOM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>1</min>
+                        <max>1</max>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+        <relationship name="Root_2_Class4">
+            <containment>
+                <parent>
+                    <hasClass name="TestRoot">
+                        <mimName>TESTMOM</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="TestClass4">
+                        <mimName>TESTMOM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+        <relationship name="Root_to_TestClass5">
+            <containment>
+                <parent>
+                    <hasClass name="TestRoot">
+                        <mimName>TESTMOM</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="TestClass5">
+                        <mimName>TESTMOM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>1</min>
+                        <max>1</max>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="false"/>
+                    <extension name="canDelete" value="false"/>
+                </domainExtension>
+                <notCreatable/>
+                <notDeleteable/>
+            </containment>
+        </relationship>
+        <relationship name="ROOT_TO_CLASS6">
+            <filter>rcstesthidden</filter>
+            <containment>
+                <parent>
+                    <hasClass name="TestRoot">
+                        <mimName>TESTMOM</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="TestClass6">
+                        <mimName>TESTMOM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                        <max>1</max>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+        <relationship name="TestClass2_to_TestClass7">
+            <containment>
+                <parent>
+                    <hasClass name="TestClass2">
+                        <mimName>TESTMOM</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="TestClass7">
+                        <mimName>TESTMOM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+        <relationship name="TestRoot_to_TestClass8">
+            <containment>
+                <parent>
+                    <hasClass name="TestRoot">
+                        <mimName>TESTMOM</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="TestClass8">
+                        <mimName>TESTMOM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+        <relationship name="TestRoot_to_TestClass9">
+            <containment>
+                <parent>
+                    <hasClass name="TestRoot">
+                        <mimName>TESTMOM</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="TestClass9">
+                        <mimName>TESTMOM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+        <relationship name="TestClass9_reservedBy_to_TestClass8_uses">
+            <biDirectionalAssociation>
+                <associationEnd name="uses">
+                    <hasClass name="TestClass9">
+                        <mimName>TESTMOM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                        <max>2</max>
+                    </cardinality>
+                    <isReserving/>
+                </associationEnd>
+                <associationEnd name="reservedBy">
+                    <hasClass name="TestClass8">
+                        <mimName>TESTMOM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </associationEnd>
+            </biDirectionalAssociation>
+        </relationship>
+        <relationship name="classB_2_classD">
+            <biDirectionalAssociation>
+                <associationEnd name="uses">
+                    <hasClass name="TestClassD">
+                        <mimName>TESTMOM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                    <isReserving/>
+                </associationEnd>
+                <associationEnd name="reservedBy">
+                    <hasClass name="TestClassB">
+                        <mimName>TESTMOM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </associationEnd>
+            </biDirectionalAssociation>
+        </relationship>
+        <relationship name="TestRoot_to_TestClassB">
+            <containment>
+                <parent>
+                    <hasClass name="TestRoot">
+                        <mimName>TESTMOM</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="TestClassB">
+                        <mimName>TESTMOM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+        <relationship name="TestRoot_to_TestClassC">
+            <containment>
+                <parent>
+                    <hasClass name="TestRoot">
+                        <mimName>TESTMOM</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="TestClassC">
+                        <mimName>TESTMOM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+        <relationship name="TestRoot_to_TestClassD">
+            <containment>
+                <parent>
+                    <hasClass name="TestRoot">
+                        <mimName>TESTMOM</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="TestClassD">
+                        <mimName>TESTMOM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+        <relationship name="TestRoot_to_TestClassA">
+            <containment>
+                <parent>
+                    <hasClass name="TestRoot">
+                        <mimName>TESTMOM</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="TestClassA">
+                        <mimName>TESTMOM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+        <relationship name="TestClassC_reservedBy_to_TestClassA_uses">
+            <biDirectionalAssociation>
+                <associationEnd name="uses">
+                    <hasClass name="TestClassC">
+                        <mimName>TESTMOM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                        <max>1</max>
+                    </cardinality>
+                    <isReserving/>
+                </associationEnd>
+                <associationEnd name="reservedBy">
+                    <hasClass name="TestClassA">
+                        <mimName>TESTMOM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </associationEnd>
+            </biDirectionalAssociation>
+        </relationship>
+        <relationship name="TestRoot_to_TestClassE">
+            <containment>
+                <parent>
+                    <hasClass name="TestRoot">
+                        <mimName>TESTMOM</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="TestClassE">
+                        <mimName>TESTMOM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+        <relationship name="TestRoot_to_TestClassF">
+            <containment>
+                <parent>
+                    <hasClass name="TestRoot">
+                        <mimName>TESTMOM</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="TestClassF">
+                        <mimName>TESTMOM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+        <relationship name="TestRoot_to_TestClassG">
+            <containment>
+                <parent>
+                    <hasClass name="TestRoot">
+                        <mimName>TESTMOM</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="TestClassG">
+                        <mimName>TESTMOM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+<relationship name="TestRoot_to_LeafConfigReservedMo">
+            <containment>
+                <parent>
+                    <hasClass name="TestRoot">
+                        <mimName>TESTMOM</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="LeafConfigReservedMo">
+                        <mimName>TESTMOM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+	<relationship name="TestRoot_to_LeafConfigReserver">
+            <containment>
+                <parent>
+                    <hasClass name="TestRoot">
+                        <mimName>TESTMOM</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="LeafConfigReserver">
+                        <mimName>TESTMOM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+	<relationship name="LeafConfigReserver_uniRefToLocalConfigReservedMo1_to_LeafConfigReservedMo">
+            <description>bla</description>
+            <uniDirectionalAssociation>
+                <hasClass name="LeafConfigReserver">
+                    <mimName>TESTMOM</mimName>
+                </hasClass>
+                <associationEnd name="uniRefToLocalConfigReservedMo1">
+                    <hasClass name="LeafConfigReservedMo">
+                        <mimName>TESTMOM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                        <max>1</max>
+                    </cardinality>
+                </associationEnd>
+            </uniDirectionalAssociation>
+        </relationship>
+	<relationship name="LeafConfigReserver_externalUniRefSeqToAny1_to_ManagedElement">
+            <uniDirectionalAssociation>
+                <isExternal/>
+                <hasClass name="LeafConfigReserver">
+                    <mimName>TESTMOM</mimName>
+                </hasClass>
+                <associationEnd name="externalUniRefSeqToAny1">
+                    <hasClass name="ManagedObject">
+                        <mimName>ECIM_DoNotExist</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                        <max>2</max>
+                    </cardinality>
+                </associationEnd>
+            </uniDirectionalAssociation>
+        </relationship>
+    </mim>
+    <interMim>
+        <relationship name="ManagedElement_to_TestRoot">
+            <domainExtension domain="CoreMW">
+                <extension name="splitImmDn" value="true"/>
+            </domainExtension>
+            <containment>
+                <parent>
+                    <hasClass name="ManagedElement">
+                        <mimName>ECIM_Top</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="TestRoot">
+                        <mimName>TESTMOM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>1</min>
+                        <max>1</max>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="true"/>
+                    <extension name="canDelete" value="true"/>
+                </domainExtension>
+            </containment>
+        </relationship>
+    </interMim>
+</models>

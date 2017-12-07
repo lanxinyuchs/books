@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!--
+# ==========================================================
+# %CCaseFile:	ift_app_alarm.xml %
+# %CCaseRev:	/main/R2A/R3A/7 %
+# %CCaseDate:	2015-04-13 %
+#
+# Author:	erarafo
+# Description:	Alarm definitions for use in testing. Some more alarms are
+# defined in the  CXC.
+#
+# ==========================================================
+#
+# %CCaseCopyrightBegin%
+# Copyright (c) Ericsson AB 2013-2015 All rights reserved.
+#
+# The information in this document is the property of Ericsson.
+#
+# Except as specifically authorized in writing by Ericsson, the
+# receiver of this document shall keep the information contained
+# herein confidential and shall protect the same in whole or in
+# part from disclosure and dissemination to third parties.
+#
+# Disclosure and disseminations to the receivers employees shall
+# only be made on a strict need to know basis.
+# %CCaseCopyrightEnd%
+#
+# ==========================================================
+# REVISION LOG
+# ==========================================================
+#
+# Rev        Date       Name        What
+# ========   ========   ========    ========================
+# R2A/1      2013-11-07 erarafo     Alarms of the IFT application
+# R2A/2      2013-11-18 erarafo     More alarms; using proper numbers
+# R3A/1      2014-09-25 erarafo     Added a few more alarms
+# R3A/3      2014-11-18 erarafo     Added a mock "Enclosure Door Open" alarm
+# R3A/4      2014-11-27 erarafo     Added the "Ethernet Link Failure" alarm
+# R3A/5      2015-01-20 erarafo     Comments adjusted
+# R3A/6      2015-03-26 erarafo     Added an alarm type with default severity
+# R3A/7      2015-03-28 erarafo     Comments only (overview table added)
+# ==========================================================
+-->
+
+<!-- The alarm types in the table below may be
+     used for tests of RBS CS (they do not clash
+     with officially registered alarm types).
+
+      ECIM                SA Forum NTF
+majorType minorType | vendorId majorId minorId
+====================+=======================
+    193   9240544   |   193       140  65504   "Out of order."
+    193   9240545   |   193       140  65505   "Out of memory."
+    193   9240546   |   193       140  65506   "Out of credit."
+    193   9240547   |   193       140  65507   "Out of luck."
+    193   9240548   |   193       140  65508   "Out of channels."
+    193   9240549   |   193       140  65509   "Out of capacity."
+    193   9240550   |   193       140  65510   "NeedRebootJustInCase"
+    193   9240551   |   193       140  65511
+    193   9240552   |   193       140  65512
+    193   9240553   |   193       140  65513
+    193   9240554   |   193       140  65514
+    193   9240555   |   193       140  65515
+    193   9240556   |   193       140  65516
+    193   9240557   |   193       140  65517
+    193   9240558   |   193       140  65518   "Cocoa powder refill required"
+    193   9240559   |   193       140  65519   "Coffee beans refill required" (in )
+    193   9240560   |   193       140  65520   "Attention!"
+    193   9240561   |   193       140  65521   "Attention all!"
+    193   9240562   |   193       140  65522   "Attention now!"
+    193   9240563   |   193       140  65523   "Attention please!"
+    193   9240564   |   193       140  65524   "Physical intrusion or earthquake" (in )
+    193   9240565   |   193       140  65525
+    193   9240566   |   193       140  65526
+    193   9240567   |   193       140  65527
+    193   9240568   |   193       140  65528
+    193   9240569   |   193       140  65529
+    193   9240570   |   193       140  65530
+    193   9240571   |   193       140  65531
+    193   9240572   |   193       140  65532
+    193   9240573   |   193       140  65533
+    193   9240574   |   193       140  65534
+    193   9240575   |   193       140  65535
+-->
+
+
+<appdata target="alarm">
+  <!-- probable cause 45 is: SA_NTF_SOFTWARE_ERROR -->
+
+  <!-- ==== ALARMS ============================= -->
+  <!-- minor type 9240544 is 65536 x 140 + 65504 -->
+  <alarmtype
+      majorType="193"
+      minorType="9240544"
+      moClasses="TestClass1,TestClass2"
+      specificProblem="mock-alarm-65504"
+      eventType="PROCESSINGERRORALARM"
+      probableCause="348"
+      isStateful="true"
+      additionalText="Out of order."/>
+
+  <!-- minor type 9240545 is 65536 x 140 + 65505 -->
+  <alarmtype
+      majorType="193"
+      minorType="9240545"
+      moClasses="TestClass1,TestClass2"
+      specificProblem="mock-alarm-65505"
+      eventType="PROCESSINGERRORALARM"
+      probableCause="348"
+      isStateful="true"
+      additionalText="Out of memory."/>
+
+  <!-- minor type 9240546 is 65536 x 140 + 65506 -->
+  <alarmtype
+      majorType="193"
+      minorType="9240546"
+      moClasses="TestClass1,TestClass2"
+      specificProblem="mock-alarm-65506"
+      eventType="PROCESSINGERRORALARM"
+      probableCause="348"
+      isStateful="true"
+      additionalText="Out of credit."/>
+
+  <!-- minor type 9240547 is 65536 x 140 + 65507 -->
+  <alarmtype
+      majorType="193"
+      minorType="9240547"
+      moClasses="TestClass1,TestClass2"
+      specificProblem="mock-alarm-65507"
+      eventType="PROCESSINGERRORALARM"
+      probableCause="348"
+      isStateful="true"
+      additionalText="Out of luck."/>
+
+  <!-- minor type 9240548 is 65536 x 140 + 65508 -->
+  <alarmtype
+      majorType="193"
+      minorType="9240548"
+      moClasses="TestClass1,TestClass2"
+      specificProblem="mock-alarm-65508"
+      eventType="PROCESSINGERRORALARM"
+      probableCause="348"
+      isStateful="true"
+      additionalText="Out of channels."/>
+
+  <!-- minor type 9240549 is 65536 x 140 + 65509 -->
+  <alarmtype
+      majorType="193"
+      minorType="9240549"
+      moClasses="TestClass1,TestClass2"
+      specificProblem="mock-alarm-65509"
+      eventType="PROCESSINGERRORALARM"
+      probableCause="348"
+      isStateful="true"
+      additionalText="Out of capacity."/>
+
+  <!-- minor type 9240550 is 65536 x 140 + 65510 -->
+  <alarmtype
+      name="NeedRebootJustInCase"
+      majorType="193"
+      minorType="9240550"
+      moClasses="TestClass1,TestClass2"
+      specificProblem="Need A Quick Reboot Just In Case Something Is Wrong"
+      eventType="PROCESSINGERRORALARM"
+      probableCause="348"
+      isStateful="true"
+      additionalText="Rebooting sometimes mysteriously helps."
+      defaultSeverity="MAJOR"/>
+
+  <!-- ===================================================================================== -->
+  <!-- RESERVED: minorType 9240558 = 65536 x 140 + 65518 is the "Cocoa Powder" alarm in  -->
+  <!-- ===================================================================================== -->
+
+  <!-- ===================================================================================== -->
+  <!-- RESERVED: minorType 9240559 = 65536 x 140 + 65519 is the "Coffe Beans" alarm in   -->
+  <!-- ===================================================================================== -->
+
+  <!-- Mock version of 'Enclosure Door Open' alarm                                        -->
+  <!-- The minor type, specific problem and event type is from 1/006 51-HRB 105 700 Rev A -->
+  <!-- The probable cause is from 4/196 03-CXC 172 7549 Rev A                             -->
+  <!-- Minor type 9175085 is 65536 x 140 + 45                                             -->
+  <alarmtype
+      majorType="193"
+      minorType="9175085"
+      moClasses="Equipment,Cabinet"
+      specificProblem="Enclosure Door Open"
+      eventType="ENVIRONMENTALALARM"
+      probableCause="118"
+      isStateful="true"
+      additionalText="The parrot has escaped."/>
+
+  <!-- Alarm provided by ewinrob for tests of the toggling filter in COM -->
+  <!-- added Transport to the set of MO classes for this alarm to simplify tests -->
+  <!-- Minor type 9175061 is 65536 x 140 + 21                                             -->
+  <alarmtype
+      name="EthernetLinkFailure"
+      majorType="193"
+      minorType="9175061"
+      moClasses="EthernetPort,Transport"
+      specificProblem="Ethernet Link Failure"
+      eventType="COMMUNICATIONSALARM"
+      probableCause="8"
+      isStateful="true"
+      additionalText=""/>
+
+  <!-- ==== ALERTS ============================= -->
+  <!-- minor type 9240560 is 65536 x 140 + 65520 -->
+  <alarmtype
+      majorType="193"
+      minorType="9240560"
+      moClasses="TestClass1,TestClass2"
+      specificProblem="mock-alert-65520"
+      eventType="OTHER"
+      probableCause="418"
+      isStateful="false"
+      additionalText="Attention!"/>
+
+  <!-- minor type 9240561 is 65536 x 140 + 65521 -->
+  <alarmtype
+      majorType="193"
+      minorType="9240561"
+      moClasses="TestClass1,TestClass2"
+      specificProblem="mock-alert-65521"
+      eventType="OTHER"
+      probableCause="418"
+      isStateful="false"
+      additionalText="Attention all!"/>
+
+  <!-- minor type 9240562 is 65536 x 140 + 65522 -->
+  <alarmtype
+      majorType="193"
+      minorType="9240562"
+      moClasses="TestClass1,TestClass2"
+      specificProblem="mock-alert-65522"
+      eventType="OTHER"
+      probableCause="418"
+      isStateful="false"
+      additionalText="Attention now!"/>
+
+  <!-- minor type 9240563 is 65536 x 140 + 65523 -->
+  <alarmtype
+      majorType="193"
+      minorType="9240563"
+      moClasses="TestClass1,TestClass2"
+      specificProblem="mock-alert-65523"
+      eventType="OTHER"
+      probableCause="418"
+      isStateful="false"
+      additionalText="Attention please!"/>
+
+  <!-- =================================================================================== -->
+  <!-- RESERVED: minorType 9240564 = 65536 x 140 + 65524 is the "Earthquake" alert in  -->
+  <!-- =================================================================================== -->
+
+</appdata>

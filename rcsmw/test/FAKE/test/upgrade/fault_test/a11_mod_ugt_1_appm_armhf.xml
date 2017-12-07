@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+# ==========================================================
+# %CCaseFile:	a11_mod_ugt_1_appm_armhf.xml %
+# %CCaseRev:	/main/R2A/R3A/1 %
+# %CCaseDate:	2014-10-02 %
+#
+# Author:	erarafo
+# Description:  Metadata of executables and a shared library. The
+#               executables perform MO conversions at upgrade. This
+#               file is for ARM exclusively.
+#
+# ==========================================================
+#
+# %CCaseCopyrightBegin%
+# Copyright (c) Ericsson AB 2014 All rights reserved.
+#
+# The information in this document is the property of Ericsson.
+#
+# Except as specifically authorized in writing by Ericsson, the
+# receiver of this document shall keep the information contained
+# herein confidential and shall protect the same in whole or in
+# part from disclosure and dissemination to third parties.
+#
+# Disclosure and disseminations to the receivers employees shall
+# only be made on a strict need to know basis.
+# %CCaseCopyrightEnd%
+#
+# ==========================================================
+# REVISION LOG
+# ==========================================================
+#
+# Rev        Date         Name        What
+# ========   ==========   ========    ========================
+# R2A/1      2014-02-05   etxivri     Modified, to be used in activate fail, a11.
+#                                     Fallback due to dataconversion failure.
+# R2A/3      2014-03-19   erarafo     Corrected 'id' attributes
+# R3A/1      2014-10-02   erarafo     tgt_arm path fix
+# ==========================================================
+-->
+<appdata target="appm">
+  <loadmodule tag="central" name="upgrade_demo" id="CXC1734197_3" rev="R1A1" date="2013-06-20T00:00:00">
+    <file type="armhf" relpath="FAKE*/fake-*/priv/tgt_arm-wr6/bin/upgrade_demo"/>
+  </loadmodule>
+  <loadmodule tag="central" name="ugt_s0" id="CXC1734197_3" rev="R1A1" date="2013-06-20T00:00:00">
+    <file type="armhf" relpath="FAKE*/fake-*/priv/tgt_arm-wr6/bin/ugt_s0"/>
+  </loadmodule>
+  <loadmodule tag="central" name="ugt_s1v1" id="CXC1734197_3" rev="R1A1" date="2013-06-20T00:00:00">
+    <file type="armhf" relpath="FAKE*/fake-*/priv/tgt_arm-wr6/bin/ugt_s1v1"/>
+  </loadmodule>
+  <loadmodule tag="central" name="ugt_s2" id="CXC1734197_3" rev="R1A1" date="2013-06-20T00:00:00">
+    <file type="armhf" relpath="FAKE*/fake-*/priv/tgt_arm-wr6/bin/ugt_s2"/>
+  </loadmodule>
+  <loadmodule tag="shared_lib" name="ugt_common" id="CXC1734197_3" rev="R1A1" date="2013-06-20T00:00:00">
+    <file type="armhf" relpath="FAKE*/fake-*/priv/tgt_arm-wr6/lib32/libugt_common.so"/>
+  </loadmodule>
+</appdata>

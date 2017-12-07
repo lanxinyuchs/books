@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<licFile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<body formatVersion="2.0" signatureType="5">
+<sequenceNumber>1000</sequenceNumber>
+<SWLT customerId="publisher" productType="TCU" swltId="TCU_03_TEST_20140602">
+<generalInfo>
+<generated>2014-06-02T08:24:12</generated>
+<issuer>Ericsson AB</issuer>
+</generalInfo>
+<fingerprint method="11" print="tn_lab3">
+<featureKey id="CXC4011709">
+<description>SynchEth</description>
+<start>2014-06-01</start>
+<noStop/>
+</featureKey>
+<featureKey id="CXC4011737">
+<description>SyncEQualitySupervision</description>
+<start>2014-06-01</start>
+<noStop/>
+</featureKey>
+<featureKey id="CXC4011623">
+<description>TN Test License Key</description>
+<start>2014-06-01</start>
+<noStop/>
+</featureKey>
+<featureKey id="CXC4011710">
+<description>RANGrandMaster</description>
+<start>2014-06-01</start>
+<noStop/>
+</featureKey>
+<featureKey id="CXC4011708">
+<description>EgressTrafficShaping</description>
+<start>2014-06-01</start>
+<noStop/>
+</featureKey>
+<featureKey id="CXC4011707">
+<description>BidirectionalFWDetection</description>
+<start>2014-06-01</start>
+<noStop/>
+</featureKey>
+<featureKey id="CXC4011649">
+<description>OSPFv2</description>
+<start>2014-06-01</start>
+<noStop/>
+</featureKey>
+<emergencyResetKey>
+<start>2014-06-01</start>
+<stop>2024-05-29</stop>
+</emergencyResetKey>
+</fingerprint>
+</SWLT>
+</body>
+<PKIsignature issuer="CN=TestCA for Signing license files CAX 106 0084/30, OU=License Center, O=Ericsson AB, C=SE" serialnumber="28">PH6RSWRZNxpNOxEets2QkWpxp5bYyeD9MZlOrwqknd/k1hpUPHx/AaieOo2zwsD4YfMBIM6Zh/+M
+uI2qk9jHiArwmXM0Xj17TD0AzKSXtMTx/cbDlpSRQu5UGo91wlCobKDe9ZKjGtxnhAQWzqtyyaXX
+gSy5nP0e2vK75C3aUHY/zgYnBxQRhL/aINdf7AtOM+4r4MZ/UDp09mChNm912rUXXxrlLgpO6bm3
+YOgabWhRhnXjMglrn+utlfjPsZSl/f9nJESsF1hWF/XZdnAfI3d7kS1NcfhW+G8WUp8O1/QBNrz+
+cWQ9JU9CSfZIIFDUPBPLLDfUg0RSA4tu7fAgbQ==</PKIsignature>
+<certificatechain>
+<prodcert>-----BEGIN CERTIFICATE-----
+MIIETTCCAzWgAwIBAgIBHDANBgkqhkiG9w0BAQUFADB3MQswCQYDVQQGEwJTRTEUMBIGA1UEChML
+RXJpY3Nzb24gQUIxFzAVBgNVBAsTDkxpY2Vuc2UgQ2VudGVyMTkwNwYDVQQDEzBUZXN0Q0EgZm9y
+IFNpZ25pbmcgbGljZW5zZSBmaWxlcyBDQVggMTA2IDAwODQvMzAwIBgPMjAxNDA1MTkwMDAwMDBa
+Fw0xNTA4MjIwODUxNTBaMHkxCzAJBgNVBAYTAlNFMRQwEgYDVQQKEwtFcmljc3NvbiBBQjEXMBUG
+A1UECxMOTGljZW5zZSBDZW50ZXIxOzA5BgNVBAMTMlRlc3RDZXJ0IGZvciBTaWduaW5nIGxpY2Vu
+c2UgZmlsZXMgQ0FYIDEwNiAwMDg0LzMwMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA
+oNHs3Q8gkc7ExLcAuIZO0HAI8tldiv2J7hhlnD93HiuwVdB7JjQ/8vxrprjVR0AjvJsJrFqvpxvr
+uBv6RMtkUs7jH1sLh6onRYc7bv4KUWahmbYPXZ2XD9GVNf3PTbRexIuCmdpxfMUIZYRhj4/uWZP5
+iOauupqtSIj7Br6hM/ggk+P6zzcxGPs74rFNT48HaBwGcJa3aIdkzSH7R+3W05//GgqtR8Pu2RtZ
+R64KPbckIYyqeUfQWfImVnKI4mQNqx8ZVLXxYSxUSM3MdoNlLAsVeEIDxR04vh8LR7LodR7DTjBQ
+kLX1563Or0m7OJb4bdePYlgX9+EM9m2jKUi03QIDAQABo4HfMIHcMB0GA1UdDgQWBBSX0OUh3nos
+qnRk/KtHCgcosUjo9TCBnwYDVR0jBIGXMIGUgBQvJ19lY6JJVQRlnkPfRxnf8QILn6F5pHcwdTEL
+MAkGA1UEBhMCU0UxFDASBgNVBAoTC0VyaWNzc29uIEFCMRcwFQYDVQQLEw5MaWNlbnNlIENlbnRl
+cjE3MDUGA1UEAxMuUm9vdCBmb3IgU2lnbmluZyBsaWNlbnNlIGZpbGVzIENBWCAxMDYgMDA4NC8z
+MIIBAjAMBgNVHRMBAf8EAjAAMAsGA1UdDwQEAwIHgDANBgkqhkiG9w0BAQUFAAOCAQEAQzfpYTUW
+zeHl2dVqIJ9jzVIwK8lV5OpXko7Y1q6S80ECvG6NJp4cCDNAlK4yI0H6dk5gRz6+iQCqKzKE1TaF
+1b3HrmXs2mfLhEABn+G7RtH93/sUWeB1+iDP0JVJ8C3SQGu3OJMaA0TCzRyWxKk44WnluYW8CR5N
+8N/MGjZHTJlChSXbbFxFIIAqPi3pvAFLoxet+x0R5yt9EcZKFVzNPjG20LkeyxTtR6vCuHdmnHRM
+13ZEEM/69fUG1Ai12NxYNBU285y+fnMu1sQ9nmeI/fw0tmN8Hp+oQPKFry9mUnBIvShVBUTe9Ijl
+7lrAsusZLK6+VEuTLtlPol39kbiayg==
+-----END CERTIFICATE-----</prodcert>
+<cacert>-----BEGIN CERTIFICATE-----
+MIIEYTCCA0mgAwIBAgIBAjANBgkqhkiG9w0BAQUFADB1MQswCQYDVQQGEwJTRTEUMBIGA1UEChML
+RXJpY3Nzb24gQUIxFzAVBgNVBAsTDkxpY2Vuc2UgQ2VudGVyMTcwNQYDVQQDEy5Sb290IGZvciBT
+aWduaW5nIGxpY2Vuc2UgZmlsZXMgQ0FYIDEwNiAwMDg0LzMwMCIYDzIwMDcwMjI2MDAwMDAwWhgP
+MjAxNzAyMjYwMDAwMDBaMHcxCzAJBgNVBAYTAlNFMRQwEgYDVQQKEwtFcmljc3NvbiBBQjEXMBUG
+A1UECxMOTGljZW5zZSBDZW50ZXIxOTA3BgNVBAMTMFRlc3RDQSBmb3IgU2lnbmluZyBsaWNlbnNl
+IGZpbGVzIENBWCAxMDYgMDA4NC8zMDCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAK9U
+4sefWKtCOcAstvBHf7pRBsF1mKY3oGvvj5U/jV/Ve1XMPCY4PYEb71DxVS57blJQDU3DY6K6R47Y
+WAaN38tTuvaXQmFXA/p6rV9QuAw6R5zweL7OohUMeMeAuB3Hf3v7SeIdg7faxNi0eDJcAuamW/Zc
+lmE6fGz4ft26Nhs2xSmAXmBcJINGL5UE2r8+nrM3GspkNLuvNMjET3Qgh3z2fi9yaMg+JnzK39Ar
+uXYxJx0kc75ucWJP2N+jD41182Bpso3psWxRydvNMFrLoB+Qzk+2vXTsygPcJaZgVqY28qGSzzHz
+cyaBFKcM974j3UxvVLdeZelCYJdm+GVLkSsCAwEAAaOB9TCB8jAdBgNVHQ4EFgQULydfZWOiSVUE
+ZZ5D30cZ3/ECC58wga8GA1UdIwSBpzCBpIAUMlQWj9gJVHqZdyc0TFqgoFk0RLihgYikgYUwgYIx
+CzAJBgNVBAYTAlNFMQswCQYDVQQHEwJMSTEUMBIGA1UEChMLRXJpY3Nzb24gQUIxFzAVBgNVBAsT
+DkxpY2Vuc2UgQ2VudGVyMTcwNQYDVQQDEy5Sb290IGZvciBTaWduaW5nIGxpY2Vuc2UgZmlsZXMg
+Q0FYIDEwNiAwMDg0LzMwggEBMBIGA1UdEwEB/wQIMAYBAf8CAQAwCwYDVR0PBAQDAgEGMA0GCSqG
+SIb3DQEBBQUAA4IBAQCxuQNY7GovniiqLNPS7P2fqF0HsiNMrniFLzFpAouTLjGpkNHReuV2RHhR
+uGv2ca7BomFc7yLIB5rm5QlnY/GzGgR17pYXmvw9kyGX4TK+tbtSv4ZWwZS7ZsfsHzGaSQj6Su1k
+iPUjAmYIYabvvhn9PRZbBptJpK1pnBg2OtvF6lSEGUgx7jHG+UAwtpgTyN3huoupr5o7J6uw7amF
+gvh7Sq8R+XGYKPvnhM/wrJ0q4UeDq992DuobX3AWdgrfR+LZfGlD2W+ZuEbokzQeJg3h8cld4Cco
+eoNjJ5iNnlprUy/6jQPcajiXO8kGN4R67TSancFXkQ6unJoLegNoktm5
+-----END CERTIFICATE-----</cacert>
+</certificatechain>
+</licFile>

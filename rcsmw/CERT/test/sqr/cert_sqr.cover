@@ -1,0 +1,2 @@
+{excl_mods,[certDataInit]}.
+{expected_coverage , 50 }.

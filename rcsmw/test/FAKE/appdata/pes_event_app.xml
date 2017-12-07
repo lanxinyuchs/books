@@ -1,0 +1,102 @@
+<!--
+# ========================================================== 
+# %CCaseFile:	pes_event_app.xml % 
+# %CCaseRev:	/main/R3A/6 % 
+# %CCaseDate:	2014-12-04 % 
+#                                                            
+# Author:	etxjotj
+# Description:	PM event registration data test file
+#                                                            
+# ========================================================== 
+#                                                            
+# %CCaseCopyrightBegin%
+# Copyright (c) Ericsson AB 2014 All rights reserved.
+# 
+# The information in this document is the property of Ericsson.
+# 
+# Except as specifically authorized in writing by Ericsson, the 
+# receiver of this document shall keep the information contained 
+# herein confidential and shall protect the same in whole or in 
+# part from disclosure and dissemination to third parties.
+# 
+# Disclosure and disseminations to the receivers employees shall 
+# only be made on a strict need to know basis.
+# %CCaseCopyrightEnd%
+#                                                            
+# ========================================================== 
+# REVISION LOG 
+# ========================================================== 
+#                                                            
+# Rev        Date       Name        What 
+# ========   ========== ========    ======================== 
+# R3A/1      2014-11-01 uabesvi     Created
+# ========================================================== 
+--> 
+<appdata target="pmEvent">
+  <eventGroup> 
+    <eventGroupId>EventGrp1</eventGroupId>
+    <description>This is a faked event group for testing purposes</description>
+    <moClass> 
+      <mimName>RtnL3Router</mimName>
+      <moClassName>Router</moClassName>
+    </moClass>
+    <validFilters>SingleSelect</validFilters>
+    <validFilters>MultiSelect</validFilters>
+    <validFilters>Interval</validFilters>
+    <eventType>
+      <eventTypeId>EvType1</eventTypeId>
+      <triggerDescription>trigger description EvType1</triggerDescription>
+    </eventType>
+    <eventProducer>first</eventProducer>
+  </eventGroup>
+
+  <eventGroup> 
+    <eventGroupId>EventGrp2</eventGroupId>
+    <description>This is a faked event group for testing purposes</description>
+    <moClass> 
+      <mimName>RtnL3AddressIPv4</mimName>
+      <moClassName>AddressIPv4</moClassName>
+    </moClass>
+    <validFilters>MethodLess</validFilters>
+    <eventType>
+      <eventTypeId>EvType2</eventTypeId>
+      <triggerDescription>trigger description EvType2</triggerDescription>
+    </eventType>
+    <eventType>
+      <eventTypeId>EvType3</eventTypeId>
+      <triggerDescription>trigger description EvType3</triggerDescription>
+    </eventType>
+    <eventProducer>first</eventProducer>
+  </eventGroup>
+
+  <eventGroup> 
+    <eventGroupId>EventGrp3</eventGroupId>
+    <moClass> 
+      <mimName>EratCharlesSon</mimName>
+      <moClassName>CharlesSon</moClassName>
+    </moClass>
+    <eventProducer>first</eventProducer>
+  </eventGroup>
+
+  <eventGroup> 
+    <eventGroupId>Prod2Grp</eventGroupId>
+    <description>This is a faked event group for testing purposes</description>
+    <moClass> 
+      <mimName>RtnL3AddressIPv4</mimName>
+      <moClassName>AddressIPv4</moClassName>
+    </moClass>
+    <validFilters>Regexp</validFilters>
+    <eventType>
+      <eventTypeId>Prod2EvType1</eventTypeId>
+      <triggerDescription>trigger description EvType2</triggerDescription>
+    </eventType>
+    <eventType>
+      <eventTypeId>Prod2EvType2</eventTypeId>
+      <triggerDescription>trigger description EvType3</triggerDescription>
+    </eventType>
+    <eventProducer>second</eventProducer>
+  </eventGroup>
+
+</appdata>
+
+

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Copyright (c) 2014 Ericsson AB.
+	All rights reserved
+
+	DX ECIM Tool-chain generated this file on Jul 1, 2014 12:17:41 PM using:
+	* com.ericsson.ecim.m2m 2.10.2.201405141135
+	* com.ericsson.ecim.dsl 2.10.2.201405141135
+	* com.ericsson.ecim.edm 2.10.2.201405141135
+--><!DOCTYPE models SYSTEM "mp.dtd">
+<models>
+  <dtdVersion>G</dtdVersion>
+  <momMetaData>
+    <momTitle>ReqFieldReplaceableUnit</momTitle>
+    <momSubTitle/>
+    <momIdentity>
+      <docNum>0</docNum>
+      <docLang>English</docLang>
+      <docRev>0</docRev>
+      <docDate>date</docDate>
+    </momIdentity>
+  </momMetaData>
+  <mim author="" contact="" correction="0" date="" docNo="" name="ReqFieldReplaceableUnit" namespace="urn:com:ericsson:ecim:ReqFieldReplaceableUnit" namespacePrefix="reqfieldreplaceableunit" organization="" release="0" revision="A" version="3">
+    <description>ReqFieldReplaceableUnit.</description>
+    <domainExtension domain="ECIM">
+      <extension name="immNamespace" value="NONE"/>
+    </domainExtension>
+    <derivedDataType name="ReqFieldReplaceableUnit_FieldReplaceableUnit_userLabel">
+      <baseType>
+        <string>
+          <lengthRange>
+            <min>1</min>
+            <max>128</max>
+          </lengthRange>
+        </string>
+      </baseType>
+    </derivedDataType>
+    <class name="FieldReplaceableUnit">
+      <description> This MO models a Field Replaceable Unit (FRU).</description>
+      <root/>
+      <attribute name="fieldReplaceableUnitId">
+        <description>The value component of the RDN.</description>
+        <mandatory/>
+        <noNotification/>
+        <restricted/>
+        <key/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="userLabel">
+        <description> Label for free use.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <isNillable/>
+        <dataType>
+          <derivedDataTypeRef name="ReqFieldReplaceableUnit_FieldReplaceableUnit_userLabel">
+            <mimName>ReqFieldReplaceableUnit</mimName>
+          </derivedDataTypeRef>
+        </dataType>
+      </attribute>
+      <attribute name="reservedBy">
+        <description> Contains a list of MO instances that reserve this MO instance.</description>
+        <noNotification/>
+        <nonPersistent/>
+        <readOnly/>
+        <dataType>
+          <sequence>
+            <moRef name="ManagedObject"/>
+            <minLength>0</minLength>
+          </sequence>
+        </dataType>
+      </attribute>
+    </class>
+  </mim>
+  <interMim>
+    <relationship name="Equipment_to_FieldReplaceableUnit">
+      <domainExtension domain="CoreMW">
+        <extension name="splitImmDn" value="false"/>
+      </domainExtension>
+      <containment>
+        <parent>
+          <hasClass name="Equipment">
+            <mimName>ReqEquipment</mimName>
+          </hasClass>
+        </parent>
+        <child>
+          <hasClass name="FieldReplaceableUnit">
+            <mimName>ReqFieldReplaceableUnit</mimName>
+          </hasClass>
+          <cardinality>
+            <min>0</min>
+          </cardinality>
+        </child>
+      </containment>
+    </relationship>
+  </interMim>
+</models>

@@ -1,0 +1,32 @@
+
+To manage this product you have to run "clearmake import", to get latest source code.
+
+clearmake import # this fetch all source from git and use then clearfsimport to populate CAX with content
+
+after that all build stages behave as an ordinary RCS-block.
+
+COMTE
+=====
+
+Compiling
+=======
+To compile you need to set COM_INC to where the include files of COM are located. Default is '../com/com-0/opt/com/inc/'.
+By default x86 32 bit will be compiled on both x86 64 and 32 bit systems. To force ComtE to be compiled as a x86_64 bit binary you have to set ARCH=64.
+
+After all dependencies have been met just type "make compile" to compile for x86 32 bit, type "make compile CROSS=yes" to compile for powerpc.
+
+Testing
+=======
+You need to have COM 2.0 PRA available on the test machine. The default location for where the test looks for the COM executable is in '/var/tmp/com_top/opt/com/bin'. You can change this path by editing tests/comte.config.
+
+When everything is setup just type "make" to compile ComtE or "make test" to run all tests.
+
+NOTE: The tests will right now install the model list and the comte configuration file into the COM installation which you point to. So if you have something important there you should back that up before running any tests.
+
+Releasing
+=======
+To release all ComtE artifacts you type "make release", it is possible to specify the release directory by setting RELEASE_DIR to the directory where you want ComtE to be released to, the default is 'out'.
+
+Documentaion
+=======
+To generate the documentation you type "make doc", this will generate HTML documentation in the doc directory. 

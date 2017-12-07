@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!--
+# ==========================================================
+# %CCaseFile:	license.xsd %
+# %CCaseRev:	/main/R11A/1 %
+# %CCaseDate:	2017-09-06 %
+#
+# Author:	uabnasl
+# Description:	XML schema definition for license registrations
+#
+# ==========================================================
+#
+# %CCaseCopyrightBegin%
+# Copyright (c) Ericsson AB 2017-09-05 All rights reserved.
+# 
+# The information in this document is the property of Ericsson.
+# 
+# Except as specifically authorized in writing by Ericsson, the 
+# receiver of this document shall keep the information contained 
+# herein confidential and shall protect the same in whole or in 
+# part from disclosure and dissemination to third parties.
+# 
+# Disclosure and disseminations to the receivers employees shall 
+# only be made on a strict need to know basis.
+# %CCaseCopyrightEnd%
+#
+# ==========================================================
+# REVISION LOG
+# ==========================================================
+#
+# Rev        Date       Name        What
+# ========   ========== ========    ========================
+# R11A/1      2017-09-05 uabnasl     Created
+# ==========================================================
+#
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="appdata" type="RcsDataType"/>
+
+  <xs:complexType name="RcsDataType">
+    <xs:sequence>
+      <xs:element name="featurelicense" type="FeatureLicenseType"
+		  minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="target" type="LicenseTargetType" use="required"/>
+  </xs:complexType>
+
+  <xs:simpleType name="LicenseTargetType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="license" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="FeatureLicenseType">
+    <xs:attribute name="keyId" type="xs:string"/>
+  </xs:complexType>
+
+</xs:schema>

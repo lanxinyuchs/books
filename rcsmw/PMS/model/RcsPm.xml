@@ -1,0 +1,1508 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Copyright (c) 2016 Ericsson AB. 
+	All rights reserved 
+
+	DX ECIM Tool-chain generated this file on Oct 8, 2015 2:34:12 PM using:
+	* com.ericsson.ecim.m2m 2.14.3.201506050754
+	* com.ericsson.ecim.dsl 2.14.3.201506050754
+	* com.ericsson.ecim.edm 2.14.3.201506050754
+--><!DOCTYPE models SYSTEM "mp.dtd">
+<models>
+  <dtdVersion>G</dtdVersion>
+  <momMetaData>
+    <momTitle>title</momTitle>
+    <momSubTitle>sub title</momSubTitle>
+    <momIdentity>
+      <docNum>1/155 54-CNX 901 2618</docNum>
+      <docLang>English</docLang>
+      <docRev>0</docRev>
+      <docDate>2016-06-22</docDate>
+    </momIdentity>
+  </momMetaData>
+  <mim author="ETXJOTJ" contact="UABESVI" correction="0" date="2016-06-23" docNo="1/155 54-CNX 901 2618" name="RcsPm" namespace="urn:com:ericsson:ecim:RcsPm" namespacePrefix="rcspm" organization="" release="5" revision="A" version="1">
+    <description>Performance Management MOM.&#13;
+3GPP defines Performance Management in 3GPP 32.401.</description>
+    <domainExtension domain="ECIM">
+      <extension name="ecimMomName" value="ECIM_PM"/>
+      <extension name="ecimMomVersion" value="2"/>
+      <extension name="ecimMomRelease" value="5"/>
+      <extension name="ecimMomCorrection" value="0"/>
+    </domainExtension>
+    <implements correction="0" name="ECIM_PM" release="5" version="2"/>
+    <struct name="MeasurementReaderNameValue">
+      <description>This name value is used for real-time monitoring.&#13;
+The real-time monitoring is set up using a PM job of type REALTIMEJOB.</description>
+      <structMember name="currentValue">
+        <description>Contains the real-time value of the measurement.&#13;
+This value can be read in conjunction with attribute lastUpdated to determine the value of counters in real time.</description>
+        <string/>
+      </structMember>
+      <structMember name="lastUpdated">
+        <description>Contains the exact time the currentValue was last set. &#13;
+This attribute is used to determine how recent the value supplied in currentValue is.</description>
+        <derivedDataTypeRef name="DateTime">
+          <mimName>RcsPm</mimName>
+        </derivedDataTypeRef>
+      </structMember>
+      <structMember name="moClassInstance">
+        <description>Specifies the MO class instance that the real-time measurement applies to.&#13;
+This maps to the measObjLdn as defined in 3GPP 32.401.</description>
+        <moRef name="ManagedObject"/>
+      </structMember>
+      <structMember name="suspectFlag">
+        <description>Indicates if the collected measurement result is suspect.</description>
+        <boolean>
+          <defaultValue>false</defaultValue>
+        </boolean>
+      </structMember>
+    </struct>
+    <struct name="ManagedObjectClass">
+      <description>This struct represents a Managed Object Class.</description>
+      <structMember name="moClassName">
+        <description>Contains the Managed Object Class name.</description>
+        <string/>
+      </structMember>
+      <structMember name="mimName">
+        <description>Contains the name of the MIM that contains the Managed Object Class.&#13;
+&#13;
+</description>
+        <string/>
+      </structMember>
+      <structMember name="mimVersion">
+        <description>Contains the version of the MIM that contains the Managed Object Class.</description>
+        <string/>
+      </structMember>
+      <structMember name="mimRelease">
+        <description>Contains the release number of the MIM that contains the Managed Object Class.</description>
+        <string/>
+      </structMember>
+    </struct>
+    <struct name="MeasurementSpecification">
+      <description>Specifies a reference to either a MeasurementType MO or to a PmGroup MO.&#13;
+Must contain only one member, either groupRef or measurementTypeRef.&#13;
+</description>
+      <isExclusive/>
+      <structMember name="groupRef">
+        <description>Reference to a PmGroup which can be associated with a MeasurementReader.&#13;
+The MeasurementReader will therefore handle all the MeasurementTypes contained by the PmGroup.&#13;
+Only valid for PM jobs of type MEASUREMENTJOB.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <moRef name="PmGroup">
+          <mimName>RcsPm</mimName>
+        </moRef>
+      </structMember>
+      <structMember name="measurementTypeRef">
+        <description>Reference to a MeasurementType which can be associated with a MeasurementReader.&#13;
+The MeasurementReader will handle this MeasurementType.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <moRef name="MeasurementType">
+          <mimName>RcsPm</mimName>
+        </moRef>
+      </structMember>
+    </struct>
+    <enum name="TimePeriod">
+      <description>The different time periods associated with Performance Monitoring.</description>
+      <enumMember name="ONE_MIN">
+        <description>This represents a one-minute time period.</description>
+        <value>3</value>
+      </enumMember>
+      <enumMember name="FIVE_MIN">
+        <description>This represents a five-minute time period.</description>
+        <value>4</value>
+      </enumMember>
+      <enumMember name="FIFTEEN_MIN">
+        <description>This represents a 15-minute time period.</description>
+        <value>5</value>
+      </enumMember>
+      <enumMember name="THIRTY_MIN">
+        <description>This represents a 30-minute time period.</description>
+        <value>6</value>
+      </enumMember>
+      <enumMember name="ONE_HOUR">
+        <description>This represents a one-hour time period.</description>
+        <value>7</value>
+      </enumMember>
+      <enumMember name="TWELVE_HOUR">
+        <description>This represents a 12-hour (720-minute)  time period.</description>
+        <value>8</value>
+      </enumMember>
+      <enumMember name="ONE_DAY">
+        <description>This represents a 24-hour (1440-minute)  time period.</description>
+        <value>9</value>
+      </enumMember>
+      <enumMember name="TEN_SECONDS">
+        <description>This represents a 10-second time period.</description>
+        <value>1</value>
+      </enumMember>
+      <enumMember name="THIRTY_SECONDS">
+        <description>This represents a 30-second time period.</description>
+        <value>2</value>
+      </enumMember>
+    </enum>
+    <enum name="CompressionTypes">
+      <description>Supported common File Compression Type(s).</description>
+      <domainExtension domain="ECIM">
+        <extension name="originatingMimVersion" value="2"/>
+        <extension name="originatingMimName" value="ECIM_CommonLibrary"/>
+        <extension name="originatingMimRelease" value="0"/>
+      </domainExtension>
+      <enumMember name="GZIP">
+        <description>GNU zip file compression type.</description>
+        <value>0</value>
+      </enumMember>
+    </enum>
+    <enum name="RopFilenameTimestamp">
+      <description>Supported Result Output Period (ROP) filename timestamp formats.</description>
+      <enumMember name="LOCAL_WITH_UTC_OFFSET">
+        <description>Filename timestamp expressed as NE local time with UTC offset.&#13;
+The Starttime and Endtime fields in the filename are expressed according to 3GPP TS 32.432, as NE local time with UTC offset.&#13;
+This is the recommended setting.</description>
+        <value>0</value>
+      </enumMember>
+      <enumMember name="UTC_NO_OFFSET">
+        <description>Filename timestamp expressed as UTC time with no offset.&#13;
+The Starttime and Endtime fields in the filename are expressed as UTC time with no offset.</description>
+        <value>1</value>
+      </enumMember>
+    </enum>
+    <enum name="JobPriority">
+      <description>Job Priority.</description>
+      <enumMember name="LOW">
+        <description>Priority = Low.</description>
+        <value>1</value>
+      </enumMember>
+      <enumMember name="MEDIUM">
+        <description>Priority = Medium.</description>
+        <value>2</value>
+      </enumMember>
+      <enumMember name="HIGH">
+        <description>Priority = High.</description>
+        <value>3</value>
+      </enumMember>
+    </enum>
+    <enum name="JobType">
+      <description>PM job types.</description>
+      <enumMember name="MEASUREMENTJOB">
+        <description>Measurement Job.&#13;
+This job monitors a number of Measurement Types and the resulting data will be presented in an XML file. This file will then be available for collection.&#13;
+</description>
+        <value>1</value>
+      </enumMember>
+      <enumMember name="THRESHOLDJOB">
+        <description>Threshold Job.&#13;
+This job monitors one or more Measurement Types against assigned thresholds. If a threshold is exceeded an alarm will be issued.&#13;
+</description>
+        <value>2</value>
+      </enumMember>
+      <enumMember name="REALTIMEJOB">
+        <description>Real-time Job.&#13;
+This job monitors one or more Measurement Types and makes the current value available in the model to be fetched by the MS.</description>
+        <value>3</value>
+      </enumMember>
+    </enum>
+    <enum name="JobState">
+      <description>PM job states.</description>
+      <enumMember name="ACTIVE">
+        <description>Job State = Active.</description>
+        <value>1</value>
+      </enumMember>
+      <enumMember name="STOPPED">
+        <description>Job State = Stopped.</description>
+        <value>2</value>
+      </enumMember>
+    </enum>
+    <enum name="PerTimeInterval">
+      <description>Time interval used to monitor a MeaurementType value against a threshold.&#13;
+&#13;
+Specifies, for Threshold Monitoring of a Cumulative Counter, what to compare against the threshold.</description>
+      <enumMember name="PER_SECOND">
+        <description>Rate of variation per second of the measurement type value shall be monitored.&#13;
+What shall be compared against the threshold is the rate of variation per second of the measurement type over the monitor granularity period.</description>
+        <value>0</value>
+      </enumMember>
+      <enumMember name="PER_GP">
+        <description>Absolute value of the measurement type shall be monitored.&#13;
+What shall be compared against the threshold is the absolute value of the measurement type at the end of the monitor granularity period.</description>
+        <value>1</value>
+      </enumMember>
+    </enum>
+    <enum name="CollectionMethod">
+      <description>The form in which measurement data for a Measurement Type  is obtained.</description>
+      <enumMember name="CC">
+        <description>The collection method is Cumulative Counter.</description>
+        <value>1</value>
+      </enumMember>
+      <enumMember name="GAUGE">
+        <description>The collection method is Gauge - based on a dynamic variable.&#13;
+This method is used when data being measured can vary up or down during the period of measurement.</description>
+        <value>2</value>
+      </enumMember>
+      <enumMember name="DER">
+        <description>The collection method is Discrete Event Registration (DER).&#13;
+When data related to a particular event are captured, every nth event is registered, where n can be 1 or greater.</description>
+        <value>3</value>
+      </enumMember>
+      <enumMember name="SI">
+        <description>The collection method is Status Inspection.</description>
+        <value>4</value>
+      </enumMember>
+    </enum>
+    <enum name="ThresholdDirection">
+      <description>The threshold direction of a Measurement Type value which raises the Performance Alarm severity.</description>
+      <enumMember name="INCREASING">
+        <description>Threshold direction = Increasing.</description>
+        <value>1</value>
+      </enumMember>
+      <enumMember name="DECREASING">
+        <description>Threshold Direction = Decreasing.</description>
+        <value>2</value>
+      </enumMember>
+    </enum>
+    <enum name="JobControl">
+      <description>The level of MS control of the PM job.&#13;
+If no value is set, </description>
+      <enumMember name="FULL">
+        <description>MS has Full control of the PM Job.&#13;
+MS can create, delete, start and stop a job.</description>
+        <value>0</value>
+      </enumMember>
+      <enumMember name="STARTSTOP">
+        <description>MS has Restricted control of the PM Job.&#13;
+MS can stop and start a job, but cannot delete or create it.&#13;
+</description>
+        <value>1</value>
+      </enumMember>
+      <enumMember name="VIEWONLY">
+        <description>MS can only view the PM job.</description>
+        <value>2</value>
+      </enumMember>
+    </enum>
+    <enum name="SeverityLevel">
+      <description>The possible alarm serverities.
+</description>
+      <domainExtension domain="ECIM">
+        <extension name="originatingMimVersion" value="4"/>
+        <extension name="originatingMimName" value="ECIM_FM"/>
+        <extension name="originatingMimRelease" value="0"/>
+      </domainExtension>
+      <enumMember name="CRITICAL">
+        <description>Aligned with ERICSSON-ALARM-MIB numbering.</description>
+        <value>3</value>
+      </enumMember>
+      <enumMember name="MAJOR">
+        <description>Aligned with ERICSSON-ALARM-MIB numbering.</description>
+        <value>4</value>
+      </enumMember>
+      <enumMember name="MINOR">
+        <description>Aligned with ERICSSON-ALARM-MIB numbering.</description>
+        <value>5</value>
+      </enumMember>
+      <enumMember name="WARNING">
+        <description>Aligned with ERICSSON-ALARM-MIB numbering.</description>
+        <value>6</value>
+      </enumMember>
+    </enum>
+    <enum name="JobStartStopSupport">
+      <description>Specifies if Performance Management jobs defined in ME can be started and stopped.</description>
+      <enumMember name="NONE">
+        <description>NONE - a job is started when it is created and will run until it is deleted.</description>
+        <value>0</value>
+      </enumMember>
+      <enumMember name="BASIC">
+        <description>BASIC - simple start/stop supported.</description>
+        <value>1</value>
+      </enumMember>
+    </enum>
+    <enum name="MeasurementStatus">
+      <description>The Measurement status of a Measurement Type.</description>
+      <enumMember name="USED">
+        <description>Measurement status = Used. </description>
+        <value>1</value>
+      </enumMember>
+      <enumMember name="DEPRECATED">
+        <description>Measurement status = Deprecated.</description>
+        <value>2</value>
+      </enumMember>
+      <enumMember name="OBSOLETE">
+        <description>Measurement status = Obsolete.</description>
+        <value>3</value>
+      </enumMember>
+      <enumMember name="PRELIMINARY">
+        <description>MeasurementStatus = Preliminary.</description>
+        <value>4</value>
+      </enumMember>
+    </enum>
+    <enum name="Aggregation">
+      <description>The aggregation method for a Measurement Type.</description>
+      <enumMember name="SUM">
+        <description>Aggregation method = SUM.</description>
+        <value>2</value>
+      </enumMember>
+      <enumMember name="AVG">
+        <description>Aggregation method = AVG.</description>
+        <value>3</value>
+      </enumMember>
+      <enumMember name="MIN">
+        <description>Aggregation method = MIN.</description>
+        <value>4</value>
+      </enumMember>
+      <enumMember name="MAX">
+        <description>Aggregation method = MAX.</description>
+        <value>5</value>
+      </enumMember>
+      <enumMember name="LAST_UPDATE">
+        <description>Aggregation method = LAST_UPDATE.</description>
+        <value>6</value>
+      </enumMember>
+    </enum>
+    <derivedDataType name="MoFilter">
+      <description>MO Filter Data Type.&#13;
+This data type is used to specify a target Managed Object (MO) specified by MO DN or MO filter expression.&#13;
+The filter expression is encoded in a simplified regular expression.&#13;
+The following uses are covered:&#13;
+&#13;
+Specifying by particular MO : Use the 3GPP DN notation. &#13;
+Example: &#13;
+"ManagedElement=ABC,AppX=1" selects the MO identified by that DN (where the naming attribute follows the convention MO Class name + "Id").&#13;
+Additionally here a mix of MO and MOC is allowed in the same filter expression. This usage allows singleton MOCs to be unnamed, and makes the filter specification independent of the system implementation for the naming of singleton MOC types.&#13;
+Example: &#13;
+"ManagedElement,Equipment,FRU=19"  selects a specific FRU MO, without specifying the name of its singleton parents.&#13;
+&#13;
+Specifying by MO where the naming attributes are not of the conventional form:&#13;
+If the naming attribute is not the same as the MO Class name + "Id", the 3GPP DN uses a dot notation to specify the naming attribute. &#13;
+Example:&#13;
+"ManagedElement,Equipment,Abc.xyz=1"  selects a specific MO of MO class Abc where the naming attribute is not equal to the MOC Name + "Id" 3GPP special case.</description>
+      <baseType>
+        <string>
+          <validValues>(^[^,=[:space:]+&lt;&gt;#;\\"*$|.]+(\.[^,=[:space:]+&lt;&gt;#;\\"*$|.]+)?(=[^,=[:cntrl:]+&lt;&gt;#;\\"*$|]+)?(,[^,=[:space:]+&lt;&gt;#;\\"*$|.]+(\.[^,=[:space:]+&lt;&gt;#;\\"*$|.]+)?(=[^,=[:cntrl:]+&lt;&gt;#;\\"*$|]+)?)*(  \.[^,=[:space:]+&lt;&gt;#;\\"*$|.]+)?$)</validValues>
+        </string>
+      </baseType>
+      <validationRules>
+        <rule exceptionText="" format="posix_ere" name="Pattern Constraint"><![CDATA[(^[^,=[:space:]+<>#;\\"*$|.]+(\.[^,=[:space:]+<>#;\\"*$|.]+)?(=[^,=[:cntrl:]+<>#;\\"*$|]+)?(,[^,=[:space:]+<>#;\\"*$|.]+(\.[^,=[:space:]+<>#;\\"*$|.]+)?(=[^,=[:cntrl:]+<>#;\\"*$|]+)?)*(  \.[^,=[:space:]+<>#;\\"*$|.]+)?$)]]></rule>
+      </validationRules>
+    </derivedDataType>
+    <derivedDataType name="DateTime">
+      <description>Represents the international standard for the representation of date and time ( ISO 8601).&#13;
+The string format is "YYYY-MM-DDThh:mm:ss.SSSZ" (excluding quotes).&#13;
+A DateTime string consists of a date part, a time part, and an optional time zone information part. The time zone part may be a "Z", representing the Coordinated Universal Time (UTC) time zone (equals to +00) or a time zone offset (for example, +02:00).&#13;
+If the time zone part is not present, the DateTime value represents local time.&#13;
+&#13;
+The following pattern describes the DateTime format:&#13;
+YYYY-MM-DDThh:mm:ss[.S+][Z|+-hh:mm]&#13;
+Where:&#13;
+YYYY = Four digit year&#13;
+MM = Two digit month (01=January, and so on)&#13;
+DD = Two digit day of month (01 through 31)&#13;
+T = Time designator (shows start of time component)&#13;
+hh = Two digits of hour (00 through 23, AM/PM not allowed)&#13;
+mm = Two digits of minute (00 through 59)&#13;
+ss = Two digits of second (00 through 59, leap second not allowed)&#13;
+S+ = One or more digits of decimal fraction of a second&#13;
+Z = Time is UTC&#13;
++- = + or - character indicating positive or negative offset to UTC &#13;
+&#13;
+DateTime values are compliant with ISO 8601 "Representation of dates and times" but are restricted according to RFC 3339 "Date and Time on the Internet: Timestamps". The DateTime format is further restricted as follows:&#13;
+- T and Z designators are upper case.&#13;
+- . (dot) is used to indicate start of fractions of seconds (ISO 8601 also allows comma)&#13;
+&#13;
+</description>
+      <domainExtension domain="ECIM">
+        <extension name="originatingMimVersion" value="2"/>
+        <extension name="originatingMimName" value="ECIM_CommonLibrary"/>
+        <extension name="originatingMimRelease" value="0"/>
+      </domainExtension>
+      <baseType>
+        <string>
+          <lengthRange>
+            <min>19</min>
+            <max>31</max>
+          </lengthRange>
+          <stringLength>
+            <subrange>
+              <min>19</min>
+              <max>31</max>
+            </subrange>
+          </stringLength>
+          <validValues>^([0-9]{4})-(1[0-2]|0[1-9])-(0[1-9]|[1|2][0-9]|3[0-1])T(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])([\.][0-9]+){0,1}(([\+|\-](0[0-9]|1[0-9]|2[0-4])(:[0-5][0-9])?)|(Z)?)$</validValues>
+        </string>
+      </baseType>
+      <validationRules>
+        <rule exceptionText="" format="posix_ere" name="Pattern Constraint"><![CDATA[^([0-9]{4})-(1[0-2]|0[1-9])-(0[1-9]|[1|2][0-9]|3[0-1])T(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])([\.][0-9]+){0,1}(([\+|\-](0[0-9]|1[0-9]|2[0-4])(:[0-5][0-9])?)|(Z)?)$]]></rule>
+      </validationRules>
+    </derivedDataType>
+    <class name="Pm">
+      <description>The top class of the Performance Management model.&#13;
+It is used to manage the Performance Management jobs and PM measurements.</description>
+      <systemCreated/>
+      <root/>
+      <attribute name="pmId">
+        <description>Value component of the RDN.</description>
+        <mandatory/>
+        <noNotification/>
+        <restricted/>
+        <key/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+    </class>
+    <class name="PmMeasurementCapabilities">
+      <description>Contains the measurement capabilities of the ME.</description>
+      <systemCreated/>
+      <attribute name="pmMeasurementCapabilitiesId">
+        <description>Holds the name used when identifying the MO.</description>
+        <mandatory/>
+        <noNotification/>
+        <restricted/>
+        <key/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="maxNoOfJobs">
+        <description>Specifies the maximum number of jobs that can be defined.&#13;
+A value of 0 means there is no limit to the number of jobs.&#13;
+If the specified limit is exceeded, when a performance monitoring is created or started, the create job or start job operation is rejected.&#13;
+This is an upper system limit, and support for it cannot be guaranteed in high-load conditions.</description>
+        <readOnly/>
+        <dataType>
+          <uint16/>
+        </dataType>
+      </attribute>
+      <attribute name="jobStartStopSupport">
+        <description>Specifies whether or not Performance Management jobs defined in the ME can be started and stopped. &#13;
+Possible values: &#13;
+NONE: a job is started when it is created and runs until it is deleted. &#13;
+BASIC: simple start/stop supported.</description>
+        <readOnly/>
+        <dataType>
+          <enumRef name="JobStartStopSupport">
+            <mimName>RcsPm</mimName>
+          </enumRef>
+        </dataType>
+      </attribute>
+      <attribute name="finalROP">
+        <description>Indicates if measurement file for the last Result Output Period (ROP) is expected. &#13;
+When a measurement job is stopped, this attribute specifies whether a result file for the last ROP is expected (true), or not expected (false).&#13;
+Only applicable when measurementJobSupport = true.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <readOnly/>
+        <isNillable/>
+        <dataType>
+          <boolean/>
+        </dataType>
+      </attribute>
+      <attribute name="jobPrioritizationSupport">
+        <description>Defines whether or not measurement jobs can be stopped by the system.&#13;
+Based on the priority of the Measurement jobs, they can either be stopped (true) or not (false) by the system. Attribute jobPriority in the job sets the priority per job.&#13;
+Only applicable when measurementJobSupport = true.&#13;
+If no value is set, the MS shall treat it as false.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <readOnly/>
+        <isNillable/>
+        <dataType>
+          <boolean/>
+        </dataType>
+      </attribute>
+      <attribute name="maxNoOfMeasurements">
+        <description>The maximum number of counter instances, i.e. active counters, that can be reported in one ROP.&#13;
+This is used by an MS to determine the max PM data file size. This is an upper-system limit, and support for it cannot be guaranteed in high-load conditions.&#13;
+A value of 0 means there is no limit. &#13;
+Only applicable when measurementJobSupport = true.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <readOnly/>
+        <isNillable/>
+        <dataType>
+          <uint32/>
+        </dataType>
+      </attribute>
+      <attribute name="maxNoOfPmFiles">
+        <description>Specifies the maximum number of Result Output Period (ROP) files that are maintained in the ME.&#13;
+If a new file is created and the limit is exceeded, the oldest file is deleted. This is an upper-system limit, and support for it cannot be guaranteed in high-load conditions.&#13;
+Only applicable when measurementJobSupport = true.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <readOnly/>
+        <isNillable/>
+        <dataType>
+          <uint16/>
+        </dataType>
+      </attribute>
+      <attribute name="alignedReportingPeriod">
+        <description>
+Defines whether or not the Managed Element aligns its reporting periods to the hour.&#13;
+Only applicable when measurementJobSupport = true.&#13;
+If no value is set, the MS shall treat it as true.
+</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <readOnly/>
+        <isNillable/>
+        <dataType>
+          <boolean/>
+        </dataType>
+      </attribute>
+      <attribute name="measurementJobSupport">
+        <description>Indicates if Managed Element supports Measurement Jobs.</description>
+        <readOnly/>
+        <dataType>
+          <boolean/>
+        </dataType>
+      </attribute>
+      <attribute name="realTimeJobSupport">
+        <description>Indicates if the Managed Element supports Realtime Jobs.</description>
+        <readOnly/>
+        <dataType>
+          <boolean/>
+        </dataType>
+      </attribute>
+      <attribute name="thresholdJobSupport">
+        <description>Indicates if the Managed Element supports Threshold Jobs.</description>
+        <readOnly/>
+        <dataType>
+          <boolean/>
+        </dataType>
+      </attribute>
+      <attribute name="fileLocation">
+        <description>Contains the path to the virtual file system on the node from which to fetch the measurement files.&#13;
+Only applicable when measurementJobSupport = true.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <readOnly/>
+        <isNillable/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="fileGroup">
+        <description>Deprecated, contains the file storage path to the measurement files on the ME.&#13;
+This attribute is only set if FileM is present, and refers to the file storage path. If this attribute is not set, the file storage path is stored locally in the fileLocation attribute in PmMeasurementCapabilities.&#13;
+Deprecated in ECIM PM 2.0.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <readOnly/>
+        <isNillable/>
+        <dataType>
+          <moRef name="ManagedObject"/>
+        </dataType>
+        <deprecated/>
+        <statusInformation>References to attributes in FileM must be removed from Common Fragments. fileLocation attribute contains all required information. Deprecated in ECIM PM 2.0.</statusInformation>
+      </attribute>
+      <attribute name="fileRPSupported">
+        <description>Specifies if ME supports a file Reporting Period different to Granularity Period where RP &gt; GP.&#13;
+Only applicable when measurementJobSupport = true.&#13;
+If no value is set, the MS shall treat it as false.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <readOnly/>
+        <isNillable/>
+        <dataType>
+          <boolean/>
+        </dataType>
+      </attribute>
+      <attribute name="supportedRopPeriods">
+        <description>Indicates the Result Output Period (ROP) or ROPs supported by the ME.&#13;
+Only applicable when measurementJobSupport = true.&#13;
+If no value is set, the MS shall treat it as a single value of FIFTEEN_MIN.</description>
+        <readOnly/>
+        <dataType>
+          <sequence>
+            <enumRef name="TimePeriod">
+              <mimName>RcsPm</mimName>
+            </enumRef>
+            <minLength>0</minLength>
+            <maxLength>9</maxLength>
+            <nonUnique/>
+          </sequence>
+        </dataType>
+      </attribute>
+      <attribute name="supportedMeasJobGps">
+        <description>Indicates which granularity periods are supported by the ME for Measurement jobs.&#13;
+Only applicable when measurementJobSupport = true.&#13;
+If no value is set, the MS shall treat it as a single value of FIFTEEN_MIN.</description>
+        <readOnly/>
+        <dataType>
+          <sequence>
+            <enumRef name="TimePeriod">
+              <mimName>RcsPm</mimName>
+            </enumRef>
+            <minLength>0</minLength>
+            <maxLength>9</maxLength>
+            <nonUnique/>
+          </sequence>
+        </dataType>
+      </attribute>
+      <attribute name="supportedRtJobGps">
+        <description>Indicates which granularity periods are supported by the ME for Realtime jobs.&#13;
+Only applicable when realTimeJobSupport = true.&#13;
+If no value is set, the MS shall treat it as a single value of ONE_MIN.</description>
+        <readOnly/>
+        <dataType>
+          <sequence>
+            <enumRef name="TimePeriod">
+              <mimName>RcsPm</mimName>
+            </enumRef>
+            <minLength>0</minLength>
+            <maxLength>9</maxLength>
+            <nonUnique/>
+          </sequence>
+        </dataType>
+      </attribute>
+      <attribute name="supportedThreshJobGps">
+        <description>Indicates which granularity periods are supported by the ME for Threshold jobs.&#13;
+Only applicable when thresholdJobSupport = true.&#13;
+If no value is set, the MS shall treat it as a single value of FIFTEEN_MIN.</description>
+        <readOnly/>
+        <dataType>
+          <sequence>
+            <enumRef name="TimePeriod">
+              <mimName>RcsPm</mimName>
+            </enumRef>
+            <minLength>0</minLength>
+            <maxLength>9</maxLength>
+            <nonUnique/>
+          </sequence>
+        </dataType>
+      </attribute>
+      <attribute name="supportedCompressionTypes">
+        <description>Indicates which compression types are supported by the ME for report files.&#13;
+No value means that compression of report files is not supported.&#13;
+Only applicable when measurementJobSupport = true.&#13;
+</description>
+        <readOnly/>
+        <dataType>
+          <sequence>
+            <enumRef name="CompressionTypes">
+              <mimName>RcsPm</mimName>
+            </enumRef>
+            <minLength>0</minLength>
+            <maxLength>2</maxLength>
+            <nonUnique/>
+          </sequence>
+        </dataType>
+      </attribute>
+      <attribute name="jobGroupingSupport">
+        <description>Indicates if Managed Element supports grouping of selected measurement job results in a report file.&#13;
+If set to true, the ME groups selected measurement job results into one file per reporting period based on the PmJob attribute jobGroup. &#13;
+If set to false, the default behaviour is to generate a single PM report file per reporting period for all jobs.&#13;
+Only applicable when measurementJobSupport = true.&#13;
+If no value is set, the MS shall treat it as false.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <readOnly/>
+        <isNillable/>
+        <dataType>
+          <boolean/>
+        </dataType>
+      </attribute>
+      <attribute name="producesUtcRopFiles">
+        <description>Deprecated, Indicates if the PM report files are produced using UTC format.&#13;
+If the timestamp is expressed in UTC time with no offset, then the value is true.&#13;
+If the timestamp is expressed in local time with UTC offset, then the value is false.&#13;
+Only applicable when measurementJobSupport = true.&#13;
+Deprecated in ECIM PM 2.5.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <readOnly/>
+        <isNillable/>
+        <dataType>
+          <boolean/>
+        </dataType>
+        <deprecated/>
+        <statusInformation>Attribute definition was ambiguous. It is replaced by new attribute ropFilenameTimestamp. Deprecated in ECIM PM 2.5.</statusInformation>
+      </attribute>
+      <attribute name="ropFilenameTimestamp">
+        <description>Indicates how the timestamp format is used in the Result Output Period (ROP) filename.&#13;
+Only applicable when measurementJobSupport = true.&#13;
+If no value is set, the MS shall treat it as LOCAL_WITH_UTC_OFFSET.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <readOnly/>
+        <isNillable/>
+        <dataType>
+          <enumRef name="RopFilenameTimestamp">
+            <mimName>RcsPm</mimName>
+          </enumRef>
+        </dataType>
+      </attribute>
+    </class>
+    <class name="PmGroup">
+      <description>A grouping of the measurements into logical grouping. &#13;
+PmGroup is unique in the ME.</description>
+      <systemCreated/>
+      <attribute name="pmGroupId">
+        <description>Holds the name used when identifying the MO.</description>
+        <mandatory/>
+        <noNotification/>
+        <restricted/>
+        <key/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="category">
+        <description>Deprecated, Comma-separated sequence of key words.&#13;
+Used for categorization and searching for data among reports. e.g. KPI, Feature xx, etc.&#13;
+Deprecated in ECIM PM 2.2.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <noNotification/>
+        <readOnly/>
+        <isNillable/>
+        <dataType>
+          <string/>
+        </dataType>
+        <deprecated/>
+        <statusInformation>There is no practical use for this attribute in the model. It will not be visible in PM report files.</statusInformation>
+      </attribute>
+      <attribute name="consistentData">
+        <description>Deprecated, Defines whether or not this group of data is guaranteed to be consistent.&#13;
+Counter Data Consistency&#13;
+In some MEs there are both detailed counters, e.g. #failedConnections and #succeededConnections, as well as more high-level summary counters. e.g. #totalConnections. &#13;
+A counter group is guaranteed to be consistent if it does not contain a summary counter whose value can be calculated based on other counters in that group, or if it does so but this calculation will always show the same value as the summary counter. &#13;
+Deprecated in ECIM PM 2.2.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <noNotification/>
+        <readOnly/>
+        <isNillable/>
+        <dataType>
+          <boolean/>
+        </dataType>
+        <deprecated/>
+        <statusInformation>There is no practical need for this attribute in the model.</statusInformation>
+      </attribute>
+      <attribute name="generation">
+        <description>Determines if group concerns GSM, UMTS, EPS, combined (GSM+UMTS+EPS) or IMS measurements.&#13;
+Values are defined in 3GPP standard 32:404.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <noNotification/>
+        <readOnly/>
+        <isNillable/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="switchingTechnology">
+        <description>The Switching domain or domains to which this measurement is applicable.&#13;
+Values are defined in 3GPP standard 32.404.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <noNotification/>
+        <readOnly/>
+        <isNillable/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="validity">
+        <description>States if the group is valid.&#13;
+A group might not be valid if, for example, the feature that this group is used for is not available to the customer.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <noNotification/>
+        <readOnly/>
+        <isNillable/>
+        <dataType>
+          <boolean/>
+        </dataType>
+      </attribute>
+      <attribute name="moClass">
+        <description>The Managed Object Class that uses the Measurement Types in this PmGroup.&#13;
+No value means this PM Group is not associated with any specific Managed Object Class.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <noNotification/>
+        <readOnly/>
+        <isNillable/>
+        <dataType>
+          <structRef name="ManagedObjectClass">
+            <mimName>RcsPm</mimName>
+          </structRef>
+        </dataType>
+      </attribute>
+      <attribute name="description">
+        <description>Description of the PmGroup.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <noNotification/>
+        <readOnly/>
+        <isNillable/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="pmGroupVersion">
+        <description>PM Group version identifier.&#13;
+Unique version identifier associated with a change to the contents of the PM Group, where new MeasurementTypes have been added.</description>
+        <noNotification/>
+        <readOnly/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+    </class>
+    <class name="MeasurementType">
+      <description>Defines a Measurement Type on the Managed Element to be monitored and collected.&#13;
+MeasurementType is unique within the PM Group.</description>
+      <systemCreated/>
+      <attribute name="measurementTypeId">
+        <description>Holds the name used when identifying the MO.</description>
+        <mandatory/>
+        <noNotification/>
+        <restricted/>
+        <key/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="measurementName">
+        <description>The full name of the measurement type.</description>
+        <noNotification/>
+        <readOnly/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="size">
+        <description>Contains the size of the measurement in number of octets.</description>
+        <noNotification/>
+        <readOnly/>
+        <dataType>
+          <uint16/>
+        </dataType>
+      </attribute>
+      <attribute name="collectionMethod">
+        <description>Contains the form in which this measurement data is obtained.</description>
+        <noNotification/>
+        <readOnly/>
+        <dataType>
+          <enumRef name="CollectionMethod">
+            <mimName>RcsPm</mimName>
+          </enumRef>
+        </dataType>
+      </attribute>
+      <attribute name="description">
+        <description>A comprehensible explanation of this measurement.</description>
+        <noNotification/>
+        <readOnly/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="condition">
+        <description>Details the condition which causes the measurement result data to be updated.</description>
+        <noNotification/>
+        <readOnly/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="aggregation">
+        <description>Describes how the PM service aggregates the measurement values for measurement instances.</description>
+        <noNotification/>
+        <readOnly/>
+        <dataType>
+          <enumRef name="Aggregation">
+            <mimName>RcsPm</mimName>
+          </enumRef>
+        </dataType>
+      </attribute>
+      <attribute name="measurementStatus">
+        <description>Contains the status of the measurement.&#13;
+If this is set to PRELIMINARY, the measurement is available and stepped in this version of the Managed Element, but is not yet approved.&#13;
+If it is set to USED, the measurement is approved, available and stepped in this version of the Managed Element.&#13;
+If it is set to OBSOLETE, the measurement is not available and not stepped in this version of the Managed Element.&#13;
+If it is set to DEPRECATED, the measurement is available but is not stepped in this version of the Managed Element.&#13;
+</description>
+        <noNotification/>
+        <readOnly/>
+        <dataType>
+          <enumRef name="MeasurementStatus">
+            <mimName>RcsPm</mimName>
+          </enumRef>
+        </dataType>
+      </attribute>
+      <attribute name="measurementResult">
+        <description>Contains a description of expected result value or values.&#13;
+For example, "a single integer value". See 3GPP 32.404.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <noNotification/>
+        <readOnly/>
+        <isNillable/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="multiplicity">
+        <description>Where a counter is an array of values, this attribute represents the size of the array.&#13;
+Where it produces a single value, this attribute is set to 1.</description>
+        <noNotification/>
+        <readOnly/>
+        <dataType>
+          <int16/>
+        </dataType>
+      </attribute>
+      <attribute name="initialValue">
+        <description>The initial value to which the Measurement Type is set at the beginning of a new granularity period.&#13;
+Only applicable when resetAtGranPeriod = true. No value means it is reset to 0.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <noNotification/>
+        <readOnly/>
+        <isNillable/>
+        <dataType>
+          <int32/>
+        </dataType>
+      </attribute>
+      <attribute name="resetAtGranPeriod">
+        <description>Specifies whether the value is initialized at the beginning of each granularity period.&#13;
+No value means that this MeasurementType is not initialized at the beginning of each granularity period.</description>
+        <noNotification/>
+        <readOnly/>
+        <dataType>
+          <boolean/>
+        </dataType>
+      </attribute>
+      <attribute name="derSampleRate">
+        <description>Specifies the sample rate for DER counters.&#13;
+Defined as according to 3GPP 32.401.&#13;
+Data related to a particular event is captured. Every nth event is registered, where n can be 1 or greater.&#13;
+This attribute defines n.&#13;
+This attribute is not valid for non-DER Measurement Types.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <noNotification/>
+        <readOnly/>
+        <isNillable/>
+        <dataType>
+          <int16/>
+        </dataType>
+      </attribute>
+      <attribute name="fmAlarmType">
+        <description>FmAlarmType associated to Threshold Monitoring of this MeasurementType.&#13;
+No value means that this MeasurementType is not available for selection for a PM Threshold Job.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <noNotification/>
+        <readOnly/>
+        <isNillable/>
+        <dataType>
+          <moRef name="FmAlarmType">
+            <mimName>ECIM_FM</mimName>
+          </moRef>
+        </dataType>
+      </attribute>
+      <attribute name="thresholdDirection">
+        <description>The threshold direction of a Measurement Type value which raises the Threshold Alarm severity.&#13;
+The attribute is set if this MeasurementType shall only be monitored in one direction in a PM Threshold Job. If it can be monitored in either direction, then the direction will be set as part of the threshold job creation by setting thresholdDirection in MeasurementReader.&#13;
+Only applicable if fmAlarmType is set.&#13;
+</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <noNotification/>
+        <readOnly/>
+        <isNillable/>
+        <dataType>
+          <enumRef name="ThresholdDirection">
+            <mimName>RcsPm</mimName>
+          </enumRef>
+        </dataType>
+      </attribute>
+      <attribute name="isCompressed">
+        <description>Indicates if the MeasurementType result is in compressed format.&#13;
+For MeasurementTypes with multiplicity greater than 1, the result can be compressed by only reporting the non-zero values.&#13;
+A detailed explanation of the format of the measurement result is given in the measurementResult attribute.&#13;
+No value means that this MeasurementType is not compressed.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <readOnly/>
+        <isNillable/>
+        <dataType>
+          <boolean/>
+        </dataType>
+      </attribute>
+    </class>
+    <class name="PmThresholdMonitoring">
+      <description>Contains configuration of each threshold for Threshold jobs.&#13;
+To be able to monitor the overall health of the network, thresholds are used for generating Performance Alarms.&#13;
+Performance alarms cannot be cleared manually. Performance alarms must be cleared when the threshold is (a) crossed, or (b) reached, in the opposite direction to the one that triggers the alarm.</description>
+      <attribute name="pmThresholdMonitoringId">
+        <description>Holds the name used when identifying the MO.</description>
+        <mandatory/>
+        <noNotification/>
+        <restricted/>
+        <key/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="thresholdHigh">
+        <description>Defines the high-threshold level for this alarm severity.&#13;
+For each pair of high-threshold and low-threshold levels, one of them must generate an alarm notification - or increase the severity of an existing alarm. The other one must generate an alarm clear notification, or decrease the severity of an existing alarm. &#13;
+If the direction of the threshold is increasing, a new alarm (or severity increase of an existing alarm) is not generated before the measurement value has (a) crossed or (b) reached the high-level threshold value. &#13;
+Furthermore, an existing alarm is not cleared (or its severity decreased) before the measurement value has reached or crossed the low-level threshold value. &#13;
+For decreasing thresholds, the opposite is applied. The hysteresis mechanism can be used for both Gauges and Cumulative Counters thresholds.</description>
+        <mandatory/>
+        <dataType>
+          <int64/>
+        </dataType>
+      </attribute>
+      <attribute name="thresholdLow">
+        <description>Defines the low-threshold level for this alarm severity.&#13;
+For each pair of high-threshold and low-threshold levels, one of them must generate an alarm notification, or increase the severity of an existing alarm. The other one must generate an alarm clear notification, or decrease the severity of an existing alarm. &#13;
+If the direction of the threshold is increasing, a new alarm (or severity increase of an existing alarm) is not generated before the measurement value has (a) crossed or (b) reached the high-level threshold value. &#13;
+Furthermore, an existing alarm is not cleared (or its severity decreased) before the measurement value has reached or crossed the low-level threshold value. &#13;
+For decreasing thresholds, the opposite is applied. The hysteresis mechanism can be used for both Gauges and Cumulative Counters thresholds.</description>
+        <mandatory/>
+        <dataType>
+          <int64/>
+        </dataType>
+      </attribute>
+      <attribute name="thresholdSeverity">
+        <description>Threshold severity.&#13;
+One of the following Severity Levels must be assigned per threshold, in order to raise a threshold alarm of this severity, or change an existing alarm to this severity, if that threshold is reached or crossed:&#13;
+CRITICAL&#13;
+MAJOR&#13;
+MINOR&#13;
+WARNING&#13;
+&#13;
+Severity level CLEARED is not a valid severity level and cannot be assigned to this attribute.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <isNillable/>
+        <dataType>
+          <enumRef name="SeverityLevel">
+            <defaultValue>MINOR</defaultValue>
+            <mimName>RcsPm</mimName>
+          </enumRef>
+        </dataType>
+      </attribute>
+    </class>
+    <class name="PmJob">
+      <description>Describes a user-defined PM job on the Managed Element.&#13;
+A PM Job defines the attributes required per job and also defines the measurements to be included in the job. An instance of the MeasurementReader class is created for every PmGroup or MeasurementType instance being measured.</description>
+      <attribute name="pmJobId">
+        <description>Holds the name used when identifying the MO.</description>
+        <mandatory/>
+        <noNotification/>
+        <restricted/>
+        <key/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="requestedJobState">
+        <description>Contains the requested state of the PM job.&#13;
+It represents the state that the job has been ordered to reach.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <isNillable/>
+        <dataType>
+          <enumRef name="JobState">
+            <defaultValue>ACTIVE</defaultValue>
+            <mimName>RcsPm</mimName>
+          </enumRef>
+        </dataType>
+      </attribute>
+      <attribute name="reportingPeriod">
+        <description>Contains the reporting period of the result file.&#13;
+This is directly related to the granularity period as the granularity period can not be longer than the reporting period.&#13;
+Possible Values (s=second,m=minute, h=hour): 10s,30s,1m, 5m, 15m, 30m, 1h, 12h, 24h.&#13;
+Default Value: 15m.&#13;
+The value of reportingPeriod must be equal to the value of granularityPeriod if fileRPSupported in PmMeasurementCapabilities is false, or may be equal to a multiple of the value of granularityPeriod if fileRPSupported is set to true.&#13;
+Only applicable when jobType = MEASUREMENTJOB.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <isNillable/>
+        <dataType>
+          <enumRef name="TimePeriod">
+            <defaultValue>FIFTEEN_MIN</defaultValue>
+            <mimName>RcsPm</mimName>
+          </enumRef>
+        </dataType>
+      </attribute>
+      <attribute name="jobType">
+        <description>Contains the type of PM job.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <isNillable/>
+        <dataType>
+          <enumRef name="JobType">
+            <defaultValue>MEASUREMENTJOB</defaultValue>
+            <mimName>RcsPm</mimName>
+          </enumRef>
+        </dataType>
+      </attribute>
+      <attribute name="jobPriority">
+        <description>Contains the priority of the job.&#13;
+Each job must have a priority if jobPrioritizationSupport in the PmMeasurementCapabilities is set to true.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <isNillable/>
+        <dataType>
+          <enumRef name="JobPriority">
+            <defaultValue>MEDIUM</defaultValue>
+            <mimName>RcsPm</mimName>
+          </enumRef>
+        </dataType>
+      </attribute>
+      <attribute name="granularityPeriod">
+        <description>Contains the granularity period of the job.&#13;
+The granularity period is the time between the initiation of two successive gatherings of measurement data. This is directly related to the ReportingPeriod as the granularity period can not be longer than the reporting period.&#13;
+Possible Values (s=second,m=minute, h=hour): 10s,30s,1m, 5m, 15m, 30m, 1h, 12h, 24h.&#13;
+Default Value: 15m.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <isNillable/>
+        <dataType>
+          <enumRef name="TimePeriod">
+            <defaultValue>FIFTEEN_MIN</defaultValue>
+            <mimName>RcsPm</mimName>
+          </enumRef>
+        </dataType>
+      </attribute>
+      <attribute name="currentJobState">
+        <description>Describes the current state of the PM job.</description>
+        <readOnly/>
+        <dataType>
+          <enumRef name="JobState">
+            <mimName>RcsPm</mimName>
+          </enumRef>
+        </dataType>
+      </attribute>
+      <attribute name="jobControl">
+        <description>Describes the level of MS control of the PM job.&#13;
+If no value is set, the MS shall treat it as FULL.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <readOnly/>
+        <isNillable/>
+        <dataType>
+          <enumRef name="JobControl">
+            <mimName>RcsPm</mimName>
+          </enumRef>
+        </dataType>
+      </attribute>
+      <attribute name="compressionType">
+        <description>Indicates file compression type to be applied to the report file.&#13;
+If no value is set, then no compression is to be applied to the report file for this job.&#13;
+Must have the same value for all PM jobs with the same jobGroup tag and reportingPeriod assigned.&#13;
+Must have the same value for all PM jobs for which no jobGroup tag is assigned (the "default" jobGroup), but the same reportingPeriod assigned.&#13;
+Only applicable when jobType = MEASUREMENTJOB.
+</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <isNillable/>
+        <dataType>
+          <enumRef name="CompressionTypes">
+            <mimName>RcsPm</mimName>
+          </enumRef>
+        </dataType>
+      </attribute>
+      <attribute name="jobGroup">
+        <description>Tag for grouping PM measurement job results.&#13;
+Represents a grouping of separate PM Jobs for which the measurement results must be collected together in a single report file for that group only.&#13;
+If this attribute is not set, then for each reporting period, the measurement results for this job are written to the same report file as other jobs that have no job group assigned.&#13;
+Only applicable when jobType = MEASUREMENTJOB.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <isNillable/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+    </class>
+    <class name="MeasurementReader">
+      <description>Represents the capability to read the value of the MeasurementType or group of MeasurementTypes.&#13;
+There can be many Measurement Reader instances for each job (one for each MeasurementType or PmGroup).&#13;
+For a Threshold Job, only a MeasurementType instance can be referenced by the Measurement Reader. &#13;
+</description>
+      <attribute name="measurementReaderId">
+        <description>Holds the name used when identifying the MO.</description>
+        <mandatory/>
+        <noNotification/>
+        <restricted/>
+        <key/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="measurementReaderNameValue">
+        <description>Contains the real-time measurement data.&#13;
+Only used by a PM job of type REALTIMEJOB.</description>
+        <noNotification/>
+        <readOnly/>
+        <dataType>
+          <sequence>
+            <structRef name="MeasurementReaderNameValue">
+              <mimName>RcsPm</mimName>
+            </structRef>
+            <minLength>0</minLength>
+          </sequence>
+        </dataType>
+      </attribute>
+      <attribute name="measurementSpecification">
+        <description>This struct allows reference to either MeasurementType or PmGroup of MeasurementTypes to be defined.</description>
+        <mandatory/>
+        <dataType>
+          <structRef name="MeasurementSpecification">
+            <mimName>RcsPm</mimName>
+          </structRef>
+        </dataType>
+      </attribute>
+      <attribute name="moInstances">
+        <description>Target MO instance or instances.&#13;
+If not set, the job is applied to all MO instances relevant to the selected PmGroup or MeasurementType.</description>
+        <dataType>
+          <sequence>
+            <derivedDataTypeRef name="MoFilter">
+              <mimName>RcsPm</mimName>
+            </derivedDataTypeRef>
+            <minLength>0</minLength>
+            <nonUnique/>
+          </sequence>
+        </dataType>
+      </attribute>
+      <attribute name="thresholdRateOfVariation">
+        <description>Time interval used for monitoring the Measurement Type against a threshold.&#13;
+Specifies, for Threshold Monitoring of a Cumulative Counter Measurement Type, how to calculate the value of the Measurement Type used to compare against the threshold.&#13;
+Only applicable when jobType = THRESHOLDJOB.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <isNillable/>
+        <dataType>
+          <enumRef name="PerTimeInterval">
+<!-- default value removed, not used for RCS
+            <defaultValue>PER_SECOND</defaultValue>
+-->
+            <mimName>RcsPm</mimName>
+          </enumRef>
+        </dataType>
+      </attribute>
+      <attribute name="thresholdDirection">
+        <description>Specifies the threshold direction. &#13;
+Used when the thresholdDirection in the MeasurementType instance is not set. If neither is set, the default value is used. &#13;
+Only applicable when jobType = THRESHOLDJOB.&#13;
+</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <isNillable/>
+        <dataType>
+          <enumRef name="ThresholdDirection">
+<!-- default value removed, not used for RCS
+            <defaultValue>INCREASING</defaultValue>
+-->
+            <mimName>RcsPm</mimName>
+          </enumRef>
+        </dataType>
+      </attribute>
+    </class>
+    <relationship name="Pm_to_PmMeasurementCapabilities">
+      <containment>
+        <parent>
+          <hasClass name="Pm">
+            <mimName>RcsPm</mimName>
+          </hasClass>
+        </parent>
+        <child>
+          <hasClass name="PmMeasurementCapabilities">
+            <mimName>RcsPm</mimName>
+          </hasClass>
+          <cardinality>
+            <min>1</min>
+            <max>1</max>
+          </cardinality>
+        </child>
+        <domainExtension domain="ECIM">
+          <extension name="canCreate" value="true"/>
+          <extension name="canDelete" value="true"/>
+        </domainExtension>
+        <notCreatable/>
+        <notDeleteable/>
+      </containment>
+    </relationship>
+    <relationship name="Pm_to_PmGroup">
+      <containment>
+        <parent>
+          <hasClass name="Pm">
+            <mimName>RcsPm</mimName>
+          </hasClass>
+        </parent>
+        <child>
+          <hasClass name="PmGroup">
+            <mimName>RcsPm</mimName>
+          </hasClass>
+          <cardinality>
+            <min>0</min>
+          </cardinality>
+        </child>
+        <domainExtension domain="ECIM">
+          <extension name="canCreate" value="true"/>
+          <extension name="canDelete" value="true"/>
+        </domainExtension>
+        <notCreatable/>
+        <notDeleteable/>
+      </containment>
+    </relationship>
+    <relationship name="PmGroup_to_MeasurementType">
+      <containment>
+        <parent>
+          <hasClass name="PmGroup">
+            <mimName>RcsPm</mimName>
+          </hasClass>
+        </parent>
+        <child>
+          <hasClass name="MeasurementType">
+            <mimName>RcsPm</mimName>
+          </hasClass>
+          <cardinality>
+            <min>1</min>
+          </cardinality>
+        </child>
+        <domainExtension domain="ECIM">
+          <extension name="canCreate" value="true"/>
+          <extension name="canDelete" value="true"/>
+        </domainExtension>
+        <notCreatable/>
+        <notDeleteable/>
+      </containment>
+    </relationship>
+    <relationship name="MeasurementReader_to_PmThresholdMonitoring">
+      <containment>
+        <parent>
+          <hasClass name="MeasurementReader">
+            <mimName>RcsPm</mimName>
+          </hasClass>
+        </parent>
+        <child>
+          <hasClass name="PmThresholdMonitoring">
+            <mimName>RcsPm</mimName>
+          </hasClass>
+          <cardinality>
+            <min>0</min>
+            <max>4</max>
+          </cardinality>
+        </child>
+        <domainExtension domain="ECIM">
+          <extension name="canCreate" value="true"/>
+          <extension name="canDelete" value="true"/>
+        </domainExtension>
+        <noNotification/>
+      </containment>
+    </relationship>
+    <relationship name="PmJob_to_MeasurementReader">
+      <containment>
+        <parent>
+          <hasClass name="PmJob">
+            <mimName>RcsPm</mimName>
+          </hasClass>
+        </parent>
+        <child>
+          <hasClass name="MeasurementReader">
+            <mimName>RcsPm</mimName>
+          </hasClass>
+          <cardinality>
+            <min>1</min>
+          </cardinality>
+        </child>
+        <domainExtension domain="ECIM">
+          <extension name="canCreate" value="true"/>
+          <extension name="canDelete" value="true"/>
+        </domainExtension>
+      </containment>
+    </relationship>
+    <relationship name="Pm_to_PmJob">
+      <containment>
+        <parent>
+          <hasClass name="Pm">
+            <mimName>RcsPm</mimName>
+          </hasClass>
+        </parent>
+        <child>
+          <hasClass name="PmJob">
+            <mimName>RcsPm</mimName>
+          </hasClass>
+          <cardinality>
+            <min>0</min>
+          </cardinality>
+        </child>
+        <domainExtension domain="ECIM">
+          <extension name="canCreate" value="true"/>
+          <extension name="canDelete" value="true"/>
+        </domainExtension>
+      </containment>
+    </relationship>
+  </mim>
+  <interMim>
+    <relationship name="SystemFunctions_to_Pm">
+      <containment>
+        <parent>
+          <hasClass name="SystemFunctions">
+            <mimName>ECIM_Top</mimName>
+          </hasClass>
+        </parent>
+        <child>
+          <hasClass name="Pm">
+            <mimName>RcsPm</mimName>
+          </hasClass>
+          <cardinality>
+            <min>1</min>
+            <max>1</max>
+          </cardinality>
+        </child>
+        <domainExtension domain="ECIM">
+          <extension name="canCreate" value="true"/>
+          <extension name="canDelete" value="true"/>
+        </domainExtension>
+        <notCreatable/>
+        <notDeleteable/>
+      </containment>
+    </relationship>
+  </interMim>
+</models>

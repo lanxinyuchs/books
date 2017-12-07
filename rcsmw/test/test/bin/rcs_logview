@@ -1,0 +1,200 @@
+#! /bin/bash
+##
+## %CCaseFile:	rcs_logview %
+## %CCaseRev:	/main/R5A/1 %
+## %CCaseDate:	2016-01-22 %
+## Author: erarafo, rabbe.fogelholm@ericsson.com
+##
+## Purpose: Launch the logview program, which extracts selected entries from
+## the Erlang log and presents them as oneliners.
+##
+## Dependencies:
+##
+## %CCaseCopyrightBegin%
+## Copyright (c) Ericsson AB 2016 All rights reserved.
+##
+## The information in this document is the property of Ericsson.
+##
+## Except as specifically authorized in writing by Ericsson, the
+## receiver of this document shall keep the information contained
+## herein confidential and shall protect the same in whole or in
+## part from disclosure and dissemination to third parties.
+##
+## Disclosure and disseminations to the receivers employees shall
+## only be made on a strict need to know basis.
+## %CCaseCopyrightEnd%
+## ----------------------------------------------------------------------
+##
+## Revision history:
+##
+## Rev        Date       Name        What
+## -----      -------    --------    ------------------------------------
+## R3A/1      2014-12-09 erarafo     Version 0.1
+## R3A/2      2014-12-11 erarafo     Version 0.2, plugin architecture
+## R3A/3      2014-12-14 erarafo     Version 0.3, reporting unmatched patterns
+## R3A/4      2015-02-05 erarafo     Version 0.4, no special handling of plugin_common
+## R5A/1      2016-01-22 erarafo     Version 0.5, script name changed, support for 'ignore'
+## ----------------------------------------------------------------------
+
+declare -r Version="0.5"
+declare -r Script=rcs_logview
+declare -r ScriptDir=`dirname $0`
+
+
+function help() {
+  cat <<EOF
+logview, version: $Version
+
+Usage is: $Script [OPTIONS] ERLANG_LOG_FILE
+Options are:
+  -h            this help
+  -k KEYWORDS   comma-separated keywords
+  -U            report unmatched patterns
+  -v            verbose
+
+Known keywords are: `getKeywords`
+
+Plugins can be added as needed. A plugin is an Erlang module in the
+plugin directory, named 'plugin_KEYWORD'.
+
+A plugin must implement and export triggers/0, which must return a
+list of #trigger{} records.
+
+A trigger specifies a pattern or a mode.
+
+A trigger that specifies a mode (one of info, progress, warning,
+error, crash, supervisor) acts as a catch-all for log messages of
+the corresponding kind.
+
+A trigger that specifies a pattern may contain zero, one or two
+selection constructs, encoded with parentheses.
+
+A non-default format may be specified with a trigger. The format may
+contain '~s' markup that corresponds to the selection constructs.
+
+A trigger having the 'ignore' flag will cause matching entries to
+be ignored (they will not be matched against subsequent triggers).
+
+TBD: More description when more stable...
+
+EOF
+}
+
+
+
+function die() {
+  printf "$Script: FATAL: $1\n" >&2
+  exit 1
+}
+
+function warning() {
+  printf "$Script: WARNING: $1\n" >&2
+}
+
+function info() {
+  printf "$Script: INFO: $1\n" >&2
+}
+
+
+# getKeywords EXCLUDE_COMMON
+#
+# Echoes the available keywords as a display-ready
+# comma-separated list. If EXCLUDE_COMMON is 'true'
+# then the 'common' keyword is excluded.
+#
+# Keywords are obtained by stripping the 'plugin_'
+# prefix from filesystem names.
+#
+# NOTE: The EXCLUDE_COMMON feature is not used any
+# more.
+
+function getKeywords() {
+  if [[ $# -ge 1 ]]; then
+    local excludeCommon="$1"; shift
+  else
+    local excludeCommon=false
+  fi
+  local result=""
+  local plugin
+  for pluginSource in `find $RCT_TOP/test/lib/rcs-logview/plugin -type f -name '*.erl'`; do
+    plugin=`basename $pluginSource .erl | sed -e 's|^plugin_||'`
+    if [[ "$plugin" == common && $excludeCommon == true ]]; then
+      true
+    elif [[ -z "$result" ]]; then
+      result="$plugin"
+    else
+      result+=",$plugin"
+    fi
+  done
+  echo "$result"
+}
+
+
+########################################################################
+# Execution begins here
+
+declare OptionPatterns=""
+OptionPatterns+="h"
+OptionPatterns+="k:"
+OptionPatterns+="U"
+OptionPatterns+="v"
+
+
+declare Keywords=""
+declare ReportUnmatched=false
+declare Verbose=false
+while getopts $OptionPatterns OPT; do
+  case "$OPT" in
+    h)
+      help
+      exit;;
+    k)
+      Keywords="$OPTARG";;
+    U)
+      ReportUnmatched=true;;
+    v)
+      Verbose=true;;
+    *)
+      die "Unknown option, try -h for help"
+  esac
+done
+
+shift $((OPTIND - 1))
+
+
+if [[ $# -lt 1 ]]; then
+  die "no log file specified, -h for help"
+elif [[ $# -gt 1 ]]; then
+  die "too many arguments, -h for help"
+fi
+
+if [[ -z "$RCT_TOP" ]]; then
+  die "the environment variable RCT_TOP is not set; please run this script in a design view"
+fi
+
+
+if [[ -z "$Keywords" ]]; then
+  Keywords=EMPTY
+fi
+
+
+declare -r File="$1"; shift
+
+
+if [[ ! -r "$File" ]]; then
+  die "cannot read: $File"
+fi
+
+
+erl \
+  -pa $RCT_TOP/test/lib/rcs-logview/ebin \
+  -noshell \
+  -run logview \
+         logview \
+           $Version  \
+           "`getKeywords`" \
+           "$File" \
+           "$Keywords" \
+           $ReportUnmatched \
+           $Verbose \
+  -run init stop

@@ -1,0 +1,237 @@
+#! /bin/bash
+##
+## %CCaseFile:	rcs_exec %
+## %CCaseRev:	/main/R3A/R4A/R5A/1 %
+## %CCaseDate:	2016-03-22 %
+## Author: <name>, <e-mail address>
+##
+## Purpose: Script for executing NETCONF and CLI command files.
+##
+## Dependencies: $RCT_TOP/test/lib/shell/common.sh
+##
+## %CCaseCopyrightBegin%
+## Copyright (c) Ericsson AB 2014-2016 All rights reserved.
+##
+## The information in this document is the property of Ericsson.
+##
+## Except as specifically authorized in writing by Ericsson, the
+## receiver of this document shall keep the information contained
+## herein confidential and shall protect the same in whole or in
+## part from disclosure and dissemination to third parties.
+##
+## Disclosure and disseminations to the receivers employees shall
+## only be made on a strict need to know basis.
+## %CCaseCopyrightEnd%
+##
+## ----------------------------------------------------------------------
+##
+## Revision history:
+##
+## Rev        Date       Name        What
+## -----      -------    --------    ------------------------------------
+## R3A/2      2014-12-11 erarafo     Added a settable timeout option
+## R3A/3      2014-12-12 erarafo     Added option for IP address
+## R3A/4      2015-04-22 erarafo     Added options for user and password
+## R4A/1      2015-06-07 erarafo     Built-in help adjusted
+## R5A/1      2016-03-22 erarafo     Verbose and port options
+## ----------------------------------------------------------------------
+
+
+declare -r Script=rcs_exec
+declare -r ScriptDir=`dirname $0`
+declare -r UserDefault=expert
+declare -r PasswordDefault=expert
+
+
+function die() {
+  printf "$Script: FATAL: $1\n" >&2
+  exit 1
+}
+
+function warning() {
+  printf "$Script: WARNING: $1\n" >&2
+}
+
+function info() {
+  printf "$Script: INFO: $1\n" >&2
+}
+
+
+########################################################################
+# Execution begins here
+
+declare OptionPatterns=""
+OptionPatterns+="h"
+OptionPatterns+="m:"
+OptionPatterns+="f:"
+OptionPatterns+="i:"
+OptionPatterns+="T:"
+OptionPatterns+="a:"
+OptionPatterns+="u:"
+OptionPatterns+="p:"
+OptionPatterns+="P:"
+OptionPatterns+="v"
+
+declare -r SimInstDirDefault=/local/scratch/$USER
+declare -r ModeDefault=netconf
+declare -r TimeoutDefault=600
+declare -r SshOptions="-o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
+
+
+function help() {
+  cat <<EOF
+Usage is: $Script [OPTIONS] NODE
+
+where NODE is a node name such as 'dus5046', or 'sim' for the
+simulator.
+
+Options are:
+  -m MODE     one of 'netconf' or 'cli', defaults to $ModeDefault
+  -f FILE     commands file (XML or CLI), or '-' for standard input
+  -i DIR      simulator installation directory (defaults to $SimInstDirDefault)
+  -T SECONDS  timeout (seconds), defaults to $TimeoutDefault
+  -a HOST     optionally specify the target host by name or IP address
+  -P PORT     specify port to be used (optional)
+  -u USER     user, defaults to '$UserDefault'
+  -p PASSWORD password, defaults to '$PasswordDefault'
+  -v          verbose
+  -h          this help
+
+If the -a option is given then the NODE argument is ignored.
+EOF
+}
+
+
+declare File=""
+
+declare Mode=$ModeDefault
+declare SimInstDir=$SimInstDirDefault
+declare Timeout=$TimeoutDefault
+declare Host=""
+declare User=$UserDefault
+declare Password=$PasswordDefault
+declare Verbose=false
+declare PortOverride=""
+while getopts $OptionPatterns OPT; do
+  case "$OPT" in
+    h)
+      help
+      exit;;
+    m)
+      Mode="`echo $OPTARG | tr ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz`";;
+    f)
+      File="$OPTARG";;
+    i)
+      SimInstDir="$OPTARG";;
+    T)
+      Timeout=$OPTARG;;
+    a)
+      Host=$OPTARG;;
+    u)
+      User=$OPTARG;;
+    p)
+      Password=$OPTARG;;
+    P)
+      PortOverride=$OPTARG;;
+    v)
+      Verbose=true;;
+    *)
+      die "Unknown option, try -h for help"
+  esac
+done
+
+shift $((OPTIND - 1))
+
+source $RCT_TOP/test/lib/shell/common.sh
+
+if [[ $# -gt 1 ]]; then
+  die "too many arguments, -h for help"
+fi
+
+if [[ -z "$Host" ]]; then
+  if [[ $# -lt 1 ]]; then
+    die "missing node name, -h for help"
+  fi
+
+  declare -r Node="$1"; shift
+
+  if [[ -z "$Node" ]]; then
+    die "empty node name not allowed"
+  fi
+
+  if ! isNode $Node; then
+    die "unknown node: $Node"
+  fi
+fi
+
+case "$Mode" in
+  netconf)
+    true;;
+  cli)
+    true;;
+  *)
+    die "unknown mode: $Mode, -h for help"
+esac
+
+declare FileOnDisk=""
+declare TempFile=""
+if [[ -z "$File" ]]; then
+  die "no input specified, -h for help"
+else
+  case "$File" in
+    -)
+      TempFile=`mktemp`
+      FileOnDisk=$TempFile
+      cat - >$FileOnDisk;;
+    *)
+      if [[ ! -r "$File" ]]; then
+	die "cannot read: $File"
+      fi
+      FileOnDisk=$File
+  esac
+fi
+
+declare Subsystem
+if [[ $Mode == netconf ]]; then
+  Subsystem="-s netconf"
+else
+  Subsystem=""
+fi
+
+declare Port
+if [[ -n "$PortOverride" ]]; then
+  Port=$PortOverride
+elif [[ -n "$Host" ]]; then
+  Port=`getPort $Mode 'target'`
+else
+  case $Node in
+    sim)
+      Port=`getPort $Mode 'sim' $SimInstDir`;;
+    *)
+      Port=`getPort $Mode 'target'`
+  esac
+fi
+
+declare Address
+if [[ -n "$Host" ]]; then
+  Address=$Host
+else
+  Address=`getAddress $Node`
+fi
+
+if [[ $Verbose == true ]]; then
+  echo "ssh $SshOptions -p $Port -l $User $Address $Subsystem" >&2
+  cat $FileOnDisk >&2
+fi
+
+expect - <<EOF
+set timeout $Timeout
+spawn bash -c "ssh $SshOptions -p $Port -l $User $Address $Subsystem <$FileOnDisk"
+expect "password:"
+send "$Password\r"
+expect eof
+EOF
+
+if [[ -n "$TempFile" ]]; then
+  rm -f $TempFile
+fi

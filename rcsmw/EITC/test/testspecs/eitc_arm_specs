@@ -1,0 +1,25 @@
+%%% -*- erlang -*-
+
+%%%-----------------------------------------------------------------------------
+%%% @author etxpeno
+%%% @copyright Ericsson AB 2014
+%%% @doc
+%%%
+%%% @end
+%%% Created :  7 May 2014 by ETXPENO
+%%%-----------------------------------------------------------------------------
+
+%%------------------------------------------------------------------------------
+%%  R2A/1      2014-05-07   etxpeno     Created
+%%------------------------------------------------------------------------------
+
+{define, 'Top', "/vobs/rcs/dev/RCP_CSX10179/RCT_CRX901275/test"}.
+{define, 'LMA', "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/LMA/LMA_CNX9013077"}.
+
+{define, 'T1', "'Top'/suites/install"}.
+{define, 'T2', "'LMA'/test/suites"}.
+
+{cases,  'T1', basic_tests_SUITE, [all]}.
+
+{cases,  'T2', lma_SUITE, [all]}.
+{cases,  'T2', lihi_SUITE, [all]}.

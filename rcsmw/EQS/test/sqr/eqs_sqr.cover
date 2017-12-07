@@ -1,0 +1,2 @@
+{excl_mods,[eqsDataInit]}.
+{expected_coverage, 58}.

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+	Copyright (c) 2016 Ericsson AB. 
+	All rights reserved 
+
+	DX ECIM Tool-chain generated this file on May 25, 2016 2:03:58 PM using:
+	* com.ericsson.ecim.coremw.m2m 2.14.5.201511210257
+	* com.ericsson.ecim.coremw.dsl 2.14.5.201511210257
+	* com.ericsson.ecim.coremw.imm 2.14.5.201511210257
+--><imm:IMM-contents xmlns:imm="http://www.saforum.org/IMMSchema" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.saforum.org/IMMSchema SAI-AIS-IMM-XSD-A.02.13.xsd">
+    <object class="TESTMOMTestRoot">
+        <dn>TESTMOMtestRootId=1</dn>
+    </object>
+    <object class="TESTMOMTestClass1">
+        <dn>testClass1Id=1,TESTMOMtestRootId=1</dn>
+        <attr>
+            <name>struct1</name>
+            <value>id=struct1,testClass1Id=1,TESTMOMtestRootId=1</value>
+        </attr>
+        <attr>
+            <name>int32</name>
+            <value>13</value>
+        </attr>
+    </object>
+    <object class="TESTMOMTestClass2">
+        <dn>testClass2Id=1,TESTMOMtestRootId=1</dn>
+        <attr>
+            <name>struct2</name>
+            <value>id=struct2,testClass2Id=1,TESTMOMtestRootId=1</value>
+        </attr>
+        <attr>
+            <name>class1</name>
+            <value>testClass1Id=1,TESTMOMtestRootId=1</value>
+        </attr>
+    </object>
+    <object class="TESTMOMStruct2">
+        <dn>id=struct2,testClass2Id=1,TESTMOMtestRootId=1</dn>
+        <attr>
+            <name>struct2mem1</name>
+            <value>init</value>
+        </attr>
+        <attr>
+            <name>struct2key</name>
+            <value>1</value>
+        </attr>
+    </object>
+    <object class="TESTMOMStruct1">
+        <dn>id=struct1,testClass1Id=1,TESTMOMtestRootId=1</dn>
+        <attr>
+            <name>struct1mem1</name>
+            <value>1</value>
+        </attr>
+        <attr>
+            <name>struct1mem2</name>
+            <value>init</value>
+        </attr>
+    </object>
+    <object class="TESTMOMTestClass3">
+        <dn>testClass3Id=1,testClass2Id=1,TESTMOMtestRootId=1</dn>
+        <attr>
+            <name>struct3seq</name>
+            <value>id=struct3seq_1,testClass3Id=1,testClass2Id=1,TESTMOMtestRootId=1</value>
+            <value>id=struct3seq_2,testClass3Id=1,testClass2Id=1,TESTMOMtestRootId=1</value>
+        </attr>
+    </object>
+    <object class="TESTMOMStruct3">
+        <dn>id=struct3seq_1,testClass3Id=1,testClass2Id=1,TESTMOMtestRootId=1</dn>
+        <attr>
+            <name>int32</name>
+            <value>1</value>
+        </attr>
+    </object>
+    <object class="TESTMOMStruct3">
+        <dn>id=struct3seq_2,testClass3Id=1,testClass2Id=1,TESTMOMtestRootId=1</dn>
+        <attr>
+            <name>int32</name>
+            <value>2</value>
+        </attr>
+    </object>
+</imm:IMM-contents>

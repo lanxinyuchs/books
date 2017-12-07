@@ -1,0 +1,38 @@
+APP = bld.rcsErlApp("cert", ["model"], extra_erl = bld.path.ant_glob("esrc/*.asn"), cxaid="184", cxcid="131", appdataroot="cert", )
+
+src = ["csrc/cert_crc.c", 
+       "csrc/cert_trace_probe.c", 
+       "csrc/cert_file_vc.c", 
+       "csrc/cert_seci.c"]
+
+src_credu = [
+       "csrc/cert_sec_credu_api.c",
+       "csrc/cert_sec_credu_trace_probe.c"]
+
+if bld.env.LIB_rhai:
+   src += ["csrc/cert_sbb.c", "csrc/cert_vc.c"]
+
+bld.shlib(
+   source=src, 
+   target="seci", 
+   includes=["csrc",  "../COM/int_include/inc"],
+   name="seci",
+   use = ["cec", "ltt", "rhai"],
+   defines = ["SIM_VC"],
+   install_path = bld.getLib(APP)
+   )
+
+bld.shlib(
+   source=src_credu, 
+   target="sec_credu_api", 
+   includes=["csrc",  "../COM/int_include/inc"],
+   name="sec_credu_api",
+   use = ["cec", "ltt", "rhai"],
+   defines = ["SIM_VC"],
+   install_path = bld.getLib(APP)
+   )
+
+bld.install_files(bld.getPrv(APP), bld.path.ant_glob("appdata/*"), relative_trick = True)
+bld.install_files(bld.getPrv(APP)+"/vc", ["esrc/test_vc.key", "esrc/test_vc.pem"])
+bld.install_files(bld.getPrv(APP)+"/dint", ["esrc/vnfc1.pfx", "esrc/vnfc1.sec"])
+bld.install_files(bld.getBldLib("cert"), ['libseci.so', 'libsec_credu_api.so'])

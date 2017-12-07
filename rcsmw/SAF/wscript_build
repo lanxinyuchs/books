@@ -1,0 +1,60 @@
+lmc, cxa, cxc = bld.env.APPS['saf']
+
+APP  = bld.rcsErlApp("saf", enable_cxc=False, cxaid="200", cxcid="131", )
+APPS = bld.rcsErlApp("safs", ["proto"], enable_cxa=False, cxaid="", cxcid="131", appdataroot="safs", )
+
+bld.install_files("${PREFIX}/"+APPS, ['imm.xml', 'imm_init.xml'], )
+
+APPC = bld.getAPP("safc", cxaid="", cxcid="131", )
+bld(source="esrc/safc.appSrc", id=cxc, vsn=bld.env.VSN, app=APPC, modules=[], )
+
+common = [
+   "csrc/safc_sock_lib.c",
+   "csrc/safc_trace.c",
+   "csrc/safc_array.c",
+   "csrc/safc_list.c",
+   "csrc/safc_ais_common.c"
+]
+imm_oi = [
+   "csrc/safc_imm_oi_lib.c"
+]
+imm_om = [
+   "csrc/safc_imm_lib.c",
+   "csrc/safc_imm_om_lib.c"
+]
+ntf = [
+   "csrc/safc_ntf_lib.c",
+   "csrc/safc_ntf_mem.c"
+]
+log    = ["csrc/safc_log_lib.c"]
+transf = ["csrc/safc_imm_class_transfer_lib.c"]
+
+lpath = bld.getLib(APPC)
+inc = ["csrc", "proto"]
+use = ["safs_proto", "proto", "rt"]
+usen = use+["SaCommon", "SaNtf"]
+
+bld.shlib(source=common, target="SafcCommon",includes=inc, install_path = lpath, use=use, name='SaCommon')
+bld.shlib(source=ntf,    target="SaNtf",     includes=inc, install_path = lpath, use=use+["SaCommon"], name='SaNtf')
+
+bld.shlib(source=imm_om, target="SaImmOm",   includes=inc, install_path = lpath, use=usen, name='imm_om')
+bld.shlib(source=imm_oi, target="SaImmOi",   includes=inc, install_path = lpath, use=usen+["imm_om"], name='imm_oi')
+bld.shlib(source=log,    target="SaLog",     includes=inc, install_path = lpath, use=usen)
+bld.shlib(source=transf, target="SafcImmCt", includes=inc, install_path = lpath, use=usen+["imm_om"], name='imm_ct')
+bld.symlink_as(bld.getLib(APPC)+'/libSaLog.so.0', 'libSaLog.so')
+bld.symlink_as(bld.getLib(APPC)+'/libSaLog.so.1', 'libSaLog.so')
+bld.symlink_as(bld.getLib(APPC)+'/libSaNtf.so.0', 'libSaNtf.so')
+bld.symlink_as(bld.getLib(APPC)+'/libSaImmOi.so.1', 'libSaImmOi.so')
+bld.symlink_as(bld.getLib(APPC)+'/libSaImmOm.so.1', 'libSaImmOm.so')
+bld.install_files(bld.getLib(APPC), bld.path.ant_glob("%s/lib*/lib*.so*" % bld.env.tgt))
+
+# Extra buildtime files
+bld.install_files(bld.getBldLib('saf'), bld.path.ant_glob("%(tgt)s/lib*/lib*" %bld.env)
+   + ['libSafcCommon.so', 'libSaNtf.so', 'libSaImmOi.so', 'libSaImmOm.so', 'libSaLog.so', 'libSafcImmCt.so'])
+bld.install_files(bld.getBldtime('saf')+'/inc',
+      bld.path.ant_glob("include/**"),
+      relative_trick=True,
+      cwd=bld.path.find_dir("include"))
+bld.install_files(bld.getPrv(APPS), bld.path.ant_glob("appdata/*"), relative_trick=True)
+
+bld.symlink_as(bld.getBldtime("saf")+'/inc', "include")

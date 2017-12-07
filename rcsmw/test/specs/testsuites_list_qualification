@@ -1,0 +1,141 @@
+## ----------------------------------------------------------
+## Copyright (c) Ericsson AB 2014 - 2017 All rights reserved.
+##
+## The information in this document is the property of Ericsson.
+##
+## Except as specifically authorized in writing by Ericsson, the
+## receiver of this document shall keep the information contained
+## herein confidential and shall protect the same in whole or in
+## part from disclosure and dissemination to third parties.
+##
+## Disclosure and disseminations to the receivers employees shall
+## only be made on a strict need to know basis.
+## ----------------------------------------------------------
+## #1.    REVISION LOG
+## ----------------------------------------------------------
+## Rev        Date         Name        What
+## --------   --------     --------    ------------------------
+## -          2014-02-10   etxjovp     Created
+## R2A/10     2014-03-19   etxjovp     move lihi_SUITE to testsuites_list_long
+## R2A/11     2014-03-21   eransbn     Added vii_c_SUITE
+## R2A/12     2014-03-25   etxjovp     remove buti_c_SUITE and vii_c_SUITE (sim)
+## R2A/15     2014-03-25   etxivri     Changed back testcase in swm_schedule not to run calendar TCs
+##                                     Added new suites.
+## R2A/16     2014-04-23   etxivri     Added autoexport_fail_disablefrom swm_scheduled_backup_SUITE to set autoexport to disable.
+## R2A/21     2014-06-19   etxjovp     add dus3201
+## R2A/24     2014-07-04   eolaand     Add pms_capabilities_SUITE.
+## R2A/25     2014-08-13   etxivri     Use groups in swm_scheduled_backup_SUITE. removed groups in swm_br_1_SUITE.
+## R2A/25     2014-08-14   etxivri     removed a suite.
+## R2A/27     2014-08-21   etxivri     Use groups in swm_failsafe_backup_SUITE
+## R2A/28     2014-08-26   etxivri     Removed swm suites.
+## R2A/29     2014-08-27   etxivri     removed ntf_alarm_via_ift_SUITE
+## R2A/31     2014-08-28   etxberb     Added cli_SUITE
+## R2A/32     2014-08-28   etxivri     Added back ntf_alarm_via_ift_SUITE.
+## R2A/33     2014-09-09   etxivri     removed ntf_alarm_via_ift_SUITE
+## R3A/5      2014-09-17   etxpejn     removed sys_coli_SUITE, added sys_fi_SUITE
+## R3A/7      2014-10-01   etxivri     Comment out oot suite due to it does not clean up IP adress and that affect other test.
+## R3A/8      2014-10-02   etxivri     Activate oot suite. Also Changed path too OOT suite.
+## R3A/9      2014-10-06   etxivri     Changed path on EQS suite and add sim to be used.
+## R3A/10     2014-10-06   etxivri     Removed EQS suite due to it exist in long.
+## R3A/11     2014-10-09   etxpeno     Add csi_c_SUITE
+## R2A/36     2014-10-14   etxberb     Moved cli_SUITE to testsuites_list_long.
+## R3A/14     2014-10-14   etxberb     Merge from R2A/36.
+## R3A/15     2014-10-20   etxivri     Move TCs to long tests.
+## R3A/16     2014-10-22   etxpeno     Moved the csi_c_SUITE (PPC) to long
+## R3A/17     2014-11-07   etxivri     Add char_opt_SUITE
+## R3A/21     2015-02-09   etxberb     Added coi_SUITE
+## R3A/22     2015-02-16   etxberb     Moved coi_SUITE to testsuites_list_long.
+## R3A/23     2015-02-18   uabesvi     added pes event testsyes
+## R3A/23     2015-02-20   erarafo     added Status LED tests
+## R3A/26     2015-03-16   uabesvi     added pms2 suites
+## R3A/27     2015-03-18   etxlg       added omc_tls_suite
+## R3A/28     2015-03-19   etxlg       cases -> groups
+## R3A/29     2015-03-23   eolaand     Removed 2 PMS suites and added 1 new.
+## R3A/30     2015-03-24   eolaand     Added pms2_rop_uc_SUITE.
+## R3A/31     2015-03-26   eolaand     Moved 2 PMS and 2 PES suites and added
+##                                     a new PMS suite.
+## R3A/33     2015-03-30   uabesvi     Moved 2 PMS suites to long
+## R3A/34     2015-04-08   uabesvi     added pes_misc
+## R3A/35     2015-04-09   etxivri     added nl ai tests
+## R3A/36     2015-04-10   etxivri     update nl ai tests
+## R3A/37     2015-04-10   etxivri     update nl ai tests
+## R3A/38     2015-04-14   etxivri     added nl test
+## R3A/40     2015-04-22   etxivri     added meas_mem_size_SUITE
+## R3A/41     2015-04-22   etxivri     removed meas_mem_size_SUITE
+## R3A/44     2015-05-06   etxivri     add nl_escalate_SUITE
+## R3A/45     2015-05-07   etxivri     moved some of the nl and ai tests to night tests.
+## R3A/47     2015-05-27   etxivri     Add new nl tests
+## R3A/48     2015-06-03   etxmlar     Add new upgrade test
+## R4A/1      2015-06-15   eolaand     Moved PMS and PES suites to long
+## R4A/4      2015-10-18   erarafo     Added tzii_c_SUITE, removed metaDialyzer_SUITE
+## R4A/5      2015-10-30   erarafo     Removed tzii_c_SUITE
+## R4A/5      2015-10-30   erarafo     Removed swm_ug_1_SUITE
+## R5A/1      2016-01-18   uabesvi     Added pms2_rop_file_handling_SUITE
+##                                           pms2_job_update_SUITE
+##                                           pms2_rop_susp_1_pmi2_SUITE
+## R5A/2	  2016-02-23   ekurnik	   Added cci_c_suite
+## R5A/3	  2016-02-29   ekurnik	   Removed cci_c_suite
+## R5A/4	  2016-04-08   uabesvi	   Moved all pms to list_long
+##                             uabesvi	   added ecoli cases
+## R6A/1	  2016-05-31   uabesvi	   PM Flex
+## R6A/2	  2016-06-09   uabesvi	   PM Flex and fruacc to list_long
+## R6A/3	  2016-06-13   uabesvi	   log ram suites added
+## R8A/1      2017-01-11   ekurnik     FTPES suites added
+## R9A/1      2017-02-24   estjako     Added ftpes_groups from LOG, LMA, PMS, SYS, CERT block
+## R9A/2      2017-03-01   estjako     CERT test groups
+## R9A/3      2017-03-02   estjako     SWM tests
+## R9A/4      2017-03-03   estjako     SWM upgrade tests
+## R9A/7      2017-03-09   estjako     Test suites return from testsuites_list_long
+## R9A/8      2017-03-13   eivomat     Added new CERT suite certm_cmpv2_SUITE
+## R9A/9      2017-03-15   estjako     Added swm_ug_mod1_ftpes_SUITE
+## R9A/10     2017-03-29   eivomat     Removed certm_cmpv2_SUITE and added
+##                                     certm_SUITE with target :sim:cover
+## R9A/12     2017-04-03   estjako     certm_ftpes_suite, swm_ug_mod1_ftpes_SUITE,
+##                                     pms_sftp_SUITE, ftpes_basic_suite moved to testsuites_list_long
+## R9A/13     2017-04-04   estjako     Added swm_FTPES_backup_SUITE
+## R9A/14     2017-04-10   ekurnik     Moved LOG tests to testsuites_list_long
+## R10A/1     2017-06-14   uabhten     Added CSTN testcases
+## R10A/2     2017-06-22   ecaiyan     Added CSTN3 testcases
+## R10A/3     2017-06-26   estjako     Added cci_c_suite
+## R10A/4     2017-06-28   estjako     Removed cci_c_suite
+## R10A/5     2017-07-03   estjako     Added cci_c_suite testcases and groups
+## R10A/6     2017-07-06   estjako     Removed cci_c_suite groups
+## R10A/7     2017-07-17   eivmiha     Added comsa_snmpv3_over_dtls_SUITE
+## R11A/1     2017-07-27   eivmiha     Removed comsa_snmpv3_over_dtls_SUITE
+## R11A/2     2017-07-27   estjako     Added comsa_snmpv3_over_dtls_SUITE
+## R11A/3     2017-08-04   estjako     Removed nl_ai_actions_SUITE, status_LED_SUITE, cci_c_SUITE
+## R11A/4     2017-08-08   estjako     Moved comsa_snmpv3_over_dtls_SUITE to testsuites_list_long
+## R11A/5     2017-08-16   uabesvi     Moved log ram test cases to long
+## R11A/6     2017-08-17   ekurnik     Added new comsa_snmpv3_over_dtls_SUITE groups
+## R11A/7     2017-09-04   eivmiha     Added comsa_snmpv3_over_dtls_SUITE/configuration_of_tls_cipher_suites_group
+## R11A/8     2017-09-04   eivmiha     Removed comsa_snmpv3_over_dtls_SUITE/agent_address_dtls_group
+## R11A/9     2017-09-04   eivmiha     Removed comsa_snmpv3_over_dtls_SUITE/configuration_of_tls_cipher_suites_group, and added 3 testcases from same group
+## R11A/10    2017-09-05   eivmiha     Added comsa_snmpv3_over_dtls_SUITE/configuration_of_tls_cipher_suites_group tests on target
+## R11A/11    2017-09-07   eivmiha     Removed comsa_snmpv3_over_dtls_SUITE/snmp_update_group
+## R11A/13    2017-09-13   eolaand     Replace cstn3_SUITE with oot_cstn3_ipv4_SUITE
+## R11A/14    2017-09-21   ecaiyan     Added GMF/.../uniAndBiDirMoRef_SUITE.erl
+## R11A/15    2017-09-27   eolaand     Added oot_cstn3_ipv6_SUITE
+## R11A/16    2017-10-02   eivmiha     Added certSecCredu_suite/qualification_group
+## R11A/17    2017-10-06   eivmiha     Removed comsa_snmpv3_over_dtls_SUITE
+## R11A/18    2017-09-10   eolaand     Replace cstn_SUITE with aic_ip_change_trap_suite
+## R11A/20    2017-10-18   elarrun     Added comsa_alarm_SUITE
+## R11A/21    2017-10-18   etxivri     Comment out comsa_alarm_SUITE due to qualification_group is unknown. Add ntf_alarm_via_ift_SUITE
+## R11A/22    2017-10-18   etxjovp     change qualification_group},qualification_group}. to qualification_group}.
+## R12A/1     2017-10-25   elarrun     Uncommented comsa_alarm_SUITE, changed group to all
+## R12A/2     2017-11-03   eivmiha     Added comsa_snmpv3_over_dtls_SUITE groups
+## R12A/3     2017-11-08   eivmiha     Removed comsa_snmpv3_over_dtls_SUITE from sim
+## R12A/4     2017-11-22   etxpeno     Removed ntf_alarm_via_ift_SUITE
+## R12A/5     2017-11-24   eivmiha     Removed certSecCredu_suite
+## R12A/6     2017-11-28   etxpeno     Removed comsa_alarm_SUITE
+## R12A/7     2017-11-29   eivmiha     Added ftpes_basic_suite/file_tpm_group
+##################################################################################################################################################################
+#TIME |TARGET |CONFIG |UPGRADE | TEST SUITE
+##################################################################################################################################################################
+171.000 |:dus5201:sim |:no |:upgrade |{groups, "OMC/test/suites", omc_tls_login_SUITE, all_working}.
+400.000 |:sim:cover |:no:arria10 |:upgrade:short |{cases, "CERT/test/suites", certm_SUITE, [all]}.
+60.000 |:dus4101:tcu03:tcu04:dus5201:dus3201:sim:cover |:no |:upgrade |{cases, "LMA/test/suites", lma_SUITE, [install_lkf_from_ftpes]}.
+500.000 |:dus4101:tcu03:tcu04:dus5201:dus3201:sim:cover |:no |:upgrade |{groups, "SWM/test/suites", swm_FTPES_backup_SUITE, [import_backup_group,export_backup_group, autoexport_backup_group]}.
+800.000 |:dus4101:tcu03:tcu04:dus5201:dus3201:sim:cover |:no |:upgrade |{groups, "SWM/test/suites", swm_FTPES_backup_SUITE, scheduled_backup_group}.
+500.000 |:dus4101:tcu03:tcu04:dus5201:dus3201:sim:cover |:no |:upgrade:short |{cases, "GMF/test/suites", uniAndBiDirMoRef_SUITE, [all]}.
+500.000 |:dus4101:tcu03:tcu04:dus5201:dus3201 |:no |:upgrade |{groups, "COMSA/test/suites", comsa_snmpv3_over_dtls_SUITE, [autointegration_group,fault_management_v3_group, aic_ip_change_v3_trap_group]}.
+500.000 |:dus4101:tcu03:tcu04:dus5201:dus3201:sim:cover |:no |:upgrade |{groups, "FTPES/test/suites", ftpes_basic_suite, [file_tpm_group]}.

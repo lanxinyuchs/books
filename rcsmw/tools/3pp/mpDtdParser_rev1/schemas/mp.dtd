@@ -1,0 +1,1025 @@
+<!-- 006 91-APR 901 950: rev G            -->
+<!-- Date-               10 March 2013        -->
+<!-- Author-             edavsun            -->
+
+<!-- Revision Historyi
+A detailed history of changes to the DTD is available at the
+end of this document.
+
+Rev. G: 2013-09-09    edavsun   
+Rev. F:  2013-01-10   edavsun   Stored after approval by CPP MOM Forum
+Rev. E1: 2012-10-09   edavsun   Stored after approval by MOM Forum.
+Rev. E: 2012-01-03   edavsun   Stored after approval by MOM Forum.
+Rev. D: 2010-02-12   erasodd   Stored after approval by MOM Forum.
+Rev. C: 2008-01-24   eeimhln   Stored after approval by MOM Forum.
+Rev. B: 2007-10-16   eeimhln   Stored after approval by MOM Forum.
+Rev. A: 2007-06-12   ecorrei   Stored after approval by CIF CS team
+-->
+
+
+<!-- Data types -->
+<!ENTITY % corbaTypes "boolean | octet | char  | double | float | long | longlong | short | string | wstring">
+
+<!ENTITY % yangTypes "int8 | int16 | int32 | int64 | uint8 | uint16 | uint32 |  uint64 | decimal64">
+
+
+
+
+
+<!ENTITY % primitiveTypes "integer | %corbaTypes; | %yangTypes; | enumRef |  moRef">
+
+<!ENTITY % availableTypes "%primitiveTypes; | structRef | derivedDataTypeRef | sequence">
+
+<!ENTITY % rangeSpecifier "range?, ranges?, defaultValue?, unit?, multiplicationFactor?, resolution?, undefinedValue?">
+
+<!ELEMENT stringLength (subrange+)>
+<!ELEMENT ranges       (subrange+)>
+<!ELEMENT subrange     (min,max)>
+ 
+
+<!ENTITY % stringSpecifier "(lengthRange | stringLength)?, (validValues | alphabet | ipV4Address | ipV6Address |macAddress | date | time)?, defaultValue?, isPassphrase? ">
+
+<!ELEMENT dataType      (%availableTypes;)>
+
+<!ELEMENT void EMPTY>
+
+<!ENTITY % mimSpecification "mimName?, mimVariant?, mimVersion?, mimRelease?, mimCorrection?">
+
+<!ENTITY % lifeCycleSpecifier "((preliminary | deprecated | obsolete), statusInformation? )?">          
+
+<!ELEMENT integer		(%rangeSpecifier;)> 
+
+<!-- Corba data types -->
+<!ELEMENT octet         (%rangeSpecifier;)>
+<!ELEMENT double        (%rangeSpecifier;)>
+<!ELEMENT float         (%rangeSpecifier;)>
+<!ELEMENT long          (%rangeSpecifier;)>
+<!ELEMENT longlong      (%rangeSpecifier;)>
+<!ELEMENT short         (%rangeSpecifier;)>
+<!ELEMENT boolean       (defaultValue?)>
+<!ELEMENT char          (range?, defaultValue?)>
+<!ELEMENT string        (%stringSpecifier;, undefinedValue?)>
+<!ELEMENT wstring       (%stringSpecifier;)>
+
+<!-- Yang datatypes                  -->
+
+<!-- http://tools.ietf.org/html/rfc6020 -->
+<!-- fractionDigits specifies number of digits that represents the fraction of a 64 bit integer (1..18)-->
+<!ELEMENT decimal64 (fractionDigits, %rangeSpecifier;)>
+<!ELEMENT fractionDigits (#PCDATA)>
+
+<!-- DEPRECATED moved to EcimLibrary -->
+<!ELEMENT int8          (%rangeSpecifier;)>
+<!ELEMENT int16         (%rangeSpecifier;)>
+<!ELEMENT int32         (%rangeSpecifier;)>
+<!ELEMENT int64         (%rangeSpecifier;)>
+<!ELEMENT uint8         (%rangeSpecifier;)>
+<!ELEMENT uint16        (%rangeSpecifier;)>
+<!ELEMENT uint32        (%rangeSpecifier;)>
+<!ELEMENT uint64        (%rangeSpecifier;)>
+
+
+<!-- Range specifications -->
+<!-- Deprecated. Use "ranges" and "stringLength" instead.-->
+<!ELEMENT lengthRange (max?, (min, max)*, min?)>
+<!ELEMENT range       (max?, (min, max)*, min?)>
+
+<!ELEMENT max  (#PCDATA)>
+<!ELEMENT min  (#PCDATA)>
+
+<!ELEMENT defaultValue (#PCDATA)>
+
+
+
+<!-- standard unit of measure. Keep short to fit CLI/GUIs. -->
+<!ELEMENT unit (#PCDATA)>
+
+<!-- The factor to multiply stored value with, to get the real value. -->
+<!-- Normally used with integer data types to get fractional values -->
+<!-- Deprecaed in favour of decimal64 data types -->
+<!ELEMENT multiplicationFactor (#PCDATA)>
+
+<!-- The resolution within a data range. Range 0..10 with resolution 2 gives -->
+<!-- even values. Applies to all sub ranges of a data type -->
+<!ELEMENT resolution (#PCDATA)>
+
+<!-- DEPRECATED in favor of validationRules. Currently multiple uses -->
+<!ELEMENT alphabet (#PCDATA)>
+
+<!-- DEPRECATED in favor of validationRules. Currently multiple uses -->
+<!ELEMENT validValues (#PCDATA)>
+
+
+<!-- validationRules -->
+<!-- rule name is the name used to refer to the rule with -->
+<!-- rule format specifies the syntax, e.g. "ocl"? or "regexp"? -->
+<!-- rule operation e.g. "create"?, "delete"?, "modify"?, "execute -->
+<!-- The values to use and the interpretation is specified by the Meta Models -->
+
+<!ELEMENT validationRules (rule+)>
+<!ELEMENT rule (#PCDATA)>
+<!ATTLIST rule name CDATA #REQUIRED>
+<!ATTLIST rule format CDATA #REQUIRED>
+<!ATTLIST rule operation CDATA #IMPLIED>
+<!ATTLIST rule exceptionText CDATA #REQUIRED> 
+
+
+<!-- date and time in the format yyyy-mm-dd and hh:mm:ss -->
+<!ELEMENT date EMPTY>                                
+<!ELEMENT time EMPTY>                                
+
+<!-- The attribute that uses ipV4Address tag must follow the format: -->
+<!-- Four fields of digits, separated by a dot.  -->
+<!-- Each field consists of one to three digits. -->
+<!ELEMENT ipV4Address EMPTY>                                
+
+
+<!-- The attribute that uses ipV6Address tag must follow the format: -->
+<!-- eight fields of hexadecimal digits, separated by a colons. -->
+<!-- Each field consists of one to four digits. -->
+<!-- One or any number of consecutive group of 0 value may be replaced with two colons (::).-->
+<!-- This substitution with double-colon may be performed only once in an address.-->
+<!ELEMENT ipV6Address EMPTY>  
+
+
+<!-- The attribute that uses macAddress tag must follow the format: -->
+<!-- six fields of hexadecimal digits, separated by a colons. -->
+<!-- Each field consists of two digits. -->
+<!ELEMENT macAddress EMPTY>                                
+
+
+<!-- Derived data type -->
+<!ELEMENT derivedDataType (description?, applicationTag?, domainExtension*, baseType, validationRules?,
+          isPassphrase?)>
+<!ATTLIST derivedDataType name CDATA #REQUIRED>
+
+<!ELEMENT baseType (%availableTypes;)>
+
+<!-- isPassphrase is only applicable for String data types -->
+<!ELEMENT isPassphrase EMPTY>
+
+<!ELEMENT derivedDataTypeRef (defaultValue?, %mimSpecification;)>
+<!ATTLIST derivedDataTypeRef name CDATA #REQUIRED>
+
+
+<!-- Sequence data type -->
+<!ELEMENT sequence ( 
+        (%primitiveTypes; | structRef | derivedDataTypeRef ),
+        minLength?,
+        maxLength?,
+        nonUnique?,
+        ordered?,
+        seqDefaultValue?)>
+
+<!-- default values for sequences (multivalued) attributes -->
+<!ELEMENT seqDefaultValue (defaultValue+)>
+
+<!-- integer specifying minimum length of the sequence -->
+<!ELEMENT minLength (#PCDATA)>
+
+<!-- integer specifying maximum length of the sequence -->
+<!ELEMENT maxLength (#PCDATA)>
+
+
+<!-- nonUnique specifies that each element in a sequence does not have to be unique (present only once) -->
+<!-- The absence of this tag indicates that each element in the sequence must be unique -->
+<!-- For multivalued struct attributes, the uniqueness is based on the members with the -->
+<!-- key tag set. See 3GPP 32.156 -->
+<!ELEMENT nonUnique EMPTY>
+
+<!-- ordered specifies that each element is ordered, i.e. order has -->
+<!-- significance and is preserved by the system. See 3GPP 32.156   -->
+<!-- If omitted the sequence is not ordered (i.e. set/bag semantics)-->
+
+<!ELEMENT ordered EMPTY>
+
+<!ELEMENT notNillable EMPTY>
+
+<!-- MoRef data type. Reference to a MO instance -->
+<!ELEMENT moRef (%mimSpecification;, notNillable?)>
+<!ATTLIST moRef name CDATA #REQUIRED>
+
+
+
+<!-- Modifiers -->
+<!-- nonUnique is defined under the sequence data type. -->
+
+<!ENTITY % commonSpecifier "
+        %lifeCycleSpecifier;,
+        visibility?,
+        filter?,                        
+        dependencies?,
+        dependenciesScript?,
+        feature?,
+        specification?,
+        interfaceOnly?,
+        decisionPoint?">           
+
+<!ENTITY % classSpecifier "
+        description?,
+        applicationTag?,
+        domainExtension*,
+        systemCreated?,
+        notificationTypes?,
+        nonPersistent?,
+        precondition?,
+        readOnly?,
+        lockBeforeDelete?,
+        validationRules?,
+        root?,
+        %commonSpecifier;">
+         
+<!ENTITY % implementationSpecifier "
+        local?,
+        mandatory?,
+        noNotification?,
+        nonPersistent?,
+        readOnly?,
+        restricted?,
+        static?,
+        undefined?,
+        lockBeforeModify?,
+        validationRules?,
+        restartType?,
+        indexed?,
+        key?,
+        isNillable?,
+        isOrderKey?">
+
+<!ENTITY % behaviorSpecifier "
+        disturbances?,
+        takesEffect?,
+        sideEffects?,
+        precondition?">
+
+<!ENTITY % counterSpecifier "
+        condition?,
+        counterType?,
+        samplingRate?,
+        scanner?,
+        counterReset?,
+        counterContext?,
+        getValue?">           
+                
+<!-- description is a free text description intended for the human eye only. -->
+<!ELEMENT description            (#PCDATA)>
+
+<!-- applicationTag for free use to extend the dtd. No specific format is defined -->
+<!ELEMENT applicationTag         (#PCDATA)>
+
+<!-- preliminary, for elements that do not have full functionality yet, but will have in -->
+<!-- a future release -->
+<!ELEMENT preliminary            (#PCDATA)>
+
+<!-- deprecated, for elements that will be removed in a future release, but has full functionality -->
+<!ELEMENT deprecated             (#PCDATA)>
+
+<!-- obsolete, for elements that will be removed in a future release, and  has degraded functionality. -->
+<!-- The behavior must be specified -->
+<!ELEMENT obsolete               (#PCDATA)>
+
+<!-- free text related to the statuses. No specific format is defined. -->
+<!ELEMENT statusInformation      (#PCDATA)>
+
+
+<!-- visibility, used at generation of the xml file to separate elements that is for Ericsson personnel -->
+<!-- The values are: public -for operator, hidden -for Ericsson personnel. -->
+<!ELEMENT visibility             (#PCDATA)>
+
+<!-- filter, used at generation of the xml file to be able to filter out elements -->
+<!-- This tag is a comma separated list of string values -->
+<!ELEMENT filter (#PCDATA)>
+
+<!-- DEPRECATED in favor of validationRules-->
+<!--dependenciesScript, for constrains in a constraint language -->
+<!ELEMENT dependenciesScript     (#PCDATA)>
+
+<!-- A value in the attributes value space that indicates that the actual value is unknown -->
+
+<!ELEMENT undefinedValue         (#PCDATA)>
+
+<!-- disturbancies, for change or create that can cause traffic disturbancies (free text)-->
+<!ELEMENT disturbances           (#PCDATA)>
+
+<!-- takesEffect, conditions for when change or create takes effect, i.e. taken into account -->
+<!-- by the application (free text)-->
+<!ELEMENT takesEffect            (#PCDATA)>
+
+<!-- sideEffect, specifies if a change is affecting other elements (free text)-->
+<!ELEMENT sideEffects            (#PCDATA)>
+
+<!--dependencies towards other MIM entities, (free text) -->
+<!ELEMENT dependencies           (#PCDATA)>
+
+<!-- precondition, (free text)-->
+<!ELEMENT precondition           (#PCDATA)>
+
+<!--condition,  The condition that causes the counter to be updated (free text)-->
+<!ELEMENT condition              (#PCDATA)>
+
+<!--counterType, one of the standard counter types -->
+<!ELEMENT counterType            (#PCDATA)>
+
+<!--samplingRate, for pm counter tag includes both a number and a unit. E.g. every 10 seconds-->
+<!ELEMENT samplingRate           (#PCDATA)>
+
+<!-- scanner name, for pm counter -->
+<!ELEMENT scanner                (#PCDATA)>
+
+<!-- counterContext, for pm counter, the context in which the counter is stepped -->
+<!ELEMENT counterContext         (#PCDATA)>
+
+<!-- feature, comma separated list of feature names -->
+<!ELEMENT feature                (#PCDATA)>
+
+<!-- specification, name of the standard the relates to the element -->                          
+<!ELEMENT specification          (#PCDATA)>
+
+<!-- counterReset, value: true -if the counter is reset to zero at the beginning of a  measurement period -->
+<!-- false -if not -->
+<!ELEMENT counterReset           (#PCDATA)>
+
+<!-- transactionRequired, value: true -if the element must be modified within a transaction -->
+<!-- true -if not required -->
+<!ELEMENT transactionRequired    (#PCDATA)>
+
+<!-- Description of the constrains of the transaction (free text)-->
+<!ELEMENT transactionConstraints (#PCDATA)>
+
+<!-- DEPRECATED in favour of validationRules -->
+<!-- lockBeforeModify, Set to 'true' if the Mo must be administratively locked before modified -->
+<!-- false -if not -->
+<!ELEMENT lockBeforeModify       (#PCDATA)>
+
+<!-- getValue, for pm countrs, specifies the type of value, like realtime or ROP value  -->
+<!ELEMENT getValue               (#PCDATA)>
+
+<!-- local, OSS Only -->
+<!ELEMENT local EMPTY>
+
+<!-- An attribute value must be supplied when creating the MO instance. -->
+<!ELEMENT mandatory EMPTY>
+
+<!--  noNotificaton, the attribute is not sending value change notification -->
+<!-- The absence of the tag means that notifications are sent. -->
+<!ELEMENT noNotification EMPTY>
+
+<!-- nonPersistent, the element value do not survive a node restart -->
+<!-- If not present, the node assures that the entity is unaffected by a node restart -->
+<!-- Note that this is the NBI view and does not specify whether the entity is stored in a database -->
+<!ELEMENT nonPersistent EMPTY>
+
+<!-- readonly -->
+<!ELEMENT readOnly EMPTY>
+
+<!-- restricted, the attribute value can only be set at create of the MO -->
+<!-- and can not be changed afterwards -->
+<!ELEMENT restricted EMPTY>
+
+<!-- static, the value of the attribute is applicable to all instances of the MO -->
+<!ELEMENT static EMPTY>
+
+<!-- undefined TBD: No firm definition exist -->
+<!ELEMENT undefined EMPTY>
+
+<!-- indexed TBD: No firm definition exist -->
+<!ELEMENT indexed EMPTY>
+
+<!-- key, identification element -->
+<!ELEMENT key EMPTY>
+
+<!-- interfaceOnly, no fuctionality is implemented -->
+<!-- Used on attributes for e.g. counters that can not be accessed as attributes -->
+<!-- Used on classes to represent an Abstract class -->
+<!ELEMENT interfaceOnly EMPTY>
+
+<!-- Optionality support. decisionType is used to prepare for future extensions -->
+<!ELEMENT decisionPoint (decisionStatement+)>
+<!ELEMENT decisionStatement (#PCDATA)>
+<!ATTLIST decisionStatement decisionType CDATA #REQUIRED > 
+
+
+<!-- root, the root MO of the mim.- Can only be set on one element in the mim  -->
+<!ELEMENT root EMPTY>
+
+<!-- restartType -->
+<!ELEMENT restartType (noRestart | moRestart | nodeRestart)>
+<!ELEMENT noRestart EMPTY>
+<!ELEMENT moRestart EMPTY>
+<!ELEMENT nodeRestart EMPTY>
+
+<!-- isNillable, if set, the attribute / member may be assigned no value  -->
+<!ELEMENT isNillable EMPTY>
+
+<!-- isOrderKey, set for the attribute that is used as base for sorting -->
+<!ELEMENT isOrderKey EMPTY>
+
+<!-- domainExtension -->
+<!ELEMENT domainExtension (extension+)>
+<!ATTLIST domainExtension domain CDATA #IMPLIED>
+
+<!ELEMENT extension EMPTY>
+<!ATTLIST extension name CDATA #REQUIRED
+                    value CDATA #REQUIRED>
+
+
+<!-- Models definition -->
+
+<!ELEMENT models (dtdVersion?, momMetaData?, (mim|interMim|mib)*)>
+
+<!-- revision letter of the dtd that the xml conforms to. -->
+<!ELEMENT dtdVersion (#PCDATA)>
+
+
+<!-- Meta data for this xml file, used when creating a MOM Container via Dwaxe. The Meta Data is -->
+<!-- then used as "library card" for the container identification -->
+<!ELEMENT momMetaData (momTitle, momSubTitle, momIdentity, createdBy?, approvedBy?)>
+
+<!ELEMENT momTitle (#PCDATA)>
+
+<!ELEMENT momSubTitle (#PCDATA)> 
+
+<!ELEMENT momIdentity (docNum, docLang, docRev, docDate)>
+
+<!-- Document number in standard Ericsson format -->
+<!ELEMENT docNum (#PCDATA)>
+
+<!-- Language part of the document id, e.g. Uen -->
+<!ELEMENT docLang (#PCDATA)>
+
+<!-- Document revision for the Dwaxe container -->
+<!ELEMENT docRev (#PCDATA)>
+
+<!-- Date in YYYY-MM-DD format -->
+<!ELEMENT docDate (#PCDATA)>
+
+<!ELEMENT createdBy (signature, name?)>
+<!ELEMENT signature (#PCDATA)>
+<!ELEMENT name (#PCDATA)>
+
+<!ELEMENT approvedBy (signature, name?)>
+
+<!-- Support for Optionality. ModelType can be one of Template or Derived depending -->
+<!-- on if the MIM xml is represent a Template model or Derived model.              -->
+<!-- For Template models, the feature list contains all available features          -->
+<!-- For Derived models, the feature list contains all used features                -->
+<!-- featureType is "basic" and included to support future extensions               --> 
+
+<!ELEMENT modelFeatures (feature+)>
+<!ATTLIST modelFeatures modelType  CDATA #REQUIRED>
+
+<!ELEMENT modelFeature EMPTY>
+<!ATTLIST modelFeature name CDATA #REQUIRED>
+<!ATTLIST modelFeature featureType  CDATA #REQUIRED>
+
+
+<!-- mim / mib specification parts -->
+
+<!ENTITY % packageSpecifier "
+        %lifeCycleSpecifier;,
+        visibility?,
+        filter?,                        
+        specification? ">    
+
+<!-- MIB definition (instance modeling) -->
+
+<!ELEMENT mib ( 
+        description?,
+        domainExtension*,  
+        modelFeatures?,
+       %packageSpecifier;,
+        object+
+        )>
+
+<!-- name - the unique identity of this MIM -->
+<!-- variant - the variant of this MIM -->
+<!-- version - the major version of this MIM -->
+<!-- release - the minor version of this MIM -->
+<!-- author - the author of this MIM -->
+<!-- contact - the contact person for this MIM -->
+<!-- date - the date when the MIM was created -->
+<!-- docNo - the document number associated with this MIM. Deprecated. -->
+<!-- revision - the revision for the document association with docNo. Deprecated. -->
+<!-- namespace - the name space of this MIM -->
+<!-- namespacePrefix - the name space prefix of this MIM  -->
+<!-- organization - the organization responsible for the content of this MIM -->
+        
+<!ATTLIST mib name ID #REQUIRED    
+        variant CDATA #IMPLIED
+        version CDATA #REQUIRED
+        release CDATA #REQUIRED
+        correction CDATA #IMPLIED
+        build CDATA #IMPLIED
+        author CDATA #IMPLIED
+        contact CDATA #IMPLIED
+        date CDATA #IMPLIED
+        docNo CDATA #IMPLIED
+        revision CDATA #IMPLIED
+        namespace CDATA #IMPLIED
+        namespacePrefix CDATA #IMPLIED
+        organization CDATA #IMPLIED>                  
+        
+<!ELEMENT object (         
+        description?,
+        domainExtension*,
+        hasClass,
+        slot+
+       )>
+       
+<!ATTLIST object parentDn CDATA #REQUIRED>
+
+<!ELEMENT slot (         
+        domainExtension*,
+        (value|complexValue|seqValue|complexSeqValue)
+       )>
+ 
+<!ATTLIST slot name CDATA #REQUIRED>
+
+<!ELEMENT complexValue (slot+)>
+       
+<!ELEMENT complexSeqValue (complexValue+)>
+
+<!ELEMENT seqValue (value+)>
+
+
+<!-- MIM definition (class modeling) -->
+
+<!ELEMENT mim (
+        description?,
+        applicationTag?,
+        domainExtension*,
+        copyright?,
+        mimParts?,
+        implements* ,
+        modelFeatures?,
+        %packageSpecifier;,
+        (struct | enum | exception | derivedDataType)*,  
+        class*,
+        relationship*)>
+
+<!-- See the "mib" part for a description of mim attributes. -->
+
+<!ATTLIST mim name ID #REQUIRED
+        variant CDATA #IMPLIED
+        version CDATA #REQUIRED
+        release CDATA #REQUIRED
+        correction CDATA #IMPLIED
+       build CDATA #IMPLIED
+        author CDATA #IMPLIED
+        contact CDATA #IMPLIED
+        date CDATA #IMPLIED
+        docNo CDATA #IMPLIED
+        revision CDATA #IMPLIED
+        namespace CDATA #IMPLIED
+        namespacePrefix CDATA #IMPLIED
+        organization CDATA #IMPLIED>                  
+
+
+<!ELEMENT interMim (
+        description?,
+        applicationTag?,
+        domainExtension*,
+        relationship*)>
+
+                      
+<!-- Copyright notice and standard disclaimer. Added by the Tool chains -->
+<!ELEMENT copyright (company?, year?, disclaimer?)>
+<!ELEMENT company (#PCDATA)>
+<!ELEMENT year (#PCDATA)>
+<!ELEMENT disclaimer (#PCDATA)>
+
+<!-- The subparts that this mim is assembled from -->
+<!ELEMENT mimParts (mimPart+)>
+<!ELEMENT mimPart (name, label+)>
+<!ELEMENT label (#PCDATA)>
+
+
+<!-- implements states the base ECIM model which this model is a realization of -->
+<!ELEMENT implements EMPTY>
+<!ATTLIST implements name CDATA #REQUIRED
+        variant CDATA #IMPLIED
+        version CDATA #REQUIRED
+        release CDATA #REQUIRED
+  correction CDATA #IMPLIED
+        baseMim CDATA #IMPLIED>
+
+
+<!-- MO class definition -->
+
+<!ELEMENT class (
+        %classSpecifier;, 
+        transactionRequired?, 
+        transactionConstraints?,                             
+        (action | attribute)*)>
+        
+<!ATTLIST class name CDATA #REQUIRED>
+
+<!-- System Created indicates that instances of this MO class can only be created and deleted -->
+<!-- by the system itself and not the NBI user. MO classes that does not have this tag can -->
+<!-- be created and deleted by both the system and the NBI user. -->
+<!ELEMENT systemCreated EMPTY>
+
+
+<!-- DEPRECATED in favour of validationRules -->
+<!-- lockBeforeDelete, Set to 'true' if the MO instance must be administratively locked before deleted -->
+<!ELEMENT lockBeforeDelete (#PCDATA)>
+
+<!-- TBD: No firm definition exist -->
+<!ELEMENT notificationTypes (#PCDATA)>
+                    
+
+<!-- MO Attribute definition -->
+
+<!ELEMENT attribute (         
+        description?,
+        applicationTag?,
+        domainExtension*,
+        transactionRequired?,
+        transactionConstraints?,
+        %implementationSpecifier;,
+        dataType,
+      ( %commonSpecifier;, ((%behaviorSpecifier;) | (%counterSpecifier;)) ) )>
+
+<!ATTLIST attribute name CDATA #REQUIRED>
+
+
+
+<!-- Struct data type -->
+
+<!ELEMENT struct (description?, 
+                  applicationTag?, 
+                  domainExtension*,
+                  isExclusive?,
+                  structMember+)>
+<!ATTLIST struct name CDATA #REQUIRED>
+
+<!ELEMENT structMember ( 
+        description?,
+        applicationTag?,
+        domainExtension*,
+        key?,
+        (%primitiveTypes; | sequence | derivedDataTypeRef),
+        %commonSpecifier;, %behaviorSpecifier;)>
+
+<!ATTLIST structMember name CDATA #REQUIRED>
+
+<!ELEMENT structRef (%mimSpecification;)>
+<!ATTLIST structRef name CDATA #REQUIRED>
+
+<!-- Struct flagged with isExclusive can only have one member assigned a value at a time -->
+<!ELEMENT isExclusive EMPTY>
+
+
+<!-- Enum data type -->
+
+<!ELEMENT enum (
+        description?, 
+        applicationTag?,
+        domainExtension*, 
+        enumMember+)>
+
+<!ATTLIST enum name CDATA #REQUIRED>
+
+<!ELEMENT enumMember (
+        description?, 
+        applicationTag?,
+        domainExtension*, 
+        value?,
+        %commonSpecifier;, %behaviorSpecifier;)>
+        
+<!ATTLIST enumMember name CDATA #REQUIRED>
+
+<!ELEMENT enumRef (defaultValue?, %mimSpecification;)>
+<!ATTLIST enumRef name CDATA #REQUIRED>
+
+<!ELEMENT value (#PCDATA)>
+
+
+
+<!-- MO Action -->
+
+<!ELEMENT action (
+        description?,
+        applicationTag?,
+        domainExtension*,
+        returnType,
+        parameter*,
+        raisesException*,
+        lockBeforeExecute?,
+        validationRules?,
+        transactionRequired?,
+        transactionConstraints?,
+        %commonSpecifier;, %behaviorSpecifier;)>
+                 
+<!ATTLIST action name CDATA #REQUIRED>
+
+<!ELEMENT parameter (
+        description?,
+        applicationTag?,
+        domainExtension*,
+        validationRules?,
+	    isNillable?,
+        (in | out | inout),
+        dataType,
+        %commonSpecifier;)>
+        
+<!ATTLIST parameter name CDATA #REQUIRED>
+
+<!ELEMENT in EMPTY>
+<!ELEMENT inout EMPTY>
+<!ELEMENT out EMPTY>
+
+<!ELEMENT raisesException (%mimSpecification;)>
+<!ATTLIST raisesException name CDATA #REQUIRED>
+
+<!ELEMENT returnType (
+        (void | %availableTypes;))>
+
+<!-- DEPRECATED in favour of validationRules -->
+<!-- lockBeforeExecute, Set to 'true' if the MO instance must be administratively locked before an -->
+<!-- action is executed -->
+<!ELEMENT lockBeforeExecute  (#PCDATA)>
+
+
+<!-- MO Exception -->
+
+<!ELEMENT exception (
+        description?,
+        applicationTag?,
+        domainExtension*,
+        exceptionParameter*,
+        deprecated?)>
+        
+<!ATTLIST exception name CDATA #REQUIRED>
+
+<!ELEMENT exceptionParameter (
+        description?,
+        applicationTag?,
+        dataType,
+        %lifeCycleSpecifier;)>
+        
+<!ATTLIST exceptionParameter name CDATA #REQUIRED>
+
+
+<!-- MO Relations -->
+
+<!ELEMENT relationship (
+        description?,
+        applicationTag?,
+        domainExtension*,
+        %commonSpecifier;,
+        (biDirectionalAssociation | uniDirectionalAssociation | containment | inheritance))>
+
+<!ATTLIST relationship name CDATA #REQUIRED>
+
+<!ELEMENT biDirectionalAssociation (
+        mandatory?,
+        associationEnd,
+        associationEnd,
+        domainExtension*)>
+
+<!ELEMENT uniDirectionalAssociation (
+        mandatory?,
+        hasClass,
+        associationEnd,
+  defaultValue?,
+  domainExtension* )>
+
+<!ELEMENT associationEnd (
+        description?,
+        applicationTag?,
+        domainExtension*,
+        hasClass,
+        cardinality?,
+        deletionPolicy?,
+        isReserving?,
+        restricted? )>
+
+<!ATTLIST associationEnd name CDATA #REQUIRED>
+
+<!ELEMENT containment (parent, child+, ordering?, domainExtension*,noNotification?, notCreatable?, notDeleteable?)>
+
+<!ELEMENT deletionPolicy (none | restricted)>
+
+<!ELEMENT none EMPTY>
+
+<!-- When an associationEnd has isReserving set, the MOC instance -->
+<!-- owning an instance of the association can not be deleted     -->
+<!ELEMENT isReserving EMPTY>
+
+<!ELEMENT parent (description?, applicationTag?, hasClass)>
+<!ELEMENT child  (description?, applicationTag?, hasClass, cardinality?)>
+
+<!-- notCreatable an notDeleteable specifies if a NBI user can create and delete an instance      -->
+<!-- using this containment releation. The absence of the tags indicate the NBI user can perform  -->
+<!-- the operation. Note that the system itself is not affected by these flags                    -->
+<!ELEMENT notCreatable EMPTY >
+<!ELEMENT notDeleteable EMPTY >
+
+
+<!ELEMENT cardinality ((min, max?) | max)>
+
+<!ELEMENT hasClass (%mimSpecification;)>
+<!ATTLIST hasClass name CDATA #REQUIRED>
+
+<!ELEMENT mimName (#PCDATA)>
+<!ELEMENT mimVariant (#PCDATA)>
+<!ELEMENT mimVersion (#PCDATA)>                             
+<!ELEMENT mimRelease (#PCDATA)>
+<!ELEMENT mimCorrection (#PCDATA)>
+
+<!ELEMENT inheritance (domainExtension*, superclass, subclass )>
+<!ELEMENT superclass (description?, applicationTag?, hasClass)>
+<!ELEMENT subclass (description?, applicationTag?, hasClass)>
+
+<!-- ordering method is e.g. "ascending" or "descending" based on the attribute with the orderKey tag. If ordering is omitted the default order is unspecified -->
+<!-- The values to use and the interpretation is specified by the Meta Models -->
+<!ELEMENT ordering EMPTY>
+<!ATTLIST ordering method CDATA #REQUIRED> 
+
+
+<!-- Detailed Revision History
+Rev G edavsun 2013-09-09
+
+Alternative encoding of min/max pairs since current encoding not correct. (stringLength and rnges)
+Added isPassphrase to indicate passwords etc that Presentation Layer may act upon.
+Added Integer as data type
+Added exceptionText to validationRules
+Added notNillable to moRef to support Multiplicity [1..1]
+Added decisionPoint to CommonSpecifier to support Optionality
+Added modelFeatures to mim and mib to support Optionality
+Added isNillable and commonSpecifier to parameters (was missing)
+Added lifCycleSpecifier to exceptionParameter (added for completeness)
+Added defaultValue to unidir association
+Added isReserving and restricted to associationEnd
+Added notCreatable and notDeletable to Containment to support systemCreated but on the containment
+
+
+Rev F edavsun 2013-01-10
+Added 'correction' as identification of a mim/mib. Correction is an additional number to version/release to allow correction updates of older version/release mim/mibs
+
+Clarification of meaning of 'ordered' and 'nonUnique' with reference to 32.156 (editorial only)
+
+Rev E1 edavsun 2012-10-09
+Added domainExtension to derivedDataType
+
+Rev PB6 edavsun 2012-01-03
+Changed domainExtension? to domainExtension*
+
+Rev PB5 edavsun 2011-12-06
+Added yangs binary64 as data type
+Added comments to a lot of tags to explain their interpretation
+ 
+Rev PE4 edavsun 2011-10-20
+Added elements to support ECIM Meta Model rev B
+
+Rev PE3 erajaik 2011-06-10
+Renamed the following elements:
+  attributeValue          ->   value (reusing the already existing definition)
+  sequenceAttributeValue  ->   seqValue
+  structValue             ->   complexValue
+  sequenceStructValue     ->   complexSeqValue
+  structMemberValue       ->   slot (i.e recursively using the slot definition)
+Removed the definitions of attributeValue and structMemberValue since no longer needed.
+
+Rev PE2 erajaik 2011-06-09
+Changed object dn attribute to parentDn after MOM Forum review.
+
+Rev PE1 erajaik 2011-05-11
+Added mib, object, slot, attributeValue, structValue, structMemberValue, sequenceAttributeValue, sequenceStructValue tags.
+Changed from class+ to class* in mim tag.
+
+Rev D  erasodd 2010-02-12
+Added domainExtension
+Added transactionConstraints on moClass attribute and action
+Added transactionRequired on attribute and moClass
+Added comments to specifiers. 
+Added momMetaData and dtdVersion for DWAXE tools
+Added root to classSpecifier
+Added minLength and ordered to sequence
+Added author, contact, date, docNo, revision, namespace, namespacePrefix, organization to mim
+Added mimName and mimVersion to MoRef
+Added notImplemented to commonSpecifiers
+Added mimName and mimVersion to enumRef and structRef
+Added key to attribute
+Added derivedDataTypes to sequence and struct
+Added declaration of noRestart, moRestart, nodeRestart, lockBeforeExecute
+Added precondition to Class
+Added commonSpecifiers to relationships.
+Added hasClass to uniDirecAssociation.
+Added yangTypes, derivedDataTypeRef, targetNameSpace, mountNameSpace, mountPoint
+runtime, cached, internallyRW, restartType
+Added on Class: visibility, dependenciesScript, obsolete
+Added on Attribute: visibility, dependenciesScript, obsolete, feature, date, time, ipAddress, macAddress
+Added on Action: visibility, dependenciesScript, obsolete
+Added on associationEnd: mimClass, mimVersion, mimName. hasClass is changed to optional.
+
+Rev Pd20 erasodd 2010-02-02
+Changes after review. 
+Removed double specification of signature and name.
+Removed intraMib
+Added domainExtension
+Added transactionConstraints on moClass attribute and action
+Added transactionRequired on attribute and moClass
+Added comments to specifiers. 
+
+Rev PD19 erasodd 2010-01-18
+Correted syntax for docDate
+
+Rev PD18 erasodd 2010-01-15
+Added momMetaData and dtdVersion for DWAXE tools
+
+Rev PD17 erasodd 2009-12-23
+Changed cardinality according WRNae71840 to be deterministic
+Changed commonSpecifier and behaviorSpecifaier to be deterministic.
+Added metaData in models for MOM2HTML
+
+Rev PD16 erasodd/erajaik 2009-12-03
+Added root to classSpecifier
+Added minLength and ordered to sequence
+Removed mountNamespace and mountPoint from mim
+Added author, contact, date, docNo, revision, namespace, namespacePrefix, organization to mim
+Added dtdDocNo and dtdRevision to the models attributeList
+Removed pure, cached, internallyRW, persistent, runtime from specifiers.
+
+RevPD15 erasodd 2009-11-02
+Changed notImplemented to interfaceOnly and and added getValue
+
+Rev PD14 erajaik 2009-10-31
+Corrections to notImplemented, structRef and moRef.
+
+Rev PD13 erasodd 2009-10-27
+Added mimName and mimVersion to MoRef
+Added notImplemented to commonSpecifiers
+
+Rev PD12 erasodd 2009-10-19
+Added mimName and mimVersion to enumRef and structRef
+Added key to attribute
+
+Rev Pd11 erasodd 2009-08-24
+Added derivedDataTypes to sequence and struct
+
+Rev PD10 erasodd 2009-05-27
+Replaced booleanVals with PCDATA
+Removed  ELEMENT true EMPTY and ELEMENT false EMPTY
+
+Rev PD9 erasodd 2009-04-24
+Added mimName and mimVersion to derivedDataTypeRef due to that the types can be in an other mim
+Added Specification to  commonSpecifiers
+
+Rev PD8 erasodd 2009-04-20
+Removed dubble declarations of mimName and mimVersion
+Added declaration of noRestart, moRestart, nodeRestart, lockBeforeExecute
+Corrected format of derivedDataTypes,
+Added precondition to Class
+
+Rev PD7 erasodd 2009-04-08
+Approved at MOM Forum with the changes:
+Added undefinedValue to string
+Changed ipAddress to ipV4Address and ipV6Address
+Removed float32, float64 from yangTypes due to they are removed from the Yang specification
+
+Rev PD6 erasodd 2009-04-07
+Removed extra "|" in relationship.
+Moved implementationSpecifier in attribute.
+
+Rev PD5 erasodd 2009-04-07
+Added commonSpecifiers to relationships.
+Added hasClass to uniDirecAssociation.
+
+Rev PD4 erasodd 2009-04-06
+Changed delimeter from - to : in format for time. 
+Removed boolean and string from yangtypes
+Contcatinated the suggestions from David Sundqvist and Mark Hollmann.
+Removed unused: softlink, support, associationClass
+
+Rev PD3 David Sundqvist: Restructed for better readability
+
+Rev. PD2  23.Mars.2009 erasodd: Added visiblitiyFilter on class, attribute and action.
+Changed delimeter from - to : in format for time. 
+Removed boolean and string from yangtypes
+
+Rev. PD1  20.Mar.2009 erasodd:
+TSP-SAF and STN tags added:
+yangTypes, derivedDataTypeRef, targetNameSpace, mountNameSpace, mountPoint
+runtime, cached, internallyRW, restartType
+
+Rev. PD1  20.Mar.2009 erasodd: New additions:
+On Class: visibility, dependenciesScript, obsolete
+On Attribute: visibility, dependenciesScript, obsolete, feature, date, time, ipAddress, macAddress
+On Action: visibility, dependenciesScript, obsolete
+On associationEnd: mimClass, mimVersion, mimName. hasClass is changed to optional.
+
+Rev. C - 24.Jan.2008 - Mark Hollmann (eeimhln) - Updated after approval by MOM Forum as follows:
+
+Counter types removed: peg, gauge, pdf, acc, ddm, scan, trigAcc, trigScan
+
+<!ELEMENT counterType (peg | gauge | pdf | acc | ddm | scan | trigAcc | trigScan)> 
+changed to:
+<!ELEMENT counterType (#PCDATA)> 
+
+<!ELEMENT sequence ((%corbaTypes; | enumRef | structRef | moRef), (maxLength | enumRef)?, nonUnique?, seqDefaultValue?)> 
+changed to:
+<!ELEMENT sequence ((%corbaTypes; | enumRef | structRef | moRef), maxLength?, nonUnique?, seqDefaultValue?)> 
+                                     
+-->

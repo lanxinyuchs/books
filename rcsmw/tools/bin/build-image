@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+source ${MODULESHOME-/app/modules/0}/init/bash
+
+module use /app/rbs/modules
+module use /app/rbs/cs/modules
+module use ${TOPDIR}/modules
+module add makevm
+
+in=$1
+out=$2
+
+# create the bootable VM image.
+exec /app/rcs-ee/vrcs/tools/rcs-ee_make_vm.sh -U ${in} -i -o ${out}

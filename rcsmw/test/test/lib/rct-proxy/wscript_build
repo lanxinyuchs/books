@@ -1,0 +1,3 @@
+erl  = bld.path.ant_glob("esrc/*.erl")
+bld(source=erl)
+bld.install_files('rct-proxy/ebin', [f.change_ext('.beam') for f in erl])

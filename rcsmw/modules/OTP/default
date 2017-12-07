@@ -1,0 +1,30 @@
+#%Module1.0
+#	$Id$
+#	$Source$
+
+set bls	 	$env(TOPDIR)/skeleton/CIdata.txt.skeleton
+set vsn	 	[exec ci_data.sh -f $bls -a read -i 601 -p 14 ]
+set top  	[exec ci_data.sh -f $bls -a read -i 601 -p 13 ]
+set url  	[exec ci_data.sh -f $bls -a read -i 601 -p 15 ]
+set arch 	[exec arch]
+set safeotproot	[file dirname $top]/sim32_dummy/tgt_i686
+
+module-whatis 	"Version tag: $vsn - $url"
+
+prepend-path PATH	$top/$arch/bin
+
+setenv OTP_ROOT 	$top/$arch
+setenv OTP		$top/$arch/lib/erlang
+setenv SAFE_OTP_ROOT	$safeotproot
+
+# Needed for "crypt" functions in "erlc", ...
+module load zlib/1.2.8 openssl/1.0.1g openssh/7.6p1
+
+#
+# History of changes
+# $Log$
+#
+# Emacs support
+# Local Variables:
+# mode:tcl
+# End:

@@ -1,0 +1,120 @@
+#!/bin/sh
+#
+##
+## Copyright (c) 2009-2014 Ericsson AB.
+##
+## All Rights Reserved. Reproduction in whole or in part is prohibited
+## without the written consent of the copyright owner.
+##
+## ERICSSON MAKES NO REPRESENTATIONS OR WARRANTIES ABOUT THE
+## SUITABILITY OF THE SOFTWARE, EITHER EXPRESS OR IMPLIED, INCLUDING
+## BUT NOT LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY,
+## FITNESS FOR A PARTICULAR PURPOSE, OR NON-INFRINGEMENT. ERICSSON
+## SHALL NOT BE LIABLE FOR ANY DAMAGES SUFFERED BY LICENSEE AS A
+## RESULT OF USING, MODIFYING OR DISTRIBUTING THIS SOFTWARE OR ITS
+## DERIVATIVES.
+##
+##
+
+# The script is designed to work in a limited linux environment where the support of certain utilities
+# like for instance ps and pgrep varies.
+# This is a bourne shell script and is free from any non compatible syntax (e.g bash specific features)
+
+# RCS additions: start
+
+call_erl() {
+    RCS_ERL_CALL=$(ls /home/sirpa/software/*MW*/*/sys-*/priv/bin/rcs_erl_call.sh)
+    ${RCS_ERL_CALL} appmServer comea_snmp $@
+}
+
+# RCS additions: stop
+
+if [ -z ${COMEA_ROOT_DIR} ]; then
+    COMEA_ROOT_DIR="/opt/com/comea/"
+fi
+
+VERSION="1.2"
+NAME=`basename $0`
+
+error() {
+    echo $NAME error: $1 >&2
+}
+
+help () {
+    echo "usage: $NAME <command> <sub-command> [options] [args]"
+    echo "commands:"
+    echo "  help                      Display this help information"
+    echo "  version                   Display version information"
+    echo "  spi-revision              Display COMEA SPI revision information"
+    echo "  terminate                 Clean-up all allocated resources"
+    echo "  snmp                      Manage Net-SNMP availability and configuration"
+    echo "  netconfssh                Configure Netconf Port number"
+    echo "  clissh                    Configure Cli Port number"
+    echo "  file-system               Configuration utility for COM File Management"
+    echo "  pso                       System persistent root storage locations (PSO API)"
+    echo "  authentication            Set authentication type"
+    echo "  authentication ldap       Set LDAP authentication configuration"
+    echo "  authorization ldap search Get roles of an user by using LDAP search"
+}
+#logger "comea: $@"
+case $1 in
+    "help")
+        help
+        ;;
+    "version")
+        echo $VERSION
+        ;;
+    "spi-revision")
+        ${COMEA_ROOT_DIR}/scripts/comea-spi-revision $@
+        ;;
+    "terminate")
+	# RCS changes in this clause
+	if [ "$RCS_MODE" == "target" ]; then
+            echo "snmp $@" > /tmp/comea-snmp-args
+	    call_erl stop
+	else
+            ${COMEA_ROOT_DIR}/scripts/comea-snmp snmp $@
+	fi
+        ;;
+    "snmp")
+	# RCS changes in this clause
+	if [ "$RCS_MODE" == "target" ]; then
+	    echo "$@" > /tmp/comea-snmp-args
+	    call_erl $2
+	else
+	    ${COMEA_ROOT_DIR}/scripts/comea-snmp $@
+	    
+	fi
+        ;;
+    "netconfssh")
+        ${COMEA_ROOT_DIR}/scripts/comea-ssh $@
+	;;
+    "clissh")
+        ${COMEA_ROOT_DIR}/scripts/comea-ssh $@
+	;;
+    "file-system")
+        ${COMEA_ROOT_DIR}/scripts/comea-file-system $@
+        ;;
+    "pso")
+        if [ "$RCS_MODE" == "target" ] && [ "$2" == "no-backup" ]; then
+           echo "${RCS_ROOT}/tmp"
+        else 
+            ${COMEA_ROOT_DIR}/scripts/comea-pso $@
+        fi
+        ;;
+    "authentication")
+		${COMEA_ROOT_DIR}/scripts/comea-authentication-method-set "$@"
+	    ;;
+    "authorization")
+        error "Option authorization is obsolete."
+        exit 1
+	    ;;
+    "")
+        error "Command must be specified." && help
+        exit 1
+        ;;
+    *)
+        error "Unknown command."
+        exit 1
+        ;;
+esac

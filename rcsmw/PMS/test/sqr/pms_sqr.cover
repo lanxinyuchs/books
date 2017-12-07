@@ -1,0 +1,2 @@
+{excl_mods,['RcsPm','PM_mp',pmsAppData,pmsAppJobI,pmsDataInit,pmsDataUpgrade,pmsDebug,pmsEnv,pmsFileLog,pmsFileLogServer,pmsI,pmsLog,pmsSftpdEnv,pmsShowCounters2]}.
+{expected_coverage, 70}.

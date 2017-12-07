@@ -1,0 +1,2 @@
+{excl_mods, ['RcsPMEventM', pesAppData, pesDataInit, pesDataUpgrade, pesDebug, pesEnv, pesLog, pesProducer, pesSshSftpdFile]}.
+{expected_coverage, 50 }.

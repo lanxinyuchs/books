@@ -1,0 +1,16 @@
+%%% -*- erlang -*-
+
+%%%-----------------------------------------------------------------------------
+%%% @author etxpeno
+%%% @copyright Ericsson AB 2014-2015
+%%% @doc
+%%%
+%%% @end
+%%% Created :  6 May 2014 by ETXPENO
+%%%-----------------------------------------------------------------------------
+{define, 'Basic', "/vobs/rcs/dev/RCP_CSX10179/RCT_CRX901275/test/suites/install"}.
+{define, 'Local', "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/CLH/CLH_CNX9012931/test/suites"}.
+
+{cases, 'Basic', basic_tests_SUITE, [all]}.
+{cases, 'Local', csi_c_SUITE, [all]}.
+{cases, 'Local', chi_c_SUITE, [all]}.

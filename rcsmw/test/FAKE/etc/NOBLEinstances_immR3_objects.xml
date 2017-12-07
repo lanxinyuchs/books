@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+	Copyright (c) 2016 Ericsson AB. 
+	All rights reserved 
+
+	DX ECIM Tool-chain generated this file on Apr 9, 2016 2:57:13 PM using:
+	* com.ericsson.ecim.coremw.m2m 2.14.5.201511210257
+	* com.ericsson.ecim.coremw.dsl 2.14.5.201511210257
+	* com.ericsson.ecim.coremw.imm 2.14.5.201511210257
+--><imm:IMM-contents xmlns:imm="http://www.saforum.org/IMMSchema" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.saforum.org/IMMSchema SAI-AIS-IMM-XSD-A.02.13.xsd">
+    <object class="NOBLEHelium">
+        <dn>NOBLEheliumId=1</dn>
+    </object>
+    <object class="NOBLENeon">
+        <dn>neonId=1,NOBLEheliumId=1</dn>
+    </object>
+    <object class="NOBLEArgon">
+        <dn>argonId=1,neonId=1,NOBLEheliumId=1</dn>
+    </object>
+    <object class="NOBLEKrypton">
+        <dn>kryptonId=1,argonId=1,neonId=1,NOBLEheliumId=1</dn>
+    </object>
+</imm:IMM-contents>

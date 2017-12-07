@@ -1,0 +1,107 @@
+<!--
+# ========================================================== 
+# %CCaseFile:	alarm.xml % 
+# %CCaseRev:	/main/R2A/R3A/R9A/1 % 
+# %CCaseDate:	2017-03-06 % 
+#                                                            
+# Author:	etxpejn
+# Description:  Alarm registrations file
+#                                                            
+# ========================================================== 
+#                                                            
+# %CCaseCopyrightBegin%
+# Copyright (c) Ericsson AB 2013-2017 All rights reserved.
+# 
+# The information in this document is the property of Ericsson.
+# 
+# Except as specifically authorized in writing by Ericsson, the 
+# receiver of this document shall keep the information contained 
+# herein confidential and shall protect the same in whole or in 
+# part from disclosure and dissemination to third parties.
+# 
+# Disclosure and disseminations to the receivers employees shall 
+# only be made on a strict need to know basis.
+# %CCaseCopyrightEnd%
+#                                                            
+# ========================================================== 
+# REVISION LOG 
+# ========================================================== 
+#                                                            
+# Rev        Date         Name        What 
+# ========   ========     ========    ======================== 
+# R2A/1      2013-11-21   etxpejn     Created 
+# R2A/2      2013-11-27   etxpejn     Corrected alarm info from ECIM LM UC 
+# R2A/3      2014-01-14   etxpejn     Added AutonomousMode alarm
+# R2A/4      2014-02-26   etxpejn     Updated alarm info
+# R2A/5      2014-08-19   etxpejn     Changed moClass for KeyFileFault & LicenseKeyNotAvailable
+# R2A/6      2014-10-03   etxpejn     Changes according to TR HS98214
+# R2A/8      2014-11-10   etxpejn     Changed moClass for LicenseKeyNotAvailable due to HT19678
+# R3A/1      2014-11-26   etxpejn     Added GracePeriodActivated
+# R9A/1      2017-03-06   etxpejn     Added LicenseKeyCloseToExpiration
+# ========================================================== 
+#
+# 
+-->                                                         
+
+<appdata target="alarm">
+  <alarmtype
+      name="KeyFileFault"
+      majorType="193"
+      minorType="9175046"
+      moClasses="Lm"
+      specificProblem="License Key File Fault"
+      eventType="PROCESSINGERRORALARM"
+      probableCause="307"
+      isStateful="true"
+      additionalText="Key file fault in Managed Element"/>
+  <alarmtype
+      name="LicenseKeyNotAvailable"
+      majorType="193"
+      minorType="9175047"
+      moClasses="FeatureState"
+      specificProblem="License Key Not Available"
+      eventType="PROCESSINGERRORALARM"
+      probableCause="307"
+      isStateful="true"
+      additionalText="Key missing for feature or capacity"/>
+  <alarmtype
+      name="EmergencyUnlockResetKeyRequired"
+      majorType="193"
+      minorType="9175048"
+      moClasses="EmergencyUnlock"
+      specificProblem="Emergency Unlock Reset Key Required"
+      eventType="QUALITYOFSERVICEALARM"
+      probableCause="343"
+      isStateful="true"
+      additionalText="Emergency Unlock Reset Key required"/>
+  <alarmtype
+      name="AutonomousModeActivated"
+      majorType="193"
+      minorType="9175049"
+      moClasses="AutonomousMode"
+      specificProblem="Autonomous Mode Activated"
+      eventType="COMMUNICATIONSALARM"
+      probableCause="306"
+      isStateful="true"
+      additionalText="Autonomous Mode has been activated"/>
+  <alarmtype
+      name="GracePeriodActivated"
+      majorType="193"
+      minorType="9175051"
+      moClasses="GracePeriod"
+      specificProblem="Grace Period Activated"
+      eventType="QUALITYOFSERVICEALARM"
+      probableCause="351"
+      isStateful="true"
+      additionalText="Grace Period Activated"/>
+  <alarmtype
+      name="LicenseKeyCloseToExpiration"
+      majorType="193"
+      minorType="9175204"
+      moClasses="Lm"
+      specificProblem="License Key Close to Expiration"
+      eventType="PROCESSINGERRORALARM"
+      probableCause="307"
+      isStateful="true"
+      additionalText=""/>
+</appdata>

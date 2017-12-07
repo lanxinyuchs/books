@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Copyright (c) 2015 Ericsson AB. 
+	All rights reserved 
+
+	DX ECIM Tool-chain generated this file on Apr 27, 2015 9:46:00 AM using:
+	* com.ericsson.ecim.m2m 2.12.0.201410170020
+	* com.ericsson.ecim.dsl 2.12.0.201410170020
+	* com.ericsson.ecim.edm 2.12.0.201410170020
+--><!DOCTYPE models SYSTEM "mp.dtd">
+<models>
+  <dtdVersion>G</dtdVersion>
+  <momMetaData>
+    <momTitle>title</momTitle>
+    <momSubTitle>sub title</momSubTitle>
+    <momIdentity>
+      <docNum>0</docNum>
+      <docLang>English</docLang>
+      <docRev>0</docRev>
+      <docDate>date</docDate>
+    </momIdentity>
+  </momMetaData>
+  <mim author="" contact="" correction="0" date="" docNo="" name="DEMO" namespace="urn:com:ericsson:ecim:DEMO" namespacePrefix="demo" organization="" release="1" revision="" version="1">
+    <description>_</description>
+    <domainExtension domain="ECIM">
+      <extension name="immNamespace" value="MOM_NAME"/>
+    </domainExtension>
+    <class name="Root">
+      <description>_</description>
+      <root/>
+      <attribute name="rootId">
+        <description>-</description>
+        <mandatory/>
+        <noNotification/>
+        <restricted/>
+        <key/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+    </class>
+    <class name="Leaf">
+      <description>_</description>
+      <attribute name="leafId">
+        <description>_</description>
+        <mandatory/>
+        <noNotification/>
+        <restricted/>
+        <key/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="area">
+        <description>_</description>
+        <mandatory/>
+        <dataType>
+          <int32/>
+        </dataType>
+      </attribute>
+      <attribute name="shape">
+        <description>_</description>
+        <mandatory/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+    </class>
+    <relationship name="Root_to_Leaf">
+      <containment>
+        <parent>
+          <hasClass name="Root">
+            <mimName>DEMO</mimName>
+          </hasClass>
+        </parent>
+        <child>
+          <hasClass name="Leaf">
+            <mimName>DEMO</mimName>
+          </hasClass>
+          <cardinality>
+            <min>0</min>
+          </cardinality>
+        </child>
+      </containment>
+    </relationship>
+  </mim>
+  <interMim>
+    <relationship name="ManagedElement_to_Root">
+      <domainExtension domain="CoreMW">
+        <extension name="splitImmDn" value="true"/>
+      </domainExtension>
+      <containment>
+        <parent>
+          <hasClass name="ManagedElement">
+            <mimName>ECIM_Top</mimName>
+          </hasClass>
+        </parent>
+        <child>
+          <hasClass name="Root">
+            <mimName>DEMO</mimName>
+          </hasClass>
+          <cardinality>
+            <min>1</min>
+            <max>1</max>
+          </cardinality>
+        </child>
+      </containment>
+    </relationship>
+  </interMim>
+</models>

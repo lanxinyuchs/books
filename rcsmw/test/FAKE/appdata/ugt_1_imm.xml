@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+# ==========================================================
+# %CCaseFile:	ugt_1_imm.xml %
+# %CCaseRev:	/main/R2A/R3A/R4A/R12A/1 %
+# %CCaseDate:	2017-10-26 %
+#
+# Author:	erarafo
+# Description:  Metadata of MO classes used in tests of upgrade.
+#
+# ==========================================================
+#
+# %CCaseCopyrightBegin%
+# Copyright (c) Ericsson AB 2013-2017 All rights reserved.
+# 
+# The information in this document is the property of Ericsson.
+# 
+# Except as specifically authorized in writing by Ericsson, the 
+# receiver of this document shall keep the information contained 
+# herein confidential and shall protect the same in whole or in 
+# part from disclosure and dissemination to third parties.
+# 
+# Disclosure and disseminations to the receivers employees shall 
+# only be made on a strict need to know basis.
+# %CCaseCopyrightEnd%
+#
+# ==========================================================
+# REVISION LOG
+# ==========================================================
+#
+# Rev        Date         Name        What
+# ========   ==========   ========    ========================
+# R2A/2      2013-10-09   erarafo     Added copyright info
+# R2A/3      2013-10-11   erarafo     Support upgrade where these schemas
+#                                     are used as To-version as well
+# R2A/4      2013-10-25   erarafo     3-level schema versioning
+# R2A/5      2013-11-19   etxberb     Changed schemaName to separate element
+# R2A/6      2013-11-26   etxberb     Deleted multiple "demo" schemas
+# R3A/1      2015-04-23   erarafo     Added persistent runtime classes S1V3Coe, S1V2Ovett
+# R4A/1      2015-04-27   erarafo     Added persistent runtime classes S1V2Cram, S1V2Nurmi
+# R12A/1     2017-10-26 etxarnu     Updates for git 
+# ==========================================================
+-->
+<appdata target="gmfImm">
+  <immInfos>
+    <immInfo file="S0_imm_classes.xml" path="*/fake-*/priv" fileType="classes">
+      <schema name="s0" version="2" release="7">
+        <fromVersions>
+          <fromVersion version="2"/>
+          <fromVersion version="1" release="5"/>
+          <fromVersion version="0"/>
+        </fromVersions>
+      </schema>
+    </immInfo>
+    <immInfo file="S1V0_imm_classes.xml" path="*/fake-*/priv" fileType="classes"/>
+    <immInfo file="S1V1_imm_classes.xml" path="*/fake-*/priv" fileType="classes"/>
+    <immInfo file="S1V2_imm_classes.xml" path="*/fake-*/priv" fileType="classes">
+      <schema name="s1v2" version="2" release="7" correction="2">
+        <fromVersions>
+          <fromVersion version="2"/>
+          <fromVersion version="1" release="5" correction="3"/>
+        </fromVersions>
+      </schema>
+    </immInfo>
+    <immInfo file="S1V3_imm_classes.xml" path="*/fake-*/priv" fileType="classes">
+      <schema name="s1v3" version="2" release="7" correction="1">
+        <fromVersions>
+          <fromVersion version="2"/>
+        </fromVersions>
+      </schema>
+    </immInfo>
+    <immInfo file="DEMO_imm_classes.xml" path="*/fake-*/priv" fileType="classes">
+      <schema name="demo" version="2" release="7" correction="21">
+        <fromVersions>
+          <fromVersion version="2"/>
+          <fromVersion version="1"/>
+          <fromVersion version="0"/>
+        </fromVersions>
+      </schema>
+    </immInfo>
+    <immInfo file="S0instances_imm_objects.xml" path="*/fake-*/priv" fileType="objects"/>
+    <immInfo file="S1V0instances_imm_objects.xml" path="*/fake-*/priv" fileType="objects"/>
+    <immInfo file="S1V1instances_imm_objects.xml" path="*/fake-*/priv" fileType="objects"/>
+    <immInfo file="S1V2instances_imm_objects.xml" path="*/fake-*/priv" fileType="objects"/>
+    <immInfo file="S1V3instances_imm_objects.xml" path="*/fake-*/priv" fileType="objects"/>
+    <immInfo file="DEMOinstances_imm_objects.xml" path="*/fake-*/priv" fileType="objects"/>
+  </immInfos>
+</appdata>

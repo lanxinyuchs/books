@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Copyright (c) 2012 Ericsson AB.
+  All rights reserved
+
+  DX ECIM Tool-chain generated this file on Apr 12, 2012 5:34:06 PM using
+    * ecim.m2m (2.0.3.201112211750)
+    * ecim.m2t (2.0.3.201112211750)
+    * ecim.dsl (2.0.3.201112211750)
+    * ecim.edm (2.0.3.201112211750)
+-->
+<!DOCTYPE models SYSTEM "mp.dtd">
+<models>
+<dtdVersion>D</dtdVersion>
+<momMetaData>
+    <momTitle>title</momTitle>
+    <momSubTitle>sub title</momSubTitle>
+    <momIdentity>
+      <docNum>0</docNum>
+      <docLang>English</docLang>
+      <docRev>0</docRev>
+      <docDate>date</docDate>
+    </momIdentity>
+  </momMetaData>
+<interMim>
+    <relationship name="ManagedElement_to_RcsFunction">
+      <containment>
+        <parent>
+          <hasClass name="ManagedElement">
+            <mimName>ECIM_Top</mimName>
+          </hasClass>
+        </parent>
+        <child>
+          <hasClass name="RcsFunction">
+            <mimName>RCS_FAKE</mimName>
+          </hasClass>
+          <cardinality>
+            <min>1</min>
+            <max>1</max>
+          </cardinality>
+        </child>
+      </containment>
+    </relationship>
+  </interMim>
+<mim author="etxjotj" contact="" date="" docNo="" name="RCS_FAKE" namespace="urn:com:ericsson:ecim:RCS_FAKE" namespacePrefix="rcs_fake" organization="" release="1" revision="" version="0" correction="0">
+    <description>This is a test model for RCS</description>
+    <class name="RcsFunction">
+      <description>Root element for the rcsFunction test MOM</description>
+      <systemCreated/>
+      <root/>
+      <attribute name="rcsFunctionId">
+        <description>Is always &quot;1&quot;</description>
+        <mandatory/>
+        <noNotification/>
+        <restricted/>
+        <key/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="int64">
+        <description>Simple integer value mandatory with default</description>
+        <noNotification/>
+        <dataType>
+          <int64>
+            <defaultValue>47</defaultValue>
+          </int64>
+        </dataType>
+      </attribute>
+    </class>
+  </mim>
+</models>

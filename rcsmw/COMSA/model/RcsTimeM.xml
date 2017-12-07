@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Copyright (c) 2015 Ericsson AB. 
+	All rights reserved 
+
+	DX ECIM Tool-chain generated this file on Jun 23, 2015 10:18:01 PM using:
+	* com.ericsson.ecim.m2m 2.14.1.201504211247
+	* com.ericsson.ecim.dsl 2.14.1.201504211247
+	* com.ericsson.ecim.edm 2.14.1.201504211247
+--><!DOCTYPE models SYSTEM "mp.dtd">
+<models>
+  <dtdVersion>G</dtdVersion>
+  <momMetaData>
+    <momTitle>title</momTitle>
+    <momSubTitle>sub title</momSubTitle>
+    <momIdentity>
+      <docNum>3/155 54-CNX 901 2610</docNum>
+      <docLang>English</docLang>
+      <docRev>0</docRev>
+      <docDate>2015-06-23</docDate>
+    </momIdentity>
+    <createdBy>
+      <signature>ETXJOTJ</signature>
+    </createdBy>
+  </momMetaData>
+  <mim author="ETXJOTJ" contact="ETXJOTJ" correction="1" date="2015-06-23" docNo="3/155 54-CNX 901 2610" name="RcsTimeM" namespace="urn:com:ericsson:ecim:RcsTimeM" namespacePrefix="rcstimem" organization="FJP/HD" release="2" revision="" version="1">
+    <description>The fragment contains the System time management attributes.</description>
+    <domainExtension domain="ECIM">
+      <extension name="ecimMomName" value="ECIM_TimeM"/>
+      <extension name="ecimMomVersion" value="1"/>
+      <extension name="ecimMomRelease" value="1"/>
+      <extension name="ecimMomCorrection" value="0"/>
+    </domainExtension>
+    <implements correction="0" name="ECIM_TimeM" release="1" version="1"/>
+    <derivedDataType name="DifferenceFromUTC">
+      <description>Time zone difference between the local current time  and Coordinated Universal Time (UTC).&#13;
+The format is as follows:&#13;
+[+/-]hh:mm&#13;
+&#13;
+It is expressed as positive (that is, with the leading plus sign [+]) if the local time is ahead of or equal to UTC of day and as negative (that is, with the leading minus sign [-]) if it is behind the UTC of day.&#13;
+Example:  +01:00</description>
+      <domainExtension domain="ECIM">
+        <extension name="originatingMimVersion" value="2"/>
+        <extension name="originatingMimName" value="ECIM_CommonLibrary"/>
+        <extension name="originatingMimRelease" value="0"/>
+      </domainExtension>
+      <baseType>
+        <string>
+          <lengthRange>
+            <min>6</min>
+            <max>6</max>
+          </lengthRange>
+          <stringLength>
+            <subrange>
+              <min>6</min>
+              <max>6</max>
+            </subrange>
+          </stringLength>
+          <validValues>^([+|-])(0[0-9]|1[0-9]|2[0-4]):([0-5][0-9])$</validValues>
+        </string>
+      </baseType>
+      <validationRules>
+        <rule exceptionText="" format="posix_ere" name="Pattern Constraint"><![CDATA[^([+|-])(0[0-9]|1[0-9]|2[0-4]):([0-5][0-9])$]]></rule>
+      </validationRules>
+    </derivedDataType>
+    <derivedDataType name="DateTime">
+      <description>Represents the international standard for the representation of date and time ( ISO 8601).&#13;
+The string format is "YYYY-MM-DDThh:mm:ss.SSSZ" (excluding quotes).&#13;
+A DateTime string consists of a date part, a time part, and an optional time zone information part. The time zone part may be a "Z", representing the Coordinated Universal Time (UTC) time zone (equals to +00) or a time zone offset (for example, +02:00).&#13;
+If the time zone part is not present, the DateTime value represents local time.&#13;
+&#13;
+The following pattern describes the DateTime format:&#13;
+YYYY-MM-DDThh:mm:ss[.S+][Z|+-hh:mm]&#13;
+Where:&#13;
+YYYY = Four digit year&#13;
+MM = Two digit month (01=January, and so on)&#13;
+DD = Two digit day of month (01 through 31)&#13;
+T = Time designator (shows start of time component)&#13;
+hh = Two digits of hour (00 through 23, AM/PM not allowed)&#13;
+mm = Two digits of minute (00 through 59)&#13;
+ss = Two digits of second (00 through 59, leap second not allowed)&#13;
+S+ = One or more digits of decimal fraction of a second&#13;
+Z = Time is UTC&#13;
++- = + or - character indicating positive or negative offset to UTC &#13;
+&#13;
+DateTime values are compliant with ISO 8601 "Representation of dates and times" but are restricted according to RFC 3339 "Date and Time on the Internet: Timestamps". The DateTime format is further restricted as follows:&#13;
+- T and Z designators are upper case.&#13;
+- . (dot) is used to indicate start of fractions of seconds (ISO 8601 also allows comma)&#13;
+&#13;
+</description>
+      <domainExtension domain="ECIM">
+        <extension name="originatingMimVersion" value="2"/>
+        <extension name="originatingMimName" value="ECIM_CommonLibrary"/>
+        <extension name="originatingMimRelease" value="0"/>
+      </domainExtension>
+      <baseType>
+        <string>
+          <lengthRange>
+            <min>19</min>
+            <max>31</max>
+          </lengthRange>
+          <stringLength>
+            <subrange>
+              <min>19</min>
+              <max>31</max>
+            </subrange>
+          </stringLength>
+          <validValues>^([0-9]{4})-(1[0-2]|0[1-9])-(0[1-9]|[1|2][0-9]|3[0-1])T(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])([\.][0-9]+){0,1}(([\+|\-](0[0-9]|1[0-9]|2[0-4])(:[0-5][0-9])?)|(Z)?)$</validValues>
+        </string>
+      </baseType>
+      <validationRules>
+        <rule exceptionText="" format="posix_ere" name="Pattern Constraint"><![CDATA[^([0-9]{4})-(1[0-2]|0[1-9])-(0[1-9]|[1|2][0-9]|3[0-1])T(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])([\.][0-9]+){0,1}(([\+|\-](0[0-9]|1[0-9]|2[0-4])(:[0-5][0-9])?)|(Z)?)$]]></rule>
+      </validationRules>
+    </derivedDataType>
+    <class name="TimeM">
+      <description>Time management concerns the calendar date and local time of the node.</description>
+      <systemCreated/>
+      <root/>
+      <attribute name="timeMId">
+        <description>Holds the name used when identifying this MO.</description>
+        <mandatory/>
+        <noNotification/>
+        <restricted/>
+        <key/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+    </class>
+    <class name="DateAndTime">
+      <description>Local time and time zone values.</description>
+      <systemCreated/>
+      <attribute name="dateAndTimeId">
+        <description>Holds the name used when identifying this MO.</description>
+        <mandatory/>
+        <noNotification/>
+        <restricted/>
+        <key/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="timeZone">
+        <description>The timezone of the ME.&#13;
+&#13;
+A timezone is a region that has a uniform standard time. The string must match an entry in the ME's time zone database, for example 'Europe/Stockholm'.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <isNillable/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="localDateTime">
+        <description>The local date and time of the ME.&#13;
+&#13;
+Local time is standard time in a timezone at a fixed offset from Coordinated Universal Time (UTC), possibly adjusted by Daylight Saving Time (DST) during part of the year.&#13;
+</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <noNotification/>
+        <readOnly/>
+        <isNillable/>
+        <dataType>
+          <derivedDataTypeRef name="DateTime">
+            <mimName>RcsTimeM</mimName>
+          </derivedDataTypeRef>
+        </dataType>
+      </attribute>
+      <attribute name="dateTimeOffset">
+        <description>The offset in hours and minutes from UTC to local time.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <readOnly/>
+        <isNillable/>
+        <dataType>
+          <derivedDataTypeRef name="DifferenceFromUTC">
+            <mimName>RcsTimeM</mimName>
+          </derivedDataTypeRef>
+        </dataType>
+      </attribute>
+      <attribute name="tzRevision">
+        <description>The revision of the timezone database stored on the ME. 
+If no timezone database is installed, the value of the attribute timeZone does not affect system time.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <readOnly/>
+        <isNillable/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+    </class>
+    <relationship name="TimeM_to_DateAndTime">
+      <containment>
+        <parent>
+          <hasClass name="TimeM">
+            <mimName>RcsTimeM</mimName>
+          </hasClass>
+        </parent>
+        <child>
+          <hasClass name="DateAndTime">
+            <mimName>RcsTimeM</mimName>
+          </hasClass>
+          <cardinality>
+            <min>1</min>
+            <max>1</max>
+          </cardinality>
+        </child>
+        <domainExtension domain="ECIM">
+          <extension name="canCreate" value="false"/>
+          <extension name="canDelete" value="false"/>
+        </domainExtension>
+        <notCreatable/>
+        <notDeleteable/>
+      </containment>
+    </relationship>
+  </mim>
+  <interMim>
+    <relationship name="SysM_to_TimeM">
+      <containment>
+        <parent>
+          <hasClass name="SysM">
+            <mimName>ECIM_SysM</mimName>
+          </hasClass>
+        </parent>
+        <child>
+          <hasClass name="TimeM">
+            <mimName>RcsTimeM</mimName>
+          </hasClass>
+          <cardinality>
+            <min>1</min>
+            <max>1</max>
+          </cardinality>
+        </child>
+        <domainExtension domain="ECIM">
+          <extension name="canCreate" value="false"/>
+          <extension name="canDelete" value="false"/>
+        </domainExtension>
+        <notCreatable/>
+        <notDeleteable/>
+      </containment>
+    </relationship>
+  </interMim>
+</models>

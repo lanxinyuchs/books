@@ -1,0 +1,27 @@
+APP = bld.rcsErlApp("eqs", cxaid="190", cxcid="131", appdataroot="eqs", )
+
+lpath = bld.getLib(APP)
+bpath = bld.getBin(APP)
+
+bld.shlib(source="csrc/cello_pri.c", target="cello_pri", install_path=lpath, use=['tri', 'cec'], name='pri')
+bld.shlib(source="csrc/cello_vii.c", target="cello_vii", install_path=lpath, use=['tri', 'cec'], name='vii')
+bld.shlib(source="csrc/cello_buti.c", target="cello_buti", install_path=lpath, use='cec', name='buti')
+
+stub= []
+if not bld.env.LIB_rhai:
+   stub += ["csrc/eqs_rhai_mmi_stub.c"]
+
+bld.program(source=["csrc/eqs_button_ctl.c"]+stub,
+   target="eqs_buttonctl", install_path=bpath, use='rhai')
+bld.program(source=["csrc/eqs_led_ctl.c"]+stub,
+   target="eqs_ledctl", install_path=bpath, use='rhai')
+
+
+if bld.env.LIB_rhai:
+   bld.program(source="csrc/prodinfo.c",
+      target="prodinfo",
+      install_path = bld.getBin(APP), use=["rhai"])
+
+bld.install_files(bld.getBldLib("eqs"), ['libcello_pri.so', 'libcello_vii.so', 'libcello_buti.so'])
+bld.install_files(bld.getPrv(APP)+"/appdata", ['appdata/eqs_coli.xml', 'appdata/eqs_lmhi_sim.xml',
+   'appdata/eqs_lmhi_vrcs.xml', 'appdata/eqs_lmhi_vrcs64.xml', 'appdata/eqs_lmhi_arm.xml'])

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Copyright (c) 2014 Ericsson AB.
+	All rights reserved
+
+	DX ECIM Tool-chain generated this file on Sep 25, 2014 10:35:38 AM using:
+	* com.ericsson.ecim.m2m 2.10.2.201405141135
+	* com.ericsson.ecim.dsl 2.10.2.201405141135
+	* com.ericsson.ecim.edm 2.10.2.201405141135
+--><!DOCTYPE models SYSTEM "mp.dtd">
+<models>
+  <dtdVersion>G</dtdVersion>
+  <momMetaData>
+    <momTitle>title</momTitle>
+    <momSubTitle>sub title</momSubTitle>
+    <momIdentity>
+      <docNum>0</docNum>
+      <docLang>English</docLang>
+      <docRev>0</docRev>
+      <docDate>date</docDate>
+    </momIdentity>
+  </momMetaData>
+  <mim author="" contact="" correction="0" date="" docNo="" name="ReqEquipment" namespace="urn:com:ericsson:ecim:ReqEquipment" namespacePrefix="reqequipment" organization="" release="0" revision="A" version="1">
+    <description/>
+    <domainExtension domain="ECIM">
+      <extension name="immNamespace" value="NONE"/>
+    </domainExtension>
+    <derivedDataType name="ReqEquipment_Equipment_userLabel">
+      <baseType>
+        <string>
+          <lengthRange>
+            <min>1</min>
+            <max>128</max>
+          </lengthRange>
+        </string>
+      </baseType>
+    </derivedDataType>
+    <class name="Equipment">
+      <description>This MO is used as a structural element for the network element, that is, it only acts as a container for other MOs. This MO structures the equipment of the network element.&#13;
+This MO is created automatically and cannot be deleted.&#13;
+The RDN of this MO is Equipment=1. </description>
+      <systemCreated/>
+      <root/>
+      <attribute name="equipmentId">
+        <description>The value component of the RDN.&#13;
+It is set automatically when the MO instance is created.</description>
+        <mandatory/>
+        <noNotification/>
+        <restricted/>
+        <key/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="userLabel">
+        <description>userLabel.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <isNillable/>
+        <dataType>
+          <derivedDataTypeRef name="ReqEquipment_Equipment_userLabel">
+            <mimName>ReqEquipment</mimName>
+          </derivedDataTypeRef>
+        </dataType>
+      </attribute>
+    </class>
+  </mim>
+  <interMim>
+    <relationship name="ManagedElement_to_Equipment">
+      <domainExtension domain="CoreMW">
+        <extension name="splitImmDn" value="true"/>
+      </domainExtension>
+      <containment>
+        <parent>
+          <hasClass name="ManagedElement">
+            <mimName>ECIM_Top</mimName>
+          </hasClass>
+        </parent>
+        <child>
+          <hasClass name="Equipment">
+            <mimName>ReqEquipment</mimName>
+          </hasClass>
+          <cardinality>
+            <min>1</min>
+            <max>1</max>
+          </cardinality>
+        </child>
+      </containment>
+    </relationship>
+  </interMim>
+</models>

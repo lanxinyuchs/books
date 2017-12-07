@@ -1,0 +1,12 @@
+%%%-----------------------------------------------------------------------------
+%%% @author etxjovp
+%%% @copyright Ericsson AB 2012-2015
+%%% @doc
+%%%
+%%% @end
+%%% Created :  6 Nov 2012 by ETXJOVP
+%%%-----------------------------------------------------------------------------
+{merge_tests, false}.
+{define, 'Base', "../suites/install"}.
+{cases,  'Base', basic_tests_SUITE, [all]}.
+

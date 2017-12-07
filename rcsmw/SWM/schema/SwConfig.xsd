@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!--
+# ========================================================== 
+# %CCaseFile:	SwConfig.xsd % 
+# %CCaseRev:	/main/R1A/R2A/R3A/R5A/R8A/3 % 
+# %CCaseDate:	2016-11-25 % 
+#                                                            
+# Author:	etxjotj
+# Description:	XML schema definition for CXS metadata files (doc type 19089)
+#                                                            
+# ========================================================== 
+#                                                            
+# %CCaseCopyrightBegin%
+# Copyright (c) Ericsson AB 2012-2016 All rights reserved.
+# 
+# The information in this document is the property of Ericsson.
+# 
+# Except as specifically authorized in writing by Ericsson, the 
+# receiver of this document shall keep the information contained 
+# herein confidential and shall protect the same in whole or in 
+# part from disclosure and dissemination to third parties.
+# 
+# Disclosure and disseminations to the receivers employees shall 
+# only be made on a strict need to know basis.
+# %CCaseCopyrightEnd%
+#                                                            
+# ========================================================== 
+# REVISION LOG 
+# ========================================================== 
+#                                                            
+# Rev        Date       Name        What 
+# ========   ========== ========    ======================== 
+# R1A/1      2012-01-25 etxjotj     Created 
+# R1A/4      2012-02-01 etxjotj     Added elements with info neede by ECIM
+# R3A/1      2014-11-07 etxjotj     Settable value for release
+# R5A/1      2015-11-11 etxjotj     Pattern matching for date field
+# R8A/1      2016-11-08 etxjotj     Cloud configuration type
+#                                   NonEmptyStringType for product info
+# ========================================================== 
+-->                                                           
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  
+  <xs:element name="configuration" type="ConfigurationType"/>
+
+  <xs:complexType name="ConfigurationType">
+    <xs:sequence>
+      <xs:element name="product" type="ProductType" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="date" type="DateType" minOccurs="1" maxOccurs="1" />
+      <xs:element name="description" type="xs:string" minOccurs="0" maxOccurs="1" />
+      <xs:element name="type" type="xs:string" minOccurs="0" maxOccurs="1" />
+      <xs:element name="release" type="xs:string" minOccurs="0" maxOccurs="1" />
+      <xs:element name="framework" type="FrameworkType" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="contentinfo" type="ContentInfoType" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="hwSwCompatibility" type="HwSwCompatibilityType" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="boardLists" type="BoardListsType" minOccurs="0" maxOccurs="1"/>
+    </xs:sequence>
+    <xs:attribute name="type" type="ConfigurationTypeType" use="optional" />
+  </xs:complexType>
+
+  <xs:simpleType name="ConfigurationTypeType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="MSRBS-UP" />
+    </xs:restriction>
+  </xs:simpleType>
+ 
+  <xs:simpleType name="DateType">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="([0-9]{4})-(1[0-2]|0[1-9])-(0[1-9]|[1|2][0-9]|3[0-1])T(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="ProductType">
+    <xs:attribute name="name" type="NonEmptyStringType" use="required" />
+    <xs:attribute name="id" type="NonEmptyStringType" use="required" />
+    <xs:attribute name="version" type="NonEmptyStringType" use="required" />
+    <xs:attribute name="filename" type="NonEmptyStringType" use="optional" />
+  </xs:complexType>
+
+  <xs:simpleType name="NonEmptyStringType">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+
+  <xs:complexType name="FrameworkType">
+    <xs:sequence>
+      <xs:element name="product" type="ProductType" minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ContentInfoType">
+    <xs:sequence>
+      <xs:element name="product" type="ProductType" minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="HwSwCompatibilityType">
+    <xs:attribute name="index" type="xs:string" use="required" />
+  </xs:complexType> 
+
+<xs:complexType name="BoardListsType">
+    <xs:sequence>
+      <xs:element name="boardList" type="BoardListType" minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+
+  <xs:complexType name="BoardListType">
+    <xs:sequence>
+      <xs:element name="boardType" type="BoardTypeType" minOccurs="1" maxOccurs="unbounded"/>
+      <xs:element name="product" type="ProductType" minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="hwcategory" type="xs:string" use="required" />
+    <xs:attribute name="hwmodel" type="xs:string" use="required" />
+  </xs:complexType>
+
+
+  <xs:complexType name="BoardTypeType">
+    <xs:attribute name="productNumber" type="xs:string" use="required" />
+    <xs:attribute name="revision" type="xs:string" use="required" />
+  </xs:complexType>
+
+</xs:schema>

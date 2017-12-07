@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+# ==========================================================
+# %CCaseFile:	test_trace_i386.xml %
+# %CCaseRev:	/main/R2A/R5A/1 %
+# %CCaseDate:	2016-03-06 %
+#
+# Author:	erarafo
+# Description:  Metadata of an alarms program example.
+#
+# ==========================================================
+#
+# %CCaseCopyrightBegin%
+# Copyright (c) Ericsson AB 2014-2016 All rights reserved.
+# 
+# The information in this document is the property of Ericsson.
+# 
+# Except as specifically authorized in writing by Ericsson, the 
+# receiver of this document shall keep the information contained 
+# herein confidential and shall protect the same in whole or in 
+# part from disclosure and dissemination to third parties.
+# 
+# Disclosure and disseminations to the receivers employees shall 
+# only be made on a strict need to know basis.
+# %CCaseCopyrightEnd%
+#
+# ==========================================================
+# REVISION LOG
+# ==========================================================
+#
+# Rev        Date         Name        What
+# ========   ==========   ========    ========================
+# R2A/1      2014-02-18   erarafo     Created
+# R2A/2      2014-03-19   erarafo     Corrected 'id' attribute
+# ==========================================================
+-->
+<appdata target="appm"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="https://rbs-rde-dev.rnd.ki.sw.ericsson.se/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/APPM/APPM_CXA11417/schema/appm.xsd">
+
+  <loadmodule tag="dynamic" rev="R1A" name="TESTRA" date="2014-02-18T11:00:00" id="CAX2010001_1">
+    <file type="i386_32" relpath="*/fake-*/priv/tgt_i686_32/bin/test_trace"/>
+    <file type="config" relpath="*/fake-*/priv/test_trace_env.xml"/>
+  </loadmodule>
+  <loadmodule tag="shared_lib" name="TESTRA_TP" id="CAX2010001_1" rev="R1A1" date="2014-02-18T11:00:00">
+    <file type="i386_32" relpath="*/fake-*/priv/tgt_i686_32/lib32/libtest_trace_probe.so"/>
+  </loadmodule>
+</appdata>

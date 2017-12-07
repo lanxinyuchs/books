@@ -1,0 +1,52 @@
+## ----------------------------------------------------------
+## Copyright (c) Ericsson AB 2012 - 2017 All rights reserved.
+##
+## The information in this document is the property of Ericsson.
+##
+## Except as specifically authorized in writing by Ericsson, the
+## receiver of this document shall keep the information contained
+## herein confidential and shall protect the same in whole or in
+## part from disclosure and dissemination to third parties.
+##
+## Disclosure and disseminations to the receivers employees shall
+## only be made on a strict need to know basis.
+## ----------------------------------------------------------
+## #1.    REVISION LOG
+## ----------------------------------------------------------
+## Rev        Date         Name        What
+## --------   --------     --------    ------------------------
+## -          2014-02-17   etxjovp     Created
+## R2A/13     2014-06-19   etxjovp     add dus3201
+## R3A/1      2014-11-24   etxivri     add measure_restart_SUITE
+## R3A/4      2014-12-02   etxivri     removed RAT configure due to it is done before this spec runs.
+##                                     Changed measure restarts groups.
+## R3A/5      2014-12-02   etxivri     removed RAT configure on sec_tcu03
+## R3A/6      2014-12-02   eransbn     Added tc for sec card 
+## R3A/7      2014-12-02   eransbn     Added test suite basic_tests_SUITE for sec card
+## R3A/10     2015-02-24   etxjovp     Added sec_dus...
+## R3A/11     2015-02-25   etxjovp     added rat type to basic_tests_SUITE for sec card
+## R4A/1      2015-06-02   etxjovp     added tcu04
+## R4A/2      2015-10-07   etxjovp     added support for arria10 
+## R5A/1      2016-04-07   etxnnor     added ipsec test case on dus32 and tcu03
+## R5A/2      2016-04-08   etxnnor     removed ipsec test case and made a static spec instead
+## R8A/1      2016-11-23   etxivri     Add new boards   
+## R9A/1      2017-03-06   etxpejn     Add swm_backup_SUITE
+## R9A/2      2017-03-29   erarube     Add support for dus3301.
+##                                     Add secure dus5301, dus3301, dus6303, dus6502.
+## R10A/1     2017-06-12   etxjovp     added support for lratc2 
+## R10A/5     2017-07-10   etxjovp     added support for c2_dus5201 
+## R10A/6     2017-11-23   erarube     added support for dus5201tk, dus3201tk, sec_dus5201tk, sec_dus3201tk
+##################################################################################################################################################################
+#TIME |TARGET |CONFIG |UPGRADE | TEST SUITE
+##################################################################################################################################################################
+152.015 |:tcu03:tcu04:c608: |:no |:upgrade |{cases, "test/test/suites/install", basic_tests_SUITE, [power_cycle]}.
+152.015 |:c2_dus5201:dus5201:dus5301:dus3301:dus5201tk:dus3201tk:dus6303:dus6502:dus3201:dus4101: |:lrat:arria10:lratc2 |:upgrade |{cases, "test/test/suites/install", basic_tests_SUITE, [power_cycle]}.
+152.015 |:c2_dus5201:dus5201:dus5301:dus3301:dus5201tk:dus3201tk:dus6303:dus6502:dus3201:dus4101: |:lrat:arria10:lratc2 |:upgrade |{cases, "SWM/test/suites", swm_backup_SUITE, [restore_backup_before_upgrade]}.
+152.015 |:dus5201:dus5301:dus3301:dus5201tk:dus3201tk:dus6303:dus6502:dus3201:dus4101: |:grat:arria10 |:upgrade |{cases, "test/test/suites/install", basic_tests_SUITE, [power_cycle]}.
+152.015 |:dus5201:dus5301:dus3301:dus5201tk:dus3201tk:dus6303:dus6502:dus3201:duw4101: |:wrat:arria10 |:upgrade |{cases, "test/test/suites/install", basic_tests_SUITE, [power_cycle]}.
+400.097 |:dus5201:dus5301:dus3301:dus5201tk:dus3201tk:dus6303:dus6502: |:lrat:arria10 | |{groups, "test/test/suites/MEAS", measure_restart_SUITE, lte_rbs_group_measure_restart_1}.
+355.097 |:tcu03:tcu04:c608: |:no | |{groups, "test/test/suites/MEAS", measure_restart_SUITE, tcu_group_measure_restart_1}.
+400.097 |:dus5201:dus5301:dus3301:dus5201tk:dus3201tk:dus6303:dus6502: |:lrat:arria10 | |{groups, "test/test/suites/MEAS", char_opt_SUITE, lte_rbs_restart_fru_cold}.
+355.097 |:tcu03:tcu04::c608 |:no | |{groups, "test/test/suites/MEAS", char_opt_SUITE, tcu_restart_fru_cold}.
+152.015 |:sec_tcu03:sec_tcu04:sec_c608 |:no |:upgrade |{cases, "test/test/suites/install", basic_tests_SUITE,[all]}.
+152.015 |:c2_dus5201:sec_dus3201:sec_dus5201:sec_dus5301:sec_dus3301:sec_dus5201tk:sec_dus3201tk:sec_dus6303:sec_dus6502: |:no:wrat:grat:lrat:arria10:lratc2 |:upgrade |{cases, "test/test/suites/install", basic_tests_SUITE,[all]}.

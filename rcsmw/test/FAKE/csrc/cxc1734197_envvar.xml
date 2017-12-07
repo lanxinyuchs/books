@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<config
+    maxRestarts="3"
+    heartbeatInterval="10"
+    cardiacArrest_noOfHb="3"
+    >
+  <env var="DEBUG" value="true"/>
+  <env var="APP_TIMEOUT" value="5000"/>
+</config>

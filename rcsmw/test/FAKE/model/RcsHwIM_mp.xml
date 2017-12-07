@@ -1,0 +1,466 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Copyright (c) 2015 Ericsson AB. 
+	All rights reserved 
+
+	DX ECIM Tool-chain generated this file on 2015-jun-09 06:34:56 using:
+	* com.ericsson.ecim.m2m 2.11.3.201409041218
+	* com.ericsson.ecim.dsl 2.11.3.201409041218
+	* com.ericsson.ecim.edm 2.11.3.201409041218
+--><!DOCTYPE models SYSTEM "mp.dtd">
+<models>
+  <dtdVersion>G</dtdVersion>
+  <momMetaData>
+    <momTitle>title</momTitle>
+    <momSubTitle>sub title</momSubTitle>
+    <momIdentity>
+      <docNum>0</docNum>
+      <docLang>English</docLang>
+      <docRev>0</docRev>
+      <docDate>date</docDate>
+    </momIdentity>
+  </momMetaData>
+  <mim author="xuguusu" contact="xuguusu" correction="2" date="2014-11-07" docNo="" name="RcsHwIM" namespace="urn:com:ericsson:ecim:RcsHwIM" namespacePrefix="rcshwim" organization="" release="0" revision="A" version="2">
+    <description>ECIM Hardware Inventory.</description>
+    <domainExtension domain="ECIM">
+      <extension name="ecimMomName" value="ECIM_HwIM"/>
+      <extension name="ecimMomVersion" value="2"/>
+      <extension name="ecimMomRelease" value="0"/>
+      <extension name="ecimMomCorrection" value="0"/>
+      <extension name="immNamespace" value="MOM_NAME"/>
+    </domainExtension>
+    <implements correction="0" name="ECIM_HwIM" release="0" version="2"/>
+    <struct name="ProductIdentity">
+      <description>Deprecated, Contains product information for a Managed Element and ManagedFunction(s).&#13;
+Replaced by ProductData</description>
+      <domainExtension domain="ECIM">
+        <extension name="originatingMimRelease" value="8"/>
+        <extension name="originatingMimName" value="ECIM_CommonLibrary"/>
+        <extension name="originatingMimVersion" value="1"/>
+      </domainExtension>
+      <structMember name="productNumber">
+        <description>The product number in Ericsson ABC format.&#13;
+For information, refer to Ericsson Corporate Basic Standards. </description>
+        <domainExtension domain="ECIM">
+          <extension name="isKey" value="true"/>
+        </domainExtension>
+        <string/>
+      </structMember>
+      <structMember name="productRevision">
+        <description>The product revision in the form R[1-9][A-Z].&#13;
+For information, refer to Ericsson Corporate Basic Standards.</description>
+        <string/>
+      </structMember>
+      <structMember name="productDesignation">
+        <description>Common product name.</description>
+        <string/>
+      </structMember>
+    </struct>
+    <struct name="ProductData">
+      <description>Represents an Ericsson software product.&#13;
+The product name, product number, and product revision represent product information stored in PRIM realization part.</description>
+      <domainExtension domain="ECIM">
+        <extension name="originatingMimRelease" value="8"/>
+        <extension name="originatingMimName" value="ECIM_CommonLibrary"/>
+        <extension name="originatingMimVersion" value="1"/>
+      </domainExtension>
+      <structMember name="productName">
+        <description>Name of the product.</description>
+        <string/>
+      </structMember>
+      <structMember name="productNumber">
+        <description>Product number of the product.</description>
+        <string/>
+      </structMember>
+      <structMember name="productRevision">
+        <description>Revision state of the product.</description>
+        <string/>
+      </structMember>
+      <structMember name="productionDate">
+        <description>Production date of the product.</description>
+        <derivedDataTypeRef name="DateTime">
+          <mimName>RcsHwIM</mimName>
+        </derivedDataTypeRef>
+      </structMember>
+      <structMember name="description">
+        <description>Free text description of the product.</description>
+        <string/>
+      </structMember>
+      <structMember name="type">
+        <description>Free text description of the product type.</description>
+        <string/>
+      </structMember>
+    </struct>
+    <struct name="HwItemAttribute">
+      <description>Additional HwItem attributes that are considered application-specific.</description>
+      <structMember name="name">
+        <description>Attribute name.</description>
+        <string/>
+      </structMember>
+      <structMember name="value">
+        <description>Attribute value.</description>
+        <string/>
+      </structMember>
+    </struct>
+    <enum name="HwDataEntry">
+      <description>The mode for handling the inventory data insertion.&#13;
+Indicates whether the unit is passive, manual insertion of inventory data is required or active, inventory data can be read from the unit.</description>
+      <enumMember name="PASSIVE">
+        <description>Manual insertion of inventory data is required. </description>
+        <value>0</value>
+      </enumMember>
+      <enumMember name="ACTIVE">
+        <description>Inventory data can be read from the hardware item.</description>
+        <value>1</value>
+      </enumMember>
+    </enum>
+    <derivedDataType name="DateTime">
+      <description>Represents the international standard for the representation of date and time ( ISO 8601).&#13;
+The string format is "YYYY-MM-DDThh:mm:ss.SSSZ" (excluding quotes).&#13;
+A DateTime string consists of a date part, a time part, and an optional time zone information part. The time zone part may be a "Z", representing the Coordinated Universal Time (UTC) time zone (equals to +00) or a time zone offset (for example, +02:00).&#13;
+If the time zone part is not present, the DateTime value represents local time.&#13;
+&#13;
+The following pattern describes the DateTime format:&#13;
+YYYY-MM-DDThh:mm:ss[.S+][Z|+-hh:mm]&#13;
+Where:&#13;
+YYYY = Four digit year&#13;
+MM = Two digit month (01=January, and so on)&#13;
+DD = Two digit day of month (01 through 31)&#13;
+T = Time designator (shows start of time component)&#13;
+hh = Two digits of hour (00 through 23, AM/PM not allowed)&#13;
+mm = Two digits of minute (00 through 59)&#13;
+ss = Two digits of second (00 through 59, leap second not allowed)&#13;
+S+ = One or more digits of decimal fraction of a second&#13;
+Z = Time is UTC&#13;
++- = + or - character indicating positive or negative offset to UTC &#13;
+&#13;
+DateTime values are compliant with ISO 8601 "Representation of dates and times" but are restricted according to RFC 3339 "Date and Time on the Internet: Timestamps". The DateTime format is further restricted as follows:&#13;
+- T and Z designators are upper case.&#13;
+- . (dot) is used to indicate start of fractions of seconds (ISO 8601 also allows comma)&#13;
+&#13;
+</description>
+      <domainExtension domain="ECIM">
+        <extension name="originatingMimRelease" value="8"/>
+        <extension name="originatingMimName" value="ECIM_CommonLibrary"/>
+        <extension name="originatingMimVersion" value="1"/>
+      </domainExtension>
+      <baseType>
+        <string>
+          <lengthRange>
+            <min>19</min>
+            <max>31</max>
+          </lengthRange>
+          <validValues>^([0-9]{4})-(1[0-2]|0[1-9])-(0[1-9]|[1|2][0-9]|3[0-1])T(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])([\.][0-9]+){0,1}(([\+|\-](0[0-9]|1[0-9]|2[0-4])(:[0-5][0-9])?)|(Z)?)$</validValues>
+        </string>
+      </baseType>
+    </derivedDataType>
+    <class name="HwInventory">
+      <description>The HW Inventory.&#13;
+&#13;
+This MO is created by the system.</description>
+      <systemCreated/>
+      <root/>
+      <attribute name="hwInventoryId">
+        <description>The unique identifier for this object instance.</description>
+        <mandatory/>
+        <noNotification/>
+        <restricted/>
+        <key/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="userLabel">
+        <description>Label that is to be used by the operator or commissioning engineer to provide relevant information.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <noNotification/>
+        <isNillable/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="timeOfLatestInvChange">
+        <description>The time of the latest inventory change. An inventory change results in an AVC notification.</description>
+        <nonPersistent/>
+        <readOnly/>
+        <dataType>
+          <derivedDataTypeRef name="DateTime">
+            <mimName>RcsHwIM</mimName>
+          </derivedDataTypeRef>
+        </dataType>
+      </attribute>
+    </class>
+    <class name="HwItem">
+      <description>HwItem represents any kind of Ericsson hardware that is present on the ME. &#13;
+This MO is created by the system.</description>
+      <systemCreated/>
+      <attribute name="hwItemId">
+        <description>The unique identifier for this object instance.</description>
+        <mandatory/>
+        <noNotification/>
+        <restricted/>
+        <key/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="vendorName">
+        <description>The name of the hardware item vendor or the manufacturer's name provided by the vendor.</description>
+        <nonPersistent/>
+        <readOnly/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="hwModel">
+        <description>The hardware configuration. For example a standard HW unit or a variant that can contain additional disk capacity. Compared with hwName, this is a further specification of the hardware item.</description>
+        <nonPersistent/>
+        <readOnly/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="hwType">
+        <description>The MO class the hardware item is represented by.</description>
+        <nonPersistent/>
+        <readOnly/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="hwName">
+        <description>Mnemonic of HW inventory unit family type, assigned by vendor.Compared with hwType, this is a more specific classification of the hardware item, for example, Fan, Digital Unit, or Generic Processor.</description>
+        <nonPersistent/>
+        <readOnly/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="hwCapability">
+        <description>A free description of the hardware capability, for example, capacity, size. </description>
+        <nonPersistent/>
+        <readOnly/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="equipmentMoRef">
+        <description>Reference to a managed object from the Equipment model.</description>
+        <nonPersistent/>
+        <readOnly/>
+        <dataType>
+          <sequence>
+            <moRef name="ManagedObject"/>
+            <minLength>0</minLength>
+            <nonUnique/>
+          </sequence>
+        </dataType>
+      </attribute>
+      <attribute name="additionalInformation">
+        <description>Supplementary information about the inventory data, if any. </description>
+        <nonPersistent/>
+        <readOnly/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="hwUnitLocation">
+        <description>The position of the hardware item. &#13;
+&#13;
+Depending on the implementation of the unit in the managed system, the value and meaning of this attribute can vary. &#13;
+For example, if a system has three levels and types of units that represents Rack, Shelf and Slot respectively, that is, the Managed Element contains multiple Rack inventory units, each Rack inventory unit contains multiple Shelf inventory units and each Shelf inventory unit contains multiple Slot inventory units. In this example: &#13;
+&#13;
+- For the Inventory Unit that represents a Rack, the Frame Identification code can be used as the value of this attribute. &#13;
+- For the Inventory Unit that represents a Shelf, the Rack Shelf code can be used as the value of this attribute. &#13;
+- For the Inventory Unit that represents a Slot, the position code can be used as the value of this attribute.</description>
+        <nonPersistent/>
+        <readOnly/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="manualDataEntry">
+        <description>The mode for handling the inventory data insertion. Indicates whether the unit is passive, that is, manual insertion of inventory data is needed, or active, that is, inventory data can be read from the unit.</description>
+        <nonPersistent/>
+        <readOnly/>
+        <dataType>
+          <enumRef name="HwDataEntry">
+            <defaultValue>ACTIVE</defaultValue>
+            <mimName>RcsHwIM</mimName>
+          </enumRef>
+        </dataType>
+      </attribute>
+      <attribute name="serialNumber">
+        <description>The hardware serial number. It consists of max 35 alphanumerical characters to accommodate support for foreign numbers as well as acquired companies' solutions. However, it typically consists of 13 characters grouped as 6 plus 7 characters. The first 6 characters are to be used for factory codes and the last 7 characters are used for an individual number or batch number.</description>
+        <nonPersistent/>
+        <readOnly/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="dateOfLastService">
+        <description>The date of last service or repair of the hardware item.</description>
+        <nonPersistent/>
+        <readOnly/>
+        <dataType>
+          <derivedDataTypeRef name="DateTime">
+            <mimName>RcsHwIM</mimName>
+          </derivedDataTypeRef>
+        </dataType>
+      </attribute>
+      <attribute name="dateOfManufacture">
+        <description>The date of manufacture of the hardware item. DEPRECATED. Use productData:productionDate.</description>
+        <nonPersistent/>
+        <readOnly/>
+        <dataType>
+          <derivedDataTypeRef name="DateTime">
+            <mimName>RcsHwIM</mimName>
+          </derivedDataTypeRef>
+        </dataType>
+        <deprecated/>
+        <statusInformation>Use productData:productionDate</statusInformation>
+      </attribute>
+      <attribute name="swInvMoRef">
+        <description>Reference to software inventory items loaded on this hardware.</description>
+        <nonPersistent/>
+        <readOnly/>
+        <dataType>
+          <sequence>
+            <moRef name="ManagedObject"/>
+            <minLength>0</minLength>
+            <nonUnique/>
+          </sequence>
+        </dataType>
+      </attribute>
+      <attribute name="licMgmtMoRef">
+        <description>Reference to license MOs controlling the allowed usage of the hardware item (if any).</description>
+        <nonPersistent/>
+        <readOnly/>
+        <dataType>
+          <sequence>
+            <moRef name="ManagedObject"/>
+            <minLength>0</minLength>
+            <nonUnique/>
+          </sequence>
+        </dataType>
+      </attribute>
+      <attribute name="additionalAttributes">
+        <description>Additional HwItem attributes that are considered application specific.</description>
+        <noNotification/>
+        <nonPersistent/>
+        <readOnly/>
+        <dataType>
+          <sequence>
+            <structRef name="HwItemAttribute">
+              <mimName>RcsHwIM</mimName>
+            </structRef>
+            <minLength>0</minLength>
+            <nonUnique/>
+          </sequence>
+        </dataType>
+      </attribute>
+      <attribute name="productIdentity">
+        <description>ProductIdentity contains product designation, number, and revision information.&#13;
+DEPRECATED. Use productData. The product designation, that is, productNumber + productRevision must correspond to the criteria defined in PRIM.</description>
+        <nonPersistent/>
+        <readOnly/>
+        <dataType>
+          <structRef name="ProductIdentity">
+            <mimName>RcsHwIM</mimName>
+          </structRef>
+        </dataType>
+        <deprecated/>
+        <statusInformation>Use productData.</statusInformation>
+      </attribute>
+      <attribute name="productData">
+        <description>ProductData contains product name, type, number, revision, and production date.&#13;
+&#13;
+The product description i.e. productNumber + productRevision should correspond to what is defined in PRIM.&#13;
+&#13;
+productName is the mnemonic of HW inventory unit family type. &#13;
+Compared to hwType, this is a more specific classification of the HwItem, for example, Fan, Digital Unit or Generic Processor.&#13;
+&#13;
+productNumber is the unique product number of the hardware in the Ericsson ABC format. See Ericsson Corporate Basic Standards for information.&#13;
+&#13;
+type is the hardware item type. &#13;
+Used for a general classification of the HwItem, for example, Blade or ReplaceableUnit. &#13;
+The hwType must correspond to the MO Class of the corresponding MO in ECIM Equipment, for example, Blade or FieldReplaceableUnit. &#13;
+If a managed element does not support ECIM Equipment, it can choose one of the ECIM Optional Constructs – Cabinet, Shelf , Rack, PluginUnit, Blade, Card, PhysicalConnector, FanModule – as appropriate.&#13;
+&#13;
+productionDate is the manufacturing date of the hardware item.&#13;
+&#13;
+productRevision is in the format R[1-9][A-Z]. See the Ericsson Corporate Basic Standards for information.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <nonPersistent/>
+        <readOnly/>
+        <isNillable/>
+        <dataType>
+          <structRef name="ProductData">
+            <mimName>RcsHwIM</mimName>
+          </structRef>
+        </dataType>
+      </attribute>
+    </class>
+    <relationship name="HwInventory_to_HwItem">
+      <containment>
+        <parent>
+          <hasClass name="HwInventory">
+            <mimName>RcsHwIM</mimName>
+          </hasClass>
+        </parent>
+        <child>
+          <hasClass name="HwItem">
+            <mimName>RcsHwIM</mimName>
+          </hasClass>
+          <cardinality>
+            <min>0</min>
+          </cardinality>
+        </child>
+      </containment>
+    </relationship>
+    <relationship name="HwItem_to_HwItem">
+      <containment>
+        <parent>
+          <hasClass name="HwItem">
+            <mimName>RcsHwIM</mimName>
+          </hasClass>
+        </parent>
+        <child>
+          <hasClass name="HwItem">
+            <mimName>RcsHwIM</mimName>
+          </hasClass>
+          <cardinality>
+            <min>0</min>
+          </cardinality>
+        </child>
+      </containment>
+    </relationship>
+  </mim>
+  <interMim>
+    <relationship name="SystemFunctions_to_HwInventory">
+      <domainExtension domain="CoreMW">
+        <extension name="splitImmDn" value="false"/>
+      </domainExtension>
+      <containment>
+        <parent>
+          <hasClass name="SystemFunctions">
+            <mimName>ECIM_Top</mimName>
+          </hasClass>
+        </parent>
+        <child>
+          <hasClass name="HwInventory">
+            <mimName>RcsHwIM</mimName>
+          </hasClass>
+          <cardinality>
+            <min>1</min>
+            <max>1</max>
+          </cardinality>
+        </child>
+      </containment>
+    </relationship>
+  </interMim>
+</models>

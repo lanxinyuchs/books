@@ -1,0 +1,21 @@
+%%%-----------------------------------------------------------------------------
+%%% @author etxivri
+%%% @copyright Ericsson AB 2016
+%%% @doc
+%%%
+%%% @end
+%%% Created :  27 Dec 2015 by ETXMLAR
+%%%-----------------------------------------------------------------------------
+
+%%------------------------------------------------------------------------------
+%%       -- 
+%%
+%%------------------------------------------------------------------------------
+      {merge_tests, false}.
+      {define, 'Top', "/vobs/rcs/test/RCT_CRX901275/test"}.
+      {define, 'T1', "'Top'/suites/SWM"}.
+
+%      {cases, 'T1', decupling_ug_glob_SUITE, [all]}.
+       {groups, 'T1', decupling_ug_glob_SUITE, group_ug_ok}.
+       {groups, 'T1', decupling_ug_glob_SUITE, group_no_index}.		
+       {groups, 'T1', decupling_ug_glob_SUITE, group_hw_not_match}.	

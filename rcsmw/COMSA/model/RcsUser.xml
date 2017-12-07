@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Copyright (c) 2015 Ericsson AB. 
+	All rights reserved 
+
+	DX ECIM Tool-chain generated this file on Jun 12, 2015 1:09:11 PM using:
+	* com.ericsson.ecim.m2m 2.14.1.201504211247
+	* com.ericsson.ecim.dsl 2.14.1.201504211247
+	* com.ericsson.ecim.edm 2.14.1.201504211247
+--><!DOCTYPE models SYSTEM "mp.dtd">
+<models>
+  <dtdVersion>G</dtdVersion>
+  <momMetaData>
+    <momTitle>title</momTitle>
+    <momSubTitle>sub title</momSubTitle>
+    <momIdentity>
+      <docNum>2/155 54-CNX 901 2610</docNum>
+      <docLang>English</docLang>
+      <docRev>0</docRev>
+      <docDate>2015-06-12</docDate>
+    </momIdentity>
+  </momMetaData>
+  <mim author="ETXJOTJ" contact="ETXJOTJ" correction="1" date="2015-12-04" docNo="2/155 54-CNX 901 2610" name="RcsUser" namespace="urn:com:ericsson:ecim:RcsUser" namespacePrefix="rcsuser" organization="" release="0" revision="" version="5">
+    <description>Model for RBS User identification and maintenance users.
+Maintentance users can login without LDAP authentication and are automatically assigned the EricssonSupport role.</description>
+    <struct name="EcimPassword">
+      <description>Stores the password.</description>
+      <domainExtension domain="ECIM">
+        <extension name="originatingMimVersion" value="2"/>
+        <extension name="originatingMimName" value="ECIM_CommonLibrary"/>
+        <extension name="originatingMimRelease" value="0"/>
+      </domainExtension>
+      <structMember name="cleartext">
+        <description>Indicates whether or not the password is entered in cleartext.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <derivedDataTypeRef name="EcimEmpty">
+          <mimName>RcsUser</mimName>
+        </derivedDataTypeRef>
+      </structMember>
+      <structMember name="password">
+        <description>Holds the password or passphrase text.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isKey" value="true"/>
+        </domainExtension>
+        <string/>
+      </structMember>
+    </struct>
+    <derivedDataType name="EcimEmpty">
+      <description>Represents a leaf that has no value, it conveys information by its presence or absence.</description>
+      <domainExtension domain="ECIM">
+        <extension name="originatingMimVersion" value="2"/>
+        <extension name="originatingMimName" value="ECIM_CommonLibrary"/>
+        <extension name="originatingMimRelease" value="0"/>
+      </domainExtension>
+      <baseType>
+        <boolean/>
+      </baseType>
+    </derivedDataType>
+    <class name="UserIdentity">
+      <description>The UserIdentity class provides means for giving the true user name.
+
+This class is used for recording the true user name, in case a generic user name has been used at login. 
+This typically happens when the operator access the ME through a MS, and the user's credentials are only checked when logging in to the MS.
+
+This class also provides a mechanism for shutting down all other sessions than maintenance user sessions.</description>
+      <systemCreated/>
+      <root/>
+      <attribute name="userIdentityId">
+        <description>Holds the name used when identifying the MO.</description>
+        <mandatory/>
+        <noNotification/>
+        <restricted/>
+        <key/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="userName">
+        <description>The user name associated to the operator actually providing input to the management system.
+Note! This attribute may be set, but because the value is session dependent it will not be shown to the user.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <isNillable/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+    </class>
+    <class name="MaintenanceUser">
+      <description>This class provides means for offline authentication.
+
+A maintenance user can login without LDAP authentication and is assigned a role through which the entire model can be accessed.
+Only maintenance users can add MaintenanceUser MOs. In order to do so there may not be any normal users logged in.
+The closeSession action of the MaintenanceUserSecurity MOC can be used to close any other open sessions.</description>
+      <attribute name="maintenanceUserId">
+        <description>Holds the name used when identifying the MO.</description>
+        <mandatory/>
+        <noNotification/>
+        <restricted/>
+        <key/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="subjectName">
+        <description>This value shall be the subject name of the certificate used for logging in.
+If no subject name is configured, certificate based login will not be available for this user.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <isNillable/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="userName">
+        <description>Optional user name for SSH-based login.</description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <isNillable/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+      <attribute name="password">
+          <description>Password used for SSH based login. If no password is given, SSH based login will not be available for this maintenance user. The password must be at least 12 characters long and contain at least three lower cases, three upper cases, two numeric cases and one special case. At Auto Integration no check of the password strength will be done.
+    </description>
+        <domainExtension domain="ECIM">
+          <extension name="isNillable" value="true"/>
+        </domainExtension>
+        <isNillable/>
+        <dataType>
+          <structRef name="EcimPassword">
+            <mimName>RcsUser</mimName>
+          </structRef>
+        </dataType>
+      </attribute>
+    </class>
+    <class name="MaintenanceUserSecurity">
+      <description>This MO provides an action for shutting down all other sessions than maintenance user sessions.
+This is necessary in order to configure attributes in this MO as well as adding or removing MaintenanceUser MOs.</description>
+      <systemCreated/>
+      <action name="closeSessions">
+        <description>This action will close all sessions except for maintenance user sessions.</description>
+        <returnType>
+          <void/>
+        </returnType>
+      </action>
+      <attribute name="maintenanceUserSecurityId">
+        <description>Holds the name used when identifying the MO.</description>
+        <mandatory/>
+        <noNotification/>
+        <restricted/>
+        <key/>
+        <dataType>
+          <string/>
+        </dataType>
+      </attribute>
+    </class>
+    <relationship name="UserIdentity_to_MaintenanceUser">
+      <containment>
+        <parent>
+          <hasClass name="UserIdentity">
+            <mimName>RcsUser</mimName>
+          </hasClass>
+        </parent>
+        <child>
+          <hasClass name="MaintenanceUser">
+            <mimName>RcsUser</mimName>
+          </hasClass>
+          <cardinality>
+            <min>0</min>
+          </cardinality>
+        </child>
+        <domainExtension domain="ECIM">
+          <extension name="canCreate" value="true"/>
+          <extension name="canDelete" value="true"/>
+        </domainExtension>
+      </containment>
+    </relationship>
+    <relationship name="UserIdentity_to_MaintenanceUserSecurity">
+      <containment>
+        <parent>
+          <hasClass name="UserIdentity">
+            <mimName>RcsUser</mimName>
+          </hasClass>
+        </parent>
+        <child>
+          <hasClass name="MaintenanceUserSecurity">
+            <mimName>RcsUser</mimName>
+          </hasClass>
+          <cardinality>
+            <min>1</min>
+            <max>1</max>
+          </cardinality>
+        </child>
+        <domainExtension domain="ECIM">
+          <extension name="canCreate" value="false"/>
+          <extension name="canDelete" value="false"/>
+        </domainExtension>
+        <notCreatable/>
+        <notDeleteable/>
+      </containment>
+    </relationship>
+  </mim>
+  <interMim>
+    <relationship name="UserManagement_to_UserIdentity">
+      <containment>
+        <parent>
+          <hasClass name="UserManagement">
+            <mimName>ECIM_Security_Management</mimName>
+          </hasClass>
+        </parent>
+        <child>
+          <hasClass name="UserIdentity">
+            <mimName>RcsUser</mimName>
+          </hasClass>
+          <cardinality>
+            <min>1</min>
+            <max>1</max>
+          </cardinality>
+        </child>
+        <domainExtension domain="ECIM">
+          <extension name="canCreate" value="false"/>
+          <extension name="canDelete" value="false"/>
+        </domainExtension>
+        <notCreatable/>
+        <notDeleteable/>
+      </containment>
+    </relationship>
+  </interMim>
+</models>

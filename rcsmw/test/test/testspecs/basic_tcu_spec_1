@@ -1,0 +1,16 @@
+%%%-----------------------------------------------------------------------------
+%%% @author etxjovp
+%%% @copyright Ericsson AB 2015
+%%% @doc
+%%%
+%%% @end
+%%% Created :  6 Nov 2012 by ETXJOVP
+%%%-----------------------------------------------------------------------------
+
+
+{merge_tests, false}.
+%%{groups, "../suites/install", basic_tests_SUITE, group_basic_tests_power_cycle}.
+{cases, "../suites/install", basic_tests_SUITE, [all] }.
+{cases, "../suites/install",fetch_esi_SUITE , [all] }.
+ 
+      

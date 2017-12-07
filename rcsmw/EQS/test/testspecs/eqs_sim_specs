@@ -1,0 +1,35 @@
+%%% -*- erlang -*-
+
+%%%-----------------------------------------------------------------------------
+%%% @author etxpeno
+%%% @copyright Ericsson AB 2014
+%%% @doc
+%%%
+%%% @end
+%%% Created :  14 Mar 2014 by ETXPENO
+%%%-----------------------------------------------------------------------------
+
+{define, 'Top', "/vobs/rcs/dev/RCP_CSX10179/RCT_CRX901275/test"}.
+{define, 'EQS', "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/EQS/EQS_CNX9012914"}.
+
+{define, 'T1', "'Top'/suites/install"}.
+{define, 'T2', "'EQS'/test/suites"}.
+
+{cases, 'T1', install_sim_SUITE, [logs]}.
+{cases, 'T1', basic_tests_SUITE, [
+				  check_test_app,
+				  cli,
+				  coli,
+				  nc_get_config,
+				  nc_get,
+				  nc_getset_config,
+				  ee_processes,
+				  test_root_mo,
+				  test_class1_all,
+				  conf_snmpmgr,
+				  send_traps
+				 ]}.
+
+{cases,  'T2', buti_c_SUITE, [all]}.
+{cases,  'T2', pri_c_SUITE, [all]}.
+{cases,  'T2', vii_c_SUITE, [all]}.

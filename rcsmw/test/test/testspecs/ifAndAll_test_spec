@@ -1,0 +1,266 @@
+%%%-----------------------------------------------------------------------------
+%%% @author etxivri
+%%% @copyright Ericsson AB 2017
+%%% @doc
+%%%
+%%% @end
+%%% Created :  1 Apr 2016 by etxivri
+%%%-----------------------------------------------------------------------------
+
+%%------------------------------------------------------------------------------
+%%       -- 
+%%
+%%------------------------------------------------------------------------------
+      {merge_tests, false}.
+%      {define, 'RCS', "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/"}.
+%      {define, 'RCT', "/vobs/rcs/dev/RCP_CSX10179/RCT_CRX901275/test/suites/"}.
+ 
+
+%% COM CLI
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCT_CRX901275/test/suites/COMSA", cli_SUITE, [all]}.
+
+
+%% NTF
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCT_CRX901275/test/suites/SAF", ntf_alarm_via_ift_SUITE, [all]}.
+
+
+%% AVLI
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/ALH/ALH_CNX9012924/test/suites", avli_c_SUITE, [all]}.
+
+
+%% CSTN, No tests
+
+
+%% PRI
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/EQS/EQS_CNX9012914/test/suites", pri_c_SUITE, [all]}.
+
+
+%% FI
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/SYS/SYS_CNX9012620/test/suites", sys_fi_SUITE, [all]}.
+
+
+%% ICT, icti, Uprade only
+
+
+%% IMM
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCT_CRX901275/test/suites/SAF", safs_imm_oi_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCT_CRX901275/test/suites/CM", cm_basic_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCT_CRX901275/test/suites/CM", cm_safc_basic_SUITE, [all]}.
+
+
+
+%% LMHI
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/APPM/APPM_CNX9012632/test/suites", lmhi_c_SUITE, [all]}.
+
+%%% Next TC Moved to see if it still fails
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/LOG/LOG_CNX9012616/test/suites", log_app_SUITE, [all]}.
+%% LOG
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCT_CRX901275/test/suites/SAF", saf_log_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/LOG/LOG_CNX9012616/test/suites", log_alarm_SUITE, [all]}. 
+%{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/LOG/LOG_CNX9012616/test/suites", log_alarm_SUITE, [all]}.
+%%% Next TC Moved to see if it still fails
+%%%{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/LOG/LOG_CNX9012616/test/suites", log_app_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/LOG/LOG_CNX9012616/test/suites", log_esi_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/LOG/LOG_CNX9012616/test/suites", log_legacy_SUITE, [all]}.
+%{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/LOG/LOG_CNX9012616/test/suites", log_ram_basic_SUITE, [all]}. % Not used in our CI
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/LOG/LOG_CNX9012616/test/suites", log_ram_restart_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/LOG/LOG_CNX9012616/test/suites", log_sec_event_SUITE, [all]}.
+
+
+%%%%%%%%%
+%% Prio 2
+%%%%%%%%%
+
+%% OEI
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/SYS/SYS_CNX9012620/test/suites", oei_c_SUITE, [all]}.
+
+
+%% PM
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/PMS/PMS_CNX9012618/test/suites", pms_erl_api_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/PMS/PMS_CNX9012618/test/suites", pms_job_basic_2_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/PMS/PMS_CNX9012618/test/suites", pms_job_basic_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/PMS/PMS_CNX9012618/test/suites", pms_job_ext_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/PMS/PMS_CNX9012618/test/suites", pms_job_oss_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/PMS/PMS_CNX9012618/test/suites", pms_job_update_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/PMS/PMS_CNX9012618/test/suites", pms_job_update_multi_app_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/PMS/PMS_CNX9012618/test/suites", pms_misc_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/PMS/PMS_CNX9012618/test/suites", pms_multi_job_update_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/PMS/PMS_CNX9012618/test/suites", pms_rop_basic_1_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/PMS/PMS_CNX9012618/test/suites", pms_rop_basic_2_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/PMS/PMS_CNX9012618/test/suites", pms_rop_ext_1_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/PMS/PMS_CNX9012618/test/suites", pms_rop_ext_2_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/PMS/PMS_CNX9012618/test/suites", pms_rop_rm_add_mr_1_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/PMS/PMS_CNX9012618/test/suites", pms_rop_rm_add_mr_2_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/PMS/PMS_CNX9012618/test/suites", pms_rop_rm_add_mr_3_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/PMS/PMS_CNX9012618/test/suites", pms_rop_rm_add_mr_4_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/PMS/PMS_CNX9012618/test/suites", pms_rop_rm_add_mr_5_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/PMS/PMS_CNX9012618/test/suites", pms_rop_rm_add_mr_6_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/PMS/PMS_CNX9012618/test/suites", pms_rop_rm_add_mr_7_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/PMS/PMS_CNX9012618/test/suites", pms_rop_rm_add_mr_8_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/PMS/PMS_CNX9012618/test/suites", pms_rop_rp30_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/PMS/PMS_CNX9012618/test/suites", pms_rop_susp_1_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/PMS/PMS_CNX9012618/test/suites", pms_rop_susp_2_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/PMS/PMS_CNX9012618/test/suites", pms_sc_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/PMS/PMS_CNX9012618/test/suites", pms_sftp_SUITE, [all]}.
+
+
+%% PM2
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/PMS/PMS_CNX9012618/test/suites", pms2_com2_basic_sc_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/PMS/PMS_CNX9012618/test/suites", pms2_com2_err_sc_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/PMS/PMS_CNX9012618/test/suites", pms2_com2_ext_sc_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/PMS/PMS_CNX9012618/test/suites", pms2_job_basic_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/PMS/PMS_CNX9012618/test/suites", pms2_job_ext_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/PMS/PMS_CNX9012618/test/suites", pms2_job_update_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/PMS/PMS_CNX9012618/test/suites", pms2_job_update_multi_app_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/PMS/PMS_CNX9012618/test/suites", pms2_multi_job_update_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/PMS/PMS_CNX9012618/test/suites", pms2_rop_app_del_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/PMS/PMS_CNX9012618/test/suites", pms2_rop_basic_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/PMS/PMS_CNX9012618/test/suites", pms2_rop_ff_pmi2_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/PMS/PMS_CNX9012618/test/suites", pms2_rop_ff_pmi_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/PMS/PMS_CNX9012618/test/suites", pms2_rop_file_handling_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/PMS/PMS_CNX9012618/test/suites", pms2_rop_job_stop_2_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/PMS/PMS_CNX9012618/test/suites", pms2_rop_job_stop_3_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/PMS/PMS_CNX9012618/test/suites", pms2_rop_job_stop_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/PMS/PMS_CNX9012618/test/suites", pms2_rop_mixed_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/PMS/PMS_CNX9012618/test/suites", pms2_rop_mixed_frag_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/PMS/PMS_CNX9012618/test/suites", pms2_rop_rm_add_mr_1_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/PMS/PMS_CNX9012618/test/suites", pms2_rop_rm_add_mr_2_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/PMS/PMS_CNX9012618/test/suites", pms2_rop_rm_add_mr_3_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/PMS/PMS_CNX9012618/test/suites", pms2_rop_rm_add_mr_4_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/PMS/PMS_CNX9012618/test/suites", pms2_rop_rm_add_mr_5_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/PMS/PMS_CNX9012618/test/suites", pms2_rop_rm_add_mr_6_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/PMS/PMS_CNX9012618/test/suites", pms2_rop_rm_add_mr_7_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/PMS/PMS_CNX9012618/test/suites", pms2_rop_rm_add_mr_8_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/PMS/PMS_CNX9012618/test/suites", pms2_rop_susp_1_pmi2_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/PMS/PMS_CNX9012618/test/suites", pms2_rop_uc_SUITE, [all]}.
+
+
+%% SECI
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/CERT/CERT_CNX9013071/test/suites", cert_seci_c_SUITE, [all]}.
+
+
+%% TMMI, need for DUAL
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%% ERARUBE
+
+
+
+ 
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/ALH/ALH_CNX9012924/test/suites", avli_c_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/CERT/CERT_CNX9013071/test/suites", certm_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCT_CRX901275/test/suites/CM", cm_basic_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCT_CRX901275/test/suites/CM", cm_cli_testclass1_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCT_CRX901275/test/suites/CM", cm_safc_basic_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCT_CRX901275/test/suites/COM", com_avc_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/COMSA/COMSA_CNX9012610/test/suites", com_sysm_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/COMSA/COMSA_CNX9012610/test/suites", com_top_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCT_CRX901275/test/suites/COMSA", cli_SUITE, [all]}.
+{groups, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/COI/COI_CNX9013375/test/suites", coi_SUITE, ci_test_sim}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/EQS/EQS_CNX9012914/test/suites", pri_c_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/EQS/EQS_CNX9012914/test/suites", pri_c_SUITE, [cor_prot_vers,get_pid,get_hunt_path,get_own_identity3,get_own_identity8,get_own_identity9,get_piuOrDevice_identity8,get_piuOrDevice_identity9]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/EQS/EQS_CNX9012914/test/suites", vii_c_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/GMF/GMF_CNX9012719/test/suites", cmsi_c_SUITE, [all]}.
+%%#{groups, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/LIH/LIH_CNX9012615/test/suites", lici_c_SUITE, group_lici_c_1}.
+%%#{groups, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/LIH/LIH_CNX9012615/test/suites", lici_erlang_SUITE, group_lici_erl_1}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/LMA/LMA_CNX9013077/test/suites", lma_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/LOG/LOG_CNX9012616/test/suites", log_app_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/LOG/LOG_CNX9012616/test/suites", log_esi_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/LOG/LOG_CNX9012616/test/suites", log_legacy_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/LOG/LOG_CNX9012616/test/suites", log_sec_event_SUITE, [all]}.
+{groups, "/vobs/rcs/dev/RCP_CSX10179/RCT_CRX901275/test/suites/MEAS", measure_restart_SUITE, group_measure_restart_1}.
+%%%% SYS has changed, until a fix is provided this TC does not work{cases, "/vobs/rcs/dev/RCP_CSX10179/RCT_CRX901275/test/suites/MEAS", measure_response_time_imm_oi_SUITE, [measure_response_time_nc_operation_imm_oi]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCT_CRX901275/test/suites/MEAS", measure_response_time_imm_oi_SUITE, [measure_response_time_nc_operation_imm_oi]}.
+
+{groups, "/vobs/rcs/dev/RCP_CSX10179/RCT_CRX901275/test/suites/MEAS", measure_restart_SUITE, ug_group_measure_restart_1}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/SYS/SYS_CNX9012620/test/suites", oei_c_SUITE, [all]}.
+
+%% PMS TCs runs in bb if spec %%
+
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/PES/PES_CNX9013372/test/suites", pes_job_basic_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/PES/PES_CNX9013372/test/suites", pes_job_err_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/PES/PES_CNX9013372/test/suites", pes_misc_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/PES/PES_CNX9013372/test/suites", pes_pei_api_SUITE, [all]}.
+{groups, "/vobs/rcs/dev/RCP_CSX10179/RCT_CRX901275/test/suites/ROB", restartable_programs_SUITE, group_rob_restartable_prog_1}.
+{groups, "/vobs/rcs/dev/RCP_CSX10179/RCT_CRX901275/test/suites/ROB", restartable_programs_SUITE, group_rob_restartable_prog_2}.
+{groups, "/vobs/rcs/dev/RCP_CSX10179/RCT_CRX901275/test/suites/ROB", restartable_programs_SUITE, group_rob_restartable_prog_ug}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCT_CRX901275/test/suites/ROB", test_coredumps_SUITE, [all]}.
+%{cases, "/vobs/rcs/dev/RCP_CSX10179/RCT_CRX901275/test/suites/SAF", ntf_alarm_via_ift_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCT_CRX901275/test/suites/SAF", saf_log_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCT_CRX901275/test/suites/SAF", safs_imm_oi_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/SWM/SWM_CNX9012637/test/suites", swm_backup_SUITE, [all]}.
+%% import_failure changed implementation
+%{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/SWM/SWM_CNX9012637/test/suites", swm_backup_SUITE, [create_backup,create_backup_name_validation_failure,create_backup_housekeeping,create_backup_housekeeping_autodelete,export_backup,export_backup_slash_name, export_failure,delete_backup, delete_backup_not_found,import_backup,import_failure]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/SWM/SWM_CNX9012637/test/suites", swm_backup_SUITE, [create_backup,create_backup_name_validation_failure,create_backup_housekeeping,create_backup_housekeeping_autodelete,export_backup,export_backup_slash_name, export_failure,delete_backup, delete_backup_not_found,import_backup]}.
+%%#{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/SWM/SWM_CNX9012637/test/suites", swm_scheduled_backup_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/OMC/OMC_CNX9013315/test/suites", omc_tbac_rbac_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCT_CRX901275/test/suites/WEB", web_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCT_CRX901275/test/suites/install", basic_tests_SUITE, [all]}.
+%%#{groups, "/vobs/rcs/dev/RCP_CSX10179/RCT_CRX901275/test/suites/install", basic_tests_SUITE, group_basic_tests}.
+{groups, "/vobs/rcs/dev/RCP_CSX10179/RCT_CRX901275/test/suites/install", basic_tests_SUITE, group_basic_tests}.
+
+{groups, "/vobs/rcs/dev/RCP_CSX10179/RCT_CRX901275/test/suites/install", basic_tests_SUITE, group_basic_tests_power_cycle}.
+%%#{groups, "/vobs/rcs/dev/RCP_CSX10179/RCT_CRX901275/test/suites/install", basic_tests_SUITE, group_basic_tests_reboot}.
+{groups, "/vobs/rcs/dev/RCP_CSX10179/RCT_CRX901275/test/suites/install", basic_tests_SUITE, group_basic_tests_reboot}.
+
+%%Group group_basic_tests_init_restart does not exist anymore, trying cases all instead
+%%{groups, "/vobs/rcs/dev/RCP_CSX10179/RCT_CRX901275/test/suites/install", basic_tests_SUITE, group_basic_tests_init_restart}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCT_CRX901275/test/suites/install", basic_tests_SUITE, [all]}.
+
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/LMA/LMA_CNX9013077/test/suites", lihi_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/EQS/EQS_CNX9012914/test/suites", buti_c_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/APPM/APPM_CNX9012632/test/suites", lmhi_c_SUITE, [all]}.
+{groups, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/SWM/SWM_CNX9012637/test/suites", swm_failsafe_backup_SUITE, group_1}.
+{groups, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/SWM/SWM_CNX9012637/test/suites", swm_failsafe_backup_SUITE, group_2}.
+{groups, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/SWM/SWM_CNX9012637/test/suites", swm_scheduled_backup_SUITE, schedule}.
+{groups, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/SWM/SWM_CNX9012637/test/suites", swm_scheduled_backup_SUITE, autoexport}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/SYS/SYS_CNX9012620/test/suites", sys_coli_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/OOT/OOT_CNX9013316/test/suites", oot_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/SYS/SYS_CNX9012620/test/suites", sys_fi_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/LOG/LOG_CNX9012616/test/suites", log_alarm_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/CLH/CLH_CNX9012931/test/suites", chi_c_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/CLH/CLH_CNX9012931/test/suites", csi_c_SUITE, [all]}.
+{groups, "/vobs/rcs/dev/RCP_CSX10179/RCT_CRX901275/test/suites/install", basic_tests_SUITE, group_basic_tests }.
+{groups, "/vobs/rcs/test/RCT_CRX901275/test/suites/NL", nl_ai_actions_SUITE, all_actions}.
+
+
+%%%%%%%% FTPES which does not exist on all tracks %%%%%%%%
+{cases,"/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/CERT/CERT_CNX9013071/test/suites",certm_ftpes_suite,[all]}.
+{cases,"/vobs/rcs/dev/RCP_CSX10179/RCT_CRX901275/test/suites/SWM",swm_ug_mod1_ftpes_SUITE,[all]}.
+{groups,"/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/CERT/CERT_CNX9013071/test/suites",certm_ftpes_suite,sim_group}.
+{groups,"/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/COMSA/COMSA_CNX9012610/test/suites",com_sysm_SUITE,ftpes_group}.
+{groups,"/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/FTPES/FTPES_CNX9013442/test/suites",ftpes_basic_suite,group1}.
+{groups,"/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/FTPES/FTPES_CNX9013442/test/suites",ftpes_basic_suite,group2}.
+{groups,"/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/LOG/LOG_CNX9012616/test/suites",log_esi_SUITE,ftpes_group}.
+{groups,"/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/LOG/LOG_CNX9012616/test/suites",log_legacy_SUITE,ftpes_group}.
+{groups,"/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/SYS/SYS_CNX9012620/test/suites",sys_coli_SUITE,ftpes_group}.
+{groups,"/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/SYS/SYS_CNX9012620/test/suites",sys_fi_SUITE,ftpes_group}.
+
+
+
+{cases, "/vobs/rcs/test/RCT_CRX901275/test/suites/NL", nl_ai_actions_SUITE, [board_restore, export_ai_log, download_files, integrate]}.
+
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/TIM/TIM_CNX9013408/test/suites", tzii_c_SUITE, [all]}.
+%% No upgrade %% {cases, "/vobs/rcs/test/RCT_CRX901275/test/suites/SWM", swm_ug_1_SUITE, [all]}.
+{cases, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/CCH/CCH_CNX9013418/test/suites", cci_c_suite, [all]}.
+{groups, "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/CCH/CCH_CNX9013418/test/suites", cci_c_suite, cci_sim_test_group}.
+
+{cases, "/vobs/rcs/test/RCT_CRX901275/test/suites/NL", nl_ai_actions_SUITE, [hard_factory_reset, export_ai_log, download_files, integrate]}.
+
+{cases, "/vobs/rcs/test/RCT_CRX901275/test/suites/XL",xl_reboot_SUITE,
+	[
+         reboot,
+	 reboot
+	 ]}.
+
+

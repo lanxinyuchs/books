@@ -1,0 +1,6 @@
+alias to='/home/sirpa/software/*RCS*MW*/*/otp-*/priv/tgt_*/bin/to_erl /tmp/sirpa*/'
+alias ll='ls -l'
+alias m='more'
+alias ..='cd ..'
+alias sirpa='su -l sirpa'
+alias mv_dev_patches='[ ! -e /rcs/dev_patches ] && (mv /home/sirpa/dev_patches /rcs;  ln -s /rcs/dev_patches /home/sirpa/dev_patches)'

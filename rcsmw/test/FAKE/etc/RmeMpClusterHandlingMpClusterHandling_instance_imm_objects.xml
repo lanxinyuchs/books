@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+	Copyright (c) 2014 Ericsson AB.
+	All rights reserved
+
+	DX ECIM Tool-chain generated this file on Sep 5, 2014 10:45:07 AM using:
+	* com.ericsson.ecim.coremw.m2m 2.10.2.201405141135
+	* com.ericsson.ecim.coremw.dsl 2.10.2.201405141135
+	* com.ericsson.ecim.coremw.imm 2.10.2.201405141135
+--><imm:IMM-contents xmlns:imm="http://www.saforum.org/IMMSchema" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.saforum.org/IMMSchema SAI-AIS-IMM-XSD-A.01.01.xsd">
+    <object class="MpClusterHandling">
+        <dn>mpClusterHandlingId=1,nodeSupportId=1</dn>
+    </object>
+</imm:IMM-contents>

@@ -1,0 +1,522 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <title id="AutoIntegration_Complete" title="AutoIntegration_Complete">AutoIntegration</title>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <!-- Brand Assets styles -->
+    <link href="./css/systemBar.css" rel="stylesheet" type="text/css"/>
+    <link href="./css/assets.css" rel="stylesheet" type="text/css"/>
+
+    <!-- App specific styles -->
+    <link href="ai.css" rel="stylesheet" type="text/css"/>
+
+  </head>
+
+  <script type="text/javascript">
+
+var contentDivs;
+var tabLinks;
+
+function helpWindow() {
+	window.open("help.html");
+	}
+
+function updateTextarea() {
+  // Updates the aiTextArea with the autointegration log (ailog.txt)
+  var textarea = document.getElementById("aiTextArea");
+  var scroll = 0;
+  if ((textarea.scrollTop + 250) >= textarea.scrollHeight)
+        scroll = "max";
+  else
+        scroll = textarea.scrollTop;
+  var client = new XMLHttpRequest();
+  client.open('GET', 'ailog.txt?ms=' + new Date().getTime());
+  client.onreadystatechange = function() {
+    if ((client.readyState == 4) && (client.status == "200"))
+    {
+      textarea.value = client.responseText;
+      if (scroll == "max")
+                textarea.scrollTop = textarea.scrollHeight;
+          else
+                textarea.scrollTop = scroll;
+    }
+  }
+  client.send();
+}
+
+function updateProgressBar(){
+    //console.log("update PB Invoked");
+    var progressBar = document.getElementById("progressbar");
+    var progressLabel = document.getElementById("progresslabel");
+    var client = new XMLHttpRequest();
+    //client.responseType = "text";
+    client.open('GET', 'progressbar.txt?ms=' + new Date().getTime());
+    client.onreadystatechange = function() {
+	//console.log("client ready state: " + client.readyState + " , status is: " + client.status);
+	if ((client.readyState == 4) && (client.status == "200")) {
+    		//console.log("clientstate changed");
+    		var percentage = client.responseText.split('|')[1];
+		var status = client.responseText.split('|')[0];
+	    	if (percentage != "0") {
+			// progressLabel.innerHTML = percentage + "%";
+			progressLabel.innerHTML = status;
+			progressBar.style.width = parseInt(percentage) + "%";
+		    }
+	    	else {
+			progressLabel.innerHTML = "";
+			progressBar.style.width = "0%";
+		    }
+		    //console.log(parseInt(percentage) + "%");
+		}
+	    }
+	    client.send();
+	}
+
+
+
+function init() {
+  //Called on document load
+  var LocalFiles = document.getElementsByName("localfile");
+  for (var lf = 0 ; lf < LocalFiles.length ; lf++){
+        if (LocalFiles[lf].type == "file")
+                LocalFiles[lf].addEventListener("change", parseFileContents, false);
+        }
+
+  document.getElementById("sifcontent").value = "";
+  document.getElementById("sifcontent2").value = "";
+  //document.getElementById("sifcontent3").value = "";
+  tabLinks = new Array();
+  contentDivs = new Array();
+  var tabListItems = document.getElementById('tabs').childNodes;
+
+  for ( var i = 0; i < tabListItems.length; i++ ) {
+    if ( tabListItems[i].nodeName == "LI" ) {
+                var tabLink = getFirstChildWithTagName( tabListItems[i], 'A' );
+                var id = getHash( tabLink.getAttribute('href') );
+        tabLinks[id] = tabLink;
+        contentDivs[id] = document.getElementById( id );
+      }
+    }
+
+    var i = 0;
+
+    for ( var id in tabLinks ) {
+      tabLinks[id].onclick = showTab;
+      tabLinks[id].onfocus = function() { this.blur() };
+      if ( i == 0 ) tabLinks[id].className = 'selected';
+          i++;
+    }
+
+    i = 0;
+
+    for ( var id in contentDivs ) {
+                if ( i != 0 ) contentDivs[id].className = 'FormContent hide';
+                i++;
+    }
+  update();
+}
+
+function getFirstChildWithTagName( element, tagName ) {
+  for ( var i = 0; i < element.childNodes.length; i++ ) {
+    if ( element.childNodes[i].nodeName == tagName ) return element.childNodes[i];
+  }
+}
+
+function getHash( url ) {
+  var hashPos = url.lastIndexOf ( '#' );
+  return url.substring( hashPos + 1 );
+}
+
+
+
+
+function parseFileContents(evt) {
+        //Read the contents of the selected file and put them in the hidden field
+  var filename = document.getElementById("localfile").value;
+  var file = evt.target.files[0];
+
+  if (file){
+
+    var reader = new FileReader();
+    reader.onload = function(e) {
+    var contents = e.target.result;
+    var cleanContents = contents.replace(/\r/g, "");
+
+        var SCList = document.getElementsByName("sifcontent");
+        for (var s = 0 ; s < SCList.length ; s++){
+                if (SCList[s].type == "hidden")
+                        SCList[s].value = cleanContents;
+                        }
+                };
+    reader.readAsText(file);
+    }
+
+return false;
+}
+
+function update() {
+  updateTextarea();
+  updateProgressBar();
+}
+
+setInterval(update, 3000);
+  </script>
+
+   <body onload="init()">
+
+    <div id="TopMenu">
+      <div class="ebSystemBar">
+        <div class="ebSystemBar-logo"></div>
+        <div class="ebSystemBar-topMenuName">AutoIntegration
+
+                </div>
+      </div>
+    </div>
+
+
+      <div class="tabmenu">
+          <button title="Opens help in new window/tab"
+            class="ebIcon ebIcon_help ebIcon_interactive eb_wMargin" onclick="helpWindow()"></button>
+                <ul id="tabs">
+                  <li><a >LMT integration on-site configuration</a></li>
+                  <li><a >Zero touch integration off-site pre-configuration</a></li>
+                  <li><a >LMT integration</a></li>
+		  <li><a >NL Upgrade</a></li>
+                </ul>
+        </div>
+
+    <div  id="tabdiv1" class="FormContent show">
+
+        <div class="ebLayout">
+
+            <form method="post" action="/cgi-bin/nl_gui:post">
+                        <div class="sftpform">
+
+                                  <div class="ebLayout-AppHeading">
+                                        <h2>Laptop's SFTP Server</h2>
+                                        <br>
+                                  </div>
+              <label class="ebLabel" title="Host (IP address) where SFTP server is running">
+                <span class="ebLabel-text ">Host</span>
+                <input id="host" name="host" class="ebInput" disabled/>
+                <input id="sifcontent" value="" name="sifcontent" type="hidden" >
+              </label>
+              <br><br>
+              <label class="ebLabel" title="Username on the SFTP server">
+                <span class="ebLabel-text ">Username</span>
+                <input id="username" name="username" class="ebInput" disabled/>
+              </label>
+              <br><br>
+              <label class="ebLabel" title="Password on the SFTP server">
+                <span class="ebLabel-text ">Password</span>
+                <input id="password"  name="password" type="password" class="ebInput"  disabled/>
+              </label>
+              <br><br>
+              <label class="ebLabel" title="Site Installation file on the SFTP server">
+                <span class="ebLabel-text ">Site Installation file</span>
+                <input id="filename" name="filename" type="text" class="ebInput ebInput_width_xLong" disabled>
+              </label>
+                          <br><br>
+                          </div>
+
+                          <div class="smrsform">
+                            <div class="ebLayout-AppHeading">
+                                <h2>SMRS Credentials</h2>
+                                <br>
+                          </div>
+                          <label class="ebLabel" title="Username on the SMRS server">
+                <span class="ebLabel-text">Username</span>
+                <input id="smrsusername" name="smrsusername" type="text" class="ebInput" disabled>
+              </label>
+              <br><br>
+              <label class="ebLabel" title="Password on the SMRS server">
+                <span class="ebLabel-text">Password</span>
+                <input id="smrspassword"  name="smrspassword" type="password" class="ebInput" disabled>
+              </label>
+                          <br><br><br><br>
+                          <label class="ebLabel" title="Select a local Site Installation File">
+                                <span class="ebLabel-text ebLabel-text"></span>
+                                <input id="localfile" name="localfile" type="file" class="ebInput_width_xLong" disabled>
+                          </label>
+
+              <input id="utcMs" name="utcMs" value="0"  type="hidden">
+              <br><br>
+                          </div>
+
+                          <div class="buttons">
+                          <br>
+              <button title="Starts downloading files"
+                      id="DownloadButton" name="DoDownload" value="Download" class="rightAlign ebBtn ebBtn_disabled" disabled>Download files</button>
+              <button title="Starts the AutoIntegration"
+                      formnovalidate id="IntegrateButton" name="DoIntegrate" value="Integrate" class="ebBtn ebBtn_disabled" disabled>Integrate</button>
+              <button title="Cancels the AutoIntegration"
+                      formnovalidate id="CancelButton" name="DoCancel" value="Cancel" class="ebBtn ebBtn_disabled" disabled>Cancel</button>
+              </div>
+                        </form>
+
+
+        </div>
+
+    </div>
+
+    <div id="tabdiv2" class="FormContent hide">
+
+        <div class="ebLayout">
+
+            <form method="post" action="/cgi-bin/nl_gui:post">
+                          <div class="sftpform">
+
+                          <div class="ebLayout-AppHeading">
+                                <h2>Laptop's SFTP Server</h2>
+                                <br>
+                          </div>
+                          <input id="sifcontent2" value="" name="sifcontent" type="hidden" >
+              <label class="ebLabel" title="Host (IP address) where SFTP server is running">
+                <span class="ebLabel-text ">Host</span>
+                <input id="host2" name="host" type="text" class="ebInput"  disabled/>
+              </label>
+              <br><br>
+              <label class="ebLabel" title="Username on the SFTP server">
+                <span class="ebLabel-text ">Username</span>
+                <input id="username2" name="username" type="text" class="ebInput"  disabled/>
+              </label>
+              <br><br>
+              <label class="ebLabel" title="Password on the SFTP server">
+                <span class="ebLabel-text ">Password</span>
+                <input id="password2" name="password" type="password" class="ebInput"  disabled/>
+              </label>
+              <br><br>
+              <label class="ebLabel" title="Site Installation file on the SFTP server">
+                <span class="ebLabel-text ">Site Installation file</span>
+                <input id="filename2" name="filename" type="text" class="ebInput ebInput_width_xLong"  disabled/>
+              </label>
+                          <br><br>
+                          </div>
+
+                          <div class="smrsform">
+                          <div class="ebLayout-AppHeading">
+                                <h2>SMRS Credentials</h2>
+                                <br>
+                          </div>
+                          <label class="ebLabel" title="Username on the SMRS server">
+                <span class="ebLabel-text">Username</span>
+                <input id="smrsusername2" name="smrsusername" type="text" class="ebInput" disabled>
+              </label>
+              <br><br>
+              <label class="ebLabel" title="Password on the SMRS server">
+                <span class="ebLabel-text">Password</span>
+                <input id="smrspassword2" name="smrspassword" type="password" class="ebInput" disabled>
+              </label>
+                          <br><br><br><br>
+                          <label class="ebLabel" title="Select a local Site Installation File">
+                                <span class="ebLabel-text ebLabel-text"></span>
+                                <input id="localfile2" name="localfile" type="file" class="ebInput_width_xLong" disabled>
+                          </label>
+                          </div>
+
+              <input id="utcMs2" name="utcMs" value="0"  type="hidden"/>
+
+
+                          <div class="buttons">
+              <br>
+                          <button title="Starts downloading files"
+                      id="DownloadButton2" name="DoDownload" value="Download" class="rightAlign ebBtn ebBtn_disabled" disabled>Download files</button>
+              <button title="Cancels the AutoIntegration"
+                      formnovalidate id="CancelButton2" name="DoCancel" value="Cancel" class="ebBtn ebBtn_disabled" disabled>Cancel</button>
+                          </div>
+                          </form>
+                        </div>
+    </div>
+
+        <div id="tabdiv3" class="FormContent hide">
+
+
+        <div class="ebLayout">
+
+
+    <form method="post" action="/cgi-bin/nl_gui:post" class="form">
+                <div class="sftpform">
+                        <div class="ebLayout-AppHeading">
+            <h2>Laptop's SFTP Server</h2>
+            <br>
+          </div>
+
+              <label class="ebLabel" title="Host (IP address) where SFTP server is running">
+                <span class="ebLabel-text">Host</span>
+                <input id="host3" name="host" type="text" class="ebInput"  disabled="disabled" />
+                                <!-- <input id="hhost3" name="host" type="hidden" value="_"/> -->
+              </label>
+                          <input id="sifcontent3" value="" name="sifcontent" type="hidden" >
+              <br><br>
+              <label class="ebLabel" title="Username on the SFTP server">
+                <span class="ebLabel-text">Username</span>
+                <input id="username3" name="username" type="text" class="ebInput"  disabled="disabled"/>
+                                <!-- <input id="husername3" name="username" type="hidden" value=""/> -->
+              </label>
+              <br><br>
+              <label class="ebLabel" title="Password on the SFTP server">
+                <span class="ebLabel-text">Password</span>
+                <input id="password3" name="password" type="password" class="ebInput"  disabled="disabled"/>
+                                <!-- <input id="hpassword3" name="password" type="hidden" value=""/> -->
+              </label>
+              <br><br>
+              <label class="ebLabel" title="Site Installation file on the SFTP server">
+                <span class="ebLabel-text">Site Installation file</span>
+                <input id="filename3" name="filename" type="text" class="ebInput ebInput_width_xLong"  disabled="disabled"/>
+                                <input id="hfilename3" name="filename" type="hidden" value=""/>
+              </label>
+                          </div>
+
+                          <div class="smrsform">
+                          <div class="ebLayout-AppHeading">
+                                <h2>SMRS Credentials</h2>
+                                <br>
+                          </div>
+
+              <label class="ebLabel" title="Username on the SMRS server">
+                <span class="ebLabel-text">Username</span>
+                <input id="smrsusername3" name="smrsusername" type="text" class="ebInput" disabled>
+              </label>
+              <br><br>
+              <label class="ebLabel" title="Password on the SMRS server">
+                <span class="ebLabel-text">Password</span>
+                <input id="smrspassword3" name="smrspassword" type="password" class="ebInput" disabled>
+              </label>
+                          <br><br><br><br>
+                          <label class="ebLabel" title="Select a local Site Installation File">
+                                <span class="ebLabel-text ebLabel-text"></span>
+                                <input id="localfile3" name="localfile" type="file" class="ebInput_width_xLong" disabled>
+                          </label>
+                          </div>
+
+              <input id="utcMs3" name="utcMs" value="0"  type="hidden"/>
+              <br><br>
+
+                          <div class="buttons">
+                          <br><br>
+              <button title="Starts downloading files"
+                      id="DownloadButton3" name="DoDownload" value="Download" class="rightAlign ebBtn ebBtn_disabled" disabled>Download files</button>
+              <button title="Starts the AutoIntegration"
+                      formnovalidate id="IntegrateButton3" name="DoIntegrate" value="Integrate" class="ebBtn ebBtn_disabled" disabled>Integrate</button>
+              <button title="Cancels the AutoIntegration"
+                      formnovalidate id="CancelButton3" name="DoCancel" value="Cancel" class="ebBtn ebBtn_disabled" disabled>Cancel</button>
+                          </div>
+            </form>
+
+        </div>
+    </div>
+
+<div id="tabdiv4" class="FormContent hide">
+
+			<div class="ebLayout">
+
+				<form method="post" action="/cgi-bin/nl_gui:post">
+					<div class="sftpform">
+
+						<div class="ebLayout-AppHeading">
+							<h2>Laptop's SFTP Server</h2>
+							<br>
+						</div>
+
+						<input id="sifcontent4" value="" name="sifcontent" type="hidden" />
+
+						<label class="ebLabel" title="Host (IP address) where SFTP server is running">
+							<span class="ebLabel-text ebLabel-text_required">Host</span>
+							<input id="host4" oninput="changeButton('host4', 'username4', 'password4', 'filename4', 'localfile4', 'DownloadButton4');" name="host" type="text" class="ebInput"  required/>
+						</label>
+
+						<br><br>
+
+						<label class="ebLabel" title="Username on the SFTP server">
+							<span class="ebLabel-text ebLabel-text_required">Username</span>
+							<input id="username4" oninput="changeButton('host4', 'username4', 'password4', 'filename4', 'localfile4', 'DownloadButton4');" name="username" type="text" class="ebInput"  required/>
+						</label>
+
+						<br><br>
+
+						<label class="ebLabel" title="Password on the SFTP server">
+							<span class="ebLabel-text ebLabel-text_required">Password</span>
+							<input id="password4" oninput="changeButton('host4', 'username4', 'password4', 'filename4', 'localfile4', 'DownloadButton4');" name="password" type="password" class="ebInput"  required/>
+						</label>
+
+						<br><br>
+
+						<label class="ebLabel" title="Rbs Summary file on the SFTP server">
+							<span class="ebLabel-text ebLabel-text_required">Rbs Summary File</span>
+							<input id="filename4" oninput="changeButton('host4', 'username4', 'password4', 'filename4', 'localfile4', 'DownloadButton4');" name="filename" type="text" class="ebInput ebInput_width_xLong"  />
+						</label>
+
+						<br><br>
+
+					</div>
+
+					<div class="smrsform">
+						<div class="ebLayout-AppHeading">
+							<h2>SMRS Credentials</h2>
+							<br>
+						</div>
+
+						<label class="ebLabel" title="Username on the SMRS server">
+							<span class="ebLabel-text">Username</span>
+							<input id="smrsusername4" oninput="changeButton('username4', 'smrsusername4', 'smrspassword4', 'filename4', 'localfile4', 'DownloadButton4');" name="smrsusername" type="text" class="ebInput" disabled>
+						</label>
+
+						<br><br>
+
+						<label class="ebLabel" title="Password on the SMRS server">
+							<span class="ebLabel-text">Password</span>
+							<input id="smrspassword4" oninput="changeButton('username4', 'smrsusername4', 'smrspassword4', 'filename4', 'localfile4', 'DownloadButton4');" name="smrspassword" type="password" class="ebInput" disabled>
+						</label>
+
+						<br><br>
+						
+						<label class="ebLabel" title="Select a local Site Installation File">
+							<span class="ebLabel-text ebLabel-text">Site Installation File</span>
+							<input id="localfile4" name="localfile" onchange="changeButton('host4', 'username4', 'password4', 'filename4', 'localfile4', 'DownloadButton4');" type="file" class="" disabled/>
+						</label>
+
+						<br><br>
+
+					</div>
+
+					<input id="utcMs2" name="utcMs" value="0"  type="hidden"/>
+
+
+					<div class="buttons">
+						<br>
+						<button title="Starts downloading files" onclick="downloadClick()" id="DownloadButton4" name="DoUpgrade" value="Upgrade" class="rightAlign ebBtn ebBtn_disabled" disabled>Download files</button>
+						<button title="Cancels the AutoIntegration"	formnovalidate id="CancelButton4" name="DoCancel" value="Cancel" class="ebBtn ebBtn_disabled" disabled>Cancel</button>
+					</div>
+				</form>
+			</div>
+		</div>
+
+        <br><br>
+
+        <div class="ebLayout">
+                <div class="ebLayout-AppHeading">
+                        <h2>AutoIntegration log</h2>
+                        <!-- Format in textarea: 2013/10/17 03:00:48 AUTOINTEGRATION MANAGEMENT STARTED -->
+                        <br>
+                  </div>
+
+                  <textarea id="aiTextArea" rows="15" class="ebTextArea ebTextArea_80Char ebText_small" readonly="readonly">
+                  </textarea>
+                  <br><br>
+                  <button title="Opens export AutoIntegration page"
+                                  class="ebBtn" onclick="window.location.href='export.html'">Export AutoIntegration log</button>
+
+                </div>
+	<br>
+
+        <div id="progressbarwindow" class="progressbararea">
+                <div id="progressbar" class="progressbar"></div>
+                <div id="progresslabel" class="progressbarlabel"></div>
+        </div>
+  </body>
+</html>

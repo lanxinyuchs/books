@@ -1,0 +1,43 @@
+%%% #0.    BASIC INFORMATION
+%%% ----------------------------------------------------------
+%%% %CCaseFile:	xl_rob_1hour_spec %
+%%% @author uabesvi
+%%% @copyright Ericsson AB 2013-2015
+%%% @version /main/R2A/R3A/1
+%%% ----------------------------------------------------------
+%%% The information in this document is the property of Ericsson.
+%%% 
+%%% Except as specifically authorized in writing by Ericsson, the 
+%%% receiver of this document shall keep the information contained 
+%%% herein confidential and shall protect the same in whole or in 
+%%% part from disclosure and dissemination to third parties.
+%%% 
+%%% Disclosure and disseminations to the receivers employees shall 
+%%% only be made on a strict need to know basis.
+%%% %CCaseCopyrightEnd%
+%%%
+%%% ----------------------------------------------------------
+%%% #1.    REVISION LOG
+%%% ----------------------------------------------------------
+%%% Rev        Date       Name        What
+%%% -----      ---------  --------    ------------------------
+%%% R2A/2      2013-05-03 etxivri     Created.
+%%% R2A/2      2013-07-02 etxivri     Added rob_imm_oi_SUITE.
+%%% R2A/3      2013-07-11 etxivri     Added rob_ntf_alarm_SUITE.
+%%% R2A/4      2013-08-30 etxpejn     Added com_restart_SUITE.
+%%% R2A/5      2013-09-02 etxpejn     Added COM to define.
+%%% R2A/6      2013-09-27 etxivri     Added restartable_programs_SUITE.
+%%% R2A/7      2013-10-15 etxivri     Added a new TC from restartable_programs.
+%%%                                   Use a groups instead for cases ofrestartable_programs_SUITE.
+%%% R2A/9      2014-10-01 etxivri     Added a new SUITE rob_alarm_SUITE.
+
+
+      {define, 'Top', ".."}.
+      {define, 'T2', "'Top'/suites/ROB"}.
+      {define, 'T3', "'Top'/suites/COM"}.
+      %% {cases, 'T2', rob_restart_SUITE, [init_restart_10_times]}.
+      {cases, 'T2', rob_imm_oi_SUITE, [all]}.
+      {cases, 'T2', rob_ntf_alarm_SUITE, [all]}.
+      {cases, 'T3', com_restart_SUITE, [all]}.
+      {groups, 'T2', restartable_programs_SUITE, group_rob_restartable_prog_xl_rob}.
+      %%{cases, 'T2', rob_alarm_SUITE, [all]}.

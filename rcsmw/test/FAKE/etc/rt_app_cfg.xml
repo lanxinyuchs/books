@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<config
+    maxMem="1000"
+    escalation="PgmGrp"
+    maxRestarts="3"
+    maxTime="300"
+    rtCap="true"
+    netAdmin="false"
+    >
+  <env var="RT_DBG" value="true"/>
+  <env var="RRR" value="$USER"/>
+</config>

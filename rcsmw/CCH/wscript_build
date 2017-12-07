@@ -1,0 +1,1 @@
+APP = bld.rcsErlApp("cch", cxaid="183", cxcid="131", )

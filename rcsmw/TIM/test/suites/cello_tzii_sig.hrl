@@ -1,0 +1,45 @@
+%%% Generated file; do not edit; to generate: see CAX*/Makefile
+%%% generated: Mon Sep 19 20:34:24 CEST 2016
+%%% Source: /vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/TIM/TIM_CNX9013408/TIM_CAX1033921/csrc/cello_tzii.sig
+%%% %CCaseCopyrightBegin%
+%%% Copyright (c) Ericsson AB 2015 All rights reserved.
+%%%
+%%% The information in this document is the property of Ericsson.
+%%%
+%%% Except as specifically authorized in writing by Ericsson, the
+%%% receiver of this document shall keep the information contained
+%%% herein confidential and shall protect the same in whole or in
+%%% part from disclosure and dissemination to third parties.
+%%%
+%%% Disclosure and disseminations to the receivers employees shall
+%%% only be made on a strict need to know basis.
+%%% %CCaseCopyrightEnd%
+-define(CELLO_TZII_SIG_DEP, {"/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/TIM/TIM_CNX9013408/test/suites/cello_tzii_sig.hrl", ["/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/TIM/TIM_CNX9013408/TIM_CAX1033921/csrc/cello_tzii.sig"]}).
+-define(CELLO_TZII_SIG_BASE, (16#10CEA)).
+-define(CELLO_TZII_SERVER_DOWN_IND, (?CELLO_TZII_SIG_BASE + 0)).
+-define(CELLO_TZII_SERVER_UP_IND, (?CELLO_TZII_SIG_BASE + 1)).
+-define(CELLO_TZII_INITIATE_SERVICE_CFM, (?CELLO_TZII_SIG_BASE + 2)).
+-define(CELLO_TZII_INITIATE_SERVICE_SUS, (?CELLO_TZII_SIG_BASE + 3)).
+-define(CELLO_TZII_INITIATE_SERVICE_REJ, (?CELLO_TZII_SIG_BASE + 4)).
+-define(CELLO_TZII_SERVER_UNPUBLISH_IND, (?CELLO_TZII_SIG_BASE + 5)).
+-define(CELLO_TZII_TERMINATE_SERVICE_CFM, (?CELLO_TZII_SIG_BASE + 6)).
+-define(CELLO_TZII_SUBSCRIBE_DAYLIGHT_SAVING_TIME_CFM, (?CELLO_TZII_SIG_BASE + 9)).
+-define(CELLO_TZII_SUBSCRIBE_DAYLIGHT_SAVING_TIME_REJ, (?CELLO_TZII_SIG_BASE + 10)).
+-define(CELLO_TZII_SUBSCRIBE_DAYLIGHT_SAVING_TIME_IND, (?CELLO_TZII_SIG_BASE + 7)).
+-define(CELLO_TZII_SUBSCRIBE_LEAP_SECONDS_CFM, (?CELLO_TZII_SIG_BASE + 11)).
+-define(CELLO_TZII_SUBSCRIBE_LEAP_SECONDS_REJ, (?CELLO_TZII_SIG_BASE + 12)).
+-define(CELLO_TZII_SUBSCRIBE_LEAP_SECONDS_IND, (?CELLO_TZII_SIG_BASE + 8)).
+signalName(?CELLO_TZII_SERVER_DOWN_IND) -> "CELLO_TZII_SERVER_DOWN_IND";
+signalName(?CELLO_TZII_SERVER_UP_IND) -> "CELLO_TZII_SERVER_UP_IND";
+signalName(?CELLO_TZII_INITIATE_SERVICE_CFM) -> "CELLO_TZII_INITIATE_SERVICE_CFM";
+signalName(?CELLO_TZII_INITIATE_SERVICE_SUS) -> "CELLO_TZII_INITIATE_SERVICE_SUS";
+signalName(?CELLO_TZII_INITIATE_SERVICE_REJ) -> "CELLO_TZII_INITIATE_SERVICE_REJ";
+signalName(?CELLO_TZII_SERVER_UNPUBLISH_IND) -> "CELLO_TZII_SERVER_UNPUBLISH_IND";
+signalName(?CELLO_TZII_TERMINATE_SERVICE_CFM) -> "CELLO_TZII_TERMINATE_SERVICE_CFM";
+signalName(?CELLO_TZII_SUBSCRIBE_DAYLIGHT_SAVING_TIME_CFM) -> "CELLO_TZII_SUBSCRIBE_DAYLIGHT_SAVING_TIME_CFM";
+signalName(?CELLO_TZII_SUBSCRIBE_DAYLIGHT_SAVING_TIME_REJ) -> "CELLO_TZII_SUBSCRIBE_DAYLIGHT_SAVING_TIME_REJ";
+signalName(?CELLO_TZII_SUBSCRIBE_DAYLIGHT_SAVING_TIME_IND) -> "CELLO_TZII_SUBSCRIBE_DAYLIGHT_SAVING_TIME_IND";
+signalName(?CELLO_TZII_SUBSCRIBE_LEAP_SECONDS_CFM) -> "CELLO_TZII_SUBSCRIBE_LEAP_SECONDS_CFM";
+signalName(?CELLO_TZII_SUBSCRIBE_LEAP_SECONDS_REJ) -> "CELLO_TZII_SUBSCRIBE_LEAP_SECONDS_REJ";
+signalName(?CELLO_TZII_SUBSCRIBE_LEAP_SECONDS_IND) -> "CELLO_TZII_SUBSCRIBE_LEAP_SECONDS_IND";
+signalName(Other) -> ct:fail("unknown signal number: ~p", [Other]).

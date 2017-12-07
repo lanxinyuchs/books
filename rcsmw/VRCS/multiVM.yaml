@@ -1,0 +1,77 @@
+heat_template_version: 2013-05-23
+
+description: >
+  HOT template to create multi VM
+  the initial number of instance is 2
+  
+parameters:
+  image:
+    type: string
+    description: image name to use.
+
+  flavor:
+    type: string
+    description: flavor to run vrcs
+    default: vrcs
+
+  public_network:
+    type: string
+    description: The network for the VM
+    default: nbi 
+
+  private_network:
+    type: string
+    description: The network for the VM
+    default: test-multi
+
+
+resources:
+  core_mp:
+    type: OS::Nova::Server
+    properties:
+      name: vrcs1 
+      image: { get_param: image}
+      flavor: { get_param: flavor}
+      networks: [{network: {get_param: public_network} }, {network: {get_param: private_network} }]
+      user_data_format: RAW
+      user_data: |
+         #!/bin/bash
+         export VRCS=true
+         export MPID=1
+         export MP_ROLE=active
+         export OWN_IP=169.254.3.1
+         export OWN_IF=eth1
+         export CORE_IP=169.254.3.1
+
+  gen_mp:
+    type: OS::Nova::Server
+    properties:
+      name: vrcs3
+      image: { get_param: image}
+      flavor: { get_param: flavor}
+      networks: [{network: {get_param: public_network} }, {network: {get_param: private_network} }]
+      user_data_format: RAW
+      user_data: |
+         #!/bin/bash
+         export VRCS=true
+         export MPID=3
+         export MP_ROLE=regular
+         export OWN_IP=169.254.3.3
+         export OWN_IF=eth1
+         export CORE_IP=169.254.3.1
+
+
+outputs:
+  coremp_name:
+    description: Name of the instance vrcs1
+    value: { get_attr: [core_mp, name] }
+#  coremp_ip:
+#    description: The IP address of vrcs1
+#    value: {get_attr: [core_mp, outputs_list, networks, {get_param: network}, 0]}
+  genmp_name:
+    description: Name of the instance vrcs3
+    value: { get_attr: [gen_mp, name] }
+#  genmp_ip:
+#    description: The IP address of vrcs3
+#    value: {get_attr: [gen_mp, outputs_list, networks, {get_param: network}, 0]}
+

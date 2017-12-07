@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<imm:IMM-contents xmlns:imm="http://www.saforum.org/IMMSchema" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.saforum.org/IMMSchema SAI-AIS-IMM-XSD-A.02.13.xsd">
+    <class name="SP549_2Parent2">
+        <category>SA_CONFIG</category>
+        <rdn>
+            <name>SP549_2parent2Id</name>
+            <type>SA_STRING_T</type>
+            <category>SA_CONFIG</category>
+            <flag>SA_INITIALIZED</flag>
+            <flag>SA_NOTIFY</flag>
+        </rdn>
+    </class>
+</imm:IMM-contents>

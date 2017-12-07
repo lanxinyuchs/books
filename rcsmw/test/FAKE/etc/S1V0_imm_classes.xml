@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+	Copyright (c) 2015 Ericsson AB. 
+	All rights reserved 
+
+	DX ECIM Tool-chain generated this file on Apr 27, 2015 9:42:11 AM using:
+	* com.ericsson.ecim.coremw.m2m 2.12.0.201410170020
+	* com.ericsson.ecim.coremw.dsl 2.12.0.201410170020
+	* com.ericsson.ecim.coremw.imm 2.12.0.201410170020
+--><imm:IMM-contents xmlns:imm="http://www.saforum.org/IMMSchema" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.saforum.org/IMMSchema SAI-AIS-IMM-XSD-A.02.13.xsd">
+    <class name="S1V0RootS1V0">
+        <category>SA_CONFIG</category>
+        <rdn>
+            <name>S1V0rootS1V0Id</name>
+            <type>SA_STRING_T</type>
+            <category>SA_CONFIG</category>
+            <flag>SA_INITIALIZED</flag>
+            <flag>SA_NOTIFY</flag>
+        </rdn>
+    </class>
+    <class name="S1V0AlphaS1V0">
+        <category>SA_CONFIG</category>
+        <rdn>
+            <name>alphaS1V0Id</name>
+            <type>SA_STRING_T</type>
+            <category>SA_CONFIG</category>
+            <flag>SA_INITIALIZED</flag>
+            <flag>SA_NOTIFY</flag>
+        </rdn>
+        <attr>
+            <name>alphaA</name>
+            <type>SA_INT32_T</type>
+            <category>SA_CONFIG</category>
+            <flag>SA_WRITABLE</flag>
+            <flag>SA_NOTIFY</flag>
+        </attr>
+    </class>
+</imm:IMM-contents>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!--
+# ==========================================================
+# %CCaseFile:	authorization.xsd %
+# %CCaseRev:	/main/R3A/5 %
+# %CCaseDate:	2015-03-24 %
+#
+# Author:	etxjotj
+# Description:	XML schema definition for local authorization registrations
+#
+# ==========================================================
+#
+# %CCaseCopyrightBegin%
+# Copyright (c) Ericsson AB 2015 All rights reserved.
+# 
+# The information in this document is the property of Ericsson.
+# 
+# Except as specifically authorized in writing by Ericsson, the 
+# receiver of this document shall keep the information contained 
+# herein confidential and shall protect the same in whole or in 
+# part from disclosure and dissemination to third parties.
+# 
+# Disclosure and disseminations to the receivers employees shall 
+# only be made on a strict need to know basis.
+# %CCaseCopyrightEnd%
+#
+# ==========================================================
+# REVISION LOG
+# ==========================================================
+#
+# Rev        Date       Name        What
+# ========   ========== ========    ========================
+# R3A/1      2015-02-10 etxjotj     Created
+# R3A/2      2015-02-10 etxjotj     Copyright notice fixed
+#                                   Comments fixed
+# R3A/3      2015-02-10 etxjotj     Removed roleName and ruleName
+# R3A/4      2015-02-10 etxjotj     Changed name of key attributes
+# R3A/5      2015-03-24 etxjotj     Added index attribute on ruleData
+# ==========================================================
+#
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="appdata" type="RcsDataType"/>
+
+  <xs:complexType name="RcsDataType">
+    <xs:sequence>
+      <xs:element name="role" type="RoleType"
+		  minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="target" type="AuthTargetType" use="required"/>
+  </xs:complexType>
+
+  <xs:simpleType name="AuthTargetType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="authorization" />
+    </xs:restriction>
+  </xs:simpleType>
+  
+  <xs:complexType name="RoleType">
+    <xs:sequence>
+      <xs:element name="rule" type="RuleType"
+		  minOccurs="1" maxOccurs="unbounded" />
+    </xs:sequence>
+    <xs:attribute name="id" type="xs:string" use="required" />
+    <xs:attribute name="userLabel" type="xs:string" />
+  </xs:complexType>
+
+  <xs:complexType name="RuleType">
+    <xs:sequence>
+      <xs:element name="ruleData" type="RuleDataType"
+		  minOccurs="1" maxOccurs="unbounded" />
+    </xs:sequence>
+    <xs:attribute name="id" type="xs:string" use="required" />
+    <xs:attribute name="permission" type="PermissionEnum" use="required" />
+    <xs:attribute name="userLabel" type="xs:string" />
+  </xs:complexType>    
+
+  <xs:complexType name="RuleDataType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+	<xs:attribute name="index" type="xs:integer" use="required"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:simpleType name="PermissionEnum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="NO_ACCESS" />
+      <xs:enumeration value="X" />
+      <xs:enumeration value="R" />
+      <xs:enumeration value="RX" />
+      <xs:enumeration value="RW" />
+      <xs:enumeration value="RWX" />
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>

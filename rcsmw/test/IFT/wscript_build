@@ -1,0 +1,16 @@
+APP = bld.rcsErlApp("ift", cxaid="", cxcid="132", appdataroot="ift", )
+bld.install_files(bld.getPrv(APP)+"/appdata", bld.path.ant_glob("appdata/*"))
+bld.install_files(bld.getPrv(APP), ['csrc/ift_app_config_i686.xml', 'csrc/ift_app_config_arm.xml'])
+
+bld.program(
+   source = bld.path.ant_glob("csrc/*.c"),
+   defines = ["_REENTRANT", "PTHREADS", "REBUILD"],
+           includes = ['csrc', "../../COM/int_include/inc"],
+   use = ['rt', 'lits', 'tri', 'chi', 'csi', 'cstnn', 'crl', 'fi', 'gmf_cmsi',
+      'gmf_dnti', 'ltt', 'avli', 'buti', 'coli', 'imm_oi', 'imm_om',
+      'imm_ct', 'lmi', 'oei', 'oei2', 'pri', 'pmi', 'pmi2', 'pei', 'seci', 'sec_credu_api',
+      'vii', 'tmi', 'tzii', 'sys' ],
+   lib = ['erl_interface', 'ei', 'ei_st'],
+   target = 'ift_app',
+   install_path = bld.getBin(APP)
+)

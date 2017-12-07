@@ -1,0 +1,775 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+# ========================================================== 
+# %CCaseFile:	RcsLocalAuthorizationMib.xml % 
+# %CCaseRev:	/main/R2A/R3A/R5A/R6A/R9A/R10A/1 % 
+# %CCaseDate:	2017-05-11 % 
+#                                                            
+# Author:	etxjotj
+# Description:	User management mib
+#                                                            
+# ========================================================== 
+#                                                            
+# %CCaseCopyrightBegin%
+# Copyright (c) Ericsson AB 2014-2017 All rights reserved.
+# 
+# The information in this document is the property of Ericsson.
+# 
+# Except as specifically authorized in writing by Ericsson, the 
+# receiver of this document shall keep the information contained 
+# herein confidential and shall protect the same in whole or in 
+# part from disclosure and dissemination to third parties.
+# 
+# Disclosure and disseminations to the receivers employees shall 
+# only be made on a strict need to know basis.
+# %CCaseCopyrightEnd%
+#                                                            
+# ========================================================== 
+# REVISION LOG 
+# ========================================================== 
+#                                                            
+# Rev        Date       Name        What 
+# ========   ========== ========    ======================== 
+# R2A/1      2014-02-16 etxjotj     Created 
+# R2A/5      2014-08-18 etxjotj     Removed expert role
+# R2A/6      2014-09-09 etxjotj     HS94310, HS94185, correct roles
+# R2A/7      2014-09-18 etxjotj     HS95411 Additive roles
+# R3A/1      2014-09-25 etxjotj     Application roles
+# R3A/2      2014-09-25 etxjotj     Merge from R2A/8
+# R2A/9      2014-12-18 etxjotj     HT32838 Added missing roles to SysSecAdm
+# R2A/10     2014-12-18 etxjotj     HT32838 Now with correct permissions
+# R2A/11     2015-01-09 etxjotj     HT32838 FM fix
+# R3A/8      2015-01-29 etxjotj     HT42413 System read only fixes
+# R3A/9      2015-02-05 etxjotj     HT42413 System read only fix again
+# R5A/1      2016-01-27 etxjotj     Added user labels for predefined roles
+# R6A/1      2016-04-26 uabhgma     ComLocalAuthorization -> RcsLocalAuthorization
+# R9A/1      2017-03-10 etxjotj     Remove access to all data below Transport
+#                                   TN should register their own rules instead
+# R9A/2      2017-03-14 etxjotj     Fixed descriptions
+# R10A/1     2017-05-10 emarnek     HV86784 fixed descriptions
+# ========================================================== 
+-->                                                           
+<!DOCTYPE models SYSTEM "mp.dtd">
+<models>
+  <dtdVersion>G</dtdVersion>
+  <momMetaData>
+    <momTitle>RCS Local Authorization MIB</momTitle>
+    <momSubTitle></momSubTitle>
+    <momIdentity>
+      <docNum>3/155 54-CNX 901 2160</docNum>
+      <docLang>English</docLang>
+      <docRev>%CCaseRev:	/main/R2A/R3A/R5A/R6A/R9A/R10A/1 %</docRev>
+      <docDate>%CCaseDate:	2017-05-11 %</docDate>
+    </momIdentity>
+    <createdBy>
+      <signature>etxjotj</signature>
+    </createdBy>
+  </momMetaData>
+  <mib name="RcsLocalAuthorizationMib" docNo="3/155 54-CNX 901 2160" 
+       release="0" version="3" correction="0">
+    <!-- Local Authorization Instances -->
+    <object parentDn="LocalAuthorizationMethod=1">
+      <hasClass name="Role">
+        <mimName>ECIM_Local_Authorization</mimName>
+      </hasClass>
+      <slot name="roleId">
+	<value>SystemAdministrator</value>
+      </slot>
+      <slot name="roleName">
+	<value>SystemAdministrator</value>
+      </slot>
+      <slot name="userLabel">
+	<value>Provides full control over Managed Element model fragments related to System Functions and Equipment MO, excluding the fragments related to Security Management and Transport MO</value>
+      </slot>
+    </object>
+
+    <object parentDn="LocalAuthorizationMethod=1">
+      <hasClass name="Role">
+        <mimName>ECIM_Local_Authorization</mimName>
+      </hasClass>
+      <slot name="roleId">
+	<value>SystemSecurityAdministrator</value>
+      </slot>
+      <slot name="roleName">
+	<value>SystemSecurityAdministrator</value>
+      </slot>
+      <slot name="userLabel">
+	<value>Provides full control over the fragment of a Managed Element model related to Security Management</value>
+      </slot>
+    </object>
+
+    <object parentDn="LocalAuthorizationMethod=1">
+      <hasClass name="Role">
+        <mimName>ECIM_Local_Authorization</mimName>
+      </hasClass>
+      <slot name="roleId">
+	<value>EricssonSupport</value>
+      </slot>
+      <slot name="roleName">
+	<value>EricssonSupport</value>
+      </slot>
+      <slot name="userLabel">
+	<value>This role is dedicated for internal usage and cannot be asiggend to any user on LDAP.</value>
+      </slot>
+    </object>
+
+    <object parentDn="LocalAuthorizationMethod=1">
+      <hasClass name="Role">
+        <mimName>ECIM_Local_Authorization</mimName>
+      </hasClass>
+      <slot name="roleId">
+	<value>SystemReadOnly</value>
+      </slot>
+      <slot name="roleName">
+	<value>SystemReadOnly</value>
+      </slot>
+      <slot name="userLabel">
+	<value>Provides read-only access to Managed Element model fragments related to System Functions and Equipment MO, but excluding the fragments related to Security Management and Transport MO</value>
+      </slot>
+    </object>
+
+    <!-- SystemAdministrator Rules -->
+
+    <object parentDn="Role=SystemAdministrator">
+      <hasClass name="Rule">
+        <mimName>RcsLocalAuthorization</mimName>
+      </hasClass>
+      <slot name="ruleId">
+        <value>SysAdmME</value>
+      </slot>
+      <slot name="permission">
+        <value>7</value>
+      </slot>
+      <slot name="ruleData">
+        <value>ManagedElement</value>
+      </slot>
+    </object>
+
+    <object parentDn="Role=SystemAdministrator">
+      <hasClass name="Rule">
+        <mimName>RcsLocalAuthorization</mimName>
+      </hasClass>
+      <slot name="ruleId">
+        <value>SysAdmSF</value>
+      </slot>
+      <slot name="permission">
+        <value>7</value>
+      </slot>
+      <slot name="ruleData">
+        <value>ManagedElement,SystemFunctions</value>
+      </slot>
+    </object>
+
+    <object parentDn="Role=SystemAdministrator">
+      <hasClass name="Rule">
+        <mimName>RcsLocalAuthorization</mimName>
+      </hasClass>
+      <slot name="ruleId">
+        <value>SysAdmTN</value>
+      </slot>
+      <slot name="permission">
+        <value>7</value>
+      </slot>
+      <slot name="ruleData">
+        <value>ManagedElement,Transport</value>
+      </slot>
+    </object>
+
+    <object parentDn="Role=SystemAdministrator">
+      <hasClass name="Rule">
+        <mimName>RcsLocalAuthorization</mimName>
+      </hasClass>
+      <slot name="ruleId">
+        <value>SysAdmFm</value>
+      </slot>
+      <slot name="ruleData">
+        <value>ManagedElement,SystemFunctions,Fm,*</value>
+      </slot>
+      <slot name="permission">
+        <value>7</value>
+      </slot>
+    </object>
+
+    <object parentDn="Role=SystemAdministrator">
+      <hasClass name="Rule">
+        <mimName>RcsLocalAuthorization</mimName>
+      </hasClass>
+      <slot name="ruleId">
+        <value>SysAdmLm</value>
+      </slot>
+      <slot name="permission">
+        <value>7</value>
+      </slot>
+      <slot name="ruleData">
+        <value>ManagedElement,SystemFunctions,Lm,*</value>
+      </slot>
+    </object>
+
+    <object parentDn="Role=SystemAdministrator">
+      <hasClass name="Rule">
+        <mimName>RcsLocalAuthorization</mimName>
+      </hasClass>
+      <slot name="ruleId">
+        <value>SysAdmLogM</value>
+      </slot>
+      <slot name="permission">
+        <value>7</value>
+      </slot>
+      <slot name="ruleData">
+        <value>ManagedElement,SystemFunctions,LogM,*</value>
+      </slot>
+    </object>
+
+    <object parentDn="Role=SystemAdministrator">
+      <hasClass name="Rule">
+        <mimName>RcsLocalAuthorization</mimName>
+      </hasClass>
+      <slot name="ruleId">
+        <value>SysAdmPm</value>
+      </slot>
+      <slot name="permission">
+        <value>7</value>
+      </slot>
+      <slot name="ruleData">
+        <value>ManagedElement,SystemFunctions,Pm,*</value>
+      </slot>
+    </object>
+
+    <object parentDn="Role=SystemAdministrator">
+      <hasClass name="Rule">
+        <mimName>RcsLocalAuthorization</mimName>
+      </hasClass>
+      <slot name="ruleId">
+        <value>SysAdmBrM</value>
+      </slot>
+      <slot name="permission">
+        <value>7</value>
+      </slot>
+      <slot name="ruleData">
+        <value>ManagedElement,SystemFunctions,BrM,*</value>
+      </slot>
+    </object>
+
+    <object parentDn="Role=SystemAdministrator">
+      <hasClass name="Rule">
+        <mimName>RcsLocalAuthorization</mimName>
+      </hasClass>
+      <slot name="ruleId">
+        <value>SysAdmHwIM</value>
+      </slot>
+      <slot name="permission">
+        <value>6</value>
+      </slot>
+      <slot name="ruleData">
+        <value>ManagedElement,SystemFunctions,HwInventory,*</value>
+      </slot>
+    </object>
+
+    <object parentDn="Role=SystemAdministrator">
+      <hasClass name="Rule">
+        <mimName>RcsLocalAuthorization</mimName>
+      </hasClass>
+      <slot name="ruleId">
+        <value>SysAdmSysM</value>
+      </slot>
+      <slot name="ruleData">
+        <value>ManagedElement,SystemFunctions,SysM,*</value>
+      </slot>
+      <slot name="permission">
+        <value>7</value>
+      </slot>
+    </object>
+
+    <object parentDn="Role=SystemAdministrator">
+      <hasClass name="Rule">
+	<mimName>ECIM_Local_Authorization</mimName>
+      </hasClass>
+      <slot name="ruleId">
+	<value>SysAdmSecM</value>
+      </slot>
+      <slot name="permission">
+	<value>4</value>
+      </slot>
+      <slot name="ruleData">
+	<value>ManagedElement,SystemFunctions,SecM$</value>
+      </slot>
+    </object>
+
+    <object parentDn="Role=SystemAdministrator">
+      <hasClass name="Rule">
+	<mimName>ECIM_Local_Authorization</mimName>
+      </hasClass>
+      <slot name="ruleId">
+	<value>SysAdmCertM</value>
+      </slot>
+      <slot name="permission">
+	<value>4</value>
+      </slot>
+      <slot name="ruleData">
+	<value>ManagedElement,SystemFunctions,SecM,CertM,*</value>
+      </slot>
+    </object>
+
+    <object parentDn="Role=SystemAdministrator">
+      <hasClass name="Rule">
+	<mimName>ECIM_Local_Authorization</mimName>
+      </hasClass>
+      <slot name="ruleId">
+	<value>SysAdmSwIM</value>
+      </slot>
+      <slot name="permission">
+	<value>6</value>
+      </slot>
+      <slot name="ruleData">
+	<value>ManagedElement,SystemFunctions,SwInventory,*</value>
+      </slot>
+    </object>
+
+    <object parentDn="Role=SystemAdministrator">
+      <hasClass name="Rule">
+	<mimName>ECIM_Local_Authorization</mimName>
+      </hasClass>
+      <slot name="ruleId">
+	<value>SysAdmSwM</value>
+      </slot>
+      <slot name="permission">
+	<value>7</value>
+      </slot>
+      <slot name="ruleData">
+	<value>ManagedElement,SystemFunctions,SwM,*</value>
+      </slot>
+    </object>
+
+
+    <object parentDn="Role=SystemAdministrator">
+      <hasClass name="Rule">
+	<mimName>ECIM_Local_Authorization</mimName>
+      </hasClass>
+      <slot name="ruleId">
+	<value>SysAdmEqm</value>
+      </slot>
+      <slot name="permission">
+	<value>7</value>
+      </slot>
+      <slot name="ruleData">
+	<value>ManagedElement,Equipment,*</value>
+      </slot>
+    </object>
+    <object parentDn="Role=SystemAdministrator">
+      <hasClass name="Rule">
+	<mimName>ECIM_Local_Authorization</mimName>
+      </hasClass>
+      <slot name="ruleId">
+	<value>SysAdmEqs</value>
+      </slot>
+      <slot name="permission">
+	<value>7</value>
+      </slot>
+      <slot name="ruleData">
+	<value>ManagedElement,EquipmentSupportFunction,*</value>
+      </slot>
+    </object>
+
+    <object parentDn="Role=SystemAdministrator">
+      <hasClass name="Rule">
+	<mimName>ECIM_Local_Authorization</mimName>
+      </hasClass>
+      <slot name="ruleId">
+	<value>SysAdmNodeS</value>
+      </slot>
+      <slot name="permission">
+	<value>7</value>
+      </slot>
+      <slot name="ruleData">
+	<value>ManagedElement,NodeSupport,*</value>
+      </slot>
+    </object>
+
+    <!-- SystemSecurityAdministration rules -->
+    <object parentDn="Role=SystemSecurityAdministrator">
+      <hasClass name="Rule">
+        <mimName>RcsLocalAuthorization</mimName>
+      </hasClass>
+      <slot name="ruleId">
+        <value>SysSecAdmSecM</value>
+      </slot>
+      <slot name="permission">
+        <value>7</value>
+      </slot>
+      <slot name="ruleData">
+        <value>ManagedElement,SystemFunctions,SecM,*</value>
+      </slot>
+    </object>
+
+    <object parentDn="Role=SystemSecurityAdministrator">
+      <hasClass name="Rule">
+        <mimName>RcsLocalAuthorization</mimName>
+      </hasClass>
+      <slot name="ruleId">
+        <value>SysSecAdmLogM</value>
+      </slot>
+      <slot name="permission">
+        <value>7</value>
+      </slot>
+      <slot name="ruleData">
+        <value>ManagedElement,SystemFunctions,LogM,*</value>
+      </slot>
+    </object>
+
+<!--HT32838-->
+    <object parentDn="Role=SystemSecurityAdministrator">
+      <hasClass name="Rule">
+        <mimName>RcsLocalAuthorization</mimName>
+      </hasClass>
+      <slot name="ruleId">
+        <value>SysSecAdmSwIM</value>
+      </slot>
+      <slot name="permission">
+        <value>4</value>
+      </slot>
+      <slot name="ruleData">
+        <value>ManagedElement,SystemFunctions,SwInventory,*</value>
+      </slot>
+    </object>
+
+    <object parentDn="Role=SystemSecurityAdministrator">
+      <hasClass name="Rule">
+        <mimName>RcsLocalAuthorization</mimName>
+      </hasClass>
+      <slot name="ruleId">
+        <value>SysSecAdmEqm</value>
+      </slot>
+      <slot name="permission">
+        <value>4</value>
+      </slot>
+      <slot name="ruleData">
+        <value>ManagedElement,Equipment,*</value>
+      </slot>
+    </object>
+
+    <object parentDn="Role=SystemSecurityAdministrator">
+      <hasClass name="Rule">
+        <mimName>RcsLocalAuthorization</mimName>
+      </hasClass>
+      <slot name="ruleId">
+        <value>SysSecAdmFm</value>
+      </slot>
+      <slot name="permission">
+        <value>4</value>
+      </slot>
+      <slot name="ruleData">
+        <value>ManagedElement,SystemFunctions,Fm,*</value>
+      </slot>
+    </object>
+
+    <object parentDn="Role=SystemSecurityAdministrator">
+      <hasClass name="Rule">
+        <mimName>RcsLocalAuthorization</mimName>
+      </hasClass>
+      <slot name="ruleId">
+        <value>SysSecAdmLicM</value>
+      </slot>
+      <slot name="permission">
+        <value>4</value>
+      </slot>
+      <slot name="ruleData">
+        <value>ManagedElement,SystemFunctions,Lm,*</value>
+      </slot>
+    </object>
+<!--HT32838 end-->
+
+
+    <object parentDn="Role=SystemSecurityAdministrator">
+      <hasClass name="Rule">
+        <mimName>RcsLocalAuthorization</mimName>
+      </hasClass>
+      <slot name="ruleId">
+        <value>SysSecAdmME</value>
+      </slot>
+      <slot name="permission">
+        <value>4</value>
+      </slot>
+      <slot name="ruleData">
+        <value>ManagedElement$</value>
+      </slot>
+    </object>
+ 
+    <object parentDn="Role=SystemSecurityAdministrator">
+      <hasClass name="Rule">
+        <mimName>RcsLocalAuthorization</mimName>
+      </hasClass>
+      <slot name="ruleId">
+        <value>SysSecAdmSF</value>
+      </slot>
+      <slot name="permission">
+        <value>4</value>
+      </slot>
+      <slot name="ruleData">
+        <value>ManagedElement,SystemFunctions$</value>
+      </slot>
+    </object>
+
+    <!-- SystemReadOnly rules -->
+
+    <object parentDn="Role=SystemReadOnly">
+      <hasClass name="Rule">
+        <mimName>RcsLocalAuthorization</mimName>
+      </hasClass>
+      <slot name="ruleId">
+        <value>SysRoME_1</value>
+      </slot>
+      <slot name="permission">
+        <value>4</value>
+      </slot>
+      <slot name="ruleData">
+        <value>ManagedElement</value>
+      </slot>
+    </object>
+
+    <object parentDn="Role=SystemReadOnly">
+      <hasClass name="Rule">
+        <mimName>RcsLocalAuthorization</mimName>
+      </hasClass>
+      <slot name="ruleId">
+        <value>SysRoME_2</value>
+      </slot>
+      <slot name="permission">
+        <value>4</value>
+      </slot>
+      <slot name="ruleData">
+        <value>ManagedElement$</value>
+      </slot>
+    </object>
+ 
+    <object parentDn="Role=SystemReadOnly">
+      <hasClass name="Rule">
+        <mimName>RcsLocalAuthorization</mimName>
+      </hasClass>
+      <slot name="ruleId">
+        <value>SysRoSF</value>
+      </slot>
+      <slot name="permission">
+        <value>4</value>
+      </slot>
+      <slot name="ruleData">
+        <value>ManagedElement,SystemFunctions$</value>
+      </slot>
+    </object>
+
+    <object parentDn="Role=SystemReadOnly">
+      <hasClass name="Rule">
+        <mimName>RcsLocalAuthorization</mimName>
+      </hasClass>
+      <slot name="ruleId">
+        <value>SysRoBrM</value>
+      </slot>
+      <slot name="permission">
+        <value>4</value>
+      </slot>
+      <slot name="ruleData">
+        <value>ManagedElement,SystemFunctions,BrM,*</value>
+      </slot>
+    </object>
+
+    <object parentDn="Role=SystemReadOnly">
+      <hasClass name="Rule">
+        <mimName>RcsLocalAuthorization</mimName>
+      </hasClass>
+      <slot name="ruleId">
+        <value>SysRoFm</value>
+      </slot>
+      <slot name="permission">
+        <value>4</value>
+      </slot>
+      <slot name="ruleData">
+        <value>ManagedElement,SystemFunctions,Fm,*</value>
+      </slot>
+    </object>
+
+    <object parentDn="Role=SystemReadOnly">
+      <hasClass name="Rule">
+        <mimName>RcsLocalAuthorization</mimName>
+      </hasClass>
+      <slot name="ruleId">
+        <value>SysRoHwIM</value>
+      </slot>
+      <slot name="permission">
+        <value>4</value>
+      </slot>
+      <slot name="ruleData">
+        <value>ManagedElement,SystemFunctions,HwInventory,*</value>
+      </slot>
+    </object>
+
+    <object parentDn="Role=SystemReadOnly">
+      <hasClass name="Rule">
+        <mimName>RcsLocalAuthorization</mimName>
+      </hasClass>
+      <slot name="ruleId">
+        <value>SysRoLm</value>
+      </slot>
+      <slot name="permission">
+        <value>4</value>
+      </slot>
+      <slot name="ruleData">
+        <value>ManagedElement,SystemFunctions,Lm,*</value>
+      </slot>
+    </object>
+
+    <object parentDn="Role=SystemReadOnly">
+      <hasClass name="Rule">
+        <mimName>RcsLocalAuthorization</mimName>
+      </hasClass>
+      <slot name="ruleId">
+        <value>SysRoLogM</value>
+      </slot>
+      <slot name="permission">
+        <value>4</value>
+      </slot>
+      <slot name="ruleData">
+        <value>ManagedElement,SystemFunctions,LogM,*</value>
+      </slot>
+    </object>
+
+    <object parentDn="Role=SystemReadOnly">
+      <hasClass name="Rule">
+        <mimName>RcsLocalAuthorization</mimName>
+      </hasClass>
+      <slot name="ruleId">
+        <value>SysRoPm</value>
+      </slot>
+      <slot name="permission">
+        <value>4</value>
+      </slot>
+      <slot name="ruleData">
+        <value>ManagedElement,SystemFunctions,Pm,*</value>
+      </slot>
+    </object>
+
+    <object parentDn="Role=SystemReadOnly">
+      <hasClass name="Rule">
+        <mimName>RcsLocalAuthorization</mimName>
+      </hasClass>
+      <slot name="ruleId">
+        <value>SysRoSwIM</value>
+      </slot>
+      <slot name="permission">
+        <value>4</value>
+      </slot>
+      <slot name="ruleData">
+        <value>ManagedElement,SystemFunctions,SwInventory,*</value>
+      </slot>
+    </object>
+
+    <object parentDn="Role=SystemReadOnly">
+      <hasClass name="Rule">
+        <mimName>RcsLocalAuthorization</mimName>
+      </hasClass>
+      <slot name="ruleId">
+        <value>SysRoSwM</value>
+      </slot>
+      <slot name="permission">
+        <value>4</value>
+      </slot>
+      <slot name="ruleData">
+        <value>ManagedElement,SystemFunctions,SwM,*</value>
+      </slot>
+    </object>
+
+    <object parentDn="Role=SystemReadOnly">
+      <hasClass name="Rule">
+        <mimName>RcsLocalAuthorization</mimName>
+      </hasClass>
+      <slot name="ruleId">
+        <value>SysRoSysM</value>
+      </slot>
+      <slot name="permission">
+        <value>4</value>
+      </slot>
+      <slot name="ruleData">
+        <value>ManagedElement,SystemFunctions,SysM,*</value>
+      </slot>
+    </object>
+
+    <object parentDn="Role=SystemReadOnly">
+      <hasClass name="Rule">
+        <mimName>RcsLocalAuthorization</mimName>
+      </hasClass>
+      <slot name="ruleId">
+        <value>SysRoTN</value>
+      </slot>
+      <slot name="permission">
+        <value>4</value>
+      </slot>
+      <slot name="ruleData">
+        <value>ManagedElement,Transport</value>
+      </slot>
+    </object>
+
+    <object parentDn="Role=SystemReadOnly">
+      <hasClass name="Rule">
+	<mimName>ECIM_Local_Authorization</mimName>
+      </hasClass>
+      <slot name="ruleId">
+	<value>SysRoEqm</value>
+      </slot>
+      <slot name="permission">
+	<value>4</value>
+      </slot>
+      <slot name="ruleData">
+	<value>ManagedElement,Equipment,*</value>
+      </slot>
+    </object>
+
+    <object parentDn="Role=SystemReadOnly">
+      <hasClass name="Rule">
+	<mimName>ECIM_Local_Authorization</mimName>
+      </hasClass>
+      <slot name="ruleId">
+	<value>SysRoEqs</value>
+      </slot>
+      <slot name="permission">
+	<value>4</value>
+      </slot>
+      <slot name="ruleData">
+	<value>ManagedElement,EquipmentSupportFunction,*</value>
+      </slot>
+    </object>
+
+    <object parentDn="Role=SystemReadOnly">
+      <hasClass name="Rule">
+	<mimName>ECIM_Local_Authorization</mimName>
+      </hasClass>
+      <slot name="ruleId">
+	<value>SysRoNodeS</value>
+      </slot>
+      <slot name="permission">
+	<value>4</value>
+      </slot>
+      <slot name="ruleData">
+	<value>ManagedElement,NodeSupport,*</value>
+      </slot>
+    </object>
+
+    <!-- EricssonSupport rules -->
+
+    <object parentDn="Role=EricssonSupport">
+      <hasClass name="Rule">
+	<mimName>ECIM_Local_Authorization</mimName>
+      </hasClass>
+      <slot name="ruleId">
+	<value>support</value>
+      </slot>
+      <slot name="permission">
+	<value>7</value>
+      </slot>
+      <slot name="ruleData">
+	<value>ManagedElement,*</value>
+      </slot>
+      <slot name="userLabel">
+	<value>Access rule for MaintenanceUser only</value>
+      </slot>
+    </object>
+
+  </mib>
+</models>

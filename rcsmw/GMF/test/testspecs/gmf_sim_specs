@@ -1,0 +1,50 @@
+%% -*- erlang -*-
+
+%%%-----------------------------------------------------------------------------
+%%% @author erarafo
+%%%
+%%% Copyright (c) Ericsson AB 2014-2016 All rights reserved.
+%%%
+%%% The information in this document is the property of Ericsson.
+%%%
+%%% Except as specifically authorized in writing by Ericsson, the
+%%% receiver of this document shall keep the information contained
+%%% herein confidential and shall protect the same in whole or in
+%%% part from disclosure and dissemination to third parties.
+%%%
+%%% Disclosure and disseminations to the receivers employees shall
+%%% only be made on a strict need to know basis.
+%%% %CCaseCopyrightEnd%
+%%%
+%%% Created :  21 Mar 2014 by ETXPENO
+%%%            02 Jun 2016 Move of AVC suite
+%%%-----------------------------------------------------------------------------
+{define, 'Top', "/vobs/rcs/dev/RCP_CSX10179/RCT_CRX901275/test"}.
+{define, 'Gmf', "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/GMF/GMF_CNX9012719"}.
+{define, 'Comsa', "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/COMSA/COMSA_CNX9012610"}.
+{define, 'T1', "'Top'/suites/install"}.
+{define, 'T2', "'Top'/suites/CM"}.
+{define, 'T3', "'Comsa'/test/suites"}.
+{define, 'T8', "'Gmf'/test/suites"}.
+
+{cases, 'T1', install_sim_SUITE, [logs]}.
+{cases, 'T1', basic_tests_SUITE, [
+				  check_test_app,
+				  cli,
+				  coli,
+				  nc_get_config,
+				  nc_get,
+				  nc_getset_config,
+				  ee_processes,
+				  test_root_mo,
+				  test_class1_all,
+				  conf_snmpmgr,
+				  send_traps
+				 ]}.
+
+{cases,  'T2', cm_safc_basic_SUITE, [all]}.
+{cases,  'T2', cm_basic_SUITE, [all]}.
+{cases,  'T2', cm_cli_testclass1_SUITE, [all]}.
+{cases,  'T3', comsa_avc_SUITE, [all]}.
+
+{cases,  'T8', cmsi_c_SUITE, [all]}.

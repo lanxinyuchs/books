@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!--
+# ========================================================== 
+# %CCaseFile:	pms_alarm.xml % 
+# %CCaseRev:	/main/R2A/R3A/1 % 
+# %CCaseDate:	2015-04-20 % 
+#                                                            
+# Author:	etxbjca 
+# Description:	CAX appdata file   
+#                                                            
+# ========================================================== 
+#                                                            
+# %CCaseCopyrightBegin%
+# Copyright (c) Ericsson AB 2014-2015 All rights reserved.
+# 
+# The information in this document is the property of Ericsson.
+# 
+# Except as specifically authorized in writing by Ericsson, the 
+# receiver of this document shall keep the information contained 
+# herein confidential and shall protect the same in whole or in 
+# part from disclosure and dissemination to third parties.
+# 
+# Disclosure and disseminations to the receivers employees shall 
+# only be made on a strict need to know basis.
+# %CCaseCopyrightEnd%
+#                                                            
+# ========================================================== 
+# REVISION LOG 
+# ========================================================== 
+#                                                            
+# Rev        Date       Name        What 
+# ========   ========   ========    ======================== 
+# R2A/1      2014-01-15   etxbjca     Created 
+# ========================================================== 
+#
+# Note! this example is for Alarm appdata, check IWD for 
+# details of relevant appdata type. 
+# 
+-->                                                         
+
+<appdata target="alarm">
+  <alarmtype
+      name="LargeNumberOfCounters"
+      majorType="193"
+      minorType="9175056"
+      moClasses="Pm"
+      specificProblem="Large Number of Counters"
+      eventType="QUALITYOFSERVICEALARM"
+      probableCause="334"
+      isStateful="true"
+      additionalText=""/>
+</appdata> 
+

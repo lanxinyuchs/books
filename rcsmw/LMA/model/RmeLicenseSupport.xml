@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Copyright (c) 2017 Ericsson AB. 
+	All rights reserved 
+
+	DX ECIM Tool-chain generated this file on Jul 13, 2017 3:58:52 PM using:
+	* com.ericsson.ecim.m2m 2.14.5.201511210257
+	* com.ericsson.ecim.dsl 2.14.5.201511210257
+	* com.ericsson.ecim.edm 2.14.5.201511210257
+--><!DOCTYPE models SYSTEM "mp.dtd">
+<models>
+    <dtdVersion>G</dtdVersion>
+    <momMetaData>
+        <momTitle>title</momTitle>
+        <momSubTitle>sub title</momSubTitle>
+        <momIdentity>
+            <docNum>0</docNum>
+            <docLang>English</docLang>
+            <docRev>0</docRev>
+            <docDate>date</docDate>
+        </momIdentity>
+    </momMetaData>
+    <mim author="" contact="" correction="0" date="" docNo="" name="RmeLicenseSupport" namespace="urn:com:ericsson:ecim:RmeLicenseSupport" namespacePrefix="rmelicensesupport" organization="" release="0" revision="" version="1">
+        <description/>
+        <enum name="InstallAreaLicenseKeysResult">
+            <description>Enumeration relating to action installAreaLicenseKeys.</description>
+            <enumMember name="SUCCESS">
+                <description>The action succeeded.</description>
+                <value>0</value>
+            </enumMember>
+            <enumMember name="NOT_READABLE">
+                <description>The area license keys string is not readable.</description>
+                <value>1</value>
+            </enumMember>
+            <enumMember name="UNSUPPORTED_VERSION">
+                <description>The version of the area license keys string is not supported.</description>
+                <value>2</value>
+            </enumMember>
+            <enumMember name="LICENSE_AREA_ID_MISMATCH">
+                <description>The license area identity does not match the license area identity of the node.</description>
+                <value>3</value>
+            </enumMember>
+            <enumMember name="INVALID_SEQUENCE_NUMBER">
+                <description>The sequence number is invalid.</description>
+                <value>4</value>
+            </enumMember>
+            <enumMember name="OTHER_FAILURE">
+                <description>The action failed for other reasons.</description>
+                <value>5</value>
+            </enumMember>
+        </enum>
+        <class name="LicenseSupport">
+            <description>Provides support for installation of Area License Keys.</description>
+            <systemCreated/>
+            <root/>
+            <action name="initialize">
+                <description>The action is used by OSS to initialize the secure connection with the license server.
+
+The return value is the string with a cryptographic key, if initialization process was not successful an empty string is returned.
+
+This is a synchronous operation.</description>
+                <returnType>
+                    <string/>
+                </returnType>
+            </action>
+            <action name="installAreaLicenseKeys">
+                <description>Installs the License Area licensing keys.
+
+This is a synchronous operation.</description>
+                <returnType>
+                    <enumRef name="InstallAreaLicenseKeysResult">
+                        <mimName>RmeLicenseSupport</mimName>
+                    </enumRef>
+                </returnType>
+                <parameter name="keys">
+                    <description>Internal representation of the licensing keys.</description>
+                    <in/>
+                    <dataType>
+                        <string/>
+                    </dataType>
+                </parameter>
+            </action>
+            <attribute name="licenseSupportId">
+                <description>The value component of the RDN.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="licenseAreaId">
+                <description>The identity of license area to which this ME belongs. Updating this attribute will uninstall any license keys associated with the previous licenseAreaId.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+        </class>
+    </mim>
+    <interMim>
+        <relationship name="NodeSupport_to_LicenseSupport">
+            <containment>
+                <parent>
+                    <hasClass name="NodeSupport">
+                        <mimName>RmeSupport</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="LicenseSupport">
+                        <mimName>RmeLicenseSupport</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>1</min>
+                        <max>1</max>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="false"/>
+                    <extension name="canDelete" value="false"/>
+                </domainExtension>
+                <notCreatable/>
+                <notDeleteable/>
+            </containment>
+        </relationship>
+    </interMim>
+</models>

@@ -1,0 +1,42 @@
+%%% -*- erlang -*-
+%%%-----------------------------------------------------------------------------
+%%% @author etxmlar
+%%% @copyright Ericsson AB 2017
+%%% @doc
+%%%
+%%% @end
+%%% Created : 
+%%%-----------------------------------------------------------------------------
+
+%%------------------------------------------------------------------------------
+%%  R8A/1      2017-01-20   etxmlar     Created to run on full UP jenkins
+%%  R8A/2      2017-01-20   etxmlar     Updated and checked in
+%%  R9A/1      2017-02-06   etxmlar     Added 2 new testcases
+%%------------------------------------------------------------------------------
+%%{define, 'Base', "/vobs/rcs/dev/RCP_CSX10179/RCT_CRX901275/test/suites/install"}.
+
+{merge_tests, false}.
+{define, 'Top', "/vobs/rcs/dev/RCP_CSX10179/RCT_CRX901275/test"}.
+{define, 'T1', "'Top'/suites/NL"}.
+
+
+{groups, 'T1', nl_escalate_3_SUITE, [d_1_4]}.
+
+{cases, 'T1', lmt_integration_on_site_conf_fast_SUITE, [all]}.
+
+{cases, 'T1', lmt_integration_on_site_conf_ai_backup_SUITE, [all]}.
+
+{cases, 'T1', lmt_integration_on_site_conf_ai_backup_with_self_upgrade_SUITE, [all]}.
+
+{cases, 'T1', lmt_integration_trusted_ai_backup_SUITE, [all]}.
+
+{cases, 'T1', lmt_integration_trusted_ai_backup_with_self_upgrade_SUITE, [all]}.
+
+
+%% Normal testcases for LM integration Ipv4 trusted with local file (using browse button)
+%% except we wait 5 minutes before doing download 
+%%{cases, 'T1', lmt_integration_trusted_ipv4_wait_before_download_SUITE, [all]}.
+
+%%  LM integration trusted Ipv4 download x2 without integrate between
+%%  NOTE! This testcase is last of testspec because it fails -> correction needed
+%%{cases, 'T1', lmt_integration_trusted_ipv4_download_twice_SUITE, [all]}.

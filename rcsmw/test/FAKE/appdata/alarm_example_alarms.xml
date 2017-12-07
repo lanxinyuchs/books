@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!--
+# ==========================================================
+# %CCaseFile:	alarm_example_alarms.xml %
+# %CCaseRev:	/main/R2A/R3A/2 %
+# %CCaseDate:	2015-03-28 %
+#
+# Author:	erarafo
+# Description:	Alarm and alerts used by the alarms_example_app
+#               program, included in the Alarm Service IWD.
+#
+# ==========================================================
+#
+# %CCaseCopyrightBegin%
+# Copyright (c) Ericsson AB 2013-2015 All rights reserved.
+#
+# The information in this document is the property of Ericsson.
+#
+# Except as specifically authorized in writing by Ericsson, the
+# receiver of this document shall keep the information contained
+# herein confidential and shall protect the same in whole or in
+# part from disclosure and dissemination to third parties.
+#
+# Disclosure and disseminations to the receivers employees shall
+# only be made on a strict need to know basis.
+# %CCaseCopyrightEnd%
+#
+# ==========================================================
+# REVISION LOG
+# ==========================================================
+#
+# Rev        Date       Name        What
+# ========   ========   ========    ========================
+# R2A/1      2013-11-21 erarafo     First version
+# R2A/2      2013-11-27 erarafo     Ready for inclusion in IWD
+# R2A/3      2013-11-27 erarafo     Added 'name' attribute
+# R3A/1      2015-01-30 erarafo     Coffe beans alarm minorType changed from
+                                    9240548 to 9240559 because of clash
+# R3A/2      2015-03-28 erarafo     Cocoa powder alarm added
+# ==========================================================
+-->
+
+<appdata target="alarm"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="https://rbs-rde-dev.rnd.ki.sw.ericsson.se/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/COMSA/COMSA_CXA11418/schema/alarm.xsd">
+
+  <!-- minor type 9240558 is 65536 x 140 + 65518 -->
+  <alarmtype
+      name="ResourceMonitorCocoaPowderContainerLowLevel"
+      majorType="193"
+      minorType="9240558"
+      moClasses="TestClass1"
+      specificProblem="Resource Monitor Cocoa Powder Container Low Level"
+      eventType="EQUIPMENTALARM"
+      probableCause="1"
+      isStateful="true"
+      additionalText="Cocoa powder refill required"/>
+
+  <!-- minor type 9240559 is 65536 x 140 + 65519 -->
+  <alarmtype
+      name="ResourceMonitorCoffeeBeansContainerLowLevel"
+      majorType="193"
+      minorType="9240559"
+      moClasses="TestClass1"
+      specificProblem="Resource Monitor Coffee Beans Container Low Level"
+      eventType="EQUIPMENTALARM"
+      probableCause="1"
+      isStateful="true"
+      additionalText="Coffee beans refill required"/>
+
+  <!-- minor type 9240564 is 65536 x 140 + 65524 -->
+  <alarmtype
+      name="IntegrityMonitorExcessiveVibrations"
+      majorType="193"
+      minorType="9240564"
+      moClasses="TestClass1"
+      specificProblem="Integrity Monitor Excessive Vibrations"
+      eventType="PHYSICALVIOLATION"
+      probableCause="1"
+      isStateful="false"
+      additionalText="Physical intrusion or earthquake"/>
+</appdata>

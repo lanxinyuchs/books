@@ -1,0 +1,262 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+program=$(basename $0)
+
+# Print basic usage information
+#
+
+print_usage () {
+    echo "Usage: $program [<options>] <command> [<command options>]"
+    echo "Radiator data item manipulation program."
+    echo Commands:
+    echo "    id                  try to determine the row id and print it"
+    echo "    new-id              allocate a new radiator build id"
+    echo "    set <item> <value>  set the data for an item"
+    echo "Options:"
+    echo "  --help:               show this help"
+    echo "  --man-page:           display the man page"
+    echo "  --radiator-root PATH: set path to the radiator top directory"
+}
+
+
+die () {
+    echo "$@" 1>&2
+    exit 1
+}
+
+# Declared variables
+
+args=""
+
+
+# Parse options
+#
+
+handle_options () {
+
+    # Program options
+    GETOPT=$(getopt --options 'hm' --long help,man-page,radiator-root: -n $0 -- "$@")
+
+    if [[ $? != 0 ]] ; then echo "Error parsing arguments." >&2 ; exit 1 ; fi
+
+    eval set -- "$GETOPT"
+
+    while true ; do
+        case "$1" in
+          --help) print_usage; exit ;;
+          --man-page) print_man_page; exit ;;
+          --radiator-root) shift; export RADIATOR_ROOT="$1";;
+          --) shift ; break ;;
+          *) echo "Internal error! Got option $1" ; exit 1 ;;
+        esac
+        shift
+    done
+
+    if [[ ! ${1:-} ]]; then
+        print_usage
+        exit 0
+    fi
+
+    [[ ${RADIATOR_ROOT:-} ]] ||\
+        die "Error: --radiator-root was not given and RADIATOR_ROOT is not set, or is empty"
+
+    # $@ is local since we are in a function. Copy it to the global variable.
+    args="$@"
+}
+
+# Try to determine the id in this environment
+#
+determine_id() {
+    if [[ ${RADIATOR_BUILD_ID-} ]]; then
+        echo $RADIATOR_BUILD_ID
+        return
+    fi
+    # If the MW UP file exists, and its corresponding VERSION variable is
+    # set, then it contains the id
+    if [[ ${VRCS_VERSION:-} ]]; then
+        file=${RADIATOR_ROOT}/CXS101657_4-${VRCS_VERSION}
+        if [[ -f $file ]]; then
+            cat $file
+            return
+        fi
+    elif [[ ${MSRCS_VERSION:-} ]]; then
+        file=${RADIATOR_ROOT}/CXS2010013_2-${MSRCS_VERSION}
+        if [[ -f $file ]]; then
+            cat $file
+            return
+        fi
+    elif [[ ${BRCS_VERSION:-} ]]; then
+        file=${RADIATOR_ROOT}/CXS101665_5-${BRCS_VERSION}
+        if [[ -f $file ]]; then
+            cat $file
+            return
+        fi
+    elif [[ ${VRCS64_VERSION:-} ]]; then
+        file=${RADIATOR_ROOT}/CXS2010009_1-${VRCS64_VERSION}
+        if [[ -f $file ]]; then
+            cat $file
+            return
+        fi
+    fi
+}
+
+# Set the given data item
+# param: 1: key
+# param: 2: value
+
+set_item() {
+    [[ ${1:-} ]] || die 'Error: "set" requires two arguments; "key" and "value"'
+    id=$(determine_id)
+    [[ $id ]] || die 'Error: unable to determine radiator build id'
+    item=$1
+    shift
+    echo "$@" > ${RADIATOR_ROOT}/$id/$item
+}
+
+# Create a new row in the current radiator
+#
+new_id() {
+    set +o pipefail
+
+    # Make sure RADIATOR_ROOT exists. "mkdir -p" never gives error code
+    mkdir -p ${RADIATOR_ROOT}
+
+    last=$(ls $RADIATOR_ROOT\
+           | perl -ne '/^\d+$/ && print'\
+           | sort -n | tail -1)
+    set -e pipefail
+    if [[ ${last:-} ]]; then
+        id=$(expr $last + 1)
+    else
+        id=1
+    fi
+    mkdir ${RADIATOR_ROOT}/${id}
+    chmod 775 ${RADIATOR_ROOT}/${id}
+    echo $id
+}
+# Main program.
+
+main () {
+    case $1 in
+      id) determine_id;;
+      new-id) new_id;;
+      set) shift;
+           item=$1;
+           shift;
+           set_item "$item" "$@";;
+      *) die "Error: unknown command \"$1\"";;
+    esac
+}
+
+
+######################################################################
+### Man page should be the last part in the file
+
+print_man_page () {
+    if [[ ! $PAGER ]]; then
+        export PAGER=less
+    fi
+
+    if perldoc -l Term::ANSIColor > /dev/null 2>&1; then
+        color=--color
+    fi
+
+    ( pod2text --loose $color - <<EOPOD
+
+=head1 NAME
+
+$program - manipulate radiator data items
+
+=head1 SYNOPSIS
+
+$program [ B<--help> | B<--man-page> ]
+
+$program id
+
+$program new-id
+
+$program set I<key> I<value>
+
+=head1 DESCRIPTION
+
+This program manages radiator settings.
+
+=head1 COMMANDS
+
+=over 4
+
+=item B<id>
+
+Tries to determine the id based on the current environment settings.
+See L<VARIABLES> below for a detailed variable description
+
+=item B<new-id>
+
+Steps the build id ("LSV") for the radiator, creating the corresponding
+directory, and prints the new id on stdout
+
+=item B<set> I<item> I<value>
+
+Stores I<value> in the file ${RADIATOR_ROOT}/I<id>/I<item>. The value must
+be enclosed in quotes if it contains shell-significant character
+
+=back
+
+=head1 OPTIONS
+
+=over 4
+
+=item B<--help>
+
+Print short help text
+
+=item B<--man-page>
+
+Show this man page
+
+=back
+
+=head1 VARIABLES
+
+=over 4
+
+=item CXS101657_4_VERSION
+
+Used to determine the radiator build id if C<RADIATOR_BUILD_ID> is not set
+
+=item CXS101657_2_VERSION
+
+Used to determine the radiator build id if C<RADIATOR_BUILD_ID> is not set
+
+=item CXS101665_3_VERSION
+
+Used to determine the radiator build id if C<RADIATOR_BUILD_ID> is not set
+
+=item RADIATOR_BUILD_ID
+
+If this variable is set, then it used as the row is for the radiator when
+returning the id and when setting data in the radiator
+
+=item RADIATOR_ROOT
+
+The directory which contains the radiator data. Each radiator build id will
+be stored in sub-directories in this location. This variable is B<mandatory>
+unless the argument B<--radiator-root> is given.
+
+=back
+
+=head1 SEE ALSO
+
+-
+
+EOPOD
+  ) | $PAGER
+}
+
+# The sole purpose of the calls below is to allow the man page to stay at the end
+# of the file
+
+handle_options "$@"
+main $args

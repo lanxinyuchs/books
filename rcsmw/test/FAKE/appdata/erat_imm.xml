@@ -1,0 +1,13 @@
+<appdata target="gmfImm">
+    <immInfos>
+      <immInfo file="Erat_imm_classes.xml"
+               path="*/fake-*/priv"
+               fileType="classes"/>
+      <immInfo file="Erat_imm_objects.xml"
+               path="*/fake-*/priv"
+               fileType="objects"/>
+    </immInfos>   
+ </appdata>
+
+<!--           path="CXC1/priv/model" -->
+<!--           path="CXC2/priv/model" -->

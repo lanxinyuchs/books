@@ -1,0 +1,36 @@
+%%% -*- erlang -*-
+%%%-----------------------------------------------------------------------------
+%%% @author ekurnik
+%%% @copyright Ericsson AB 2016
+%%% @doc
+%%%
+%%% @end
+%%%-----------------------------------------------------------------------------
+
+%%------------------------------------------------------------------------------
+%%  R5A/2      2016-02-23   ekurnik    Created
+%%  R5A/3	   2016-02-26	ekurnik	   Changed list of test to SIM test group
+%%------------------------------------------------------------------------------
+
+{define, 'Top', "/vobs/rcs/dev/RCP_CSX10179/RCT_CRX901275"}.
+{define, 'Block', "/vobs/rcs/dev/RCP_CSX10179/RCS_CRX901266/CCH/CCH_CNX9013418"}.
+      {define, 'T1', "'Top'/test/suites/install"}.
+      {define, 'T2', "'Block'/test/suites"}.
+
+      {cases, 'T1', install_sim_SUITE, [logs]}.
+      {cases, 'T1', basic_tests_SUITE, [
+         check_test_app,
+         cli,
+         coli,
+         nc_get_config,
+         nc_get,
+         nc_getset_config,
+         ee_processes,
+         test_root_mo,
+         test_class1_all,
+         conf_snmpmgr,
+         send_traps
+      ]}.
+
+      {groups,  'T2', cci_c_suite, cci_sim_test_group}.
+

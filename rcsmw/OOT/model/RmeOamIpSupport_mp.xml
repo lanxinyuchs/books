@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Copyright (c) 2017 Ericsson AB. 
+	All rights reserved 
+
+	DX ECIM Tool-chain generated this file on Mar 2, 2017 10:21:07 AM using:
+	* com.ericsson.ecim.m2m 2.14.5.201511210257
+	* com.ericsson.ecim.dsl 2.14.5.201511210257
+	* com.ericsson.ecim.edm 2.14.5.201511210257
+--><!DOCTYPE models SYSTEM "mp.dtd">
+<models>
+    <dtdVersion>G</dtdVersion>
+    <momMetaData>
+        <momTitle>title</momTitle>
+        <momSubTitle>sub title</momSubTitle>
+        <momIdentity>
+            <docNum>0</docNum>
+            <docLang>English</docLang>
+            <docRev>0</docRev>
+            <docDate>2017-03-01</docDate>
+        </momIdentity>
+        <createdBy>
+            <signature>EXTPENO</signature>
+        </createdBy>
+    </momMetaData>
+    <mim author="etxpeno" contact="etxpeno" correction="0" date="2017-03-01" docNo="" name="RmeOamIpSupport" namespace="urn:com:ericsson:ecim:RmeOamIpSupport" namespacePrefix="rmeoamipsupport" organization="" release="0" revision="" version="1">
+        <description>Top of the OamIpSupport branch</description>
+        <class name="OamIpSupport">
+            <description>This MO class contains an attribute set by a management system to acknowledge successful setting of the IP address used for OaM access to a node.
+The IP address is received by a management system via an SNMP trap eriChangeAddressEvent.
+</description>
+            <systemCreated/>
+            <root/>
+            <attribute name="oamIpSupportId">
+                <description>Holds the value identifying this MO.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="ipAddressChangeStatus">
+                <description>Used to acknowledge successful setting of OaM IP address in management system.
+
+Set to value eriChangeIPAddressAckAttributeValue sent in SNMP trap eriChangeIPAddressEvent to acknowledge setting of OaM IP address in management system.
+</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <int32/>
+                </dataType>
+            </attribute>
+        </class>
+    </mim>
+    <interMim>
+        <relationship name="NodeSupport_to_OamIpSupport">
+            <containment>
+                <parent>
+                    <hasClass name="NodeSupport">
+                        <mimName>RmeSupport</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="OamIpSupport">
+                        <mimName>RmeOamIpSupport</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>1</min>
+                        <max>1</max>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="false"/>
+                    <extension name="canDelete" value="false"/>
+                </domainExtension>
+                <notCreatable/>
+                <notDeleteable/>
+            </containment>
+        </relationship>
+    </interMim>
+</models>

@@ -1,0 +1,28 @@
+%%%-----------------------------------------------------------------------------
+%%% @author etxivri
+%%% @copyright Ericsson AB 2016-2017
+%%% @doc
+%%%
+%%% @end
+%%% Created :  1 Apr 2016 by etxivri
+%%%-----------------------------------------------------------------------------
+
+%%------------------------------------------------------------------------------
+%%       -- 
+%%
+%%------------------------------------------------------------------------------
+      {merge_tests, false}.
+      {define, 'Top', "/vobs/rcs/test/RCT_CRX901275/test"}.
+      {define, 'T1', "'Top'/suites/NL"}.
+ 
+      {groups, 'T1', decoupling_ai_SUITE, group_640_A6_test1}.
+      {groups, 'T1', decoupling_ai_SUITE, group_640_A6_test2}.
+
+      {cases, 'T1', decoupling_ai_SUITE,[install_org_up_to_cleanup]}.
+      {groups, 'T1', decoupling_ai_SUITE, group_multiple_hal}.
+      {groups, 'T1', decoupling_ai_SUITE, group_cleanup}.
+
+%      {groups, 'T1', decoupling_ai_SUITE, group_640_N_glob}.
+%      {groups, 'T1', decoupling_ai_SUITE, group_640_N_hal_glob}.
+%      {groups, 'T1', decoupling_ai_SUITE, group_640_E1}.
+%      {groups, 'T1', decoupling_ai_SUITE, group_cleanup}.

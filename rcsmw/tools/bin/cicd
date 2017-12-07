@@ -1,0 +1,317 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+source ${MODULESHOME:-/app/modules/0}/init/bash
+module use /app/plf_tools/bs_g2/python_modules/modulefiles
+module add ciutils/${CIUTILS_VERSION:-2.2.11}
+
+# Print basic usage information
+#
+
+print_usage () {
+    echo "Usage: $(basename $0) { --help | --man-page }"
+    echo "       $(basename $0) read-key <name> <key> [<config file>]"
+    echo "       $(basename $0) get-name[-lc] <name>"
+    echo "       $(basename $0) get-id[-lc] <name>"
+    echo "       $(basename $0) get-version <name>"
+    echo "       $(basename $0) get-file-name <name>"
+    echo "       $(basename $0) get-filename <name>"
+    echo "Library functions for CICDSYS."
+    echo "Options:"
+    echo "  --help:     show this help"
+    echo "  --man-page: display the man page"
+}
+
+# Declared variables
+
+args=''
+clean=''
+cleanall=''
+
+source $(dirname ${BASH_SOURCE[0]})/../env.sh
+
+deploy_config_file=${CICDSYS_DEPLOY_CONFIG_FILE:-${CICDSYS_ROOT}/config/delivery.config}
+baseline_file=${CICDSYS_BASELINE_CONFIG_FILE:-${CICDSYS_OUTDIR}/baseline.config}
+
+
+# Print arguments to stderr and exit with a non-zero value
+# param: text to print
+die() {
+    echo "$@" 1>&2
+    exit 1
+}
+
+# Parse options
+#
+
+handle_options () {
+
+    # Program options
+    GETOPT=$(getopt --options 'hm' --long clean,cleanall,help,man-page,version: -n $0 -- "$@")
+
+    if [[ $? != 0 ]] ; then echo "Error parsing arguments." >&2 ; exit 1 ; fi
+
+    eval set -- "$GETOPT"
+
+    while true ; do
+        case "$1" in
+          --cleanall) cleanall=1;;
+          --clean)    clean=1;;
+          --help)     print_usage; exit ;;
+          --man-page) print_man_page; exit ;;
+          --version)  shift; version=$1;;
+          --) shift ; break ;;
+          *) echo "Internal error!" ; exit 1 ;;
+        esac
+        shift
+    done
+
+    # $@ is local since we are in a function. Copy it to the global variable.
+    args="$@"
+}
+
+
+# Print the content of the given key if it exists in the config file, removing
+# any "@" characters
+# param 1: artifact id
+# param 2: key
+# param 3: config file to read from. Optional. Default is $deploy_config_file
+function read_key() {
+    # config.py returns error exit status if the key does not exist, which
+    # is the reason this function is needed.
+    local config_file=${3:-$deploy_config_file}
+    for key in $1 $1-extras; do
+        if config.py exists $config_file $key $2; then
+            config.py read $config_file $key $2 | sed -e 's/@//g'
+        fi
+    done
+}
+
+
+# Print the version in the baseline file for the given artifact
+# param 1: artifact id
+# param 2: file to read version from. Defaults to $baseline_file
+function get_version() {
+    if [[ -f ${2:-$baseline_file} ]]; then
+        local version=$(read_key $1 version ${2:-$baseline_file})
+        if [[ $version ]]; then
+            echo $version
+            return
+        fi
+    fi
+}
+
+
+# Return the product name for the given name
+# param 1: name of the section in the delivery.config file
+get_artifact_name() {
+    local id=$1
+
+    local name=$(read_key ${id} name)
+    if [[ ${name} ]]; then
+        echo $name
+        return
+    fi
+
+    local name=$(read_key ${id} artifact)
+    if [[ $name = *_CX* ]]; then
+        echo ${name%%_*}
+        return
+    fi
+
+    echo $id
+}
+
+
+# Return the product name in lower case for the given name
+# param 1: name of the section in the delivery.config file
+get_artifact_name_lc() {
+    local name=$1
+    get_artifact_name ${name} | tr '[A-Z]' '[a-z]'
+}
+
+
+# Return the product number for the given name
+# param 1: name of the section in the delivery.config file
+get_artifact_id() {
+    local name=$1
+    local name=$(read_key ${name} artifact)
+    if [[ $name = *_CX* ]]; then
+        echo ${name#*_}
+    else
+        echo $name
+    fi
+}
+
+
+# Return the product number in lower case for the given name
+# param 1: name of the section in the delivery.config file
+get_artifact_id_lc() {
+    local name=$1
+    get_artifact_id ${name} | tr '[A-Z]' '[a-z]'
+}
+
+
+# Construct the file name for the given name based on the information in the
+# delivery.config file.
+# param 1: name of the section in the delivery.config file
+get_file_name() {
+    local name=$1
+    local file_name=$(read_key ${name} artifact)
+    local classifier=$(read_key ${name} classifier)
+    local extension=$(read_key ${name} extension)
+
+    if [[ $classifier ]]; then
+        file_name=${file_name}-${classifier}
+    fi
+
+    if [[ $extension ]]; then
+        file_name=${file_name}.${extension}
+    fi
+    echo $file_name
+}
+
+
+# Main program.
+
+main () {
+
+    if [[ ! ${1-} ]]; then
+        print_usage
+        exit 1
+    fi
+
+    command=${1}
+    shift
+
+    case $command in
+        read-key)
+            read_key "$@"
+            ;;
+        get-id)
+            get_artifact_id "$@"
+            ;;
+        get-id-lc)
+            get_artifact_id_lc "$@"
+            ;;
+        get-version)
+            get_version "$@"
+            ;;
+        get-name)
+            get_artifact_name "$@"
+            ;;
+        get-name-lc)
+            get_artifact_name_lc "$@"
+            ;;
+        get-file-name|get-filename)
+            get_file_name "$@"
+            ;;
+        get-*)
+            read_key $1 ${command#get-}
+            ;;
+        *)
+            echo $command: Error: unrecognized command
+            print_usage
+            exit 1
+            ;;
+
+    esac
+
+}
+
+
+######################################################################
+### Man page should be the last part in the file
+
+print_man_page () {
+    if [[ ! ${PAGER-} ]]; then
+        export PAGER=less
+    fi
+
+    if perldoc -l Term::ANSIColor > /dev/null 2>&1; then
+        color=--color
+    fi
+
+    ( pod2text --loose $color - <<EOPOD
+
+=head1 NAME
+
+$(basename $0) - cicdsys library functions
+
+=head1 SYNOPSIS
+
+$(basename $0) B<read-key> I<name> I<key> [I<config file>]
+
+$(basename $0) B<get-name>[B<-lc>] I<name>
+
+$(basename $0) B<get-id>[B<-lc>] I<name>
+
+$(basename $0) B<get-version> I<name>
+
+$(basename $0) B<get-file-name> I<name>
+
+$(basename $0) { B<--help> | B<--man-page> }
+
+=head1 DESCRIPTION
+
+Any function which retrieves data from the F<.config> files reads from the
+F<\${CICDSYS_ROOT}/config/delivery.config>, and the
+F<\${CICDSYS_OUTDIR}/baseline.config> files. The B<read-key> function can be
+given a config file to read data from, ignoring the default files.
+
+=head2 read-key I<name> I<key> [ I<config-file> ]
+
+Print the value of the key I<key> in section I<name>. If the third argument
+I<config-file> is given, then the key is read from that file instead of from
+the default files. See L<DESCRIPTION>. Examples:
+
+    cicd read-key foocxp artifacttype
+    cicd read-key barcxp provides ../config/local.config
+
+=head2 get-name[-lc] I<name>
+
+Print the name part of the artifact I<name>. The B<get-name-lc> variant prints
+the name in lower-case.
+
+=head2 get-id[-lc] I<name>
+
+Print the number part of the artifact I<name>. The B<get-id-lc> variant prints
+the name in lower-case.
+
+=head2 get-version
+
+Print the version of the artifact I<name>.
+
+=head2 get-file-name
+
+Print the expected file name for artifact I<name>, i.e with C<classifier> and
+C<extension> if those keys exist.
+
+=head1 OPTIONS
+
+=over 4
+
+=item B<--help>
+
+Print short help text
+
+=item B<--man-page>
+
+Show this man page
+
+=back
+
+=head1 SEE ALSO
+
+-
+
+EOPOD
+  ) | $PAGER
+}
+
+# The sole purpose of the calls below is to allow the man page to stay at the end
+# of the file
+
+handle_options "$@"
+main $args

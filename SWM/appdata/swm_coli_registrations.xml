@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!--
+# ==========================================================
+# %CCaseFile:	swm_coli_registrations.xml %
+# %CCaseRev:	/main/R2A/R3A/R4A/R5A/R6A/R7A/R8A/R9A/R10A/R12A/1 %
+# %CCaseDate:	2017-10-23 %
+#
+# Author:	etxbjca
+# Description:	CAX appdata file
+#
+# ==========================================================
+#
+# %CCaseCopyrightBegin%
+# Copyright (c) Ericsson AB 2014-2017 All rights reserved.
+# 
+# The information in this document is the property of Ericsson.
+# 
+# Except as specifically authorized in writing by Ericsson, the 
+# receiver of this document shall keep the information contained 
+# herein confidential and shall protect the same in whole or in 
+# part from disclosure and dissemination to third parties.
+# 
+# Disclosure and disseminations to the receivers employees shall 
+# only be made on a strict need to know basis.
+# %CCaseCopyrightEnd%
+#
+# ==========================================================
+# REVISION LOG
+# ==========================================================
+#
+# Rev        Date       Name        What
+# ========   ========   ========    ========================
+# R2A/1      2014-10-15 etxjotj     Created
+# R3A/2      2015-02-18 erarafo     Typo fixed
+# R3A/3      2015-06-05 etxjotj     Configurable cancel restore timeout
+# R4A/1      2015-07-28 uabesvi     all cmds: cli_scope = central
+# R4A/2      2015-11-26 etxjotj     Disable UP max check
+# R4A/3      2015-11-30 etxjotj     Changed path of command
+# R5A/1      2016-01-14 etxjotj     DB monitor quarantine reset
+# R5A/3      2016-03-02 etxjotj     Internal housekeeping 
+# R5A/4      2016-03-11 etxjotj     Changed housekeeping 
+# R5A/5      2016-03-14 etxarnu     Added 
+# R6A/1      2016-09-21 etxjotj     Disable/enable confirmRestore
+# R7A/1      2016-09-29 etxjotj     Disable fallback timer reset
+# R8A/1      2016-10-26 etxpejn     Added signingcertupdate
+# R9A/1      2017-01-27 etxjotj     HSI enabling
+# R10A/1     2017-06-11 etxjotj     HV92792 Soaking period
+# R10A/2     2017-06-27 etxjotj     Activation complete notification resend
+# R12A/1     2017-10-23 etxpejn     Antirollback
+# ==========================================================
+#
+#
+-->
+
+<appdata target="coli_reg">
+  <coli_erlang_reg
+      cli_name = "disable-fallback-timer-reset"
+      cli_path = "/labonly/rcs"
+      cli_scope = "central"
+      usage = "[]"
+      module = "swmColi" function = "disable_fallback_timer_reset">
+    <description>
+Keep fallback timer at configured value at upgrade.
+    </description>
+  </coli_erlang_reg>
+<!-- ========================================================== -->
+  <coli_erlang_reg
+      cli_name = "disable-max-up-check"
+      cli_path = "/labonly/rcs"
+      cli_scope = "central"
+      usage = "[]"
+      module = "swmColi" function = "disable_max_up_check">
+    <description>
+Disable the check for maximum number of upgrade packages allowed to be installed. WARNING! Disabling this check can render the system unusable because of archive disk space exhaustion
+    </description>
+  </coli_erlang_reg>
+<!-- ========================================================== -->
+  <coli_erlang_reg
+      cli_name = "enable-max-up-check"
+      cli_path = "/labonly/rcs"
+      cli_scope = "central"
+      usage = "[]"
+      module = "swmColi" function = "enable_max_up_check">
+    <description>
+Enable the check for maximum number of upgrade packages allowed to be installed. NOTE! If the check has been disabled, more than three upgrade packages may already be installed. After the check is reenabled, no packages can be installed until a sufficient number is removed.
+    </description>
+  </coli_erlang_reg>
+<!-- ========================================================== -->
+  <coli_erlang_reg
+      cli_name = "reset-quarantine"
+      cli_path = "/swm"
+      cli_scope = "central"
+      usage = "-"
+      module = "swmColi" function = "reset_quarantine">
+    <description>
+Reset the quarantine for database disk commits.
+    </description>
+  </coli_erlang_reg>
+<!-- ========================================================== -->
+  <coli_erlang_reg
+      cli_name = "set-housekeeping-delay"
+      cli_path = "/swm"
+      cli_scope = "central"
+      usage = "WaitTime"
+      module = "swmColi" function = "set_housekeeping_delay">
+    <description>
+Set the delay time for the delay of internal housekeeping of system created backups to any value in milliseconds.
+The preinstalled value is 3,600,000. Be sure to reset this value after testing.
+If the value is changed, this is noted in the SwmLog.
+    </description>
+  </coli_erlang_reg>
+<!-- ========================================================== -->
+  <coli_erlang_reg
+      cli_name = "reset-housekeeping-delay"
+      cli_path = "/swm"
+      cli_scope = "central"
+      usage = "[]"
+      module = "swmColi" function = "reset_housekeeping_delay">
+    <description>
+Reset the delay time for the delay of internal housekeeping of system created backups to the preinstalled value 3,600,000.
+    </description>
+  </coli_erlang_reg>
+<!-- ========================================================== -->
+  <coli_erlang_reg
+      cli_name = "set-rollback-timer"
+      cli_path = "/swm"
+      cli_scope = "central"
+      usage = "WaitTime"
+      module = "swmColi" function = "set_rollback_timer">
+    <description>
+Set the timeout for the data conversion rollback timer.
+    </description>
+  </coli_erlang_reg>
+<!-- ========================================================== -->
+  <coli_erlang_reg
+      cli_name = "reset-rollback-timer"
+      cli_path = "/swm"
+      cli_scope = "central"
+      usage = "[]"
+      module = "swmColi" function = "reset_rollback_timer">
+    <description>
+Reset the rollback timeout to the preinstalled value.
+    </description>
+  </coli_erlang_reg>
+<!-- ========================================================== -->
+  <coli_erlang_reg
+      cli_name = "set-restore-timer"
+      cli_path = "/swm"
+      cli_scope = "central"
+      usage = "WaitTime"
+      module = "swmColi" function = "set_restore_timer">
+    <description>
+Set the timeout for the backup restore cancel timer.
+    </description>
+  </coli_erlang_reg>
+<!-- ========================================================== -->
+  <coli_erlang_reg
+      cli_name = "reset-restore-timer"
+      cli_path = "/swm"
+      cli_scope = "central"
+      usage = "[]"
+      module = "swmColi" function = "reset_restore_timer">
+    <description>
+Reset the cancel timeout to the preinstalled value.
+    </description>
+  </coli_erlang_reg>
+<!-- ========================================================== -->
+  <coli_erlang_reg
+      cli_name = "housekeep"
+      cli_path = "/swm"
+      cli_scope = "central"
+      usage = "[]"
+      module = "swmColi" function = "perform_backup_housekeeping">
+    <description>
+Triggers housekeeping of system created backups. System created backups which is not needed will be deleted. 
+Export backups you want to keep to an external server. Invoking this command may leave hanging jobs in OSS.
+    </description>
+  </coli_erlang_reg>
+<!-- ========================================================== -->
+<coli_erlang_reg
+    cli_name = "period"
+    cli_path = "/swm/fastrestore"
+    cli_scope = "central"
+    usage = "[Time]"
+    module = "swmColi" function = "soaking_time">
+    <description>
+Set the post-confirm upgrade time interval, in which fast restore to the 
+previously installed UP is available.
+
+[]
+    Displays the current time setting
+
+disable
+    Disables the function if called before the 'confirm' action
+
+infinity
+    Enables the fast restore with no expiry date. 
+    WARNING! Running in fast restore may cause disk shortage and other limitations
+
+Days
+    Enables the period for a whole number of days
+    </description> 
+  </coli_erlang_reg>
+<!-- ========================================================== -->
+<coli_erlang_reg
+    cli_name = "expire"
+    cli_path = "/swm/fastrestore"
+    cli_scope = "central"
+    usage = "[]"
+    module = "swmColi" function="force_soaking_expiry">
+    <description>
+Ends the current post-confirm fast restore period immediately. 
+This enables normal software management operations.
+    </description>
+  </coli_erlang_reg>
+<!-- ========================================================== -->
+  <coli_erlang_reg
+      cli_name = "confirmrestore"
+      cli_path = "/swm"
+      cli_scope = "central"
+      usage = "[Option]"
+      module = "swmColi" function = "confirm_restore">
+    <description>
+Enable or disable the confirmRestore timeout.
+Note: The value set when the backup was created is what makes the difference
+
+[]
+    Displays the current state
+
+disable
+    No timeout after restore. The restore is automatically confirmed.
+
+enable
+    Timeout according to the configured value in BrmRollbackAtRestore.
+    The restore may be cancelled during the rollback period.
+    Confirm is automatic at the end of the waiting period if OAM login 
+    is detected.
+
+enable-hard
+    Timeout according to the configured value in BrmRollbackAtRestore
+    The restore may be cancelled during the rollback period.
+    The restore is automatically cancelled at the end of the waiting period
+    </description>
+  </coli_erlang_reg>
+<!-- ========================================================== -->
+  <coli_erlang_reg
+      cli_name = "show"
+      cli_path = "/labonly/rcs/hal"
+      cli_scope = "central"
+      usage = "[Option] [Arg]"
+      module = "swmColi" function = "show_hal_sw">
+    <description>
+Show the preinstalled HAL SW  
+
+[]
+    Displays the HAL SW for current HwSwCompatibilityIndex
+
+idx [HwSwCompatibilityIndex]
+    Displays the HAL SW for the given HwSwCompatibilityIndex 
+
+all 
+    Displays all HAL SW on the board
+
+    </description>
+  </coli_erlang_reg>
+  <!-- ========================================================== -->
+  <coli_erlang_reg
+      cli_name = "signingcertupdate"
+      cli_path = "/swm"
+      cli_scope = "central"
+      usage = "[Option] [Arg]"
+      module = "swmColi" function = "signing_cert_update">
+    <description>
+    If no option specified for this command, -status is assumed.
+      
+status
+    Displays time remaining before auto confirm of new software signing certificate
+      
+timeoutconfig [GracefulPeriod]
+   Change the timeout for auto confirm of new software signing certificate to 
+   anything from 0-14 days
+      
+timeoutreset
+   Reset the timeout for auto confirm of new software signing certificate 
+   to default, 1 day
+      
+confirm 
+   Stop countdown and confirm the new software signing certificates
+      
+    </description>
+  </coli_erlang_reg>
+  <!-- ========================================================== -->
+  <coli_erlang_reg
+      cli_name = "enable-hsi"
+      cli_path = "/labonly/swm"
+      cli_scope = "central"
+      usage = "[]"
+      module = "swmColi" function ="enable_hsi">
+    <description>
+    Enable the HSI function
+    </description>
+  </coli_erlang_reg>
+  <!-- ========================================================== -->
+  <coli_erlang_reg
+      cli_name="resend-activation-complete"
+      cli_path="/swm/upgrade"
+      cli_scope = "central"
+      usage = "[Arg]"
+      module = "swmColi" function = "resend_activation_complete">
+  <description>
+The activation complete attribute value change notification may sometimes
+be missed by the receiving upgrade management application (for example 
+OSS/SHM). In this case the upgrade will timeout if it stays in 
+WAITING_FOR_COMMIT state until the rollback timer expires.
+
+This option will enable or disable automatic resendning of the messages 
+involved as well as an opportunity to force a manual resending of the message.
+
+This function is enabled by default
+
+[] 
+   Display the current status (disabled | enabled)
+
+once
+   Manual resending of the activation complete message for the UP currently
+   in WAITING_FOR_COMMIT state
+
+disable
+   Disables automatic resending
+
+enable
+   Enables automatic resending if it has once been disabled
+  </description>
+</coli_erlang_reg>
+    
+  <!-- ========================================================== -->
+  <coli_erlang_reg
+      cli_name = "enable-anti-rollback"
+      cli_path = "/labonly/swm"
+      cli_scope = "central"
+      usage = "[]"
+      module = "swmColi" function ="enable_anti_rollback">
+    <description>
+    Enable the anti rollback function
+    </description>
+  </coli_erlang_reg>
+  <!-- ========================================================== -->
+
+</appdata>

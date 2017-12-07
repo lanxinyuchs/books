@@ -1,0 +1,67 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+  <xsd:annotation>
+    <xsd:documentation xml:lang="en">
+      Schema for Ericsson software delivery package and load module
+      container for the RBS control system software management.
+
+      Copyright (c) Ericsson AB 2011 All rights reserved.
+ 
+      The information in this document is the property of Ericsson.
+ 
+      Except as specifically authorized in writing by Ericsson, the
+      receiver of this document shall keep the information contained
+      herein confidential and shall protect the same in whole or in
+      part from disclosure and dissemination to third parties.
+ 
+      Disclosure and disseminations to the receivers employees shall 
+      only be made on a strict need to know basis.
+    </xsd:documentation>
+  </xsd:annotation>
+
+  <xsd:element name="cxpMetadata" type="CxpMetadataType"/>
+
+  <xsd:complexType name="CxpMetadataType">
+    <xsd:sequence>
+      <xsd:element name="product" type="Product"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="Product">
+    <xsd:sequence>
+      <xsd:element name="name" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+      <xsd:element name="id" type="EricssonABC" minOccurs="1" maxOccurs="1"/>
+      <xsd:element name="rstate" type="EricssonRstate" minOccurs="1" maxOccurs="1"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+<!-- The ABC System 1312-164 Uen Rev L 2010-06-11
+     a. The letters Q, W, Å, Ä and Ö are not used at all
+     b. The letter O is not used as first or third letter
+     c. The letter I is not used as second or third letter
+     d. ABC Groups and Classes with the first two letters identical
+        are not used in the Ericsson application of ABC numbering
+        (Not encoded here)
+     e. Notations of origin in pos 4 and 5 according to standard 1120-2040 Uen
+        (Not supported here)
+     f. ABC Type numbers 100, 200 etc and 001-099 may not be used
+        (Partially encoded here 
+-->
+  <xsd:simpleType name="EricssonABC">
+    <xsd:restriction base="xsd:string">
+      <xsd:pattern value="[ABCDEFGHIJKLMNPRSTUVXYZ][ABCDEFGHJKLMNOPRSTUVXYZ][ABCDEFGHJKLMNPRSTUVXYZ] [1-9][0-9][0-9] [0-9][0-9][0-9]?[0-9]?"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+<!-- Product Changes 1092-212 Uen Rev N 2011-05-30
+     Ordinary R-state: R followed by maximum 4 digits and/or maximum 2 letters
+     Special R-state: Suffix separator (/) and maximum 2 digits or one letter
+     Verification R-state: 2 or 3 digits added to ordinariy full R-state
+-->
+
+  <xsd:simpleType name="EricssonRstate">
+    <xsd:restriction base="xsd:string">
+      <xsd:pattern value="([0-9]){1,3}"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+</xsd:schema>

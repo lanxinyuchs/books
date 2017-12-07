@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!--
+# ========================================================== 
+# %CCaseFile:	HwCompatiblity.xsd % 
+# %CCaseRev:	/main/R5A/R6A/1 % 
+# %CCaseDate:	2016-05-03 % 
+#                                                            
+# Author:	etxjotj
+# Description:	XML schema definition for hardware compatiblity statements
+#               When producing a GLobal UP or HAL software package
+#               one or more statement files may be used as input
+#                                                            
+# ========================================================== 
+#                                                            
+# %CCaseCopyrightBegin%
+# Copyright (c) Ericsson AB 2016 All rights reserved.
+# 
+# The information in this document is the property of Ericsson.
+# 
+# Except as specifically authorized in writing by Ericsson, the 
+# receiver of this document shall keep the information contained 
+# herein confidential and shall protect the same in whole or in 
+# part from disclosure and dissemination to third parties.
+# 
+# Disclosure and disseminations to the receivers employees shall 
+# only be made on a strict need to know basis.
+# %CCaseCopyrightEnd%
+#                                                            
+# ========================================================== 
+# REVISION LOG 
+# ========================================================== 
+#                                                            
+# Rev        Date       Name        What 
+# ========   ========== ========    ======================== 
+# R5A/1      2016-03-15 etxjotj     Created
+# R6A/1      2016-05-03 etxberb     Added "OTHER".
+# ========================================================== 
+-->                                                           
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  
+  <xs:element name="hwcompatibility" type="HwCompatiblityType"/>
+
+  <xs:complexType name="HwCompatiblityType">
+    <xs:sequence>
+      <xs:element name="product" type="ProductType" 
+		  minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="docNo" type="xs:string" use="required" />
+    <xs:attribute name="rev" type="xs:string" use="required" />
+    <xs:attribute name="date" type="DateType" use="required" />
+  </xs:complexType>
+
+  <xs:simpleType name="DateType">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="([0-9]{4})-(1[0-2]|0[1-9])-(0[1-9]|[1|2][0-9]|3[0-1])" />
+    </xs:restriction>
+  </xs:simpleType>
+ 
+  <xs:complexType name="ProductType">
+    <xs:sequence>
+      <xs:element name="board" type="BoardType" 
+		  minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="name" type="xs:string" use="required" />
+    <xs:attribute name="id" type="xs:string" use="required" />
+    <xs:attribute name="version" type="xs:string" use="required" />
+  </xs:complexType>
+
+  <xs:complexType name="BoardType">
+    <xs:attribute name="hwcategory" type="HwcategoryType" use="required" />
+    <xs:attribute name="hwmodel" type="xs:string" use="required" />
+  </xs:complexType>
+
+  <xs:simpleType name="HwcategoryType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="BASEBAND-T" />
+      <xs:enumeration value="BASEBAND" />
+      <xs:enumeration value="RADIO" />
+      <xs:enumeration value="OTHER" />
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>

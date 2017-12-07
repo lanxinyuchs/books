@@ -1,0 +1,431 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Copyright (c) 2016 Ericsson AB. 
+	All rights reserved 
+
+	DX ECIM Tool-chain generated this file on Jan 18, 2016 3:36:21 PM using:
+	* com.ericsson.ecim.m2m 2.14.5.201511210257
+	* com.ericsson.ecim.dsl 2.14.5.201511210257
+	* com.ericsson.ecim.edm 2.14.5.201511210257
+--><!DOCTYPE models SYSTEM "mp.dtd">
+<models>
+    <dtdVersion>G</dtdVersion>
+    <momMetaData>
+        <momTitle>title</momTitle>
+        <momSubTitle>sub title</momSubTitle>
+        <momIdentity>
+            <docNum>1/155 54-CNX 901 2637</docNum>
+            <docLang>English</docLang>
+            <docRev>0</docRev>
+            <docDate>2016-01-18</docDate>
+        </momIdentity>
+        <createdBy>
+            <signature>ETXJOTJ</signature>
+        </createdBy>
+    </momMetaData>
+    <mim author="ETXJOTJ" contact="ETXJOTJ" correction="1" date="2016-06-03" docNo="1/155 54-CNX 901 2637" name="RcsSwIM" namespace="urn:com:ericsson:ecim:RcsSwIM" namespacePrefix="rcsswim" organization="BURA DURA BT OM MW1" release="3" revision="A" version="1">
+        <description>This is the software inventory model. &#13;
+It contains the software versions installed on the managed element. For each software version, the software items that constitute the software version are listed.</description>
+        <domainExtension domain="ECIM">
+            <extension name="ecimMomName" value="ECIM_SwIM"/>
+            <extension name="ecimMomVersion" value="1"/>
+            <extension name="ecimMomRelease" value="2"/>
+            <extension name="ecimMomCorrection" value="1"/>
+        </domainExtension>
+        <implements correction="1" name="ECIM_SwIM" release="2" version="1"/>
+        <struct name="ProductData">
+            <description>Represents an Ericsson software product.&#13;
+The product name, product number, and product revision represent product information stored in PRIM realization part.</description>
+            <domainExtension domain="ECIM">
+                <extension name="originatingMimVersion" value="2"/>
+                <extension name="originatingMimName" value="ECIM_CommonLibrary"/>
+                <extension name="originatingMimRelease" value="0"/>
+            </domainExtension>
+            <structMember name="productName">
+                <description>Name of the product.</description>
+                <string/>
+            </structMember>
+            <structMember name="productNumber">
+                <description>Product number of the product.</description>
+                <string/>
+            </structMember>
+            <structMember name="productRevision">
+                <description>Revision state of the product.</description>
+                <string/>
+            </structMember>
+            <structMember name="productionDate">
+                <description>Production date of the product.</description>
+                <derivedDataTypeRef name="DateTime">
+                    <mimName>RcsSwIM</mimName>
+                </derivedDataTypeRef>
+            </structMember>
+            <structMember name="description">
+                <description>Free text description of the product.</description>
+                <string/>
+            </structMember>
+            <structMember name="type">
+                <description>Free text description of the product type.</description>
+                <string/>
+            </structMember>
+        </struct>
+        <derivedDataType name="DateTime">
+            <description>Represents the international standard for the representation of date and time ( ISO 8601).&#13;
+The string format is "YYYY-MM-DDThh:mm:ss.SSSZ" (excluding quotes).&#13;
+A DateTime string consists of a date part, a time part, and an optional time zone information part. The time zone part may be a "Z", representing the Coordinated Universal Time (UTC) time zone (equals to +00) or a time zone offset (for example, +02:00).&#13;
+If the time zone part is not present, the DateTime value represents local time.&#13;
+&#13;
+The following pattern describes the DateTime format:&#13;
+YYYY-MM-DDThh:mm:ss[.S+][Z|+-hh:mm]&#13;
+Where:&#13;
+YYYY = Four digit year&#13;
+MM = Two digit month (01=January, and so on)&#13;
+DD = Two digit day of month (01 through 31)&#13;
+T = Time designator (shows start of time component)&#13;
+hh = Two digits of hour (00 through 23, AM/PM not allowed)&#13;
+mm = Two digits of minute (00 through 59)&#13;
+ss = Two digits of second (00 through 59, leap second not allowed)&#13;
+S+ = One or more digits of decimal fraction of a second&#13;
+Z = Time is UTC&#13;
++- = + or - character indicating positive or negative offset to UTC &#13;
+&#13;
+DateTime values are compliant with ISO 8601 "Representation of dates and times" but are restricted according to RFC 3339 "Date and Time on the Internet: Timestamps". The DateTime format is further restricted as follows:&#13;
+- T and Z designators are upper case.&#13;
+- . (dot) is used to indicate start of fractions of seconds (ISO 8601 also allows comma)&#13;
+&#13;
+</description>
+            <domainExtension domain="ECIM">
+                <extension name="originatingMimVersion" value="2"/>
+                <extension name="originatingMimName" value="ECIM_CommonLibrary"/>
+                <extension name="originatingMimRelease" value="0"/>
+            </domainExtension>
+            <baseType>
+                <string>
+                    <lengthRange>
+                        <min>19</min>
+                        <max>31</max>
+                    </lengthRange>
+                    <stringLength>
+                        <subrange>
+                            <min>19</min>
+                            <max>31</max>
+                        </subrange>
+                    </stringLength>
+                    <validValues>^([0-9]{4})-(1[0-2]|0[1-9])-(0[1-9]|[1|2][0-9]|3[0-1])T(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])([\.][0-9]+){0,1}(([\+|\-](0[0-9]|1[0-9]|2[0-4])(:[0-5][0-9])?)|(Z)?)$</validValues>
+                </string>
+            </baseType>
+            <validationRules>
+                <rule exceptionText="" format="posix_ere" name="Pattern Constraint"><![CDATA[^([0-9]{4})-(1[0-2]|0[1-9])-(0[1-9]|[1|2][0-9]|3[0-1])T(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])([\.][0-9]+){0,1}(([\+|\-](0[0-9]|1[0-9]|2[0-4])(:[0-5][0-9])?)|(Z)?)$]]></rule>
+            </validationRules>
+        </derivedDataType>
+        <class name="SwInventory">
+            <description>A singleton class, the purpose of which is only structural.</description>
+            <systemCreated/>
+            <root/>
+            <attribute name="swInventoryId">
+                <description>The value component of the RDN.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="userLabel">
+                <description>A label for free usage.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="active">
+                <description>A reference to the active software version of a software domain. &#13;
+The software of a managed element can be structured into more than one software domain. The active software versions control the behavior of the managed element .</description>
+                <readOnly/>
+                <dataType>
+                    <sequence>
+                        <moRef name="SwVersion">
+                            <mimName>RcsSwIM</mimName>
+                        </moRef>
+                        <minLength>1</minLength>
+                    </sequence>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="SwVersion">
+            <description>An MO of this class represents the software version of a domain of the software.&#13;
+If there is only one software domain, the MO represents the overall version of the managed element.</description>
+            <systemCreated/>
+            <attribute name="swVersionId">
+                <description>The value component of the RDN.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="userLabel">
+                <description>A label for free usage.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="administrativeData">
+                <description>The software version product identification.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <readOnly/>
+                <isNillable/>
+                <dataType>
+                    <structRef name="ProductData">
+                        <mimName>RcsSwIM</mimName>
+                    </structRef>
+                </dataType>
+            </attribute>
+            <attribute name="timeOfInstallation">
+                <description>Indicates the time the software version was installed.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <readOnly/>
+                <isNillable/>
+                <dataType>
+                    <derivedDataTypeRef name="DateTime">
+                        <mimName>RcsSwIM</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="timeOfActivation">
+                <description>Indicates the time when the software version was activated. &#13;
+If no time is shown, the current software version is not activated.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <readOnly/>
+                <isNillable/>
+                <dataType>
+                    <derivedDataTypeRef name="DateTime">
+                        <mimName>RcsSwIM</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="timeOfDeactivation">
+                <description>Indicates the time when the software version was deactivated. &#13;
+If no time is shown, the current software version is not deactivated.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <readOnly/>
+                <isNillable/>
+                <dataType>
+                    <derivedDataTypeRef name="DateTime">
+                        <mimName>RcsSwIM</mimName>
+                    </derivedDataTypeRef>
+                </dataType>
+            </attribute>
+            <attribute name="consistsOf">
+                <description>List of references to the software items of which the software version consists.</description>
+                <readOnly/>
+                <dataType>
+                    <sequence>
+                        <moRef name="SwItem">
+                            <mimName>RcsSwIM</mimName>
+                        </moRef>
+                        <minLength>0</minLength>
+                    </sequence>
+                </dataType>
+            </attribute>
+        </class>
+        <class name="SwItem">
+            <description>A software item holds information about an executable software product.&#13;
+A software item can also represent a container product that contains other software items, which represent a subordinate container and/or executable software products.</description>
+            <systemCreated/>
+            <attribute name="swItemId">
+                <description>The value component of RDN.</description>
+                <mandatory/>
+                <noNotification/>
+                <restricted/>
+                <key/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="userLabel">
+                <description>A label for free usage.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <isNillable/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="administrativeData">
+                <description>The software item product identification.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <readOnly/>
+                <isNillable/>
+                <dataType>
+                    <structRef name="ProductData">
+                        <mimName>RcsSwIM</mimName>
+                    </structRef>
+                </dataType>
+            </attribute>
+            <attribute name="additionalInfo">
+                <description>Describes any additional relevant aspects of the software item.</description>
+                <domainExtension domain="ECIM">
+                    <extension name="isNillable" value="true"/>
+                </domainExtension>
+                <readOnly/>
+                <isNillable/>
+                <dataType>
+                    <string/>
+                </dataType>
+            </attribute>
+            <attribute name="consistsOf">
+                <description>Describes a hierarchical relationship between software items.&#13;
+An empty value indicates that the current software item is not a container that includes subordinate software items.</description>
+                <readOnly/>
+                <dataType>
+                    <sequence>
+                        <moRef name="SwItem">
+                            <mimName>RcsSwIM</mimName>
+                        </moRef>
+                        <minLength>0</minLength>
+                    </sequence>
+                </dataType>
+            </attribute>
+        </class>
+        <relationship name="SwInventory_to_SwItem">
+            <description>The software inventory can contain software items.</description>
+            <containment>
+                <parent>
+                    <hasClass name="SwInventory">
+                        <mimName>RcsSwIM</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="SwItem">
+                        <mimName>RcsSwIM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="false"/>
+                    <extension name="canDelete" value="false"/>
+                </domainExtension>
+                <notCreatable/>
+                <notDeleteable/>
+            </containment>
+        </relationship>
+        <relationship name="SwInventory_to_SwVersion">
+            <description>The software inventory can contain software versions.</description>
+            <containment>
+                <parent>
+                    <hasClass name="SwInventory">
+                        <mimName>RcsSwIM</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="SwVersion">
+                        <mimName>RcsSwIM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="false"/>
+                    <extension name="canDelete" value="false"/>
+                </domainExtension>
+                <notCreatable/>
+                <notDeleteable/>
+            </containment>
+        </relationship>
+        <relationship name="SwInventory_active_to_SwVersion">
+            <uniDirectionalAssociation>
+                <hasClass name="SwInventory">
+                    <mimName>RcsSwIM</mimName>
+                </hasClass>
+                <associationEnd name="active">
+                    <hasClass name="SwVersion">
+                        <mimName>RcsSwIM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>1</min>
+                    </cardinality>
+                </associationEnd>
+            </uniDirectionalAssociation>
+        </relationship>
+        <relationship name="SwVersion_consistsOf_to_SwItem">
+            <uniDirectionalAssociation>
+                <hasClass name="SwVersion">
+                    <mimName>RcsSwIM</mimName>
+                </hasClass>
+                <associationEnd name="consistsOf">
+                    <hasClass name="SwItem">
+                        <mimName>RcsSwIM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </associationEnd>
+            </uniDirectionalAssociation>
+        </relationship>
+        <relationship name="SwItem_consistsOf_to_SwItem">
+            <uniDirectionalAssociation>
+                <hasClass name="SwItem">
+                    <mimName>RcsSwIM</mimName>
+                </hasClass>
+                <associationEnd name="consistsOf">
+                    <hasClass name="SwItem">
+                        <mimName>RcsSwIM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>0</min>
+                    </cardinality>
+                </associationEnd>
+            </uniDirectionalAssociation>
+        </relationship>
+    </mim>
+    <interMim>
+        <relationship name="SystemFunctions_to_SwInventory">
+            <containment>
+                <parent>
+                    <hasClass name="SystemFunctions">
+                        <mimName>ECIM_Top</mimName>
+                    </hasClass>
+                </parent>
+                <child>
+                    <hasClass name="SwInventory">
+                        <mimName>RcsSwIM</mimName>
+                    </hasClass>
+                    <cardinality>
+                        <min>1</min>
+                        <max>1</max>
+                    </cardinality>
+                </child>
+                <domainExtension domain="ECIM">
+                    <extension name="canCreate" value="false"/>
+                    <extension name="canDelete" value="false"/>
+                </domainExtension>
+                <notCreatable/>
+                <notDeleteable/>
+            </containment>
+        </relationship>
+    </interMim>
+</models>

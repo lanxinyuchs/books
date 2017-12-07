@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!--
+# ========================================================== 
+# %CCaseFile:	SwpContent.xsd % 
+# %CCaseRev:	/main/R8A/2 % 
+# %CCaseDate:	2016-12-08 % 
+#                                                            
+# Author:	etxjotj
+# Description:	XML schema definition for listing content in a HAL-SWP
+#                                                            
+# ========================================================== 
+#                                                            
+# %CCaseCopyrightBegin%
+# Copyright (c) Ericsson AB 2016 All rights reserved.
+# 
+# The information in this document is the property of Ericsson.
+# 
+# Except as specifically authorized in writing by Ericsson, the 
+# receiver of this document shall keep the information contained 
+# herein confidential and shall protect the same in whole or in 
+# part from disclosure and dissemination to third parties.
+# 
+# Disclosure and disseminations to the receivers employees shall 
+# only be made on a strict need to know basis.
+# %CCaseCopyrightEnd%
+#                                                            
+# ========================================================== 
+# REVISION LOG 
+# ========================================================== 
+#                                                            
+# Rev        Date       Name        What 
+# ========   ========== ========    ======================== 
+# R8A/1      2016-12-08 etxjotj     Created
+# ========================================================== 
+-->                                                           
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  
+  <xs:element name="swpContent" type="SwpContentType"/>
+
+  <xs:complexType name="SwpContentType">
+    <xs:sequence>
+      <xs:element name="boardType" type="BoardTypeType" 
+		  minOccurs="1" maxOccurs="1"/>
+      <xs:element name="hwSwCompatibility" type="HwSwCompatibilityType"
+		  minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="docNo" type="NonEmptyStringType" use="required" />
+    <xs:attribute name="rev" type="NonEmptyStringType" use="required" />
+    <xs:attribute name="date" type="DateType" use="required" />
+  </xs:complexType>
+
+  <xs:simpleType name="NonEmptyStringType">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="DateType">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="([0-9]{4})-(1[0-2]|0[1-9])-(0[1-9]|[1|2][0-9]|3[0-1])" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="BoardTypeType">
+    <xs:sequence>
+      <xs:element name="lmc" type="LmcType" 
+		  minOccurs="1" maxOccurs="unbounded" />
+    </xs:sequence>
+    <xs:attribute name="productNumber" type="xs:string" use="required" />
+    <xs:attribute name="revision" type="xs:string" use="required" />
+  </xs:complexType>
+ 
+  <xs:complexType name="LmcType">
+    <xs:attribute name="name" type="xs:string" use="required" />
+    <xs:attribute name="id" type="xs:string" use="required" />
+  </xs:complexType>
+
+  <xs:complexType name="BoardType">
+    <xs:attribute name="hwcategory" type="HwcategoryType" use="required" />
+    <xs:attribute name="hwmodel" type="xs:string" use="required" />
+  </xs:complexType>
+
+  <xs:simpleType name="HwcategoryType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="BASEBAND-T" />
+      <xs:enumeration value="BASEBAND" />
+      <xs:enumeration value="RADIO" />
+      <xs:enumeration value="OTHER" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="HwSwCompatibilityType">
+    <xs:sequence>
+      <xs:element name="exclude_lmc" type="ExcludeLmcType"
+		  minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+    <xs:attribute name="index" type="NonEmptyStringType" use="required" />
+  </xs:complexType>
+
+  <xs:complexType name="ExcludeLmcType">
+    <xs:attribute name="name" type="xs:string" use="required" />
+  </xs:complexType>
+
+</xs:schema>

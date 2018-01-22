@@ -1,0 +1,14 @@
+ITCLNH_0.0 {
+        global:
+		ulh_cm_init;
+		ulh_cm_register;
+		ulh_cm_unregister;
+		ulh_lnh_init;
+		ulh_lnh_create;
+		ulh_lnh_create_w_cfg;
+		ulh_lnh_destroy;
+		ulh_lnh_getmbox;
+
+	local:
+		*;
+};

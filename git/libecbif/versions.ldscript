@@ -1,0 +1,9 @@
+ECBIF_0.0 {
+        global:
+		ecb_link_init;
+		ecb_link_shutdown;
+		ecb_link_create;
+		ecb_link_destroy;
+	local:
+		*;
+};

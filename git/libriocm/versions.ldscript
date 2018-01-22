@@ -1,0 +1,6 @@
+RIOCM_0.0 {
+        global:
+		ulh_rio_init;
+	local:
+		*;
+};

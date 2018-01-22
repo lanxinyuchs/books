@@ -1,0 +1,11 @@
+ROLCIF_0.0 {
+        global:
+		rolc_init;
+		rolc_shutdown;
+		rolc_link_setup;
+		rolc_link_destroy;
+		rolc_subscribe_inband;
+		rolc_unsubscribe_inband;
+	local:
+		*;
+};

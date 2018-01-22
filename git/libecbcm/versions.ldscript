@@ -1,0 +1,6 @@
+ECBCM_0.0 {
+        global:
+		ulh_ecb_init;
+	local:
+		*;
+};

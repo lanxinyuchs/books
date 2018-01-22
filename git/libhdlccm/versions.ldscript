@@ -1,0 +1,6 @@
+HDLCCM_0.0 {
+        global:
+		ulh_hdlc_init;
+	local:
+		*;
+};

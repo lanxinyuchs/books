@@ -1,0 +1,9 @@
+MDUIF_0.0 {
+        global:
+		mdu_link_init;
+		mdu_link_shutdown;
+		mdu_link_create;
+		mdu_link_destroy;
+	local:
+		*;
+};

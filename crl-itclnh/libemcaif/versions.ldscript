@@ -1,0 +1,9 @@
+EMCAIF_0.0 {
+        global:
+		emca_link_init;
+		emca_link_shutdown;
+		emca_link_create;
+		emca_link_destroy;
+	local:
+		*;
+};

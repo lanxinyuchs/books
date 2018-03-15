@@ -1,0 +1,173 @@
+\documentclass{ericsson}
+\usepackage{pdfpages}
+\usepackage{doxygen}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=blue,
+    urlcolor=blue
+}
+
+% Set header fields
+
+% The document name (type). This shall always be written in
+% capital letters. See document 1010-105 for exact instructions 
+% on how to use this field. Examples: 'INFORMATION', 'DESCRIPTION'
+% 'NOTICE', 'MINUTES' etc. The document name shall match the
+% decimal class of the document!
+\doctype{INTERWORKING DESCRIPTION}
+
+% Field for handling (0034-116 sec 8.3) is currently not
+% supported.
+
+% Security classification, choose from:
+% 'Open', 'Ericssonwide Internal', 'Limited Internal', 'Confidential',
+% 'Strictly Confidential', 'TOP SECRET', 'CLASSIFIED'
+% See document 0034-116 section 8.4 for exact instructions
+% on how to use this field.
+\infotype{Ericsson Internal}
+
+% The signum and name of the author of the document.
+% See document 0034-116 section 7.3 for exact instructions
+% on how to use this field.
+\docprep{UABKIJU Kimmo Juujärvi}
+
+% The signum and name of the document responsible (owner) or
+% approver for the document. For documents in decimal notation
+% this is a 'document responsible' whereas for office notation
+% documents it is and 'approver'.
+% See document 0034-116 section 7.4 and section 7.6 for exact 
+% instructions on how to use this field.
+\docresp{}
+
+% Document number:
+% *  For product documents you shall use the ABC-class and a decimal
+%    class, see document 0012-078.
+% *  For department documents use your department code and a number 
+%    on the form AB/CD-06:001 where ``06'' is a year and ``001'' a 
+%    running number. See document 0012-088.
+% *  For locally managed documents you can use your corporate 
+%    signature with two-digit year and a running number like this. 
+%    (See 0012-0088 section 2.2.3.)
+%
+% A language code MUST follow the document number. Use for example:
+% 'Uen' = United Kingdom English
+% 'Uae' = American English
+% 'Usv' = Swedish
+% 'Ucf' = Canadian French
+% 'Ux' = More than one language or language independent
+% All available language codes are listed in document 0012-104.
+%\docno{XXXXXXXXXXXXXXXXXXX}
+\docno{15519-CNX 901 3303 Uen}
+% The corporate signature of a person who checked this document for quality,
+% if deemed necessary. See document 0034-116 section 7.5 for exact 
+% instructions on how to use this field.
+\docchk{}
+
+% Ericsson revision style: PA1, PA2, PA3 .. -> A
+% then PB1, PB2, PB3 .. -> B etc.
+% See document 1092-211 for exact instructions on how to use this
+% field.
+\docrev{PA1}
+
+% Override the day of the current date by setting it hard
+% with this macro if need be. See document 0034-116 section
+% 8.6 for exact instructions on how to use this field.
+% \docdate{2006-09-08}
+
+% The 'File' or 'Belongs to' or 'Refers to' field is the
+% larger collection of which this document is part. It
+% IS NOT THE COMPUTER FILE which the document was generated
+% from. See document 0034-116 section 8.10 for an exact 
+% instruction on how to use this field.
+\file{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% END OF HEADERS AND BEGINNING OF DOCUMENT.
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\vspace*{20mm}
+\doctitle{ITCLNH Link Configuration Interfaces}
+
+\tableofcontents
+
+\newpage
+
+\section{Introduction}
+
+\subsection{About this document}
+
+This document describes the link configuration interfaces provided by ITCLNH.
+
+\subsection{Revision history}
+
+\begin{dochistory}
+PA1 & 20140610 & uabkiju: First version\\
+\end{dochistory}
+
+\section{Basic Concepts}
+
+The user of these interfaces should be familiar with ITC. 
+The provided interfaces allow a user to establish an ITC connection for 
+locating a remote mailbox and exchanging messages between a local and a 
+remote mailbox.
+
+\section{LINK Configuration Interfaces}
+
+ITCLNH provides the following interfaces:
+
+\begin{itemize}
+\item ECBC - ECBus Link Configuration interface.
+\item EOLC - Emca OAM Link Configuration interface.
+\item ROLC - Radio OAM Link Configuration interface.
+\end{itemize}
+
+\subsection{ECBC}
+
+ITCLNH implements an ITC communication link on the EC bus (Equipment Control Bus). The 
+transport layer is an implementation of HDLC unbalanced operation, normal reponse mode. To establish the
+connection one side should be set up as a primary station and the other as a secondary station. 
+See \hyperref[doxygen/ecb-link-api_8h]{ECBC interface description} for details.
+
+\subsection{EOLC}
+
+ITCLNH implements an ITC communication link between the DU host processor and the emca units.
+The transport is an implementation on top of EBCOM. See \hyperref[doxygen/eolc-link-api_8h]
+{ROLC interface description} for details.
+
+\subsection{ROLC}
+
+ITCLNH implements an ITC communication link between the DU host processor and the radio units.
+The transport is an implementation of unbalanced Asynchronous Response Mode HDLC over the CPRI link. 
+See \hyperref[doxygen/rolc-link-api_8h] {ROLC interface description} for details.
+
+
+\section{Terminology}
+
+\begin{description}
+\item[-]
+\end{description}
+
+\section{References}
+
+\begin{description}
+\item[ITC - Inter Thread Communication]
+\end{description}
+
+
+\newpage
+\appendix
+%\includepdf[pages=3-, addtotoc={3, section, 1, Whatever, filedox}]{doxygen/refman.pdf}
+%\section{\\File Documentation} \label{App:AppendixA}
+\include{doxygen/ecb-link-api_8h}
+\include{doxygen/eolc-link-api_8h}
+\include{doxygen/rolc-link-api_8h}
+
+\end{document}
+

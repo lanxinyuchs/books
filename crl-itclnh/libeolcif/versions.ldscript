@@ -1,9 +1,0 @@
-EOLCIF_0.0 {
-        global:
-		eolc_link_init;
-		eolc_link_shutdown;
-		eolc_link_create;
-		eolc_link_destroy;
-	local:
-		*;
-};

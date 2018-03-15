@@ -1,8 +1,0 @@
-HDLCCM_0.0 {
-        global:
-		ulh_hdlc_init;
-		ulh_hdlc_initiate_get_remote_port_id;
-		ulh_hdlc_initiate_linkswitch;
-	local:
-		*;
-};

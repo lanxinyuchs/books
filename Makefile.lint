@@ -1,0 +1,31 @@
+if LINT
+TESTS += $(lint_SCRIPT)
+
+LINTSOURCES = $(SOURCES:%.c=%.xml)
+
+lint_SCRIPT = lint_test.sh
+
+lint_test.sh: lintenv $(LINTSOURCES)
+	chmod +x lint_test.sh
+
+LINT_CONFIG = $(LINT_CONFIGDIR)/default.lnt \
+	$(LINT_CONFIGDIR)/co-gcc.lnt \
+	$(LINT_CONFIGDIR)/general.lnt
+
+lintenv:
+if HAS_LINT_CONFIGDIR
+	@-rm $(lint_SCRIPT);
+	@echo 'DIR=$$( cd "$$( dirname "$${BASH_SOURCE[0]}" )" && pwd )' > lint_test.sh
+else
+	echo 'Lint configuration not provided, but required.'
+	exit 1
+endif
+
+.c.xml:
+	@echo '$(MKDIR_P) `dirname $(top_srcdir)/lintresults/$${DIR##*/}/$@`' >> lint_test.sh
+	@echo 'echo "Running lint for: $< ... "' >> lint_test.sh
+	@echo 'lint $(LINT_CONFIG) -i$(LINT_CONFIGDIR) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) -icommon -i$(TARGET_SYSTEM_ROOT)/usr/include $< > $(top_srcdir)/lintresults/$${DIR##*/}/$@ 2> /dev/null' >> lint_test.sh
+
+endif
+
+CLEANFILES += $(lint_SCRIPT)
